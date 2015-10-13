@@ -25,3 +25,10 @@ proguard/
 
 # Log Files
 *.log
+
+# Android Studio
+/.idea/workspace.xml
+/.idea/libraries
+
+# OS X
+.DS_Store
