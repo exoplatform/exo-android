@@ -23,31 +23,31 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-    getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
-    getWindow().setFeatureInt(Window.FEATURE_PROGRESS, Window.PROGRESS_VISIBILITY_ON);
 		webView = (WebView) findViewById(R.id.webview);
-    progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 		webView.setWebViewClient(new MyWebViewClient());
 		webView.getSettings().setJavaScriptEnabled(true);
 
-    //Set progress bar.
-    webView.setWebChromeClient(new WebChromeClient() {
-      @Override
-      public void onProgressChanged(WebView view, int progress) {
-        progressBar.setVisibility(ProgressBar.VISIBLE);
-        progressBar.setProgress(progress * 1000);
-        if (progress == 100) {
-          progressBar.setVisibility(ProgressBar.GONE);
-        }
-      }
-    });
+        //Set progress bar.
+        webView.setWebChromeClient(new WebChromeClient() {
+          @Override
+          public void onProgressChanged(WebView view, int progress) {
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+            progressBar.setProgress(progress);
+            if (progress == 100) {
+              progressBar.setVisibility(ProgressBar.GONE);
+            } else {
+              progressBar.setVisibility(ProgressBar.VISIBLE);
+            }
+          }
+        });
 
-    SharedPreferences preferences = getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0);
-    String url = preferences.getString("BASE_URL", "http://localhost:8080");
-    webView.loadUrl(url);
+        SharedPreferences preferences = getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0);
+        String url = preferences.getString("BASE_URL", "http://localhost:8080");
+        webView.loadUrl(url);
 	}
 
   /**
