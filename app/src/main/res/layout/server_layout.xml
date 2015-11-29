@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:background="#ffffff">
+
+  <Button
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:text="&lt;  Back"
+    android:textColor="#ffa500"
+    android:textSize="20sp"
+    android:paddingLeft="20sp"
+    android:background="#808069"
+    android:gravity="center_vertical"
+    android:onClick="onClickBack"
+    android:textAllCaps="false"/>
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:text="Sign In to eXo"
+    android:textColor="#000000"
+    android:textSize="30sp"
+    android:gravity="center"/>
+
+  <EditText
+    android:id="@+id/url_input_txt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text=""
+    android:textColor="#000000"
+    android:textSize="20sp"
+    android:padding="20sp"
+    android:singleLine="true"/>
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="#c0c0c0"
+    android:textSize="20sp"
+    android:paddingLeft="20sp"
+    android:visibility="invisible"/>
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Recent URLs"
+    android:textColor="#000000"
+    android:textSize="30sp"
+    android:gravity="center"/>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/server_list_view"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="#ffffff">
+  </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
