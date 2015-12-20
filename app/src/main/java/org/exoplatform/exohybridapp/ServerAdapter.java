@@ -41,13 +41,13 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
       @Override
       public void openWebView(View v, int position) {
         Intent intent = new Intent(ServerAdapter.this.context, WebViewActivity.class);
-        intent.putExtra(WebViewActivity.RECEIVED_INTENT_KEY, ServerAdapter.this.servers.get(position).getUrl());
+        intent.putExtra(WebViewActivity.RECEIVED_INTENT_KEY, ServerAdapter.this.servers.get(position).getUrl().toString());
         ServerAdapter.this.context.startActivity(intent);
       }
 
       @Override
       public void deleteServer(View v, int position) {
-        final String url = servers.get(position).getUrl();
+        final String url = servers.get(position).getUrl().toString();
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setMessage("Delete " + url + "?");
         builder.setNegativeButton("Cancel", null);

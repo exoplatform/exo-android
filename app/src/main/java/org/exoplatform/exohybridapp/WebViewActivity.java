@@ -1,11 +1,10 @@
 package org.exoplatform.exohybridapp;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -29,11 +28,12 @@ public class WebViewActivity extends AppCompatActivity {
   public WebView        webView;
   public ProgressBar    progressBar;
   ServerManagerImpl     serverManager;
+  public boolean        loggedOut = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.main_activity);
+    setContentView(R.layout.webview);
     serverManager = new ServerManagerImpl(getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0));
     String url = getIntent().getStringExtra(RECEIVED_INTENT_KEY);
     //save history
@@ -84,13 +84,15 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     public boolean shouldOverrideUrlLoading(WebView webView, String url) {
       Log.d(this.getClass().getName(), url); //print URL
+      if (url.indexOf("portal:action=Logout") > -1) {
+        WebViewActivity.this.loggedOut = true;
+      }
       webView.loadUrl(url);
-      return true;
+      return false;
     }
 
     @Override
     public void onPageFinished(WebView webView, String url) {
-      super.onPageFinished(webView, url);
       String cookies = CookieManager.getInstance().getCookie(url);
       if (cookies != null) {
         String[] cookie_array = cookies.split(";");
@@ -99,6 +101,13 @@ public class WebViewActivity extends AppCompatActivity {
             Log.d(this.getClass().getName(), cookie.trim()); //print cookie
           }
         }
+      }
+      if (WebViewActivity.this.loggedOut == true) {
+        WebViewActivity.this.loggedOut = false;
+        Intent intent = new Intent(webView.getContext(), ConnectServerActivity.class);
+        webView.getContext().startActivity(intent);
+      } else {
+        super.onPageFinished(webView, url);
       }
     }
   }

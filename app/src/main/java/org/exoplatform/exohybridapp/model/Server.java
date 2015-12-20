@@ -1,6 +1,7 @@
 package org.exoplatform.exohybridapp.model;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Comparator;
 
@@ -11,15 +12,15 @@ public class Server implements Serializable, Comparable<Server> {
 
   public static final String  UUID = "42L";
 
-  private String              url;              //"http(s)://host(:port)"
+  private URL                 url;              //"http(s)://host(:port)"
   private Long                lastVisited;
   private String              lastLogin;        //can be used to store username
 
-  public String getUrl() {
+  public URL getUrl() {
     return url;
   }
 
-  public void setUrl(String url) {
+  public void setUrl(URL url) {
     this.url = url;
   }
 
@@ -39,23 +40,23 @@ public class Server implements Serializable, Comparable<Server> {
     this.lastLogin = lastLogin;
   }
 
-  public Server(URL url, Long lastVisited, String lastLogin) {
-    this.url = format(url);
+  public Server(URL url, Long lastVisited, String lastLogin) throws MalformedURLException {
+    this.url = new URL(format(url));
     this.lastVisited = lastVisited;
     this.lastLogin = lastLogin;
   }
 
-  public Server(URL url) {
+  public Server(URL url) throws MalformedURLException {
     this(url, -1L, "");
   }
 
-  public Server(URL url, Long lastVisited) {
+  public Server(URL url, Long lastVisited) throws MalformedURLException {
     this(url, lastVisited, "");
   }
 
   public String getShortUrl() {
-    int i = url.lastIndexOf("/");
-    return url.substring(i + 1);
+    int i = url.toString().lastIndexOf("/");
+    return url.toString().substring(i + 1);
   }
 
   public static String format(URL url) {

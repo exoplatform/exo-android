@@ -2,6 +2,20 @@
 
   <!-- Base application theme. -->
   <style name="MainTheme" parent="Theme.AppCompat.NoActionBar"></style>
+  <style name="ActionBarTheme" parent="AppTheme">
+    <item name="android:actionMenuTextColor">#ffa500</item>
+    <item name="android:actionMenuTextAppearance">@style/ActionBarTheme.MenuTextStyle</item>
+    <item name="android:titleTextStyle">@style/ActionBarTheme.TitleTextStyle</item>
+    <item name="titleTextStyle">@style/ActionBarTheme.TitleTextStyle</item>
+    <item name="subtitleTextStyle">@style/ActionBarTheme.TitleTextStyle</item>
+  </style>
+  <style name="ActionBarTheme.MenuTextStyle">
+    <item name="android:textAllCaps">false</item>
+    <item name="android:textSize">14sp</item>
+  </style>
+  <style name="ActionBarTheme.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <item name="android:textColor">#ffa500</item>
+  </style>
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>

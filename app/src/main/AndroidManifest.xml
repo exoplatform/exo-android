@@ -6,13 +6,12 @@
     android:name=".App"
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
+    android:label="eXo"
     android:supportsRtl="true"
     android:theme="@style/MainTheme" >
     <activity
         android:name=".ConnectServerActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:label="@string/app_name">
+        android:configChanges="orientation|keyboardHidden|screenSize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -20,14 +19,16 @@
       </intent-filter>
     </activity>
     <activity
-      android:name=".WebViewActivity"
+      android:name=".ServerActivity"
       android:configChanges="orientation|keyboardHidden|screenSize"
-      android:label="@string/app_name">
+      android:parentActivityName=".ConnectServerActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".ConnectServerActivity"/>
     </activity>
     <activity
-        android:name=".ServerActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:label="@string/app_name">
+      android:name=".WebViewActivity"
+      android:configChanges="orientation|keyboardHidden|screenSize">
     </activity>
   </application>
 
