@@ -1,7 +1,6 @@
 package org.exoplatform.exohybridapp;
 
 import android.content.SharedPreferences;
-
 import com.google.gson.Gson;
 
 import org.exoplatform.exohybridapp.model.Server;
@@ -47,7 +46,7 @@ public class ServerManagerImpl implements ServerManager {
     } else {
       int size = servers.size();
       for (int i = 0; i < size; i++) {
-        if (servers.get(i).getUrl().equals(server.getUrl())) {
+        if (servers.get(i).getUrl().toString().equals(server.getUrl().toString())) {
           if (server.getLastVisited() > servers.get(i).getLastVisited()) {
             servers.set(i, server);
             save(servers);
@@ -66,7 +65,7 @@ public class ServerManagerImpl implements ServerManager {
     if (servers != null && servers.size() > 0) {
       int size = servers.size();
       for (int i = 0; i < size; i++) {
-        if (servers.get(i).getUrl().equals(Server.format(url))) {
+        if (servers.get(i).getUrl().toString().equals(Server.format(url))) {
           servers.remove(i);
           save(servers);
           break;
@@ -80,7 +79,7 @@ public class ServerManagerImpl implements ServerManager {
     if (servers != null && servers.size() > 0) {
       int size = servers.size();
       for (int i = 0; i < size; i++) {
-        if (servers.get(i).getUrl().equals(url)) {
+        if (servers.get(i).getUrl().toString().equals(url)) {
           servers.remove(i);
           save(servers);
           break;

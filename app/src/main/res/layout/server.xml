@@ -16,40 +16,14 @@
     android:background="#808069"
     app:titleTextColor="#ffa500">
   </android.support.v7.widget.Toolbar>
-
-  <!--
-  <Button
+  
+  <fragment
+    android:name="org.exoplatform.exohybridapp.AddServerFragment"
+    android:id="@+id/add_server_fragment"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:text="&lt;  Back"
-    android:textColor="#ffa500"
-    android:textSize="20sp"
-    android:paddingLeft="20sp"
-    android:background="#808069"
-    android:gravity="center_vertical"
-    android:onClick="onClickBack"
-    android:textAllCaps="false"/>
-  -->
+    android:layout_height="wrap_content"/>
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:text="Sign In to eXo"
-    android:textColor="#000000"
-    android:textSize="30sp"
-    android:gravity="center"/>
-
-  <EditText
-    android:id="@+id/url_input_txt"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text=""
-    android:textColor="#000000"
-    android:textSize="20sp"
-    android:padding="20sp"
-    android:singleLine="true"
-    android:imeOptions="actionDone"/>
-
+  <!-- this just inserts an invisible line between the two text areas -->
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -58,20 +32,11 @@
     android:paddingLeft="20sp"
     android:visibility="invisible"/>
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Recent URLs"
-    android:textColor="#000000"
-    android:textSize="30sp"
-    android:gravity="center"/>
-
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/server_list_view"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
+  <fragment
+    android:name="org.exoplatform.exohybridapp.ServerListFragment"
+    android:id="@+id/server_list_fragment"
     android:layout_weight="1"
-    android:background="#ffffff">
-  </android.support.v7.widget.RecyclerView>
+    android:layout_width="match_parent"
+    android:layout_height="0dp"/>
 
 </LinearLayout>
