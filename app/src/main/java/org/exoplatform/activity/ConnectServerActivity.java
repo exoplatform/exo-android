@@ -1,4 +1,4 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import org.exoplatform.exohybridapp.model.Server;
+import org.exoplatform.App;
+import org.exoplatform.R;
+import org.exoplatform.ServerManagerImpl;
+import org.exoplatform.model.Server;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,7 +22,7 @@ import java.net.URL;
 public class ConnectServerActivity extends AppCompatActivity {
 
   TextView            defaultServerView;
-  ServerManagerImpl   serverManager;
+  ServerManagerImpl serverManager;
   Server              defaultServer;
   Toolbar             toolbar;
 

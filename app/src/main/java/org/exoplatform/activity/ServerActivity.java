@@ -1,8 +1,10 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import org.exoplatform.R;
 
 /**
  * Created by chautran on 25/11/2015.

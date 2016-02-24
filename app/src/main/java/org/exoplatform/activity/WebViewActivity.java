@@ -1,4 +1,4 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,10 @@ import android.widget.ProgressBar;
 
 import android.webkit.CookieManager;
 
-import org.exoplatform.exohybridapp.model.Server;
+import org.exoplatform.App;
+import org.exoplatform.R;
+import org.exoplatform.ServerManagerImpl;
+import org.exoplatform.model.Server;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,7 +30,7 @@ public class WebViewActivity extends AppCompatActivity {
 
   public WebView        webView;
   public ProgressBar    progressBar;
-  ServerManagerImpl     serverManager;
+  ServerManagerImpl serverManager;
   public boolean        loggedOut = false;
 
   @Override

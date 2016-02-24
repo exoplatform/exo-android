@@ -1,4 +1,4 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.exoplatform.R;
+import org.exoplatform.activity.WebViewActivity;
 
 /**
  * Created by chautran on 22/12/2015.

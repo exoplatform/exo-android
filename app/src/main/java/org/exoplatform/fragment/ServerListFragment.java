@@ -1,4 +1,4 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.exoplatform.R;
+import org.exoplatform.ServerAdapter;
+
 /**
  * Created by chautran on 22/12/2015.
  */
@@ -15,7 +18,7 @@ public class ServerListFragment extends Fragment {
 
   RecyclerView                  server_list_view;
   RecyclerView.LayoutManager    layoutManager;
-  ServerAdapter                 adapter;
+  ServerAdapter adapter;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

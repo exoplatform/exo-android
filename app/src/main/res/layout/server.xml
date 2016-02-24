@@ -18,7 +18,7 @@
   </android.support.v7.widget.Toolbar>
   
   <fragment
-    android:name="org.exoplatform.exohybridapp.AddServerFragment"
+    android:name="org.exoplatform.fragment.AddServerFragment"
     android:id="@+id/add_server_fragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
@@ -33,7 +33,7 @@
     android:visibility="invisible"/>
 
   <fragment
-    android:name="org.exoplatform.exohybridapp.ServerListFragment"
+    android:name="org.exoplatform.fragment.ServerListFragment"
     android:id="@+id/server_list_fragment"
     android:layout_weight="1"
     android:layout_width="match_parent"

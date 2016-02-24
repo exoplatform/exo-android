@@ -29,6 +29,7 @@ proguard/
 # Android Studio
 /.idea/workspace.xml
 /.idea/libraries
+.idea/*
 
 # OS X
 .DS_Store

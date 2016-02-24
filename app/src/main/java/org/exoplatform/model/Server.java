@@ -1,9 +1,8 @@
-package org.exoplatform.exohybridapp.model;
+package org.exoplatform.model;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Comparator;
 
 /**
  * Created by chautran on 21/11/2015.

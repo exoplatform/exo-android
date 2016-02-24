@@ -1,4 +1,4 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.exoplatform.exohybridapp.model.Server;
+import org.exoplatform.activity.WebViewActivity;
+import org.exoplatform.model.Server;
 
 import java.util.ArrayList;
 import java.util.Collections;

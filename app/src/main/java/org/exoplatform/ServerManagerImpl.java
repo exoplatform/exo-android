@@ -1,9 +1,9 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform;
 
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
 
-import org.exoplatform.exohybridapp.model.Server;
+import org.exoplatform.model.Server;
 
 import java.net.URL;
 import java.util.ArrayList;
