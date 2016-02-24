@@ -34,4 +34,10 @@ public interface ServerManager {
    * @return the last visited server, null if the server list is empty.
    */
   public Server getLastVisitedServer();
+
+  public void verifyServer(Server srv, VerifyServerCallback callback);
+
+  public static interface VerifyServerCallback {
+      public void result(boolean correct);
+  }
 }

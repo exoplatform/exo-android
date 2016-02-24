@@ -39,7 +39,7 @@ public class ConnectServerActivity extends AppCompatActivity {
     defaultServer = serverManager.getLastVisitedServer();
     if (defaultServer == null) {
       try {
-        defaultServer = new Server(new URL(App.DEFAULT_SERVER));
+        defaultServer = new Server(new URL(App.TRIBE_URL));
       } catch (MalformedURLException e) {
         Log.d(this.getClass().getName(),e.getMessage());
       }

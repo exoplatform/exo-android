@@ -1,14 +1,27 @@
 package org.exoplatform;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import org.exoplatform.model.Server;
+import org.exoplatform.tool.ServerUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by chautran on 22/11/2015.
@@ -115,7 +128,29 @@ public class ServerManagerImpl implements ServerManager {
     editor.commit();
   }
 
-  public class ServersJSON {
+    @Override
+    public void verifyServer(Server srv, final VerifyServerCallback callback) {
+        new AsyncTask<Server, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Server... params) {
+                Boolean result = false;
+                if (params.length > 0) {
+                    Double plfVersion = ServerUtils.getPlatformVersionSync(params[0]);
+                    result = (plfVersion >= App.MIN_PLATFORM_VERSION_SUPPORTED);
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                callback.result(result);
+                super.onPostExecute(result);
+            }
+        }.execute(srv);
+    }
+
+    public class ServersJSON {
 
     public Server[] servers;
 
@@ -127,4 +162,5 @@ public class ServerManagerImpl implements ServerManager {
       this.servers = servers;
     }
   }
+
 }

@@ -1,6 +1,22 @@
 <resources>
-  <string name="app_name">ExoHybridApp</string>
+  <string name="app_name">eXo</string>
 
-  <string name="dummy_button">Dummy Button</string>
-  <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="ServerManager.Message.SavingServer">Saving intranet...</string>
+    <string name="ServerManager.Error.IncorrectUrl">Incorrect URL</string>
+
+    <string name="ConnectActivity.Title.SignInToExo">Sign in to eXo</string>
+    <string name="ConnectActivity.Title.DiscoverExoTribe">Discover eXo Tribe</string>
+    <string name="ConnectActivity.Title.Others">Others</string>
+
+    <string name="AddServerFragment.Title.SignInToExo">Sign in to eXo</string>
+    <string name="AddServerFragment.Title.EnterIntranetUrl">Enter your intranet URL</string>
+
+    <string name="ServersFragment.Title.MyIntranets">My intranets</string>
+
+
+    <string name="Word.OK">OK</string>
+    <string name="Word.Cancel">Cancel</string>
+    <string name="Word.Back">Back</string>
+    <string name="Word.Delete">Delete</string>
+
 </resources>
