@@ -8,22 +8,18 @@
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="eXo"
-    android:supportsRtl="true"
     android:theme="@style/MainTheme">
 
     <activity
-        android:name=".activity.ConnectServerActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize">
+        android:name=".activity.ConnectServerActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
 
     <activity
       android:name=".activity.ServerActivity"
-      android:configChanges="orientation|keyboardHidden|screenSize"
       android:parentActivityName=".activity.ConnectServerActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
@@ -31,8 +27,7 @@
     </activity>
 
     <activity
-      android:name=".activity.WebViewActivity"
-      android:configChanges="orientation|keyboardHidden|screenSize">
+      android:name=".activity.WebViewActivity">
     </activity>
   </application>
 

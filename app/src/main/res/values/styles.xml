@@ -1,38 +1,27 @@
 <resources>
 
   <!-- Base application theme. -->
-  <style name="MainTheme" parent="Theme.AppCompat.NoActionBar"></style>
-  <style name="ActionBarTheme" parent="AppTheme">
-    <item name="android:actionMenuTextColor">#ffa500</item>
-    <item name="android:actionMenuTextAppearance">@style/ActionBarTheme.MenuTextStyle</item>
-    <item name="android:titleTextStyle">@style/ActionBarTheme.TitleTextStyle</item>
-    <item name="titleTextStyle">@style/ActionBarTheme.TitleTextStyle</item>
-    <item name="subtitleTextStyle">@style/ActionBarTheme.TitleTextStyle</item>
-  </style>
-  <style name="ActionBarTheme.MenuTextStyle">
-    <item name="android:textAllCaps">false</item>
-    <item name="android:textSize">14sp</item>
-  </style>
-  <style name="ActionBarTheme.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-    <item name="android:textColor">#ffa500</item>
-  </style>
-  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
+    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">@color/eXoYellow</item>
+    </style>
 
-  <style name="FullscreenTheme" parent="AppTheme">
-    <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
-    <item name="android:windowActionBarOverlay">true</item>
-    <item name="android:windowBackground">@null</item>
-    <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-    <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
-  </style>
+    <style name="MainScreenButton">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">@dimen/MainScreen.Buttons.Padding</item>
+        <item name="android:layout_marginLeft">@dimen/MainScreen.Buttons.MarginHorizontal</item>
+        <item name="android:layout_marginRight">@dimen/MainScreen.Buttons.MarginHorizontal</item>
+        <item name="android:layout_marginBottom">@dimen/MainScreen.Buttons.MarginVertical</item>
+        <item name="android:textSize">@dimen/MainScreen.Buttons.TextSize</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 
-  <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-    <item name="android:background">@color/black_overlay</item>
-  </style>
+    <style name="MainScreenButton.YellowButton">
+        <item name="android:background">@drawable/main_screen_button_yellow</item>
+    </style>
+
+    <style name="MainScreenButton.GreyButton">
+        <item name="android:background">@drawable/main_screen_button_grey</item>
+    </style>
 
 </resources>

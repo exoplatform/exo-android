@@ -1,6 +1,7 @@
 package org.exoplatform.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -69,7 +70,16 @@ public class WebViewActivity extends AppCompatActivity {
     webView.loadUrl(url);
   }
 
-  /**
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Saving the last time an intranet was visited, for rule SIGN_IN_13
+        SharedPreferences.Editor pref = getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0).edit();
+        pref.putLong(App.PREF_LAST_VISIT_TIME, System.nanoTime());
+        pref.apply();
+    }
+
+    /**
    * Go to the previous page in history when device Back button is pressed.
    * If there is no previous page, leave activity.
    */
@@ -87,7 +97,7 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     public boolean shouldOverrideUrlLoading(WebView webView, String url) {
       Log.d(this.getClass().getName(), url); //print URL
-      if (url.indexOf("portal:action=Logout") > -1) {
+      if (url.contains("portal:action=Logout")) {
         WebViewActivity.this.loggedOut = true;
       }
       webView.loadUrl(url);
@@ -105,10 +115,9 @@ public class WebViewActivity extends AppCompatActivity {
           }
         }
       }
-      if (WebViewActivity.this.loggedOut == true) {
+      if (WebViewActivity.this.loggedOut) {
         WebViewActivity.this.loggedOut = false;
-        Intent intent = new Intent(webView.getContext(), ConnectServerActivity.class);
-        webView.getContext().startActivity(intent);
+          WebViewActivity.this.finish();
       } else {
         super.onPageFinished(webView, url);
       }

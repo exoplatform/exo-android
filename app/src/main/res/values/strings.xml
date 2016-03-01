@@ -4,9 +4,14 @@
     <string name="ServerManager.Message.SavingServer">Saving intranet...</string>
     <string name="ServerManager.Error.IncorrectUrl">Incorrect URL</string>
 
-    <string name="ConnectActivity.Title.SignInToExo">Sign in to eXo</string>
+    <!--<string name="ConnectActivity.Title.SignInToExo">Sign in to eXo</string>-->
+    <string name="ConnectActivity.Title.ConnectShare">Connect, share and work together</string>
     <string name="ConnectActivity.Title.DiscoverExoTribe">Discover eXo Tribe</string>
+    <string name="ConnectActivity.Title.AddIntranet">Add intranet</string>
+    <string name="ConnectActivity.Title.AddNewIntranet">Add new intranet</string>
+    <string name="ConnectActivity.Title.ConnectTo">Connect to</string>
     <string name="ConnectActivity.Title.Others">Others</string>
+    <string name="ConnectActivity.Title.ConnnectToExoTribe">Connect to eXo Tribe</string>
 
     <string name="AddServerFragment.Title.SignInToExo">Sign in to eXo</string>
     <string name="AddServerFragment.Title.EnterIntranetUrl">Enter your intranet URL</string>
@@ -18,5 +23,7 @@
     <string name="Word.Cancel">Cancel</string>
     <string name="Word.Back">Back</string>
     <string name="Word.Delete">Delete</string>
+    <string name="Word.eXo">eXo</string>
+    <string name="Word.eXoPlatform">eXo Platform</string>
 
 </resources>

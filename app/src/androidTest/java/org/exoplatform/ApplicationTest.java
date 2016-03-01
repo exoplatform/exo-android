@@ -1,4 +1,4 @@
-package org.exoplatform.exohybridapp;
+package org.exoplatform;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

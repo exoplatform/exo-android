@@ -21,7 +21,7 @@ public class ServerActivity extends AppCompatActivity {
     toolbar = (Toolbar) findViewById(R.id.server_toolbar);
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().getThemedContext().setTheme(R.style.ActionBarTheme);
+//    getSupportActionBar().getThemedContext().setTheme(R.style.ActionBarTheme);
   }
 
   @Override

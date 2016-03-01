@@ -1,5 +1,10 @@
 package org.exoplatform.model;
 
+import android.util.Log;
+
+import org.exoplatform.App;
+import org.exoplatform.BuildConfig;
+
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +25,11 @@ public class Server implements Serializable, Comparable<Server> {
   }
 
   public void setUrl(URL url) {
-    this.url = url;
+      try {
+          this.url = new URL(format(url));
+      } catch (MalformedURLException e) {
+          throw new IllegalArgumentException(String.format("Given URL is incorrect (%s)", url.toString()));
+      }
   }
 
   public Long getLastVisited() {
@@ -58,6 +67,10 @@ public class Server implements Serializable, Comparable<Server> {
     return url.toString().substring(i + 1);
   }
 
+    public boolean isExoTribe() {
+        return App.TRIBE_URL.contains(this.getShortUrl());
+    }
+
   public static String format(URL url) {
     String protocol = url.getProtocol();
     String host = url.getHost();
@@ -70,4 +83,11 @@ public class Server implements Serializable, Comparable<Server> {
   public int compareTo(Server another) {
     return (getLastVisited().compareTo(another.getLastVisited()));
   }
+
+    @Override
+    public boolean equals(Object o) {
+        String thisShortUrl = getShortUrl();
+        String otherShortUrl = ((Server)o).getShortUrl();
+        return thisShortUrl.equalsIgnoreCase(otherShortUrl);
+    }
 }

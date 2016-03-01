@@ -28,7 +28,6 @@ import java.util.Locale;
  */
 public class ServerManagerImpl implements ServerManager {
 
-  public static final String  HISTORY_PKEY = "HISTORY";
   SharedPreferences           preferences;
   public static final Gson    gson = new Gson();
 
@@ -37,7 +36,7 @@ public class ServerManagerImpl implements ServerManager {
   }
 
   public ArrayList<Server> getServerList() {
-    String servers_json = preferences.getString(HISTORY_PKEY, null);
+    String servers_json = preferences.getString(App.PREF_SERVERS_STORAGE, null);
     if (servers_json == null) {
       return null;
     } else {
@@ -49,6 +48,28 @@ public class ServerManagerImpl implements ServerManager {
       }
     }
   }
+
+    public int getServerCount() {
+        ArrayList servers = getServerList();
+        if (servers != null)
+            return servers.size();
+        else
+            return 0;
+    }
+
+    public boolean tribeServerExists() {
+        ArrayList<Server> servers = getServerList();
+        if (servers == null)
+            return false;
+
+        try {
+            Server tribeSrv = new Server(new URL(App.TRIBE_URL));
+            return servers.contains(tribeSrv);
+        } catch (MalformedURLException e) {
+            Log.d(this.getClass().getName(), e.getMessage());
+        }
+        return false;
+    }
 
   public void addServer(Server server) {
     List<Server> servers = getServerList();
@@ -124,7 +145,7 @@ public class ServerManagerImpl implements ServerManager {
     serversJSON.setServers(arr);
     String json = gson.toJson(serversJSON);
     SharedPreferences.Editor editor = preferences.edit();
-    editor.putString(HISTORY_PKEY, json);
+    editor.putString(App.PREF_SERVERS_STORAGE, json);
     editor.commit();
   }
 
