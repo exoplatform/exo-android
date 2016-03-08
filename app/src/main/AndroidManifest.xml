@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.exoplatform">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 
   <application
     android:name=".App"
@@ -9,6 +14,10 @@
     android:icon="@mipmap/ic_launcher"
     android:label="eXo"
     android:theme="@style/MainTheme">
+
+      <!--
+            Activities
+      -->
 
     <activity
         android:name=".activity.ConnectServerActivity">
@@ -29,6 +38,68 @@
     <activity
       android:name=".activity.WebViewActivity">
     </activity>
+
+
+      <activity android:configChanges="keyboardHidden|orientation"
+                android:label="@string/Word.eXo"
+                android:name=".activity.ShareExtensionActivity">
+          <intent-filter>
+              <action android:name="android.intent.action.SEND"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="application/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND_MULTIPLE"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="application/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="audio/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND_MULTIPLE"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="audio/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="image/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND_MULTIPLE"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="image/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="text/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND_MULTIPLE"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="text/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="video/*"/>
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.SEND_MULTIPLE"/>
+              <category android:name="android.intent.category.DEFAULT"/>
+              <data android:mimeType="video/*"/>
+          </intent-filter>
+      </activity>
+
+      <!--
+            Services
+        -->
+      <service android:exported="false" android:name="org.exoplatform.service.share.ShareService"/>
+
   </application>
 
 </manifest>

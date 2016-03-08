@@ -29,7 +29,7 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
 
   public ServerAdapter(Context context) {
     this.context = context;
-    serverManager = new ServerManagerImpl(context.getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0));
+    serverManager = new ServerManagerImpl(context.getSharedPreferences(App.Preferences.FILE_NAME, 0));
     servers = serverManager.getServerList();
     if (servers != null) {
       Collections.sort(servers, Collections.reverseOrder());

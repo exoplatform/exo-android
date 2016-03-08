@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/share_account_item_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".activity.ShareExtensionActivity"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+    <ImageView
+        android:id="@+id/share_account_item_icon"
+        android:layout_width="@dimen/ShareActivity.Accounts.Icon.Size"
+        android:layout_height="@dimen/ShareActivity.Accounts.Icon.Size"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/icon_check_circle_grey"
+        android:contentDescription="@string/ShareActivity.Title.Intranet"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/share_account_item_server_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/share_account_item_icon"
+        android:layout_toEndOf="@id/share_account_item_icon"
+        android:ellipsize="middle"
+        android:lines="1"
+        tools:text="community.exoplatform.com"/>
+
+    <TextView
+        android:id="@+id/share_account_item_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/share_account_item_icon"
+        android:layout_toEndOf="@id/share_account_item_icon"
+        android:layout_below="@id/share_account_item_server_url"
+        tools:text="philippe"
+        android:visibility="gone"
+        android:layout_marginTop="5dp"/>
+
+</RelativeLayout>

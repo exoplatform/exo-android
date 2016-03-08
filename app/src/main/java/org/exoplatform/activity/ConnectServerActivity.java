@@ -84,7 +84,7 @@ public class ConnectServerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences prefs = getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0);
+        SharedPreferences prefs = getSharedPreferences(App.Preferences.FILE_NAME, 0);
         serverManager = new ServerManagerImpl(prefs);
 
         int serverCount = serverManager.getServerCount();
@@ -188,9 +188,9 @@ public class ConnectServerActivity extends AppCompatActivity {
      */
 
     private void bypassIfRecentlyVisited() {
-        SharedPreferences prefs = getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0);
+        SharedPreferences prefs = getSharedPreferences(App.Preferences.FILE_NAME, 0);
         Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-        long lastVisit = prefs.getLong(App.PREF_LAST_VISIT_TIME, 0L);
+        long lastVisit = prefs.getLong(App.Preferences.LAST_VISIT_TIME, 0L);
         if (serverToConnect != null && (System.nanoTime() - App.DELAY_1H_NANOS) < lastVisit) {
             // Rule SIGN_IN_13: if the app was left less than 1h ago
             openWebViewWithURL(serverToConnect.getUrl().toString());

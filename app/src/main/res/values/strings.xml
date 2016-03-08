@@ -1,10 +1,9 @@
 <resources>
-  <string name="app_name">eXo</string>
+    <string name="app_name">eXo</string>
 
-    <string name="ServerManager.Message.SavingServer">Saving intranet...</string>
+    <string name="ServerManager.Message.SavingServer">Saving intranet…</string>
     <string name="ServerManager.Error.IncorrectUrl">Incorrect URL</string>
 
-    <!--<string name="ConnectActivity.Title.SignInToExo">Sign in to eXo</string>-->
     <string name="ConnectActivity.Title.ConnectShare">Connect, share and work together</string>
     <string name="ConnectActivity.Title.DiscoverExoTribe">Discover eXo Tribe</string>
     <string name="ConnectActivity.Title.AddIntranet">Add intranet</string>
@@ -18,12 +17,59 @@
 
     <string name="ServersFragment.Title.MyIntranets">My intranets</string>
 
-
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Cancel</string>
     <string name="Word.Back">Back</string>
     <string name="Word.Delete">Delete</string>
     <string name="Word.eXo">eXo</string>
     <string name="Word.eXoPlatform">eXo Platform</string>
+
+    <!-- TODO Cleanup -->
+    <string name="StatusUpdate">Post</string>
+    <string name="UserNameHint">username</string>
+    <string name="ServerUrl">Server Url</string>
+    <string name="AttachedPhoto">Attached Photo</string>
+    <string name="UserNameCellTitle">Username</string>
+    <string name="PasswordCellTitle">Password</string>
+    <string name="Space">Space</string>
+
+    <!-- Share Extension -->
+    <string name="ShareActivity.Title.Share">Share</string>
+    <string name="ShareActivity.Title.Intranet">Intranet</string>
+    <string name="ShareActivity.Title.ShareWith">Share this post with</string>
+    <string name="ShareActivity.Title.AllConnections">All my connections</string>
+    <string name="ShareActivity.Title.SignIn">Sign In</string>
+    <string name="ShareActivity.Title.SigningIn">Signing in…</string>
+    <string name="ShareActivity.Title.SelectIntranet">Select an intranet</string>
+    <string name="ShareActivity.Title.EnterCredentials">Enter your credentials</string>
+    <string name="ShareActivity.Title.LoadingSpaces">Retrieving spaces…</string>
+    <string name="ShareActivity.Title.NoSpace">You are not in any space</string>
+    <string name="ShareActivity.Hint.WorkingOn">What are you working on?</string>
+
+
+    <string name="ShareCannotSelectSpaceBecauseOffline">You must select an account and sign in to select a space</string>
+    <string name="ShareCannotPostBecauseOffline">You must select an account and sign in to post</string>
+    <string name="ShareOperationStarted">Share in progress, check the status in the notification area</string>
+    <string name="ShareOperationSuccess">Success</string>
+    <string name="ShareDocumentTitle">Share document</string>
+    <string name="ShareMessageTitle">Share message</string>
+    <string name="ShareDocumentText">Upload in progress</string>
+    <string name="ShareMessageText">Your message will be posted shortly</string>
+    <string name="ShareErrorNoAccountConfigured">No account configured</string>
+    <string name="ShareErrorCannotReadDoc">Cannot access the document to share</string>
+    <string name="ShareErrorFileTooBig">Cannot share documents more than 10 MB</string>
+    <string name="ShareErrorTooManyFiles">Cannot share more than 10 documents</string>
+    <string name="ShareErrorUploadFailed">Could not share the document</string>
+    <string name="ShareErrorPostFailed">Could not post the message</string>
+    <string name="ShareErrorCommentFailed">Could not comment the message</string>
+    <string name="ShareErrorUploadFolderFailed">Could not prepare the destination folder</string>
+    <string name="ShareErrorIncorrectAccount">Could not retrieve the account settings</string>
+    <string name="ShareErrorSignInFailed">Login failed, please try again</string>
+    <string name="ShareErrorSomeFilesCannotShare">Some documents cannot be shared</string>
+    <string name="ShareErrorAllFilesCannotShare">All documents cannot be shared</string>
+    <string name="ShareErrorStoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
+    <string name="ShareErrorDialogLeave">Leave</string>
+    <string name="ShareErrorDialogAppSettings">Open App Settings</string>
+    <string name="ShareErrorNullPostInfo">Share failed. Incorrect data.</string>
 
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="10dp">
+
+    <TextView
+        android:id="@+id/list_spaces_all_connections"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="@string/ShareActivity.Title.AllConnections"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:drawableLeft="@drawable/icon_post_public"
+        android:drawableStart="@drawable/icon_post_public"
+        android:drawablePadding="12dp"
+        />
+
+    <ListView
+        android:id="@+id/list_spaces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollingCache="false"/>
+
+    <TextView
+        android:id="@+id/list_spaces_message_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="10dp"
+        android:text="@string/ShareActivity.Title.LoadingSpaces"
+        android:visibility="gone"/>
+
+</LinearLayout>

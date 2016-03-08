@@ -9,4 +9,7 @@
     <dimen name="MainScreen.Buttons.MarginVertical">20dp</dimen>
     <dimen name="MainScreen.Buttons.Padding">10dp</dimen>
 
+    <dimen name="ShareActivity.Accounts.Icon.Size">18dp</dimen>
+    <dimen name="ShareActivity.Spaces.Icon.Size">32dp</dimen>
+    <dimen name="ShareActivity.Thumbnail.Size">100dp</dimen>
 </resources>

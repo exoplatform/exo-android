@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="10dp"
+              tools:context=".activity.ShareExtensionActivity">
+
+    <ImageView
+        android:id="@+id/item_space_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/Space"
+        android:src="@drawable/icon_space_default"/>
+
+    <TextView
+        android:id="@+id/item_space_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        tools:text="Amazing Space"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+</LinearLayout>

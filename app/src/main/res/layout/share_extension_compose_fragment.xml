@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".activity.ShareExtensionActivity">
+
+    <ScrollView
+        android:id="@+id/share_scroll_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/share_actions_wrapper">
+
+        <EditText
+            android:id="@+id/share_post_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|top"
+            android:hint="@string/ShareActivity.Hint.WorkingOn"
+            android:inputType="textShortMessage|textMultiLine"
+            android:layout_marginRight="105dp"
+            android:layout_marginEnd="105dp"
+            android:layout_margin="15dp"
+            android:background="@android:color/transparent"/>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/share_attachment_thumbnail"
+        android:layout_height="@dimen/ShareActivity.Thumbnail.Size"
+        android:layout_width="@dimen/ShareActivity.Thumbnail.Size"
+        android:layout_margin="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/icon_for_placeholder_image"
+        android:contentDescription="@string/AttachedPhoto"/>
+
+    <TextView
+        android:id="@+id/share_attachment_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/share_attachment_thumbnail"
+        android:layout_alignLeft="@+id/share_attachment_thumbnail"
+        android:layout_alignRight="@+id/share_attachment_thumbnail"
+        android:layout_alignStart="@+id/share_attachment_thumbnail"
+        android:layout_alignEnd="@+id/share_attachment_thumbnail"
+        android:gravity="center"
+        android:text="@string/ShareActivity.Title.Share"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/share_actions_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/share_account_wrapper"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:background="@color/eXoGrey"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ShareActivity.Title.Intranet"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/share_account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:gravity="end"
+                android:drawableRight="@drawable/icon_chevron_right_grey"
+                android:drawableEnd="@drawable/icon_chevron_right_grey"
+                android:ellipsize="middle"
+                android:lines="1"
+                android:text="@string/ShareActivity.Title.SelectIntranet"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/share_space_wrapper"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:visibility="gone"
+            android:background="@color/eXoGrey">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ShareActivity.Title.ShareWith"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/share_space"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:gravity="end"
+                android:text="@string/ShareActivity.Title.AllConnections"
+                android:drawableRight="@drawable/icon_chevron_right_grey"
+                android:drawableEnd="@drawable/icon_chevron_right_grey"
+                android:lines="1"
+                android:ellipsize="end"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

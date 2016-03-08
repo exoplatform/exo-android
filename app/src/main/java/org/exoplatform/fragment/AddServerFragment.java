@@ -71,7 +71,7 @@ public class AddServerFragment extends Fragment {
         progressDialog.show();
         final URL u = new URL(url);
           Server server = new Server(u);
-          new ServerManagerImpl(getActivity().getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0))
+          new ServerManagerImpl(getActivity().getSharedPreferences(App.Preferences.FILE_NAME, 0))
                   .verifyServer(server, new ServerManager.VerifyServerCallback() {
                       @Override
                       public void result(boolean correct) {

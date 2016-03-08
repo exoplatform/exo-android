@@ -1,6 +1,5 @@
 package org.exoplatform.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,14 +30,14 @@ public class WebViewActivity extends AppCompatActivity {
 
   public WebView        webView;
   public ProgressBar    progressBar;
-  ServerManagerImpl serverManager;
+  ServerManagerImpl     serverManager;
   public boolean        loggedOut = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.webview);
-    serverManager = new ServerManagerImpl(getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0));
+    serverManager = new ServerManagerImpl(getSharedPreferences(App.Preferences.FILE_NAME, 0));
     String url = getIntent().getStringExtra(RECEIVED_INTENT_KEY);
     //save history
     try {
@@ -74,8 +73,8 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         // Saving the last time an intranet was visited, for rule SIGN_IN_13
-        SharedPreferences.Editor pref = getSharedPreferences(App.SHARED_PREFERENCES_NAME, 0).edit();
-        pref.putLong(App.PREF_LAST_VISIT_TIME, System.nanoTime());
+        SharedPreferences.Editor pref = getSharedPreferences(App.Preferences.FILE_NAME, 0).edit();
+        pref.putLong(App.Preferences.LAST_VISIT_TIME, System.nanoTime());
         pref.apply();
     }
 

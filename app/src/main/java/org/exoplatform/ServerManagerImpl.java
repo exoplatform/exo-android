@@ -8,45 +8,35 @@ import com.google.gson.Gson;
 
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ServerUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by chautran on 22/11/2015.
  */
 public class ServerManagerImpl implements ServerManager {
 
-  SharedPreferences           preferences;
-  public static final Gson    gson = new Gson();
+  SharedPreferences preferences;
+  private final Gson gson = new Gson();
 
   public ServerManagerImpl(SharedPreferences preferences) {
     this.preferences = preferences;
   }
 
   public ArrayList<Server> getServerList() {
-    String servers_json = preferences.getString(App.PREF_SERVERS_STORAGE, null);
-    if (servers_json == null) {
-      return null;
-    } else {
+    String servers_json = preferences.getString(App.Preferences.SERVERS_STORAGE, null);
+    ArrayList<Server> list = new ArrayList<>();
+    if (servers_json != null) {
       Server[] servers = gson.fromJson(servers_json, ServersJSON.class).getServers();
       if (servers != null && servers.length != 0) {
-        return new ArrayList<>(Arrays.asList(servers));
-      } else {
-        return null;
+        list.addAll(Arrays.asList(servers));
       }
     }
+    return list;
   }
 
     public int getServerCount() {
@@ -145,8 +135,8 @@ public class ServerManagerImpl implements ServerManager {
     serversJSON.setServers(arr);
     String json = gson.toJson(serversJSON);
     SharedPreferences.Editor editor = preferences.edit();
-    editor.putString(App.PREF_SERVERS_STORAGE, json);
-    editor.commit();
+    editor.putString(App.Preferences.SERVERS_STORAGE, json);
+    editor.apply();
   }
 
     @Override
@@ -158,7 +148,7 @@ public class ServerManagerImpl implements ServerManager {
                 Boolean result = false;
                 if (params.length > 0) {
                     Double plfVersion = ServerUtils.getPlatformVersionSync(params[0]);
-                    result = (plfVersion >= App.MIN_PLATFORM_VERSION_SUPPORTED);
+                    result = (plfVersion >= App.Platform.MIN_SUPPORTED_VERSION);
                 }
                 return result;
             }
