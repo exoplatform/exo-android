@@ -1,5 +1,7 @@
+package org.exoplatform.activity;
+
 /*
- * Copyright (C) 2003-2015 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -28,6 +30,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -40,8 +43,8 @@ import android.widget.Toast;
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
-import org.exoplatform.ServerManager;
-import org.exoplatform.ServerManagerImpl;
+import org.exoplatform.tool.ServerManager;
+import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.fragment.AccountsFragment;
 import org.exoplatform.fragment.ComposeFragment;
 import org.exoplatform.fragment.SelectSpaceFragment;
@@ -63,7 +66,6 @@ import java.util.List;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
-
 /**
  * Created by The eXo Platform SAS
  * 
@@ -72,43 +74,42 @@ import okhttp3.HttpUrl;
  */
 public class ShareExtensionActivity extends AppCompatActivity implements LoginTask.Listener, PrepareAttachmentsTask.Listener {
 
-    /**
+  /**
    * Direction of the animation to switch from one fragment to another
    */
   public enum Anim {
     NO_ANIM, FROM_LEFT, FROM_RIGHT
   }
 
-    /**
-     * What type of button should we display in the toolbar
-     */
-    public enum ToolbarButtonType {
-        HIDDEN, SHARE, SIGNIN
-    }
+  /**
+   * What type of button should we display in the toolbar
+   */
+  public enum ToolbarButtonType {
+    HIDDEN, SHARE, SIGNIN
+  }
 
   public static final String LOG_TAG = ShareExtensionActivity.class.getName();
 
+  private boolean            mUserLoggedIn;
 
-  private boolean mUserLoggedIn;
+  // toolbar button for Share and Sign In actions
+  private Button             mToolbarButton;
 
-    // toolbar button for Share and Sign In actions
-  private Button mToolbarButton;
+  // this activity
+  private SocialActivity     mActivityPost;
 
-    // this activity
-  private SocialActivity mActivityPost;
+  // the list of URIs present in the intent
+  private List<Uri>          mAttachmentUris;
 
-    // the list of URIs present in the intent
-  private List<Uri> mAttachmentUris;
-
-    // the thumbnail bitmap
-  private Bitmap mThumbnail;
+  // the thumbnail bitmap
+  private Bitmap             mThumbnail;
 
   @Override
   protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);
 
-    setContentView(R.layout.share_extension_activity);
-    Toolbar toolbar = (Toolbar)findViewById(R.id.Share_Toolbar);
+    setContentView(R.layout.activity_share_extension);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.Share_Toolbar);
     setSupportActionBar(toolbar);
     mToolbarButton = (Button) findViewById(R.id.Share_Main_Button);
     mUserLoggedIn = false;
@@ -128,26 +129,26 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
         } else {
           Uri contentUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
           if (contentUri != null) {
-              mAttachmentUris = new ArrayList<>();
-              mAttachmentUris.add(contentUri);
+            mAttachmentUris = new ArrayList<>();
+            mAttachmentUris.add(contentUri);
           }
           if (BuildConfig.DEBUG)
-              Log.d(LOG_TAG, "Number of files to share: "+ mAttachmentUris.size());
+            Log.d(LOG_TAG, "Number of files to share: " + mAttachmentUris.size());
         }
         prepareAttachmentsAsync();
       }
 
       if (!prepareAccounts()) {
-          // TODO open ServerActivity to create a new server and return here
-          Toast.makeText(this, "ShareErrorNoAccountConfigured", Toast.LENGTH_LONG).show();
-          finish();
-          return;
+        // TODO open NewServerActivity to create a new server and return here
+        Toast.makeText(this, "ShareErrorNoAccountConfigured", Toast.LENGTH_LONG).show();
+        finish();
+        return;
       }
 
       Server srv = mActivityPost.ownerAccount;
-        if (srv.getLastLogin() != null && srv.getLastPassword() != null) {
-            login(srv);
-        }
+      if (srv.getLastLogin() != null && srv.getLastPassword() != null) {
+        login(srv);
+      }
 
       // Create and display the composer
       ComposeFragment composer = ComposeFragment.getFragment();
@@ -176,11 +177,11 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       if (serverList == null || serverList.size() == 0) {
         return false;
       } else {
-          // use the first server in the list
-          mActivityPost.ownerAccount = serverList.get(0);
+        // use the first server in the list
+        mActivityPost.ownerAccount = serverList.get(0);
       }
     }
-      return true;
+    return true;
   }
 
   /**
@@ -192,7 +193,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
    */
   public void openFragment(Fragment toOpen, String key, Anim anim) {
     FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
-      // configure the transition between the two fragments
+    // configure the transition between the two fragments
     switch (anim) {
     case FROM_LEFT:
       tr.setCustomAnimations(R.anim.fragment_enter_ltr, R.anim.fragment_exit_ltr);
@@ -204,21 +205,21 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     case NO_ANIM:
       break;
     }
-      // set the toolbar button + title
+    // set the toolbar button + title
     if (ComposeFragment.COMPOSE_FRAGMENT.equals(key)) {
-        setToolbarButtonType(ShareExtensionActivity.ToolbarButtonType.SHARE);
-        setTitle(R.string.Word_eXo);
+      setToolbarButtonType(ShareExtensionActivity.ToolbarButtonType.SHARE);
+      setTitle(R.string.Word_eXo);
     } else if (SignInFragment.SIGN_IN_FRAGMENT.equals(key)) {
-        setToolbarButtonType(ToolbarButtonType.SIGNIN);
-        setTitle(R.string.ShareActivity_Title_EnterCredentials);
+      setToolbarButtonType(ToolbarButtonType.SIGNIN);
+      setTitle(R.string.ShareActivity_Title_EnterCredentials);
     } else if (AccountsFragment.ACCOUNTS_FRAGMENT.equals(key)) {
-        setToolbarButtonType(ToolbarButtonType.HIDDEN);
-        setTitle(R.string.ShareActivity_Title_SelectIntranet);
+      setToolbarButtonType(ToolbarButtonType.HIDDEN);
+      setTitle(R.string.ShareActivity_Title_SelectIntranet);
     } else if (SelectSpaceFragment.SPACES_FRAGMENT.equals(key)) {
-        setToolbarButtonType(ToolbarButtonType.HIDDEN);
-        setTitle(R.string.ShareActivity_Title_ShareWith);
+      setToolbarButtonType(ToolbarButtonType.HIDDEN);
+      setTitle(R.string.ShareActivity_Title_ShareWith);
     }
-      // go!
+    // go!
     tr.replace(R.id.share_extension_fragment, toOpen, key);
     tr.commit();
   }
@@ -231,7 +232,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     if (composer.isAdded()) {
       if (mActivityPost != null)
         DocumentUtils.deleteLocalFiles(mActivityPost.postAttachedFiles);
-        PlatformUtils.reset();
+      PlatformUtils.reset();
       super.onBackPressed();
     } else if (AccountsFragment.getFragment().isAdded()) {
       // close the accounts fragment and reopen the composer fragment
@@ -240,8 +241,8 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       // close the sign in fragment and reopen the accounts fragment
       openFragment(AccountsFragment.getFragment(), AccountsFragment.ACCOUNTS_FRAGMENT, Anim.FROM_LEFT);
     } else if (SelectSpaceFragment.getFragment().isAdded()) {
-       // close the select space fragment and reopen the composer fragment
-        openFragment(composer, ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
+      // close the select space fragment and reopen the composer fragment
+      openFragment(composer, ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
     }
   }
 
@@ -249,44 +250,46 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
    * GETTERS & SETTERS
    */
 
-    public boolean isLoggedIn() {
-        return mUserLoggedIn;
-    }
+  public boolean isLoggedIn() {
+    return mUserLoggedIn;
+  }
 
   public SocialActivity getActivityPost() {
     return mActivityPost;
   }
 
-    public Bitmap getThumbnail() { return mThumbnail; }
+  public Bitmap getThumbnail() {
+    return mThumbnail;
+  }
 
   /**
    * @param type how to display the toolbar button
    */
   public void setToolbarButtonType(ToolbarButtonType type) {
-      switch (type) {
-          case HIDDEN:
-              mToolbarButton.setVisibility(View.INVISIBLE);
-              break;
-          case SIGNIN:
-              mToolbarButton.setText(R.string.ShareActivity_Title_SignIn);
-              mToolbarButton.setVisibility(View.VISIBLE);
-              break;
-          default: // SHARE
-              mToolbarButton.setText(R.string.ShareActivity_Title_Share);
-              mToolbarButton.setVisibility(View.VISIBLE);
-              break;
-      }
-      mToolbarButton.setTag(type);
+    switch (type) {
+    case HIDDEN:
+      mToolbarButton.setVisibility(View.INVISIBLE);
+      break;
+    case SIGNIN:
+      mToolbarButton.setText(R.string.ShareActivity_Title_SignIn);
+      mToolbarButton.setVisibility(View.VISIBLE);
+      break;
+    default: // SHARE
+      mToolbarButton.setText(R.string.ShareActivity_Title_Share);
+      mToolbarButton.setVisibility(View.VISIBLE);
+      break;
+    }
+    mToolbarButton.setTag(type);
   }
 
   /**
    * Switch the main button to the given enabled state. If the main button is
    * the post button, we also check that the account is mUserLoggedIn.
    *
-   * @param enabled
+   * @param enabled whether to enable or disable the toolbar button
    */
   public void setToolbarButtonEnabled(boolean enabled) {
-      mToolbarButton.setEnabled(enabled);
+    mToolbarButton.setEnabled(enabled);
   }
 
   /*
@@ -294,39 +297,39 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
    */
 
   public void onMainButtonClicked(View view) {
-    ToolbarButtonType type = (ToolbarButtonType)view.getTag();
-      switch (type) {
-          case SHARE:
-              // Tap on the SHARE button
-              if (mActivityPost.ownerAccount == null || !mUserLoggedIn) {
-                  Toast.makeText(this, "ShareCannotPostBecauseOffline", Toast.LENGTH_LONG).show();
-                  return;
-              }
-
-              Log.d(LOG_TAG, "Start share service...");
-              Intent share = new Intent(getBaseContext(), ShareService.class);
-              share.putExtra(ShareService.POST_INFO, mActivityPost);
-              startService(share);
-              Toast.makeText(getBaseContext(), "ShareOperationStarted", Toast.LENGTH_LONG).show();
-
-              // Post is in progress, our work is done here
-              finish();
-              break;
-
-          case SIGNIN:
-              // Tap on the SIGN IN button
-              String username = SignInFragment.getFragment().getUsername();
-              mActivityPost.ownerAccount.setLastLogin(username);
-              String password = SignInFragment.getFragment().getPassword();
-              mActivityPost.ownerAccount.setLastPassword(password);
-              openFragment(ComposeFragment.getFragment(), ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
-              login(mActivityPost.ownerAccount);
-              break;
-
-          default:
-              // HIDDEN, do nothing
-              break;
+    ToolbarButtonType type = (ToolbarButtonType) view.getTag();
+    switch (type) {
+    case SHARE:
+      // Tap on the SHARE button
+      if (mActivityPost.ownerAccount == null || !mUserLoggedIn) {
+        Toast.makeText(this, "ShareCannotPostBecauseOffline", Toast.LENGTH_LONG).show();
+        return;
       }
+
+      Log.d(LOG_TAG, "Start share service...");
+      Intent share = new Intent(getBaseContext(), ShareService.class);
+      share.putExtra(ShareService.POST_INFO, mActivityPost);
+      startService(share);
+      Toast.makeText(getBaseContext(), "ShareOperationStarted", Toast.LENGTH_LONG).show();
+
+      // Post is in progress, our work is done here
+      finish();
+      break;
+
+    case SIGNIN:
+      // Tap on the SIGN IN button
+      String username = SignInFragment.getFragment().getUsername();
+      mActivityPost.ownerAccount.setLastLogin(username);
+      String password = SignInFragment.getFragment().getPassword();
+      mActivityPost.ownerAccount.setLastPassword(password);
+      openFragment(ComposeFragment.getFragment(), ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
+      login(mActivityPost.ownerAccount);
+      break;
+
+    default:
+      // HIDDEN, do nothing
+      break;
+    }
   }
 
   public void onSelectAccount() {
@@ -346,75 +349,72 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
   public void onSelectSpace() {
     // Called when the select space field is tapped
     if (mUserLoggedIn) {
-        openFragment(SelectSpaceFragment.getFragment(), SelectSpaceFragment.SPACES_FRAGMENT, Anim.FROM_RIGHT);
+      openFragment(SelectSpaceFragment.getFragment(), SelectSpaceFragment.SPACES_FRAGMENT, Anim.FROM_RIGHT);
     } else {
       Toast.makeText(this, "ShareCannotSelectSpaceBecauseOffline", Toast.LENGTH_LONG).show();
     }
   }
 
-
-    public void onSpaceSelected(SocialSpace space) {
-        // When we come back from the space selector activity
-        mActivityPost.destinationSpace = space;
-        openFragment(ComposeFragment.getFragment(), ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
-    }
-
-  /*
-        LOGIN
-   */
-
-
-  public void login(Server server) {
-      if (server == null)
-          throw new IllegalArgumentException("Server must not be null");
-
-      LoginTask task = new LoginTask();
-      task.addListener(this);
-      task.addListener(ComposeFragment.getFragment());
-      task.execute(server);
+  public void onSpaceSelected(SocialSpace space) {
+    // When we come back from the space selector activity
+    mActivityPost.destinationSpace = space;
+    openFragment(ComposeFragment.getFragment(), ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
   }
 
-    @Override
-    public void onLoginStarted(LoginTask loginTask) {
-        mUserLoggedIn = false;
-        setToolbarButtonEnabled(false);
+  /*
+   * LOGIN
+   */
+
+  public void login(Server server) {
+    if (server == null)
+      throw new IllegalArgumentException("Server must not be null");
+
+    LoginTask task = new LoginTask();
+    task.addListener(this);
+    task.addListener(ComposeFragment.getFragment());
+    task.execute(server);
+  }
+
+  @Override
+  public void onLoginStarted(LoginTask loginTask) {
+    mUserLoggedIn = false;
+    setToolbarButtonEnabled(false);
+  }
+
+  private void handleLoginResult(boolean result) {
+    mUserLoggedIn = result;
+    Server server = mActivityPost.ownerAccount;
+    if (mUserLoggedIn) {
+      server.setLastVisited(System.currentTimeMillis());
+    } else {
+      server.setLastPassword("");
     }
+    new ServerManagerImpl(getSharedPreferences(App.Preferences.FILE_NAME, 0)).addServer(server);
+    setToolbarButtonEnabled(mUserLoggedIn);
+  }
 
-    private void handleLoginResult(boolean result) {
-        mUserLoggedIn = result;
-        Server server = mActivityPost.ownerAccount;
-        if (mUserLoggedIn) {
-            server.setLastVisited(System.currentTimeMillis());
-        } else {
-            server.setLastPassword("");
-        }
-        new ServerManagerImpl(getSharedPreferences(App.Preferences.FILE_NAME, 0)).addServer(server);
-        setToolbarButtonEnabled(mUserLoggedIn);
+  @Override
+  public void onLoginSuccess(PlatformInfo result) {
+    handleLoginResult(true);
+    // -------
+    if (BuildConfig.DEBUG) {
+      Server server = mActivityPost.ownerAccount;
+      HttpUrl url = HttpUrl.parse(server.getUrl().toString());
+      for (Cookie c : ExoHttpClient.getInstance().cookieJar().loadForRequest(url)) {
+        Log.d(LOG_TAG, "COOKIE : " + c.toString());
+      }
     }
+  }
 
-    @Override
-    public void onLoginSuccess(PlatformInfo result) {
-        handleLoginResult(true);
-//        -------
-        if (BuildConfig.DEBUG) {
-            Server server = mActivityPost.ownerAccount;
-            HttpUrl url = HttpUrl.parse(server.getUrl().toString());
-            for (Cookie c : ExoHttpClient.getInstance().cookieJar().loadForRequest(url)) {
-                Log.d(LOG_TAG, "COOKIE : " + c.toString());
-            }
-        }
-    }
+  @Override
+  public void onLoginFailed() {
+    Toast.makeText(getApplicationContext(), "ShareErrorSignInFailed", Toast.LENGTH_LONG).show();
+    handleLoginResult(false);
+  }
 
-    @Override
-    public void onLoginFailed() {
-        Toast.makeText(getApplicationContext(), "ShareErrorSignInFailed", Toast.LENGTH_LONG).show();
-        handleLoginResult(false);
-    }
-
-
-    /*
-        PREPARE ATTACHMENTS
-     */
+  /*
+   * PREPARE ATTACHMENTS
+   */
 
   private void prepareAttachmentsAsync() {
     if (!DocumentUtils.didRequestPermission(this, App.Permissions.REQUEST_PICK_IMAGE_FROM_GALLERY)) {
@@ -425,18 +425,18 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     }
   }
 
-    @Override
-    public void onPrepareAttachmentsFinished(PrepareAttachmentsTask.AttachmentsResult result) {
-        if (result.error != null) {
-            Toast.makeText(this, result.error, Toast.LENGTH_LONG).show();
-        }
-        mThumbnail = result.thumbnail;
-        mActivityPost.postAttachedFiles = result.attachments;
+  @Override
+  public void onPrepareAttachmentsFinished(PrepareAttachmentsTask.AttachmentsResult result) {
+    if (result.error != null) {
+      Toast.makeText(this, result.error, Toast.LENGTH_LONG).show();
     }
+    mThumbnail = result.thumbnail;
+    mActivityPost.postAttachedFiles = result.attachments;
+  }
 
   @SuppressLint("Override")
   @Override
-  public void onRequestPermissionsResult(int reqCode, String[] permissions, int[] results) {
+  public void onRequestPermissionsResult(int reqCode, @NonNull String[] permissions, @NonNull int[] results) {
     if (reqCode == App.Permissions.REQUEST_PICK_IMAGE_FROM_GALLERY) {
       if (results.length > 0 && results[0] == PackageManager.PERMISSION_GRANTED) {
         // permission granted

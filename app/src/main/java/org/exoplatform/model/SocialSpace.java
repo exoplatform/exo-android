@@ -1,5 +1,7 @@
+package org.exoplatform.model;
+
 /*
- * Copyright (C) 2003-2015 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -70,26 +72,27 @@ public class SocialSpace implements Parcelable {
     return origName;
   }
 
-    /**
-     * Extracts the identity id of the space, from the identity url.<br/>
-     * e.g
-     *
-     * <pre>
-     *     identity = http://serverrest/v1/social/identities/637bfea0c063c86a1bcc19a378af61da
-     *     id = 637bfea0c063c86a1bcc19a378af61da
-     * </pre>
-     * @return the identity id of this space
-     */
-    public String getIdentityId() {
-        String id = null;
-        if (identity != null) {
-            int lastPart = identity.lastIndexOf('/');
-            if (lastPart >= 0 && lastPart < identity.length()) {
-                id = identity.substring(lastPart + 1);
-            }
-        }
-        return id;
+  /**
+   * Extracts the identity id of the space, from the identity url.<br/>
+   * e.g
+   *
+   * <pre>
+   *     identity = http://serverrest/v1/social/identities/637bfea0c063c86a1bcc19a378af61da
+   *     id = 637bfea0c063c86a1bcc19a378af61da
+   * </pre>
+   * 
+   * @return the identity id of this space
+   */
+  public String getIdentityId() {
+    String id = null;
+    if (identity != null) {
+      int lastPart = identity.lastIndexOf('/');
+      if (lastPart >= 0 && lastPart < identity.length()) {
+        id = identity.substring(lastPart + 1);
+      }
     }
+    return id;
+  }
 
   /*
    * PARCEL
@@ -100,14 +103,14 @@ public class SocialSpace implements Parcelable {
   }
 
   public static final Creator<SocialSpace> CREATOR = new Creator<SocialSpace>() {
-            public SocialSpace createFromParcel(Parcel in) {
-              return new SocialSpace(in);
-            }
+                                                     public SocialSpace createFromParcel(Parcel in) {
+                                                       return new SocialSpace(in);
+                                                     }
 
-            public SocialSpace[] newArray(int size) {
-              return new SocialSpace[size];
-            }
-          };
+                                                     public SocialSpace[] newArray(int size) {
+                                                       return new SocialSpace[size];
+                                                     }
+                                                   };
 
   @Override
   public int describeContents() {

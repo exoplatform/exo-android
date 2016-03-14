@@ -1,4 +1,4 @@
-package org.exoplatform;
+package org.exoplatform.activity;
 
 /*
  * Copyright (C) 2003-${YEAR} eXo Platform SAS.
@@ -20,15 +20,26 @@ package org.exoplatform;
  *
  */
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import org.exoplatform.R;
 
 /**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing
- * Fundamentals</a>
+ * Created by chautran on 25/11/2015. Activity to create a new server or select
+ * an existing one.
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-  public ApplicationTest() {
-    super(Application.class);
+public class NewServerActivity extends AppCompatActivity {
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_new_server);
+
+    Toolbar toolbar = (Toolbar) findViewById(R.id.New_Server_Toolbar);
+    setSupportActionBar(toolbar);
+    if (getSupportActionBar() != null)
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   }
 }

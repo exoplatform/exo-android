@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2003-${YEAR} eXo Platform SAS.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 3 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  ~
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/Main.Layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/main_screen_bg1">
+              android:id="@+id/Main.Layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/main_screen_bg1">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/Main.Toolbar"
         android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-    </android.support.v7.widget.Toolbar>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/exo_logo"
-        android:contentDescription="@string/Word.eXoPlatform"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="30dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/exo_logo"
+            android:contentDescription="@string/Word.eXoPlatform"
+            android:layout_gravity="start"
+            android:layout_marginTop="5dp"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +49,7 @@
         android:textSize="@dimen/MainScreen.eXo.Title"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,8 +58,8 @@
         android:textSize="@dimen/MainScreen.eXo.Subtitle"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="130dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="40dp"/>
 
     <TextView
         android:id="@+id/MainScreen.Button.Connect"

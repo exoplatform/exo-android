@@ -1,5 +1,7 @@
+package org.exoplatform.fragment;
+
 /*
- * Copyright (C) 2003-2015 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -32,8 +34,8 @@ import com.squareup.picasso.Picasso;
 
 import org.exoplatform.App;
 import org.exoplatform.R;
-import org.exoplatform.ServerManager;
-import org.exoplatform.ServerManagerImpl;
+import org.exoplatform.tool.ServerManager;
+import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.activity.ShareExtensionActivity;
 import org.exoplatform.model.Server;
 
@@ -50,11 +52,11 @@ import java.util.Map;
  */
 public class AccountsFragment extends ListFragment implements SimpleAdapter.ViewBinder {
 
-  public static final String ACCOUNTS_FRAGMENT = "accounts_fragment";
+  public static final String      ACCOUNTS_FRAGMENT = "accounts_fragment";
 
   private static AccountsFragment instance;
 
-  List<Server> mServerList;
+  List<Server>                    mServerList;
 
   public AccountsFragment() {
   }
@@ -75,9 +77,9 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
 
     TextView username = (TextView) view.findViewById(R.id.share_account_item_username);
     if (acc.getLastLogin() == null || acc.getLastLogin().isEmpty())
-        username.setVisibility(View.GONE);
+      username.setVisibility(View.GONE);
     else
-        username.setText(acc.getLastLogin());
+      username.setText(acc.getLastLogin());
 
     ImageView icon = (ImageView) view.findViewById(R.id.share_account_item_icon);
     if (getShareActivity().getActivityPost().ownerAccount.equals(acc)) {
@@ -91,10 +93,10 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
   @Override
   public void onListItemClick(ListView l, View v, int position, long id) {
     if (mServerList != null && position >= 0 && position < mServerList.size()) {
-        Server acc = mServerList.get(position);
-        // TODO allow to edit credentials when they already exist
-      if (acc.getLastLogin() != null && !"".equals(acc.getLastLogin())
-          && acc.getLastPassword() != null && !"".equals(acc.getLastPassword())) {
+      Server acc = mServerList.get(position);
+      // TODO allow to edit credentials when they already exist
+      if (acc.getLastLogin() != null && !"".equals(acc.getLastLogin()) && acc.getLastPassword() != null
+          && !"".equals(acc.getLastPassword())) {
         getShareActivity().onAccountSelected(acc);
         getShareActivity().openFragment(ComposeFragment.getFragment(),
                                         ComposeFragment.COMPOSE_FRAGMENT,
@@ -114,19 +116,19 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
 
   @Override
   public void onResume() {
-      ServerManager serverManager = new ServerManagerImpl(getContext().getSharedPreferences(App.Preferences.FILE_NAME, 0));
-      mServerList = serverManager.getServerList();
-      ArrayList<Map<String, Server>> data = new ArrayList<>(mServerList.size());
-      for (Server account : mServerList) {
-          Map<String, Server> map = new HashMap<>();
-          map.put("ACCOUNT_DATA", account);
-          data.add(map);
-      }
-      String[] from = { "ACCOUNT_DATA" };
-      int[] to = new int[] { R.id.share_account_item_layout };
-      SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.share_extension_account_item, from, to);
-      adapter.setViewBinder(this);
-      setListAdapter(adapter);
+    ServerManager serverManager = new ServerManagerImpl(getContext().getSharedPreferences(App.Preferences.FILE_NAME, 0));
+    mServerList = serverManager.getServerList();
+    ArrayList<Map<String, Server>> data = new ArrayList<>(mServerList.size());
+    for (Server account : mServerList) {
+      Map<String, Server> map = new HashMap<>();
+      map.put("ACCOUNT_DATA", account);
+      data.add(map);
+    }
+    String[] from = { "ACCOUNT_DATA" };
+    int[] to = new int[] { R.id.share_account_item_layout };
+    SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.share_extension_account_item, from, to);
+    adapter.setViewBinder(this);
+    setListAdapter(adapter);
     super.onResume();
   }
 
@@ -136,7 +138,7 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
     super.onDetach();
   }
 
-    /*
+  /*
    * GETTERS & SETTERS
    */
 

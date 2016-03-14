@@ -1,5 +1,7 @@
+package org.exoplatform.fragment;
+
 /*
- * Copyright (C) 2003-2015 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,27 +43,32 @@ public class SignInFragment extends Fragment {
 
   private static SignInFragment instance;
 
-  public static final String    SIGN_IN_FRAGMENT  = "sign_in_fragment";
+  public static final String    SIGN_IN_FRAGMENT        = "sign_in_fragment";
 
-  private EditText mUsernameField;
+  private EditText              mUsernameField;
 
-  private EditText mPasswordField;
+  private EditText              mPasswordField;
 
-  private TextWatcher usernamePasswordWatcher
-          = new TextWatcher() {
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                  enableDisableMainButton();
-                }
+  private TextWatcher           usernamePasswordWatcher = new TextWatcher() {
+                                                          @Override
+                                                          public void onTextChanged(CharSequence s,
+                                                                                    int start,
+                                                                                    int before,
+                                                                                    int count) {
+                                                            enableDisableMainButton();
+                                                          }
 
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
+                                                          @Override
+                                                          public void beforeTextChanged(CharSequence s,
+                                                                                        int start,
+                                                                                        int count,
+                                                                                        int after) {
+                                                          }
 
-                @Override
-                public void afterTextChanged(Editable s) {
-                }
-        };
+                                                          @Override
+                                                          public void afterTextChanged(Editable s) {
+                                                          }
+                                                        };
 
   public SignInFragment() {
   }
@@ -77,20 +84,20 @@ public class SignInFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View layout = inflater.inflate(R.layout.share_extension_sign_in_fragment, container, false);
     mUsernameField = (EditText) layout.findViewById(R.id.share_signin_username);
-      mUsernameField.addTextChangedListener(usernamePasswordWatcher);
+    mUsernameField.addTextChangedListener(usernamePasswordWatcher);
     mPasswordField = (EditText) layout.findViewById(R.id.share_signin_password);
     mPasswordField.addTextChangedListener(usernamePasswordWatcher);
     return layout;
   }
 
-    @Override
-    public void onResume() {
-        Server acc = getShareActivity().getActivityPost().ownerAccount;
-        mUsernameField.setText(acc.getLastLogin());
-        mPasswordField.setText(acc.getLastPassword());
-        enableDisableMainButton();
-        super.onResume();
-    }
+  @Override
+  public void onResume() {
+    Server acc = getShareActivity().getActivityPost().ownerAccount;
+    mUsernameField.setText(acc.getLastLogin());
+    mPasswordField.setText(acc.getLastPassword());
+    enableDisableMainButton();
+    super.onResume();
+  }
 
   @Override
   public void onDetach() {
@@ -98,7 +105,7 @@ public class SignInFragment extends Fragment {
     super.onDetach();
   }
 
- /*
+  /*
    * GETTERS & SETTERS
    */
 
@@ -111,7 +118,7 @@ public class SignInFragment extends Fragment {
   }
 
   public String getUsername() {
-      return mUsernameField.getText().toString().trim();
+    return mUsernameField.getText().toString().trim();
   }
 
   public String getPassword() {
@@ -122,8 +129,8 @@ public class SignInFragment extends Fragment {
     if (getActivity() instanceof ShareExtensionActivity) {
       return (ShareExtensionActivity) getActivity();
     } else {
-      throw new UnsupportedOperationException(new StringBuilder("This fragment is only valid in the activity").append(ShareExtensionActivity.class.getName())
-                                                                                                              .toString());
+      throw new UnsupportedOperationException(String.format("This fragment is only valid in the activity %s",
+                                                            ShareExtensionActivity.class.getName()));
     }
   }
 }

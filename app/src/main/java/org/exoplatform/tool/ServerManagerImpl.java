@@ -1,13 +1,32 @@
-package org.exoplatform;
+package org.exoplatform.tool;
+
+/*
+ * Copyright (C) 2003-2016 eXo Platform SAS.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 3 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
+ */
 
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.exoplatform.App;
 import org.exoplatform.model.Server;
-import org.exoplatform.tool.ServerUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,11 +35,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by chautran on 22/11/2015.
+ * Created by chautran on 22/11/2015. Utility class to store and retrieve
+ * servers
  */
 public class ServerManagerImpl implements ServerManager {
 
-  SharedPreferences preferences;
+  SharedPreferences  preferences;
+
   private final Gson gson = new Gson();
 
   public ServerManagerImpl(SharedPreferences preferences) {
@@ -39,47 +60,47 @@ public class ServerManagerImpl implements ServerManager {
     return list;
   }
 
-    public int getServerCount() {
-        ArrayList servers = getServerList();
-        if (servers != null)
-            return servers.size();
-        else
-            return 0;
+  public int getServerCount() {
+    ArrayList servers = getServerList();
+    if (servers != null)
+      return servers.size();
+    else
+      return 0;
+  }
+
+  public boolean tribeServerExists() {
+    ArrayList<Server> servers = getServerList();
+    if (servers == null)
+      return false;
+
+    try {
+      Server tribeSrv = new Server(new URL(App.TRIBE_URL));
+      return servers.contains(tribeSrv);
+    } catch (MalformedURLException e) {
+      Log.d(this.getClass().getName(), e.getMessage());
     }
+    return false;
+  }
 
-    public boolean tribeServerExists() {
-        ArrayList<Server> servers = getServerList();
-        if (servers == null)
-            return false;
-
-        try {
-            Server tribeSrv = new Server(new URL(App.TRIBE_URL));
-            return servers.contains(tribeSrv);
-        } catch (MalformedURLException e) {
-            Log.d(this.getClass().getName(), e.getMessage());
-        }
-        return false;
-    }
-
-  public void addServer(Server server) {
+  public void addServer(Server newServer) {
     List<Server> servers = getServerList();
     if (servers == null || servers.size() == 0) {
       servers = new ArrayList<>();
-      servers.add(server);
+      servers.add(newServer);
       save(servers);
     } else {
       int size = servers.size();
       for (int i = 0; i < size; i++) {
-        if (servers.get(i).getUrl().toString().equals(server.getUrl().toString())) {
-          if (server.getLastVisited() > servers.get(i).getLastVisited()) {
-            servers.set(i, server);
-            save(servers);
-          }
+        // loop through the servers until we find the one we're creating
+        // in order to edit it rather than duplicate it
+        if (servers.get(i).equals(newServer)) {
+          servers.set(i, newServer);
+          save(servers);
           return;
         }
       }
-      //if the url is not found in for loop.
-      servers.add(server);
+      // if the url is not found in for loop.
+      servers.add(newServer);
       save(servers);
     }
   }
@@ -139,29 +160,7 @@ public class ServerManagerImpl implements ServerManager {
     editor.apply();
   }
 
-    @Override
-    public void verifyServer(Server srv, final VerifyServerCallback callback) {
-        new AsyncTask<Server, Void, Boolean>() {
-
-            @Override
-            protected Boolean doInBackground(Server... params) {
-                Boolean result = false;
-                if (params.length > 0) {
-                    Double plfVersion = ServerUtils.getPlatformVersionSync(params[0]);
-                    result = (plfVersion >= App.Platform.MIN_SUPPORTED_VERSION);
-                }
-                return result;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean result) {
-                callback.result(result);
-                super.onPostExecute(result);
-            }
-        }.execute(srv);
-    }
-
-    public class ServersJSON {
+  public class ServersJSON {
 
     public Server[] servers;
 
@@ -173,5 +172,4 @@ public class ServerManagerImpl implements ServerManager {
       this.servers = servers;
     }
   }
-
 }

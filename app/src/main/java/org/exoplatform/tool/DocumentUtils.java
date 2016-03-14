@@ -1,5 +1,7 @@
+package org.exoplatform.tool;
+
 /*
- * Copyright (C) 2003-2014 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.tool;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -63,49 +65,48 @@ import okhttp3.Cookie;
 
 public class DocumentUtils {
 
-  private static final String  LOG_TAG              = DocumentUtils.class.getName();
-
+  private static final String LOG_TAG = DocumentUtils.class.getName();
 
   public static String encodeDocumentUrl(String urlString) {
-      try {
+    try {
 
-          URL url = new URL(urlString);
-          URI uri = new URI(url.getProtocol(),
-                  url.getUserInfo(),
-                  url.getHost(),
-                  url.getPort(),
-                  url.getPath(),
-                  url.getQuery(),
-                  url.getRef());
+      URL url = new URL(urlString);
+      URI uri = new URI(url.getProtocol(),
+                        url.getUserInfo(),
+                        url.getHost(),
+                        url.getPort(),
+                        url.getPath(),
+                        url.getQuery(),
+                        url.getRef());
 
-          return uri.toASCIIString();
+      return uri.toASCIIString();
 
-      } catch (MalformedURLException e) {
-          Log.d(DocumentUtils.class.getSimpleName(), e.getMessage(), e);
-          return null;
-      } catch (URISyntaxException e) {
-          Log.d(DocumentUtils.class.getSimpleName(), e.getMessage(), e);
-          return null;
-      }
+    } catch (MalformedURLException e) {
+      Log.d(DocumentUtils.class.getSimpleName(), e.getMessage(), e);
+      return null;
+    } catch (URISyntaxException e) {
+      Log.d(DocumentUtils.class.getSimpleName(), e.getMessage(), e);
+      return null;
+    }
 
   }
 
-    /**
-     * Creates a folder at the JCR destination url, with Webdav.
-     *
-     * @param destination the JCR url of the folder to create
-     * @return true if the folder exists or was created, false otherwise
-     */
+  /**
+   * Creates a folder at the JCR destination url, with Webdav.
+   *
+   * @param destination the JCR url of the folder to create
+   * @return true if the folder exists or was created, false otherwise
+   */
   public static boolean createFolder(String destination) {
     HttpResponse response;
     try {
       destination = encodeDocumentUrl(destination);
-        StringBuilder cookieString = new StringBuilder();
-        for (Cookie c : ExoHttpClient.cookiesForUrl(destination)) {
-            cookieString.append(c.name()).append("=").append(c.value()).append(";");
-        }
+      StringBuilder cookieString = new StringBuilder();
+      for (Cookie c : ExoHttpClient.cookiesForUrl(destination)) {
+        cookieString.append(c.name()).append("=").append(c.value()).append(";");
+      }
       WebdavMethod create = new WebdavMethod("HEAD", destination);
-        // TODO use okhttp
+      // TODO use okhttp
       create.addHeader("Cookie", cookieString.toString());
       response = new DefaultHttpClient().execute(create);
       int status = response.getStatusLine().getStatusCode();
@@ -113,17 +114,17 @@ public class DocumentUtils {
         return true;
       } else {
         create = new WebdavMethod("MKCOL", destination);
-          create.addHeader("Cookie", cookieString.toString());
-          // TODO use okhttp
-          response = new DefaultHttpClient().execute(create);
+        create.addHeader("Cookie", cookieString.toString());
+        // TODO use okhttp
+        response = new DefaultHttpClient().execute(create);
         status = response.getStatusLine().getStatusCode();
 
         return status >= HttpStatus.SC_OK && status < HttpStatus.SC_MULTIPLE_CHOICES;
       }
 
     } catch (IOException e) {
-        Log.e(LOG_TAG, e.getMessage(), e);
-        return false;
+      Log.e(LOG_TAG, e.getMessage(), e);
+      return false;
     }
   }
 
@@ -131,7 +132,7 @@ public class DocumentUtils {
    * Returns a DocumentInfo with info coming from the file at the given URI
    * 
    * @param document the URI of a file or a content
-   * @param context
+   * @param context the context used to get the content resolver
    * @return a DocumentInfo or null if an error occurs
    */
   public static DocumentInfo documentInfoFromUri(Uri document, Context context) {
@@ -154,7 +155,7 @@ public class DocumentUtils {
         } catch (NumberFormatException | UnsupportedOperationException e) {
           Log.e(LOG_TAG, e.getMessage(), e);
         }
-          String fileUri = decodedUri.substring(fileIdx);
+        String fileUri = decodedUri.substring(fileIdx);
         fileUri = fileUri.replaceAll("(/ACTUAL/)(" + id + ")", "");
         return documentFromFileUri(Uri.parse(fileUri));
       } else {
@@ -171,7 +172,7 @@ public class DocumentUtils {
    * Gets a DocumentInfo with info coming from the document at the given URI.
    * 
    * @param contentUri the content URI of the document (content:// ...)
-   * @param context
+   * @param context the context used to get the content resolver
    * @return a DocumentInfo or null if an error occurs
    */
   public static DocumentInfo documentFromContentUri(Uri contentUri, Context context) {
@@ -181,6 +182,8 @@ public class DocumentUtils {
     try {
       ContentResolver cr = context.getContentResolver();
       Cursor c = cr.query(contentUri, null, null, null, null);
+      if (c == null)
+        return null;
       int sizeIndex = c.getColumnIndex(OpenableColumns.SIZE);
       int nameIndex = c.getColumnIndex(OpenableColumns.DISPLAY_NAME);
       int orientIndex = c.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION);
@@ -247,7 +250,7 @@ public class DocumentUtils {
       Log.e(LOG_TAG, "Cannot retrieve the file at " + fileUri);
       Log.d(LOG_TAG, e.getMessage() + "\n" + Log.getStackTraceString(e));
     }
-      return null;
+    return null;
   }
 
   /**
@@ -315,7 +318,7 @@ public class DocumentUtils {
   /**
    * Get the EXIF orientation of the given file
    * 
-   * @param filePath
+   * @param filePath the file's path used to create the ExifInterface
    * @return an int in DocumentUtils.ROTATION_[0 , 90 , 180 , 270]
    */
   public static int getExifOrientationAngleFromFile(String filePath) {
@@ -416,7 +419,8 @@ public class DocumentUtils {
    * @param caller The activity that requires the permission. Must implement
    *          {@link OnRequestPermissionsResultCallback}.
    * @param permissionCode The code defined internally, e.g.
-   *          {@link org.exoplatform.App.Permissions#REQUEST_PICK_IMAGE_FROM_GALLERY}.
+   *          {@link org.exoplatform.App.Permissions#REQUEST_PICK_IMAGE_FROM_GALLERY}
+   *          .
    * @return true if the permission has been requested <br/>
    *         false if the permission was already granted
    */
@@ -429,7 +433,7 @@ public class DocumentUtils {
     int check = ContextCompat.checkSelfPermission(caller, permission);
     if (check != PackageManager.PERMISSION_GRANTED) {
       res = true;
-      ActivityCompat.requestPermissions(caller, new String[]{permission}, permissionCode);
+      ActivityCompat.requestPermissions(caller, new String[] { permission }, permissionCode);
     }
     return res;
   }
@@ -442,7 +446,8 @@ public class DocumentUtils {
    * 
    * @param activity The activity that requires the permission.
    * @param permCode The code defined internally, e.g.
-   *          {@link org.exoplatform.App.Permissions#REQUEST_PICK_IMAGE_FROM_GALLERY}.
+   *          {@link org.exoplatform.App.Permissions#REQUEST_PICK_IMAGE_FROM_GALLERY}
+   *          .
    * @return true if the user should receive more information about the
    *         permission request
    */

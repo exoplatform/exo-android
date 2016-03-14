@@ -1,5 +1,25 @@
 package org.exoplatform.tool;
 
+/*
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 3 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +41,7 @@ public class TitleExtractor {
    * the CASE_INSENSITIVE flag accounts for sites that use uppercase title tags.
    * the DOTALL flag accounts for sites that have line feeds in the title text
    */
-  private static final Pattern TITLE_TAG = Pattern.compile("\\<title>(.*)\\</title>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+  private static final Pattern TITLE_TAG = Pattern.compile("<title>(.*)</title>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
   /**
    * @param url the HTML page
@@ -45,7 +65,7 @@ public class TitleExtractor {
       // read the response body, using BufferedReader for performance
       InputStream in = conn.getInputStream();
       BufferedReader reader = new BufferedReader(new InputStreamReader(in, charset));
-      int n = 0, totalRead = 0;
+      int n, totalRead = 0;
       char[] buf = new char[1024];
       StringBuilder content = new StringBuilder();
 
@@ -63,7 +83,7 @@ public class TitleExtractor {
          * replace any occurrences of whitespace (which may include line feeds
          * and other uglies) as well as HTML brackets with a space
          */
-        return matcher.group(1).replaceAll("[\\s\\<>]+", " ").trim();
+        return matcher.group(1).replaceAll("[\\s<>]+", " ").trim();
       } else
         return null;
     }
@@ -72,13 +92,13 @@ public class TitleExtractor {
   /**
    * Loops through response headers until Content-Type is found.
    * 
-   * @param conn
+   * @param conn the url connection to analyze
    * @return ContentType object representing the value of the Content-Type
    *         header
    */
   private static ContentType getContentTypeHeader(URLConnection conn) {
     int i = 0;
-    boolean moreHeaders = true;
+    boolean moreHeaders;
     do {
       String headerName = conn.getHeaderFieldKey(i);
       String headerValue = conn.getHeaderField(i);

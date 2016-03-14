@@ -1,5 +1,7 @@
+package org.exoplatform.model;
+
 /*
- * Copyright (C) 2003-2015 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -36,35 +38,35 @@ import java.util.Map;
  */
 public class SocialActivity implements Parcelable {
 
-  public final static String TYPE_DEFAULT = "DEFAULT_ACTIVITY";
+  public final static String TYPE_DEFAULT       = "DEFAULT_ACTIVITY";
 
   public final static String TYPE_DEFAULT_SPACE = "exosocial:spaces";
 
-  public final static String TYPE_DOC     = "DOC_ACTIVITY";
+  public final static String TYPE_DOC           = "DOC_ACTIVITY";
 
-  public final static String TYPE_LINK    = "LINK_ACTIVITY";
+  public final static String TYPE_LINK          = "LINK_ACTIVITY";
 
-    /*
-        Attributes mapped to the JSON representation of an activity
-     */
+  /*
+   * Attributes mapped to the JSON representation of an activity
+   */
 
-  public String id;
+  public String              id;
 
-  public String title;
+  public String              title;
 
   public Map<String, String> templateParams;
 
-  public String type = TYPE_DEFAULT;
+  public String              type               = TYPE_DEFAULT;
 
-    /*
-        Other attributes
-     */
+  /*
+   * Other attributes
+   */
 
-  public Server ownerAccount;
+  public Server              ownerAccount;
 
-  public List<String> postAttachedFiles;
+  public List<String>        postAttachedFiles;
 
-  public SocialSpace destinationSpace;
+  public SocialSpace         destinationSpace;
 
   public SocialActivity() {
   }
@@ -74,14 +76,14 @@ public class SocialActivity implements Parcelable {
   }
 
   public static final Creator<SocialActivity> CREATOR = new Creator<SocialActivity>() {
-                           public SocialActivity createFromParcel(Parcel in) {
-                             return new SocialActivity(in);
-                           }
+                                                        public SocialActivity createFromParcel(Parcel in) {
+                                                          return new SocialActivity(in);
+                                                        }
 
-                           public SocialActivity[] newArray(int size) {
-                             return new SocialActivity[size];
-                           }
-                         };
+                                                        public SocialActivity[] newArray(int size) {
+                                                          return new SocialActivity[size];
+                                                        }
+                                                      };
 
   @Override
   public int describeContents() {
@@ -126,7 +128,7 @@ public class SocialActivity implements Parcelable {
    * @return true if the post's attachments list is not null and not empty
    */
   public boolean hasAttachment() {
-      return postAttachedFiles != null && !postAttachedFiles.isEmpty();
+    return postAttachedFiles != null && !postAttachedFiles.isEmpty();
   }
 
   /**
@@ -167,10 +169,10 @@ public class SocialActivity implements Parcelable {
     templateParams.put("REPOSITORY", uploadInfo.repository);
     String docLink = docUrl.substring(ownerAccount.getUrl().toString().length());
     templateParams.put("DOCLINK", docLink);
-    StringBuffer beginPath = new StringBuffer(App.Platform.DOCUMENT_JCR_PATH).append("/")
-                                                                             .append(uploadInfo.repository)
-                                                                             .append("/")
-                                                                             .append(uploadInfo.workspace);
+    StringBuilder beginPath = new StringBuilder(App.Platform.DOCUMENT_JCR_PATH).append("/")
+                                                                               .append(uploadInfo.repository)
+                                                                               .append("/")
+                                                                               .append(uploadInfo.workspace);
     String docPath = docLink.substring(beginPath.length());
     templateParams.put("DOCPATH", docPath);
     templateParams.put("DOCNAME", uploadInfo.fileToUpload.documentName);

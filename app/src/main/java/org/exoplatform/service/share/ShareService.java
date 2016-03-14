@@ -1,5 +1,7 @@
+package org.exoplatform.service.share;
+
 /*
- * Copyright (C) 2003-2015 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.service.share;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -74,7 +76,7 @@ public class ShareService extends IntentService {
   private SocialActivity     postInfo;
 
   // key is uri in device, value is url on server
-  private List<UploadInfo>   uploadedMap = new ArrayList<UploadInfo>();
+  private List<UploadInfo>   uploadedMap = new ArrayList<>();
 
   private enum ShareResult {
     SUCCESS, ERROR_INCORRECT_CONTENT_URI, ERROR_INCORRECT_ACCOUNT, ERROR_CREATE_FOLDER, ERROR_UPLOAD_FAILED, ERROR_POST_FAILED, ERROR_COMMENT_FAILED
@@ -205,20 +207,20 @@ public class ShareService extends IntentService {
           return false;
         }
       });
-      if (uploadInfo != null && uploadInfo.fileToUpload != null)
+      if (uploadInfo.fileToUpload != null)
         uploadInfo.fileToUpload.closeDocStream();
       if (!uploadedAll) {
         Log.e(LOG_TAG, String.format("Failed to upload file %d/%d : %s (doUpload)", i + 1, numberOfFiles, fileUri));
         break;
       }
-      if (uploadedAll) {
-        Log.d(LOG_TAG, String.format("Uploaded file %d/%d OK %s (doUpload)", i + 1, numberOfFiles, fileUri));
-        if (i == 0)
-          postInfo.buildTemplateParams(uploadInfo);
-        else {
-          uploadedMap.add(uploadInfo);
-        }
-      }
+
+      // file uploaded
+      Log.d(LOG_TAG, String.format("Uploaded file %d/%d OK %s (doUpload)", i + 1, numberOfFiles, fileUri));
+      if (i == 0)
+        postInfo.buildTemplateParams(uploadInfo);
+      else
+        uploadedMap.add(uploadInfo);
+
       // Delete file after upload
       File f = new File(postInfo.postAttachedFiles.get(i));
       Log.d(LOG_TAG, "File " + f.getName() + " deleted: " + (f.delete() ? "YES" : "NO"));
@@ -257,7 +259,7 @@ public class ShareService extends IntentService {
    * 
    * @param activity the activity to comment
    * @param commentInfo the info to put in the comment
-   * @return
+   * @return true if the comment was posted successfully
    */
   private boolean doComment(@NonNull SocialActivity activity, @NonNull UploadInfo commentInfo) {
     // TODO create a Comment Action to delegate the operation
@@ -282,20 +284,19 @@ public class ShareService extends IntentService {
       bld.append("<br/><a href=\"").append(urlWithoutServer).append("\"><img src=\"").append(thumbnailUrl).append("\" /></a>");
     }
 
-    Retrofit retrofit = new Retrofit.Builder()
-              .baseUrl(PlatformUtils.getPlatformDomain())
-              .client(ExoHttpClient.getInstance())
-              .addConverterFactory(GsonConverterFactory.create())
-              .build();
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(PlatformUtils.getPlatformDomain())
+                                              .client(ExoHttpClient.getInstance())
+                                              .addConverterFactory(GsonConverterFactory.create())
+                                              .build();
     SocialRestService service = retrofit.create(SocialRestService.class);
     SocialComment comment = new SocialComment(bld.toString());
-      try {
-          Response<SocialComment> response = service.createCommentOnActivity(activity.id, comment).execute();
-          ret = response.isSuccess();
-      } catch (IOException e) {
-          Log.e(LOG_TAG, "Post comment failed", e);
-      }
-      return ret;
+    try {
+      Response<SocialComment> response = service.createCommentOnActivity(activity.id, comment).execute();
+      ret = response.isSuccess();
+    } catch (IOException e) {
+      Log.e(LOG_TAG, "Post comment failed", e);
+    }
+    return ret;
   }
 
   private Map<String, String> linkParams(String link) {
@@ -303,7 +304,7 @@ public class ShareService extends IntentService {
     // Return null if there is no link
     if (link == null)
       return null;
-    Map<String, String> templateParams = new HashMap<String, String>();
+    Map<String, String> templateParams = new HashMap<>();
     templateParams.put("comment", postInfo.title);
     templateParams.put("link", link);
     templateParams.put("description", "");

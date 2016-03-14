@@ -1,5 +1,7 @@
+package org.exoplatform.service.share;
+
 /*
- * Copyright (C) 2003-2015 eXo Platform SAS.
+ * Copyright (C) 2003-${YEAR} eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -15,8 +17,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
  */
-package org.exoplatform.service.share;
 
 import android.util.Log;
 
@@ -31,7 +33,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 /**
  * Created by The eXo Platform SAS<br/>
  * An Action for posting an activity on Platform. Supports DEFAULT_ACTIVITY,
@@ -44,8 +45,8 @@ public class PostAction extends Action {
   /**
    * create and execute post action, wait for return result
    * 
-   * @param post
-   * @param listener
+   * @param post the activity to post
+   * @param listener the listener to call after the action
    * @return just created activity or null if execution failed.
    */
   public static SocialActivity execute(SocialActivity post, PostActionListener listener) {
@@ -62,11 +63,11 @@ public class PostAction extends Action {
   protected boolean doExecute() {
 
     if (SocialActivity.TYPE_DOC.equals(postInfo.type)) {
-        postInfo.addTemplateParam("MESSAGE", postInfo.title);
+      postInfo.addTemplateParam("MESSAGE", postInfo.title);
     } else if (SocialActivity.TYPE_LINK.equals(postInfo.type)) {
-        // nothing to do
+      // nothing to do
     } else {
-        setPostTextActivity();
+      setPostTextActivity();
     }
 
     boolean postResult = postActivity();
@@ -81,24 +82,24 @@ public class PostAction extends Action {
     if (postInfo.isPublic())
       postInfo.type = SocialActivity.TYPE_DEFAULT;
     else
-        postInfo.type = SocialActivity.TYPE_DEFAULT_SPACE;
+      postInfo.type = SocialActivity.TYPE_DEFAULT_SPACE;
   }
 
   private boolean postActivity() {
     // Perform the actual Post using the Social Activity service
-      Retrofit retrofit = new Retrofit.Builder()
-              .baseUrl(PlatformUtils.getPlatformDomain())
-              .client(ExoHttpClient.getInstance())
-              .addConverterFactory(GsonConverterFactory.create())
-              .build();
-      SocialRestService service = retrofit.create(SocialRestService.class);
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(PlatformUtils.getPlatformDomain())
+                                              .client(ExoHttpClient.getInstance())
+                                              .addConverterFactory(GsonConverterFactory.create())
+                                              .build();
+    SocialRestService service = retrofit.create(SocialRestService.class);
     try {
       if (postInfo.isPublic()) {
         Response<SocialActivity> response = service.createActivity("", postInfo).execute();
         if (listener instanceof PostActionListener && response.isSuccess()) {
           ((PostActionListener) listener).mCreatedActivity = response.body();
         }
-        return response.isSuccess(); // return the result of the createActivity method call
+        return response.isSuccess(); // return the result of the createActivity
+                                     // method call
       } else {
         String spaceId = postInfo.destinationSpace.getIdentityId();
         if (spaceId != null) {
@@ -106,7 +107,8 @@ public class PostAction extends Action {
           if (listener instanceof PostActionListener && response.isSuccess()) {
             ((PostActionListener) listener).mCreatedActivity = response.body();
           }
-          return response.isSuccess(); // return the result of the createActivity method call
+          return response.isSuccess(); // return the result of the
+                                       // createActivity method call
         } else {
           Log.e(LOG_TAG, "Post message failed: could not get space ID for space " + postInfo.destinationSpace);
         }
@@ -114,7 +116,7 @@ public class PostAction extends Action {
     } catch (IOException e) {
       Log.e(LOG_TAG, "Post message failed", e);
     }
-      return false;
+    return false;
   }
 
   public static class PostActionListener implements ActionListener {

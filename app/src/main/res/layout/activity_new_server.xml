@@ -19,29 +19,35 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:orientation="vertical">
 
-  <TextView
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/New.Server.Toolbar"
+    android:layout_height="?android:attr/actionBarSize"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/AddServerFragment.Title.NewIntranet"
-    style="@style/NewServerScreenGreyHeader"/>
-
-  <EditText
-    android:id="@+id/AddServer.Field.Url"
+    android:background="@color/eXoYellow"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+  </android.support.v7.widget.Toolbar>
+  
+  <fragment
+    android:name="org.exoplatform.fragment.AddServerFragment"
+    android:id="@+id/Add.Server.Fragment"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@android:color/white"
-    android:hint="@string/AddServerFragment.Title.EnterIntranetUrl"
-    android:textSize="20sp"
-    android:inputType="textUri"
-    android:padding="5dp"
-    android:singleLine="false"
-    android:imeOptions="actionGo"
-    android:focusable="true"/>
+    android:layout_weight="0.4"
+    tools:layout="@layout/add_server_fragment"/>
+
+  <fragment
+    android:name="org.exoplatform.fragment.ServerListFragment"
+    android:id="@+id/List.Server.Fragment"
+    android:layout_weight="0.4"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    tools:layout="@layout/server_list_fragment"/>
 
 </LinearLayout>

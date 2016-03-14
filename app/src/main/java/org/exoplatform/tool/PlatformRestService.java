@@ -1,7 +1,7 @@
-package org.exoplatform;
+package org.exoplatform.tool;
 
 /*
- * Copyright (C) 2003-${YEAR} eXo Platform SAS.
+ * Copyright (C) 2003-2016 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -20,15 +20,17 @@ package org.exoplatform;
  *
  */
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import org.exoplatform.model.PlatformInfo;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 /**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing
- * Fundamentals</a>
+ * Created by paristote on 3/15/16. Platform Info Rest Service
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-  public ApplicationTest() {
-    super(Application.class);
-  }
+public interface PlatformRestService {
+
+  @GET("/rest/platform/info")
+  Call<PlatformInfo> getInfo();
+
 }
