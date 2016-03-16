@@ -1,7 +1,7 @@
 package org.exoplatform.fragment;
 
 /*
- * Copyright (C) 2003-${YEAR} eXo Platform SAS.
+ * Copyright (C) 2003-2016 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -42,7 +42,10 @@ public class ServerListFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View fragmentLayout = inflater.inflate(R.layout.server_list_fragment, container, false);
     RecyclerView serverListView = (RecyclerView) fragmentLayout.findViewById(R.id.ListServer_RecyclerView);
-    mServerAdapter = new ServerAdapter(getActivity());
+    if (getActivity() instanceof ServerAdapter.ServerClickListener)
+      mServerAdapter = new ServerAdapter(getActivity(), (ServerAdapter.ServerClickListener) getActivity());
+    else
+      throw new IllegalArgumentException("This fragment's parent activity must implement ServerAdapter.ServerClickListener");
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
     serverListView.setLayoutManager(layoutManager);
     serverListView.setAdapter(mServerAdapter);

@@ -30,13 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:drawableLeft="@drawable/icon_post_public"
+        android:drawablePadding="12dp"
+        android:drawableStart="@drawable/icon_post_public"
         android:gravity="center_vertical"
         android:padding="10dp"
         android:text="@string/ShareActivity.Title.AllConnections"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:drawableLeft="@drawable/icon_post_public"
-        android:drawableStart="@drawable/icon_post_public"
-        android:drawablePadding="12dp"
         />
 
     <ListView

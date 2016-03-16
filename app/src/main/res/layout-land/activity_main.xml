@@ -19,70 +19,71 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/Main.Layout"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@drawable/main_screen_bg1">
+<LinearLayout
+    android:id="@+id/Main.Layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_screen_bg1"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/Main.Toolbar"
-        android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/exo_logo"
-            android:contentDescription="@string/Word.eXoPlatform"
             android:layout_gravity="start"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:contentDescription="@string/Word.eXoPlatform"
+            android:src="@drawable/exo_logo"/>
 
     </android.support.v7.widget.Toolbar>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Word.eXoPlatform"
-        android:textSize="@dimen/MainScreen.eXo.Title"
-        android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:text="@string/Word.eXoPlatform"
+        android:textColor="@color/black"
+        android:textSize="@dimen/MainScreen.eXo.Title"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ConnectActivity.Title.ConnectShare"
-        android:textSize="@dimen/MainScreen.eXo.Subtitle"
-        android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="40dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="40dp"/>
+        android:text="@string/ConnectActivity.Title.ConnectShare"
+        android:textColor="@color/black"
+        android:textSize="@dimen/MainScreen.eXo.Subtitle"/>
 
     <TextView
         android:id="@+id/MainScreen.Button.Connect"
-        android:layout_height="wrap_content"
+        style="@style/MainTheme.MainScreenButton.YellowButton"
         android:layout_width="match_parent"
-        style="@style/MainScreenButton.YellowButton"
+        android:layout_height="wrap_content"
         android:text="@string/ConnectActivity.Title.DiscoverExoTribe"/>
 
     <TextView
         android:id="@+id/MainScreen.Button.Other"
-        android:layout_height="wrap_content"
+        style="@style/MainTheme.MainScreenButton.GreyButton"
         android:layout_width="match_parent"
-        style="@style/MainScreenButton.GreyButton"
-        android:text="@string/ConnectActivity.Title.AddIntranet"
-        android:onClick="openServerList"/>
+        android:layout_height="wrap_content"
+        android:onClick="openServerList"
+        android:text="@string/ConnectActivity.Title.AddIntranet"/>
 
     <TextView
         android:id="@+id/MainScreen.Button.Discover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/ConnectActivity.Title.DiscoverExoTribe"
         android:textSize="@dimen/MainScreen.Link.DiscoverTribe"
-        android:layout_gravity="center_horizontal"
         android:visibility="visible"/>
 
 </LinearLayout>

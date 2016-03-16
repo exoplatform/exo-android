@@ -20,34 +20,35 @@
   -->
 
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
-  <android.support.v7.widget.Toolbar
-    android:id="@+id/New.Server.Toolbar"
-    android:layout_height="?android:attr/actionBarSize"
-    android:layout_width="match_parent"
-    android:background="@color/eXoYellow"
-    android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-  </android.support.v7.widget.Toolbar>
-  
-  <fragment
-    android:name="org.exoplatform.fragment.AddServerFragment"
-    android:id="@+id/Add.Server.Fragment"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="0.4"
-    tools:layout="@layout/add_server_fragment"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/New.Server.Toolbar"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:background="@color/eXoYellow"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+    </android.support.v7.widget.Toolbar>
 
-  <fragment
-    android:name="org.exoplatform.fragment.ServerListFragment"
-    android:id="@+id/List.Server.Fragment"
-    android:layout_weight="0.4"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    tools:layout="@layout/server_list_fragment"/>
+    <fragment
+        android:name="org.exoplatform.fragment.AddServerFragment"
+        android:id="@+id/Add.Server.Fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        tools:layout="@layout/add_server_fragment"/>
+
+    <fragment
+        android:name="org.exoplatform.fragment.ServerListFragment"
+        android:id="@+id/List.Server.Fragment"
+        android:layout_weight="0.4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:layout="@layout/server_list_fragment"/>
 
 </LinearLayout>

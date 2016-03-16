@@ -21,15 +21,15 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              tools:context=".activity.ShareExtensionActivity"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              tools:context=".activity.ShareExtensionActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/Share.Toolbar"
-        android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/eXoYellow"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="@android:color/transparent"
-            android:textAllCaps="true"
             android:onClick="onMainButtonClicked"
+            android:textAllCaps="true"
             tools:text="SHARE"/>
 
     </android.support.v7.widget.Toolbar>

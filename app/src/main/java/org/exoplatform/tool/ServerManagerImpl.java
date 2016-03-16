@@ -21,6 +21,7 @@ package org.exoplatform.tool;
  */
 
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -106,17 +107,7 @@ public class ServerManagerImpl implements ServerManager {
   }
 
   public void removeServer(URL url) {
-    List<Server> servers = getServerList();
-    if (servers != null && servers.size() > 0) {
-      int size = servers.size();
-      for (int i = 0; i < size; i++) {
-        if (servers.get(i).getUrl().toString().equals(Server.format(url))) {
-          servers.remove(i);
-          save(servers);
-          break;
-        }
-      }
-    }
+    removeServer(url.toString());
   }
 
   public void removeServer(String url) {
@@ -158,6 +149,28 @@ public class ServerManagerImpl implements ServerManager {
     SharedPreferences.Editor editor = preferences.edit();
     editor.putString(App.Preferences.SERVERS_STORAGE, json);
     editor.apply();
+  }
+
+  @Override
+  public Server getServerByUrl(@NonNull String url) {
+    List<Server> servers = getServerList();
+    if (servers == null)
+      return null;
+    int size = servers.size();
+    Server oServer;
+    try {
+      oServer = new Server(new URL(url));
+    } catch (MalformedURLException e) {
+      // bad url given
+      return null;
+    }
+    for (int i = 0; i < size; i++) {
+      // loop through the servers until we find the one with the given url
+      if (servers.get(i).equals(oServer)) {
+        return servers.get(i);
+      }
+    }
+    return null;
   }
 
   public class ServersJSON {

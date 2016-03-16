@@ -20,13 +20,14 @@
 
 <resources>
 
-  <!-- Base application theme. -->
-    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+    <!-- Base application theme. -->
+    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/eXoYellow</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/Global.TextSize</item>
     </style>
 
-    <style name="MainScreenButton">
-        <item name="android:textColor">@color/black</item>
+    <style name="MainTheme.MainScreenButton">
         <item name="android:padding">@dimen/MainScreen.Buttons.Padding</item>
         <item name="android:layout_marginLeft">@dimen/MainScreen.Buttons.MarginHorizontal</item>
         <item name="android:layout_marginRight">@dimen/MainScreen.Buttons.MarginHorizontal</item>
@@ -36,20 +37,36 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <style name="MainScreenButton.YellowButton">
+    <style name="MainTheme.MainScreenButton.YellowButton">
         <item name="android:background">@drawable/main_screen_button_yellow</item>
     </style>
 
-    <style name="MainScreenButton.GreyButton">
+    <style name="MainTheme.MainScreenButton.GreyButton">
         <item name="android:background">@drawable/main_screen_button_grey</item>
     </style>
 
-    <style name="NewServerScreenGreyHeader">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:padding">@dimen/NewServerScreen.Header.Padding</item>
-        <item name="android:textSize">@dimen/NewServerScreen.Header.TextSize</item>
+    <style name="MainTheme.DeleteServerButton">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/delete_server_button_red</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MainTheme.GreyHeader">
+        <item name="android:padding">@dimen/GreyHeader.Padding</item>
+        <item name="android:textSize">@dimen/GreyHeader.TextSize</item>
         <item name="android:background">@color/eXoGreyTransparent</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MainTheme.ServerListItem">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:drawableRight">@drawable/icon_chevron_right_grey</item>
+        <item name="android:drawableEnd">@drawable/icon_chevron_right_grey</item>
     </style>
 
 </resources>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2003-2016 eXo Platform SAS.
   ~
@@ -18,15 +19,24 @@
   ~
   -->
 
-<resources>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Declare custom theme attributes that allow changing which styles are
-         used for button bars depending on the API level.
-         ?android:attr/buttonBarStyle is new as of API 11 so this is
-         necessary to support previous API levels. -->
-    <declare-styleable name="ButtonBarContainerTheme">
-        <attr name="metaButtonBarStyle" format="reference"/>
-        <attr name="metaButtonBarButtonStyle" format="reference"/>
-    </declare-styleable>
+    <!-- Pressed
+    -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp"/>
+            <solid android:color="#bb0000"/>
+        </shape>
+    </item>
 
-</resources>
+    <!--  Normal
+     -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp"/>
+            <solid android:color="#dd0000"/>
+        </shape>
+    </item>
+
+</selector>

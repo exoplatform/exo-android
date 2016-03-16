@@ -1,7 +1,7 @@
 package org.exoplatform.activity;
 
 /*
- * Copyright (C) 2003-${YEAR} eXo Platform SAS.
+ * Copyright (C) 2003-2016 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -160,6 +161,16 @@ public class ConnectServerActivity extends AppCompatActivity {
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.main, menu);
     return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.Main_Menu_Settings) {
+      Intent settings = new Intent(this, SettingsActivity.class);
+      startActivity(settings);
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
   }
 
   /*

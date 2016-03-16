@@ -1,7 +1,7 @@
 package org.exoplatform.activity;
 
 /*
- * Copyright (C) 2003-${YEAR} eXo Platform SAS.
+ * Copyright (C) 2003-2016 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -20,17 +20,20 @@ package org.exoplatform.activity;
  *
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import org.exoplatform.R;
+import org.exoplatform.model.Server;
+import org.exoplatform.tool.ServerAdapter;
 
 /**
  * Created by chautran on 25/11/2015. Activity to create a new server or select
  * an existing one.
  */
-public class NewServerActivity extends AppCompatActivity {
+public class NewServerActivity extends AppCompatActivity implements ServerAdapter.ServerClickListener {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -41,5 +44,12 @@ public class NewServerActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     if (getSupportActionBar() != null)
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  }
+
+  @Override
+  public void onClickServer(Server server) {
+    Intent intent = new Intent(this, WebViewActivity.class);
+    intent.putExtra(WebViewActivity.INTENT_KEY_URL, server.getUrl().toString());
+    startActivity(intent);
   }
 }

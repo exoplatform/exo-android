@@ -20,28 +20,28 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-  <TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/AddServerFragment.Title.NewIntranet"
-    style="@style/NewServerScreenGreyHeader"/>
+    <TextView
+        style="@style/MainTheme.GreyHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/AddServerFragment.Title.NewIntranet"/>
 
-  <EditText
-    android:id="@+id/AddServer.Field.Url"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@android:color/white"
-    android:hint="@string/AddServerFragment.Title.EnterIntranetUrl"
-    android:textSize="20sp"
-    android:inputType="textUri"
-    android:padding="5dp"
-    android:singleLine="false"
-    android:imeOptions="actionGo"
-    android:focusable="true"/>
+    <EditText
+        android:id="@+id/AddServer.Field.Url"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:focusable="true"
+        android:hint="@string/AddServerFragment.Title.EnterIntranetUrl"
+        android:imeOptions="actionGo"
+        android:inputType="textUri"
+        android:padding="5dp"
+        android:singleLine="false"
+        android:textSize="20sp"/>
 
 </LinearLayout>

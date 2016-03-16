@@ -1,7 +1,7 @@
 package org.exoplatform.tool;
 
 /*
- * Copyright (C) 2003-${YEAR} eXo Platform SAS.
+ * Copyright (C) 2003-2016 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -20,21 +20,17 @@ package org.exoplatform.tool;
  *
  */
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import org.exoplatform.App;
 import org.exoplatform.R;
-import org.exoplatform.activity.WebViewActivity;
 import org.exoplatform.model.Server;
 
 import java.util.ArrayList;
@@ -45,14 +41,14 @@ import java.util.Collections;
  */
 public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder> {
 
-  private Context           mContext;
+  private ServerClickListener mListener;
 
-  private ServerManagerImpl mServerManager;
+  private ServerManagerImpl   mServerManager;
 
-  private ArrayList<Server> mServers;
+  private ArrayList<Server>   mServers;
 
-  public ServerAdapter(Context context) {
-    this.mContext = context;
+  public ServerAdapter(@NonNull Context context, @NonNull ServerClickListener listener) {
+    this.mListener = listener;
     mServerManager = new ServerManagerImpl(context.getSharedPreferences(App.Preferences.FILE_NAME, 0));
     mServers = mServerManager.getServerList();
     if (mServers != null) {
@@ -64,34 +60,7 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
     CardView itemLayoutView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.server_list_item,
                                                                                           parent,
                                                                                           false);
-    ViewHolder holder = new ViewHolder(itemLayoutView, new ViewHolder.ServerClickListener() {
-      @Override
-      public void openWebView(View v, int position) {
-        Intent intent = new Intent(ServerAdapter.this.mContext, WebViewActivity.class);
-        intent.putExtra(WebViewActivity.INTENT_KEY_URL, ServerAdapter.this.mServers.get(position).getUrl().toString());
-        ServerAdapter.this.mContext.startActivity(intent);
-      }
-
-      @Override
-      public void deleteServer(View v, int position) {
-        final String url = mServers.get(position).getUrl().toString();
-        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-        builder.setMessage("Delete " + url + "?");
-        builder.setNegativeButton("Cancel", null);
-        builder.setPositiveButton("Delete", new AlertDialog.OnClickListener() {
-          public void onClick(DialogInterface dialogInterface, int which) {
-            mServerManager.removeServer(url);
-            mServers = mServerManager.getServerList();
-            if (mServers != null) {
-              Collections.sort(mServers, Collections.reverseOrder());
-            }
-            ServerAdapter.this.notifyDataSetChanged();
-          }
-        });
-        builder.show();
-      }
-    });
-    return holder;
+    return new ViewHolder(itemLayoutView);
   }
 
   public void onBindViewHolder(ViewHolder holder, final int position) {
@@ -115,38 +84,25 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
     notifyDataSetChanged();
   }
 
-  public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public CardView            server_card;
+  public class ViewHolder extends RecyclerView.ViewHolder {
+    public CardView server_card;
 
-    public TextView            server_name;
+    public TextView server_name;
 
-    public Button              delete_server_btn;
-
-    public ServerClickListener listener;
-
-    public ViewHolder(View itemLayoutView, ServerClickListener listener) {
+    public ViewHolder(View itemLayoutView) {
       super(itemLayoutView);
-      this.listener = listener;
       server_card = (CardView) itemLayoutView.findViewById(R.id.ListServer_CardView);
       server_name = (TextView) itemLayoutView.findViewById(R.id.ListServer_Item_Name);
-      // delete_server_btn = (Button)
-      // itemLayoutView.findViewById(R.id.delete_server);
-      server_name.setOnClickListener(this);
-      // delete_server_btn.setOnClickListener(this);
+      server_card.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          mListener.onClickServer(mServers.get(getAdapterPosition()));
+        }
+      });
     }
+  }
 
-    public void onClick(View v) {
-      // if (v.getId() == delete_server_btn.getId()) {
-      // listener.deleteServer(v, getAdapterPosition());
-      // } else {
-      listener.openWebView(v, getAdapterPosition());
-      // }
-    }
-
-    public interface ServerClickListener {
-      void openWebView(View v, int position);
-
-      void deleteServer(View v, int position);
-    }
+  public interface ServerClickListener {
+    void onClickServer(Server server);
   }
 }
