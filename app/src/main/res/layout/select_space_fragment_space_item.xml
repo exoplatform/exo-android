@@ -34,7 +34,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:contentDescription="@string/Space"
+        android:contentDescription="@string/Word.Space"
         android:src="@drawable/icon_space_default"/>
 
     <TextView

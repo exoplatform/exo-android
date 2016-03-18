@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="@string/UserNameCellTitle"/>
+        android:text="@string/ShareActivity.SignIn.Title.Username"/>
 
     <EditText
         android:id="@+id/share_signin_username"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="@string/PasswordCellTitle"/>
+        android:text="@string/ShareActivity.SignIn.Title.Password"/>
 
     <EditText
         android:id="@+id/share_signin_password"

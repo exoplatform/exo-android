@@ -95,7 +95,7 @@ public class ShareService extends IntentService {
     postInfo = intent.getParcelableExtra(POST_INFO);
 
     if (postInfo == null) {
-      Toast.makeText(getApplicationContext(), R.string.ShareErrorNullPostInfo, Toast.LENGTH_LONG).show();
+      Toast.makeText(getApplicationContext(), R.string.ShareService_Error_NullPostInfo, Toast.LENGTH_LONG).show();
       return;
     }
 
@@ -345,8 +345,8 @@ public class ShareService extends IntentService {
    */
   private void notifyBegin() {
     notifId = (int) System.currentTimeMillis();
-    String title = postInfo.hasAttachment() ? getString(R.string.ShareDocumentTitle) : getString(R.string.ShareMessageTitle);
-    String text = postInfo.hasAttachment() ? getString(R.string.ShareDocumentText) : getString(R.string.ShareMessageText);
+    String title = postInfo.hasAttachment() ? getString(R.string.ShareService_Title_ShareDocument) : getString(R.string.ShareService_Title_ShareMessage);
+    String text = postInfo.hasAttachment() ? getString(R.string.ShareService_Message_UploadInProgress) : getString(R.string.ShareService_Message_PostShortly);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
     builder.setSmallIcon(R.drawable.icon_share_notif);
     builder.setContentTitle(title);
@@ -365,10 +365,10 @@ public class ShareService extends IntentService {
    * @param total the total number of files to upload
    */
   private void notifyProgress(int current, int total) {
-    String text = String.format(Locale.US, "%s (%d/%d)", getString(R.string.ShareDocumentText), current, total);
+    String text = String.format(Locale.US, "%s (%d/%d)", getString(R.string.ShareService_Message_UploadInProgress), current, total);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
     builder.setSmallIcon(R.drawable.icon_share_notif);
-    builder.setContentTitle(getString(R.string.ShareDocumentTitle));
+    builder.setContentTitle(getString(R.string.ShareService_Title_ShareDocument));
     builder.setContentText(text);
     builder.setAutoCancel(true);
     builder.setProgress(0, 0, true);
@@ -385,30 +385,30 @@ public class ShareService extends IntentService {
     String text = "";
     switch (result) {
     case ERROR_CREATE_FOLDER:
-      text = getString(R.string.ShareErrorUploadFolderFailed);
+      text = getString(R.string.ShareService_Error_UploadFolderFailed);
       break;
     case ERROR_INCORRECT_ACCOUNT:
-      text = getString(R.string.ShareErrorIncorrectAccount);
+      text = getString(R.string.ShareService_Error_IncorrectAccount);
       break;
     case ERROR_INCORRECT_CONTENT_URI:
-      text = getString(R.string.ShareErrorCannotReadDoc);
+      text = getString(R.string.ShareActivity_Error_CannotReadDoc);
       break;
     case ERROR_POST_FAILED:
-      text = getString(R.string.ShareErrorPostFailed);
+      text = getString(R.string.ShareService_Error_PostFailed);
       break;
     case ERROR_COMMENT_FAILED:
-      text = getString(R.string.ShareErrorCommentFailed);
+      text = getString(R.string.ShareService_Error_CommentFailed);
       break;
     case ERROR_UPLOAD_FAILED:
-      text = getString(R.string.ShareErrorUploadFailed);
+      text = getString(R.string.ShareService_Error_UploadFailed);
       break;
     case SUCCESS:
-      text = getString(R.string.ShareOperationSuccess);
+      text = getString(R.string.ShareService_Message_OperationSuccess);
       break;
     default:
       break;
     }
-    String title = postInfo.hasAttachment() ? getString(R.string.ShareDocumentTitle) : getString(R.string.ShareMessageTitle);
+    String title = postInfo.hasAttachment() ? getString(R.string.ShareService_Title_ShareDocument) : getString(R.string.ShareService_Title_ShareMessage);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
     builder.setSmallIcon(R.drawable.icon_share_notif);
     builder.setContentTitle(title);

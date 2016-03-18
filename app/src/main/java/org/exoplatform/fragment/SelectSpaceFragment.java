@@ -146,7 +146,7 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
       mSpaceListAdapter.setSpaceList(data);
       mSpaceListAdapter.notifyDataSetChanged();
       if (data.isEmpty())
-        mMessageView.setText(R.string.ShareActivity_Title_NoSpace);
+        mMessageView.setText(R.string.ShareActivity_Spaces_Title_NoSpace);
     }
   }
 
@@ -167,7 +167,7 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
     if (getActivity() instanceof ShareExtensionActivity) {
       return (ShareExtensionActivity) getActivity();
     } else {
-      throw new UnsupportedOperationException("This fragment is only valid in the activity org.exoplatform.shareextension.ShareActivity");
+      throw new UnsupportedOperationException("This fragment is only valid in the activity org.exoplatform.activity.ShareExtensionActivity");
     }
   }
 
@@ -234,6 +234,7 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
              .error(R.drawable.icon_space_default)
              .resizeDimen(R.dimen.ShareActivity_Spaces_Icon_Size, R.dimen.ShareActivity_Spaces_Icon_Size)
              .into(holder.spaceAvatar);
+      holder.spaceAvatar.setContentDescription(space.displayName);
       return convertView;
     }
   }

@@ -20,7 +20,7 @@
   -->
 
 <resources>
-    <dimen name="Global.TextSize">18sp</dimen>
+    <dimen name="Global.TextSize">15sp</dimen>
 
     <dimen name="MainScreen.eXo.Title">30sp</dimen>
     <dimen name="MainScreen.eXo.Subtitle">16sp</dimen>

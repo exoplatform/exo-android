@@ -37,7 +37,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:contentDescription="@string/ShareActivity.Title.Intranet"
+        android:contentDescription="@string/ShareActivity.Compose.Title.Intranet"
         android:src="@drawable/icon_check_circle_grey"/>
 
     <TextView

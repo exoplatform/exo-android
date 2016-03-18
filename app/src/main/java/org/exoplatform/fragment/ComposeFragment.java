@@ -195,10 +195,10 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
           mAccountSelector.setText(String.format("%s (%s)", selectedAccount.getShortUrl(), selectedAccount.getLastLogin()));
       } else if (isSigningIn) {
         // Display a signing in label
-        mAccountSelector.setText(R.string.ShareActivity_Title_SigningIn);
+        mAccountSelector.setText(R.string.ShareActivity_Compose_Title_SigningIn);
       } else {
         // Display a select intranet label
-        mAccountSelector.setText(R.string.ShareActivity_Title_SelectIntranet);
+        mAccountSelector.setText(R.string.ShareActivity_Compose_Title_SignInToPost);
       }
 
       ServerManager serverManager = new ServerManagerImpl(getContext().getSharedPreferences(App.Preferences.FILE_NAME, 0));
@@ -221,7 +221,7 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
         if (space != null)
           mSpaceSelector.setText(space.displayName);
         else
-          mSpaceSelector.setText(getString(R.string.ShareActivity_Title_AllConnections));
+          mSpaceSelector.setText(getString(R.string.ShareActivity_Compose_Title_AllConnections));
       } else {
         // hide the space selector area when user is logged out
         mSpaceSelectorWrapper.setVisibility(View.GONE);
@@ -246,7 +246,7 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
     if (getActivity() instanceof ShareExtensionActivity) {
       return (ShareExtensionActivity) getActivity();
     } else {
-      throw new UnsupportedOperationException("This fragment is only valid in the activity org.exoplatform.shareextension.ShareActivity");
+      throw new UnsupportedOperationException("This fragment is only valid in the activity org.exoplatform.activity.ShareExtensionActivity");
     }
   }
 
@@ -260,7 +260,7 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
   public void onLoginStarted(LoginTask loginTask) {
     isSigningIn = true;
     if (getView() != null) {
-      mAccountSelector.setText(R.string.ShareActivity_Title_SigningIn);
+      mAccountSelector.setText(R.string.ShareActivity_Compose_Title_SigningIn);
       getView().findViewById(R.id.share_space_wrapper).setVisibility(View.GONE);
     }
   }
@@ -278,7 +278,7 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
   public void onLoginFailed() {
     isSigningIn = false;
     if (getView() != null) {
-      mAccountSelector.setText(R.string.ShareActivity_Title_SelectIntranet);
+      mAccountSelector.setText(R.string.ShareActivity_Compose_Title_SignInToPost);
     }
   }
 }

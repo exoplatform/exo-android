@@ -140,7 +140,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
 
       if (!prepareAccounts()) {
         // TODO open NewServerActivity to create a new server and return here
-        Toast.makeText(this, "ShareErrorNoAccountConfigured", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.ShareActivity_Error_NoAccountConfigured, Toast.LENGTH_LONG).show();
         finish();
         return;
       }
@@ -211,13 +211,13 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       setTitle(R.string.Word_eXo);
     } else if (SignInFragment.SIGN_IN_FRAGMENT.equals(key)) {
       setToolbarButtonType(ToolbarButtonType.SIGNIN);
-      setTitle(R.string.ShareActivity_Title_EnterCredentials);
+      setTitle(R.string.ShareActivity_SignIn_Title_EnterCredentials);
     } else if (AccountsFragment.ACCOUNTS_FRAGMENT.equals(key)) {
       setToolbarButtonType(ToolbarButtonType.HIDDEN);
-      setTitle(R.string.ShareActivity_Title_SelectIntranet);
+      setTitle(R.string.ShareActivity_Compose_Title_SignInToPost);
     } else if (SelectSpaceFragment.SPACES_FRAGMENT.equals(key)) {
       setToolbarButtonType(ToolbarButtonType.HIDDEN);
-      setTitle(R.string.ShareActivity_Title_ShareWith);
+      setTitle(R.string.ShareActivity_Compose_Title_ShareWith);
     }
     // go!
     tr.replace(R.id.share_extension_fragment, toOpen, key);
@@ -271,11 +271,11 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       mToolbarButton.setVisibility(View.INVISIBLE);
       break;
     case SIGNIN:
-      mToolbarButton.setText(R.string.ShareActivity_Title_SignIn);
+      mToolbarButton.setText(R.string.ShareActivity_Compose_Title_SignIn);
       mToolbarButton.setVisibility(View.VISIBLE);
       break;
     default: // SHARE
-      mToolbarButton.setText(R.string.ShareActivity_Title_Share);
+      mToolbarButton.setText(R.string.ShareActivity_Main_Title_Post);
       mToolbarButton.setVisibility(View.VISIBLE);
       break;
     }
@@ -302,7 +302,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     case SHARE:
       // Tap on the SHARE button
       if (mActivityPost.ownerAccount == null || !mUserLoggedIn) {
-        Toast.makeText(this, "ShareCannotPostBecauseOffline", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.ShareActivity_Error_CannotPostBecauseOffline, Toast.LENGTH_LONG).show();
         return;
       }
 
@@ -310,7 +310,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       Intent share = new Intent(getBaseContext(), ShareService.class);
       share.putExtra(ShareService.POST_INFO, mActivityPost);
       startService(share);
-      Toast.makeText(getBaseContext(), "ShareOperationStarted", Toast.LENGTH_LONG).show();
+      Toast.makeText(getBaseContext(), R.string.ShareActivity_Message_OperationStarted, Toast.LENGTH_LONG).show();
 
       // Post is in progress, our work is done here
       finish();
@@ -351,7 +351,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     if (mUserLoggedIn) {
       openFragment(SelectSpaceFragment.getFragment(), SelectSpaceFragment.SPACES_FRAGMENT, Anim.FROM_RIGHT);
     } else {
-      Toast.makeText(this, "ShareCannotSelectSpaceBecauseOffline", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, R.string.ShareActivity_Error_CannotSelectSpaceBecauseOffline, Toast.LENGTH_LONG).show();
     }
   }
 
@@ -408,8 +408,8 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
 
   @Override
   public void onLoginFailed() {
-    Toast.makeText(getApplicationContext(), "ShareErrorSignInFailed", Toast.LENGTH_LONG).show();
-    handleLoginResult(false);
+    Toast.makeText(getApplicationContext(), R.string.ShareActivity_Error_SignInFailed, Toast.LENGTH_LONG).show();
+      handleLoginResult(false);
   }
 
   /*
@@ -457,9 +457,9 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
             finish();
           }
         };
-        db.setMessage("ShareErrorStoragePermissionDenied")
-          .setNegativeButton("ShareErrorDialogLeave", dialogInterface)
-          .setNeutralButton("ShareErrorDialogAppSettings", dialogInterface);
+        db.setMessage(R.string.ShareActivity_Error_StoragePermissionDenied)
+          .setNegativeButton(R.string.ShareActivity_PermissionDialog_Title_Leave, dialogInterface)
+                .setNeutralButton(R.string.ShareActivity_PermissionDialog_Title_AppSettings, dialogInterface);
         AlertDialog dialog = db.create();
         dialog.show();
       }

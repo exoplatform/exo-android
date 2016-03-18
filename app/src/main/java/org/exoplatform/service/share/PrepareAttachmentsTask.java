@@ -162,18 +162,18 @@ public class PrepareAttachmentsTask extends AsyncTask<List<Uri>, Void, PrepareAt
       for (Uri att : attachmentUris) {
         // Stop when we reach the maximum number of files
         if (result.attachments.size() == App.Share.MAX_ITEMS_ALLOWED) {
-          errors.add(R.string.ShareErrorTooManyFiles);
+          errors.add(R.string.ShareActivity_Error_TooManyFiles);
           break;
         }
         DocumentInfo info = DocumentUtils.documentInfoFromUri(att, mContext);
         // Skip if the file cannot be read
         if (info == null) {
-          errors.add(R.string.ShareErrorCannotReadDoc);
+          errors.add(R.string.ShareActivity_Error_CannotReadDoc);
           continue;
         }
         // Skip if the file is more than 10MB
         if (info.documentSizeKb > (App.Share.DOCUMENT_MAX_SIZE_MB * 1024)) {
-          errors.add(R.string.ShareErrorFileTooBig);
+          errors.add(R.string.ShareActivity_Error_FileTooBig);
           continue;
         }
         // All good, let's copy this file in our app's storage
@@ -200,7 +200,7 @@ public class PrepareAttachmentsTask extends AsyncTask<List<Uri>, Void, PrepareAt
             result.thumbnail = getThumbnail(tempFile);
           }
         } catch (Exception e) {
-          errors.add(R.string.ShareErrorCannotReadDoc);
+          errors.add(R.string.ShareActivity_Error_CannotReadDoc);
         }
       }
       // Done creating the files
@@ -208,17 +208,17 @@ public class PrepareAttachmentsTask extends AsyncTask<List<Uri>, Void, PrepareAt
       if (!errors.isEmpty()) {
         StringBuilder message;
         if (result.attachments.size() == 0) {
-          message = new StringBuilder(mContext.getString(R.string.ShareErrorAllFilesCannotShare)).append(":");
+          message = new StringBuilder(mContext.getString(R.string.ShareService_Error_AllFilesCannotShare)).append(":");
           result.isFatalError = true;
         } else {
-          message = new StringBuilder(mContext.getString(R.string.ShareErrorSomeFilesCannotShare)).append(":");
+          message = new StringBuilder(mContext.getString(R.string.ShareService_Error_SomeFilesCannotShare)).append(":");
           result.isFatalError = false;
         }
         for (Integer errCode : errors) {
           switch (errCode) {
-          case R.string.ShareErrorCannotReadDoc:
-          case R.string.ShareErrorFileTooBig:
-          case R.string.ShareErrorTooManyFiles:
+          case R.string.ShareActivity_Error_CannotReadDoc:
+          case R.string.ShareActivity_Error_FileTooBig:
+          case R.string.ShareActivity_Error_TooManyFiles:
             message.append("\n").append(mContext.getString(errCode));
             break;
           }

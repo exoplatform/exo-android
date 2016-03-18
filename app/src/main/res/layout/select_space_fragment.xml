@@ -35,7 +35,7 @@
         android:drawableStart="@drawable/icon_post_public"
         android:gravity="center_vertical"
         android:padding="10dp"
-        android:text="@string/ShareActivity.Title.AllConnections"
+        android:text="@string/ShareActivity.Compose.Title.AllConnections"
         android:textAppearance="?android:attr/textAppearanceMedium"
         />
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:padding="10dp"
-        android:text="@string/ShareActivity.Title.LoadingSpaces"
+        android:text="@string/ShareActivity.Spaces.Title.LoadingSpaces"
         android:visibility="gone"/>
 
 </LinearLayout>
