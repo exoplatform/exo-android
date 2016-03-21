@@ -21,15 +21,25 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/WebViewScreen.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/eXoYellow"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+    </android.support.v7.widget.Toolbar>
 
     <WebView
-        android:id="@+id/webview"
-        android:layout_alignParentTop="true"
+        android:id="@+id/WebViewScreen.WebView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/WebViewScreen.Toolbar"/>
 
-    <!-- ?android:attr/progressBarStyleHorizontal -->
+    <!-- Progress bar at the top -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
@@ -39,5 +49,16 @@
         android:layout_margin="0dp"
         android:padding="0dp"
         android:max="100"/>
+
+    <!-- Done button visible when the webview displays a content other than an html page -->
+    <Button
+        android:id="@+id/WebViewScreen.Done.Button"
+        style="@style/MainTheme.DoneWebViewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:text="@string/Word.Done"/>
 
 </RelativeLayout>

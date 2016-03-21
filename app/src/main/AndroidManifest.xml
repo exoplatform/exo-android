@@ -78,7 +78,8 @@
                 android:value=".activity.SettingsActivity"/>
         </activity>
         <!-- WebView activity -->
-        <activity android:name=".activity.WebViewActivity">
+        <activity android:name=".activity.WebViewActivity"
+                  android:configChanges="orientation|screenSize">
         </activity>
         <!-- Share Extension activity -->
         <activity
