@@ -20,127 +20,56 @@ package org.exoplatform.activity;
  *
  */
 
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.ProgressBar;
-
-import android.webkit.CookieManager;
 
 import org.exoplatform.App;
-import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
-import org.exoplatform.tool.ExoHttpClient;
-import org.exoplatform.tool.ServerManagerImpl;
+import org.exoplatform.fragment.PlatformWebViewFragment;
+import org.exoplatform.fragment.WebViewFragment;
 import org.exoplatform.model.Server;
 
-import java.io.IOException;
-import java.net.CookiePolicy;
-import java.net.HttpCookie;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import okhttp3.JavaNetCookieJar;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by chautn on 10/14/15. Activity that loads Platform into a web view
  */
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity implements PlatformWebViewFragment.PlatformNavigationCallback,
+    WebViewFragment.WebViewFragmentCallback {
 
-  public static final String  INTENT_KEY_URL = "URL";
+  public static final String      INTENT_KEY_URL = "URL";
 
-  private static final String LOG_TAG        = WebViewActivity.class.getName();
+  private static final String     LOG_TAG        = WebViewActivity.class.getName();
 
-  private WebView             mWebView;
+  private PlatformWebViewFragment platformFragment;
 
-  private ProgressBar         mProgressBar;
+  private WebViewFragment         webViewFragment;
 
-  private Server              mServer;
-
-  private Button              mDoneButton;
-
-  @SuppressLint("SetJavaScriptEnabled")
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_webview);
-    // toolbar, hidden by default, visible on certain pages cf onPageStarted
-    Toolbar mToolbar = (Toolbar) findViewById(R.id.WebViewScreen_Toolbar);
+    // toolbar, hidden by default, visible on certain pages cf
+    // PlatformWebViewFragment->onPageStarted
+    Toolbar mToolbar = (Toolbar) findViewById(R.id.WebClient_Toolbar);
     setSupportActionBar(mToolbar);
     if (getSupportActionBar() != null) {
       getSupportActionBar().hide();
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    // url to load
+    // url of the intranet to load
     String url = getIntent().getStringExtra(INTENT_KEY_URL);
-    // save history
     try {
-      mServer = new Server(new URL(url), new Date().getTime());
-      new ServerManagerImpl(getSharedPreferences(App.Preferences.FILE_NAME, 0)).addServer(mServer);
+      Server server = new Server(new URL(url), new Date().getTime());
+      platformFragment = PlatformWebViewFragment.newInstance(server);
+      getSupportFragmentManager().beginTransaction().add(R.id.WebClient_WebViewFragment, platformFragment).commit();
     } catch (MalformedURLException e) {
-      if (BuildConfig.DEBUG)
-        Log.d(LOG_TAG, e.getMessage());
-    }
-    // create web view
-    mWebView = (WebView) findViewById(R.id.WebViewScreen_WebView);
-    mWebView.setWebViewClient(new MyWebViewClient());
-    mWebView.getSettings().setJavaScriptEnabled(true);
-    mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
-    mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-    mWebView.getSettings().setDisplayZoomControls(false);
-    // set progress bar
-    mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-    mWebView.setWebChromeClient(new WebChromeClient() {
-      @Override
-      public void onProgressChanged(WebView view, int progress) {
-        mProgressBar.setVisibility(ProgressBar.VISIBLE);
-        mProgressBar.setProgress(progress);
-        if (progress == 100) {
-          mProgressBar.setVisibility(ProgressBar.GONE);
-        } else {
-          mProgressBar.setVisibility(ProgressBar.VISIBLE);
-        }
-      }
-    });
-    mWebView.loadUrl(url);
-    // done button for content without navigation, e.g. image
-    mDoneButton = (Button) findViewById(R.id.WebViewScreen_Done_Button);
-    if (mDoneButton != null) {
-      mDoneButton.setVisibility(View.GONE);
-      mDoneButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          if (mWebView != null && mWebView.canGoBack())
-            mWebView.goBack();
-        }
-      });
+      throw new IllegalArgumentException("Cannot load the Platform intranet at URL " + url, e);
     }
   }
 
@@ -154,25 +83,16 @@ public class WebViewActivity extends AppCompatActivity {
   }
 
   @Override
-  public void onConfigurationChanged(Configuration newConfig) {
-    super.onConfigurationChanged(newConfig);
-    // refresh the layout of the webview, but don't reload it, when orientation
-    // changes
-    if (mWebView != null)
-      mWebView.getSettings().setLayoutAlgorithm(mWebView.getSettings().getLayoutAlgorithm());
-  }
-
-  /**
-   * Go to the previous page in history when device Back button is pressed. If
-   * there is no previous page, leave activity.
-   */
-  @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
-    if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
-      mWebView.goBack();
-      return true;
-    }
-    return super.onKeyDown(keyCode, event);
+  public void onBackPressed() {
+    // leave the activity if there is no previous page to go back to,
+    // on either Platform fragment or WebView fragment
+    boolean eventHandled = false;
+    if (platformFragment != null && platformFragment.isVisible())
+      eventHandled = platformFragment.goBack();
+    else if (webViewFragment != null && webViewFragment.isVisible())
+      eventHandled = webViewFragment.goBack();
+    if (!eventHandled)
+      super.onBackPressed();
   }
 
   @Override
@@ -184,7 +104,7 @@ public class WebViewActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  private void animateShowHideToolbar(boolean show) {
+  private void showHideToolbar(boolean show) {
     if (getSupportActionBar() != null) {
       if (show)
         getSupportActionBar().show();
@@ -193,123 +113,35 @@ public class WebViewActivity extends AppCompatActivity {
     }
   }
 
-  private List<HttpCookie> getCookiesForUrl(String url) {
-    List<HttpCookie> cookieList = new ArrayList<>();
-    String cookies = CookieManager.getInstance().getCookie(url);
-    if (cookies != null) {
-      String[] cookieArray = cookies.split(";");
-      for (String cookieStr : cookieArray) {
-        String[] cookieParts = cookieStr.split("=");
-        if (cookieParts.length >= 2)
-          cookieList.add(new HttpCookie(cookieParts[0], cookieParts[1]));
-      }
-    }
-    return cookieList;
+  @Override
+  public void isOnPageWithoutNavigation(boolean value) {
+    showHideToolbar(value);
   }
 
-  private OkHttpClient httpClientWithWebViewCookies(@NonNull String url) throws URISyntaxException {
-    URI uri = new URI(url);
-    List<HttpCookie> cookieList = getCookiesForUrl(url);
-    java.net.CookieManager cookieManager = new java.net.CookieManager();
-    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-    for (HttpCookie cookie : cookieList) {
-      cookieManager.getCookieStore().add(uri, cookie);
-    }
-    return ExoHttpClient.getInstance().newBuilder().cookieJar(new JavaNetCookieJar(cookieManager)).build();
+  @Override
+  public void onUserSignedOut() {
+    // fragments and activity will be cleaned-up automatically
+    finish();
   }
 
-  private void refreshLayoutForContent(String contentType) {
-    if (contentType != null && !contentType.contains("text/html")) {
-      // Display content fullscreen, with done button visible
-      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      mWebView.getSettings().setUseWideViewPort(true);
-      mWebView.getSettings().setLoadWithOverviewMode(true);
-      mWebView.getSettings().setBuiltInZoomControls(true);
-      mDoneButton.setVisibility(View.VISIBLE);
-    } else {
-      // Display content normally, display status bar
-      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      mWebView.getSettings().setUseWideViewPort(false);
-      mWebView.getSettings().setLoadWithOverviewMode(false);
-      mWebView.getSettings().setBuiltInZoomControls(false);
-      mDoneButton.setVisibility(View.GONE);
-    }
+  @Override
+  public void onLoadExternalContent(String url) {
+    // create and open a new fragment
+    webViewFragment = WebViewFragment.newInstance(url);
+    getSupportFragmentManager().beginTransaction()
+                               .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
+                               .add(R.id.WebClient_WebViewFragment, webViewFragment)
+                               .addToBackStack("WEBVIEW_FRAGMENT")
+                               .hide(platformFragment)
+                               .commit();
   }
 
-  private class MyWebViewClient extends WebViewClient {
-
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-      Uri uri = Uri.parse(url);
-      if (mServer.getShortUrl().equalsIgnoreCase(uri.getHost())) {
-        return super.shouldOverrideUrlLoading(view, url);
-      } else {
-        // TODO pop up new webview to load the external content
-        return true;
-      }
-    }
-
-    @Override
-    public void onPageStarted(WebView view, String url, Bitmap favicon) {
-      super.onPageStarted(view, url, favicon);
-      Uri uri = Uri.parse(url);
-      // Show / hide the Done button
-      String contentType = URLConnection.guessContentTypeFromName(uri.getPath());
-      if (contentType == null)
-        new GetContentTypeHeaderTask().execute(url);
-      else
-        refreshLayoutForContent(contentType);
-      // Show / hide the toolbar
-      Pattern loginOrRegister = Pattern.compile("(/[a-z0-9]*/)([a-z0-9]*/)?(login|register)");
-      String path = uri.getPath();
-      animateShowHideToolbar(path != null && loginOrRegister.matcher(path).matches());
-      // Return to the previous activity if user has signed out
-      String queryString = uri.getQuery();
-      if (queryString != null && queryString.contains("portal:action=Logout")) {
-        WebViewActivity.this.finish();
-      }
-    }
-  }
-
-  // TODO extract as separate class
-  // use listener interface for callback(s)
-  // pass OkHttpClient, URL and listener in constructor
-  //
-  private class GetContentTypeHeaderTask extends AsyncTask<String, Void, String> {
-
-    @Override
-    protected String doInBackground(String... urls) {
-      if (urls == null || urls.length == 0)
-        return null;
-
-      String url = urls[0];
-      OkHttpClient client;
-      try {
-        client = httpClientWithWebViewCookies(url);
-      } catch (URISyntaxException e) {
-        if (BuildConfig.DEBUG)
-          Log.d(LOG_TAG, e.getMessage(), e);
-        return null;
-      }
-      Request req = new Request.Builder().url(url).head().build();
-      Response resp;
-      try {
-        resp = client.newCall(req).execute();
-      } catch (IOException e) {
-        e.printStackTrace();
-        return null;
-      }
-      String contentType = null;
-      if (resp.isSuccessful()) {
-        contentType = resp.header("Content-Type");
-      }
-      return contentType;
-    }
-
-    @Override
-    protected void onPostExecute(String contentType) {
-      super.onPostExecute(contentType);
-      refreshLayoutForContent(contentType);
-    }
+  @Override
+  public void onCloseFragment() {
+    // remove the fragment from the activity
+    getSupportFragmentManager().popBackStack();
+    getSupportFragmentManager().beginTransaction().remove(webViewFragment).show(platformFragment).commit();
+    // a new instance will be created if we load an external url again
+    webViewFragment = null;
   }
 }

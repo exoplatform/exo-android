@@ -52,6 +52,9 @@
     <string name="SettingsActivity.Title.DeleteConfirmation">Delete server</string>
     <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this server ?</string>
 
+    <string name="WebClient.WebView.Title.Loading">Loading…</string>
+    <string name="WebClient.WebView.Hint.Close">Close web page</string>
+
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Cancel</string>
     <string name="Word.Back">Back</string>

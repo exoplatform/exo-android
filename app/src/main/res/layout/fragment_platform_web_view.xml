@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2003-2016 eXo Platform SAS.
   ~
@@ -20,23 +19,36 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
+                tools:context="org.exoplatform.fragment.PlatformWebViewFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/WebClient.Toolbar"
+    <WebView
+        android:id="@+id/PlatformWebViewFragment.WebView"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="match_parent"/>
+
+    <!-- Progress bar at the top -->
+    <ProgressBar
+        android:id="@+id/PlatformWebViewFragment.ProgressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
         android:layout_alignParentTop="true"
-        android:background="@color/eXoYellow"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-    </android.support.v7.widget.Toolbar>
+        android:layout_margin="0dp"
+        android:max="100"
+        android:padding="0dp"/>
 
-    <FrameLayout
-        android:id="@+id/WebClient.WebViewFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/WebClient.Toolbar"/>
+    <!-- Done button visible when the webview displays a content other than an html page -->
+    <Button
+        android:id="@+id/PlatformWebViewFragment.Done.Button"
+        style="@style/MainTheme.DoneWebViewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:text="@string/Word.Done"/>
 
 </RelativeLayout>

@@ -1,0 +1,74 @@
+<!--
+  ~ Copyright (C) 2003-2016 eXo Platform SAS.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 3 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="org.exoplatform.fragment.WebViewFragment">
+
+    <LinearLayout
+        android:id="@+id/WebViewFragment.NavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/eXoYellow"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/WebViewFragment.PageTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="@string/WebClient.WebView.Title.Loading"/>
+
+        <ImageButton
+            android:id="@+id/WebViewFragment.CloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_close_black_24dp"
+            android:contentDescription="@string/WebClient.WebView.Hint.Close"/>
+        <!-- TODO replace by an icon X -->
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/WebViewFragment.WebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/WebViewFragment.NavigationBar"/>
+
+    <!-- Progress bar at the top -->
+    <ProgressBar
+        android:id="@+id/WebViewFragment.ProgressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/WebViewFragment.NavigationBar"
+        android:layout_margin="0dp"
+        android:max="100"
+        android:padding="0dp"/>
+
+</RelativeLayout>
