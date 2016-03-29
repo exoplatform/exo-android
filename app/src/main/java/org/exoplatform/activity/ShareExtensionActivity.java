@@ -132,8 +132,6 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
             mAttachmentUris = new ArrayList<>();
             mAttachmentUris.add(contentUri);
           }
-          if (BuildConfig.DEBUG)
-            Log.d(LOG_TAG, "Number of files to share: " + mAttachmentUris.size());
         }
         prepareAttachmentsAsync();
       }
@@ -299,14 +297,22 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
   public void onMainButtonClicked(View view) {
     ToolbarButtonType type = (ToolbarButtonType) view.getTag();
     switch (type) {
-    case SHARE:
-      // Tap on the SHARE button
+    case SHARE: // Tap on the SHARE button
+
       if (mActivityPost.ownerAccount == null || !mUserLoggedIn) {
+        // no account selected or account offline
         Toast.makeText(this, R.string.ShareActivity_Error_CannotPostBecauseOffline, Toast.LENGTH_LONG).show();
         return;
       }
 
-      Log.d(LOG_TAG, "Start share service...");
+      if (!mActivityPost.hasAttachment() && mActivityPost.title.trim().isEmpty()) {
+        // no document or message to share
+        Toast.makeText(this, R.string.ShareActivity_Error_CannotPostBecauseEmpty, Toast.LENGTH_LONG).show();
+        return;
+      }
+
+      if (BuildConfig.DEBUG)
+        Log.d(LOG_TAG, "Starting share service...");
       Intent share = new Intent(getBaseContext(), ShareService.class);
       share.putExtra(ShareService.POST_INFO, mActivityPost);
       startService(share);
@@ -316,8 +322,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       finish();
       break;
 
-    case SIGNIN:
-      // Tap on the SIGN IN button
+    case SIGNIN: // Tap on the SIGN IN button
       String username = SignInFragment.getFragment().getUsername();
       mActivityPost.ownerAccount.setLastLogin(username);
       String password = SignInFragment.getFragment().getPassword();
@@ -326,8 +331,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       login(mActivityPost.ownerAccount);
       break;
 
-    default:
-      // HIDDEN, do nothing
+    default: // HIDDEN, do nothing
       break;
     }
   }
@@ -409,7 +413,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
   @Override
   public void onLoginFailed() {
     Toast.makeText(getApplicationContext(), R.string.ShareActivity_Error_SignInFailed, Toast.LENGTH_LONG).show();
-      handleLoginResult(false);
+    handleLoginResult(false);
   }
 
   /*
@@ -459,7 +463,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
         };
         db.setMessage(R.string.ShareActivity_Error_StoragePermissionDenied)
           .setNegativeButton(R.string.ShareActivity_PermissionDialog_Title_Leave, dialogInterface)
-                .setNeutralButton(R.string.ShareActivity_PermissionDialog_Title_AppSettings, dialogInterface);
+          .setNeutralButton(R.string.ShareActivity_PermissionDialog_Title_AppSettings, dialogInterface);
         AlertDialog dialog = db.create();
         dialog.show();
       }

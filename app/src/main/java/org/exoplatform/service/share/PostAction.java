@@ -64,9 +64,10 @@ public class PostAction extends Action {
 
     if (SocialActivity.TYPE_DOC.equals(postInfo.type)) {
       postInfo.addTemplateParam("MESSAGE", postInfo.title);
-    } else if (SocialActivity.TYPE_LINK.equals(postInfo.type)) {
-      // nothing to do
-    } else {
+      if (postInfo.title != null && postInfo.title.trim().isEmpty()) {
+        postInfo.title = postInfo.postAttachedFiles.get(0);
+      }
+    } else if (!SocialActivity.TYPE_LINK.equals(postInfo.type)) {
       setPostTextActivity();
     }
 

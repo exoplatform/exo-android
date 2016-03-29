@@ -88,7 +88,8 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
                                                           // post as the user
                                                           // types it
                                                           getShareActivity().getActivityPost().title = (s == null) ? ""
-                                                                                                                  : s.toString();
+                                                                                                                  : s.toString()
+                                                                                                                     .trim();
                                                         }
 
                                                         @Override

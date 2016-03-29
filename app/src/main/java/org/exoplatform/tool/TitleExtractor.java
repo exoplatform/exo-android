@@ -1,25 +1,5 @@
 package org.exoplatform.tool;
 
-/*
- * Copyright (C) 2003-2016 eXo Platform SAS.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 3 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- */
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,10 +11,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author <a href=
- *         "http://www.gotoquiz.com/web-coding/programming/java-programming/how-to-extract-titles-from-web-pages-in-java/"
- *         >Source (1)</a><br/>
- *         <a href="http://stackoverflow.com/a/24239268">Source (2)</a>
+ * Sources:
+ * <ul>
+ * <li><a href=
+ * "http://www.gotoquiz.com/web-coding/programming/java-programming/how-to-extract-titles-from-web-pages-in-java/"
+ * >gotoquiz.com</a></li>
+ * <li><a href="http://stackoverflow.com/a/24239268">stackoverflow.com</a></li>
+ * </ul>
  */
 public class TitleExtractor {
   /*

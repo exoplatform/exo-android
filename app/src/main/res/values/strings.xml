@@ -90,6 +90,7 @@
     <string name="ShareActivity.Error.TooManyFiles">Cannot share more than 10 documents</string>
     <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">You must select an account and sign in to select a space</string>
     <string name="ShareActivity.Error.CannotPostBecauseOffline">You must select an account and sign in to post</string>
+    <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
     <string name="ShareActivity.Message.OperationStarted">Share in progress, check the status in the notification area</string>
 
     <string name="ShareService.Message.OperationSuccess">Success</string>

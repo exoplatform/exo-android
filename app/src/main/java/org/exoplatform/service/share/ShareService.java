@@ -108,7 +108,6 @@ public class ShareService extends IntentService {
     }
 
     if (postInfo.hasAttachment()) {
-
       UploadInfo initUploadInfo = initUpload();
       boolean uploadStarted = startUpload(initUploadInfo);
       if (uploadStarted) {
@@ -345,8 +344,10 @@ public class ShareService extends IntentService {
    */
   private void notifyBegin() {
     notifId = (int) System.currentTimeMillis();
-    String title = postInfo.hasAttachment() ? getString(R.string.ShareService_Title_ShareDocument) : getString(R.string.ShareService_Title_ShareMessage);
-    String text = postInfo.hasAttachment() ? getString(R.string.ShareService_Message_UploadInProgress) : getString(R.string.ShareService_Message_PostShortly);
+    String title = postInfo.hasAttachment() ? getString(R.string.ShareService_Title_ShareDocument)
+                                           : getString(R.string.ShareService_Title_ShareMessage);
+    String text = postInfo.hasAttachment() ? getString(R.string.ShareService_Message_UploadInProgress)
+                                          : getString(R.string.ShareService_Message_PostShortly);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
     builder.setSmallIcon(R.drawable.icon_share_notif);
     builder.setContentTitle(title);
@@ -365,7 +366,11 @@ public class ShareService extends IntentService {
    * @param total the total number of files to upload
    */
   private void notifyProgress(int current, int total) {
-    String text = String.format(Locale.US, "%s (%d/%d)", getString(R.string.ShareService_Message_UploadInProgress), current, total);
+    String text = String.format(Locale.US,
+                                "%s (%d/%d)",
+                                getString(R.string.ShareService_Message_UploadInProgress),
+                                current,
+                                total);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
     builder.setSmallIcon(R.drawable.icon_share_notif);
     builder.setContentTitle(getString(R.string.ShareService_Title_ShareDocument));
@@ -408,7 +413,8 @@ public class ShareService extends IntentService {
     default:
       break;
     }
-    String title = postInfo.hasAttachment() ? getString(R.string.ShareService_Title_ShareDocument) : getString(R.string.ShareService_Title_ShareMessage);
+    String title = postInfo.hasAttachment() ? getString(R.string.ShareService_Title_ShareDocument)
+                                           : getString(R.string.ShareService_Title_ShareMessage);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
     builder.setSmallIcon(R.drawable.icon_share_notif);
     builder.setContentTitle(title);

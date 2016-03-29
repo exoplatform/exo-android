@@ -69,7 +69,6 @@ public class UploadInfo {
       // e.g. /Users/u___/us___/use___/user/Public/Mobile
       drive = App.Platform.DOCUMENT_PERSONAL_DRIVE_NAME;
       folder = "Public/Mobile";
-      StringBuilder jcrUrlBuilder = new StringBuilder();
       jcrUrl = PlatformUtils.getUserHomeJcrFolderPath();
     } else {
       // File will be uploaded in the Documents folder of the space's drive
