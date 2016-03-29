@@ -53,7 +53,8 @@
         <activity
             android:name=".activity.NewServerActivity"
             android:label="@string/ServersActivity.Title.SignInToExo"
-            android:parentActivityName=".activity.ConnectServerActivity">
+            android:parentActivityName=".activity.ConnectServerActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ConnectServerActivity"/>

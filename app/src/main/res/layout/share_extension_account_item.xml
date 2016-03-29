@@ -47,7 +47,7 @@
         android:layout_toEndOf="@id/share_account_item_icon"
         android:layout_toRightOf="@id/share_account_item_icon"
         android:ellipsize="middle"
-        android:lines="1"
+        android:singleLine="true"
         tools:text="community.exoplatform.com"/>
 
     <TextView

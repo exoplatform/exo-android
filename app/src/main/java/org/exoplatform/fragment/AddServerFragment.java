@@ -48,7 +48,6 @@ public class AddServerFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View fragmentLayout = inflater.inflate(R.layout.add_server_fragment, container, false);
     mIntranetUrlField = (EditText) fragmentLayout.findViewById(R.id.AddServer_Field_Url);
-
     mIntranetUrlField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override
       public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -71,7 +70,7 @@ public class AddServerFragment extends Fragment {
     return fragmentLayout;
   }
 
-  // when IME_ACTION_DONE happens on the url input.
+  // when users taps "Go" on "Enter" on the keyboard
   private void submitUrl() {
     String url = mIntranetUrlField.getText().toString().trim();
     ServerUtils.verifyUrl(url, getActivity(), new ServerUtils.ServerVerificationCallback() {

@@ -36,12 +36,10 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:focusable="true"
         android:hint="@string/AddServerFragment.Title.EnterIntranetUrl"
         android:imeOptions="actionGo"
         android:inputType="textUri"
         android:padding="5dp"
         android:singleLine="false"
         android:textSize="20sp"/>
-
 </LinearLayout>

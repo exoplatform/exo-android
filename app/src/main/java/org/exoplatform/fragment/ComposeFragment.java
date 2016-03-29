@@ -164,10 +164,6 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
     SocialActivity activity = getShareActivity().getActivityPost();
     if (activity.postAttachedFiles != null)
       setNumberOfAttachments(activity.postAttachedFiles.size());
-
-    // TODO handle loading/progress state
-    // if (!getShareActivity().isProgressVisible())
-    // getShareActivity().toggleSignInIndicator(false);
     super.onResume();
   }
 
