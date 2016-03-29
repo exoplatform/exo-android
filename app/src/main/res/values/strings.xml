@@ -55,6 +55,16 @@
     <string name="WebClient.WebView.Title.Loading">Loading…</string>
     <string name="WebClient.WebView.Hint.Close">Close web page</string>
 
+    <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
+    <string name="OnBoarding.Title.Collaboration">Collaboration</string>
+    <string name="OnBoarding.Title.Engagement">Engagement</string>
+    <string name="OnBoarding.Title.Networking">Social Networking</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
+    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
+    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
+    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
+    <string name="OnBoarding.Title.GotItButton">Got It</string>
+
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Cancel</string>
     <string name="Word.Back">Back</string>

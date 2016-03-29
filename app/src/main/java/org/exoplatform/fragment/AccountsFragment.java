@@ -149,5 +149,4 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
       throw new UnsupportedOperationException("This fragment is only valid in the activity org.exoplatform.activity.ShareExtensionActivity");
     }
   }
-
 }

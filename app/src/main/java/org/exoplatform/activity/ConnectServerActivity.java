@@ -53,7 +53,9 @@ import java.net.URL;
 import java.util.Random;
 
 /**
- * Created by chautran on 21/11/2015. Main Activity
+ * Main Activity
+ * 
+ * @author chautran on 21/11/2015
  */
 public class ConnectServerActivity extends AppCompatActivity {
 
@@ -80,7 +82,7 @@ public class ConnectServerActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     if (savedInstanceState == null) {
       // won't be called if the device was rotated
-      // TODO uncomment before release bypassIfRecentlyVisited();
+      bypassIfRecentlyVisited();
       // randomly select a background image
       mBackgroundImageId = getRandomBackgroundImageId();
     } else {
@@ -91,6 +93,8 @@ public class ConnectServerActivity extends AppCompatActivity {
     display.getSize(mScreenSize);
     setContentView(R.layout.activity_main);
     LinearLayout layout = (LinearLayout) findViewById(R.id.Main_Layout);
+    if (layout == null)
+      throw new RuntimeException("Activity's layout not found");
     if (mScreenSize.x > mScreenSize.y) {
       // In landscape mode, we want to scale and crop the background image
       // We do this off the UI thread to not drop any frame
@@ -99,7 +103,8 @@ public class ConnectServerActivity extends AppCompatActivity {
       layout.setBackgroundDrawable(getResources().getDrawable(mBackgroundImageId));
     }
     Toolbar toolbar = (Toolbar) findViewById(R.id.Main_Toolbar);
-    toolbar.setTitle("");
+    if (toolbar != null)
+      toolbar.setTitle("");
     setSupportActionBar(toolbar);
     mConnectButton = (TextView) findViewById(R.id.MainScreen_Button_Connect);
     mOtherButton = (TextView) findViewById(R.id.MainScreen_Button_Other);
@@ -223,7 +228,7 @@ public class ConnectServerActivity extends AppCompatActivity {
    */
 
   private void bypassIfRecentlyVisited() {
-    SharedPreferences prefs = getSharedPreferences(App.Preferences.FILE_NAME, 0);
+    SharedPreferences prefs = App.Preferences.get(this);
     Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
     long lastVisit = prefs.getLong(App.Preferences.LAST_VISIT_TIME, 0L);
     if (serverToConnect != null && (System.nanoTime() - App.DELAY_1H_NANOS) < lastVisit) {
@@ -238,10 +243,6 @@ public class ConnectServerActivity extends AppCompatActivity {
 
   private String connectLabelFormat(int screenWidth, int urlLength) {
     float ratio = screenWidth / urlLength;
-
-    // if (ratio >= 30)
-    // return "%s<br/>%s";
-
     if (ratio >= 25)
       return "%s<br/><small>%s</small>";
 

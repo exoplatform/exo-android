@@ -137,10 +137,10 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       }
 
       if (!prepareAccounts()) {
-        // TODO open NewServerActivity to create a new server and return here
         Toast.makeText(this, R.string.ShareActivity_Error_NoAccountConfigured, Toast.LENGTH_LONG).show();
         finish();
         return;
+        // We could open NewServerActivity to create a new intranet, and return here after
       }
 
       Server srv = mActivityPost.ownerAccount;

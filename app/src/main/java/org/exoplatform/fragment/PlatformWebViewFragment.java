@@ -24,10 +24,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,18 +47,14 @@ import org.exoplatform.R;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.ServerManagerImpl;
+import org.exoplatform.tool.WebViewCookieHandler;
 
 import java.io.IOException;
-import java.net.CookiePolicy;
-import java.net.HttpCookie;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
-import okhttp3.JavaNetCookieJar;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -72,9 +66,9 @@ import okhttp3.Response;
 public class PlatformWebViewFragment extends Fragment {
 
   // the URL to load in the web view
-  private static final String        ARG_SERVER        = "SERVER";
+  private static final String        ARG_SERVER          = "SERVER";
 
-  private final String               LOG_TAG           = PlatformWebViewFragment.class.getName();
+  public static final String         TAG                 = PlatformWebViewFragment.class.getName();
 
   private PlatformNavigationCallback mListener;
 
@@ -86,7 +80,11 @@ public class PlatformWebViewFragment extends Fragment {
 
   private Button                     mDoneButton;
 
-  private final Pattern              PAGE_NAME_PATTERN = Pattern.compile("(/[a-z0-9]*/)([a-z0-9]*/)?(login|register)");
+  private boolean                    mDidShowOnboarding;
+
+  private final Pattern              INTRANET_HOME_PAGE  = Pattern.compile("^(.*)(/portal/intranet)(/?)$");
+
+  private final Pattern              LOGIN_REGISTER_PAGE = Pattern.compile("(/[a-z0-9]*/)([a-z0-9]*/)?(login|register)");
 
   public PlatformWebViewFragment() {
     // Required empty public constructor
@@ -113,8 +111,9 @@ public class PlatformWebViewFragment extends Fragment {
     if (getArguments() != null) {
       mServer = getArguments().getParcelable(ARG_SERVER);
       // save history
-      new ServerManagerImpl(getActivity().getSharedPreferences(App.Preferences.FILE_NAME, 0)).addServer(mServer);
+      new ServerManagerImpl(App.Preferences.get(getContext())).addServer(mServer);
     }
+    mDidShowOnboarding = App.Preferences.get(getContext()).getBoolean(App.Preferences.DID_SHOW_ONBOARDING, false);
   }
 
   @SuppressLint("SetJavaScriptEnabled")
@@ -193,11 +192,6 @@ public class PlatformWebViewFragment extends Fragment {
     return false;
   }
 
-  public void refreshLayout() {
-    if (mWebView != null)
-      mWebView.getSettings().setLayoutAlgorithm(mWebView.getSettings().getLayoutAlgorithm());
-  }
-
   private void refreshLayoutForContent(String contentType) {
     if (contentType != null && !contentType.contains("text/html")) {
       // Display content fullscreen, with done button visible
@@ -219,71 +213,53 @@ public class PlatformWebViewFragment extends Fragment {
     }
   }
 
-  private List<HttpCookie> getCookiesForUrl(String url) {
-    List<HttpCookie> cookieList = new ArrayList<>();
-    String cookies = CookieManager.getInstance().getCookie(url);
-    if (cookies != null) {
-      String[] cookieArray = cookies.split(";");
-      for (String cookieStr : cookieArray) {
-        String[] cookieParts = cookieStr.split("=");
-        if (cookieParts.length >= 2)
-          cookieList.add(new HttpCookie(cookieParts[0], cookieParts[1]));
+  private void getContentTypeAsync(String url) {
+    OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
+    Request req = new Request.Builder().url(url).head().build();
+    client.newCall(req).enqueue(new Callback() {
+      @Override
+      public void onFailure(Call call, IOException e) {
+        // ignore network failure
       }
-    }
-    return cookieList;
+
+      @Override
+      public void onResponse(Call call, Response response) throws IOException {
+        if (response.isSuccessful()) {
+          final String contentType = response.header("Content-Type");
+          if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                refreshLayoutForContent(contentType);
+              }
+            });
+          }
+        }
+        response.body().close();
+      }
+    });
   }
 
-  private OkHttpClient httpClientWithWebViewCookies(@NonNull String url) throws URISyntaxException {
-    URI uri = new URI(url);
-    List<HttpCookie> cookieList = getCookiesForUrl(url);
-    java.net.CookieManager cookieManager = new java.net.CookieManager();
-    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-    for (HttpCookie cookie : cookieList) {
-      cookieManager.getCookieStore().add(uri, cookie);
-    }
-    return ExoHttpClient.getInstance().newBuilder().cookieJar(new JavaNetCookieJar(cookieManager)).build();
-  }
-
-  // TODO extract as separate class
-  // use listener interface for callback(s)
-  // pass OkHttpClient, URL and listener in constructor
-  //
-  private class GetContentTypeHeaderTask extends AsyncTask<String, Void, String> {
-
-    @Override
-    protected String doInBackground(String... urls) {
-      if (urls == null || urls.length == 0)
-        return null;
-
-      String url = urls[0];
-      OkHttpClient client;
-      try {
-        client = httpClientWithWebViewCookies(url);
-      } catch (URISyntaxException e) {
-        if (BuildConfig.DEBUG)
-          Log.d(LOG_TAG, e.getMessage(), e);
-        return null;
+  private void checkUserLoggedInAsync() {
+    OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
+    String plfInfo = mServer.getUrl().getProtocol() + "://" + mServer.getShortUrl() + "/rest/private/platform/info";
+    Request req = new Request.Builder().url(plfInfo).get().build();
+    client.newCall(req).enqueue(new Callback() {
+      @Override
+      public void onFailure(Call call, IOException e) {
+        // ignore network failure
       }
-      Request req = new Request.Builder().url(url).head().build();
-      Response resp;
-      try {
-        resp = client.newCall(req).execute();
-      } catch (IOException e) {
-        e.printStackTrace();
-        return null;
-      }
-      String contentType = null;
-      if (resp.isSuccessful()) {
-        contentType = resp.header("Content-Type");
-      }
-      return contentType;
-    }
 
-    @Override
-    protected void onPostExecute(String contentType) {
-      super.onPostExecute(contentType);
-      refreshLayoutForContent(contentType);
-    }
+      @Override
+      public void onResponse(Call call, Response response) throws IOException {
+        if (response.isSuccessful()) {
+          App.Preferences.get(getContext()).edit().putBoolean(App.Preferences.DID_SHOW_ONBOARDING, true).apply();
+          mDidShowOnboarding = true;
+          mListener.onFirstTimeUserLoggedIn();
+        }
+        response.body().close();
+      }
+    });
   }
 
   private class PlatformWebViewClient extends WebViewClient {
@@ -295,7 +271,7 @@ public class PlatformWebViewFragment extends Fragment {
         return super.shouldOverrideUrlLoading(view, url);
       } else {
         // url is on an external domain, load in a different fragment
-        mListener.onLoadExternalContent(url);
+        mListener.onExternalContentRequested(url);
         return true;
       }
     }
@@ -307,25 +283,38 @@ public class PlatformWebViewFragment extends Fragment {
       // Show / hide the Done button
       String contentType = URLConnection.guessContentTypeFromName(uri.getPath());
       if (contentType == null)
-        new GetContentTypeHeaderTask().execute(url);
+        getContentTypeAsync(url);
+      // new GetContentTypeHeaderTask().execute(url);
       else
         refreshLayoutForContent(contentType);
       // Inform the activity whether we are on the login or register page
       String path = uri.getPath();
-      mListener.isOnPageWithoutNavigation(path != null && PAGE_NAME_PATTERN.matcher(path).matches());
+      mListener.onPageStarted(path != null && LOGIN_REGISTER_PAGE.matcher(path).matches());
       // Return to the previous activity if user has signed out
       String queryString = uri.getQuery();
       if (queryString != null && queryString.contains("portal:action=Logout")) {
         mListener.onUserSignedOut();
       }
     }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+      super.onPageFinished(view, url);
+      if (!mDidShowOnboarding && INTRANET_HOME_PAGE.matcher(url).matches()) {
+        checkUserLoggedInAsync();
+      }
+      if (BuildConfig.DEBUG)
+        Log.d(TAG, "COOKIES: " + CookieManager.getInstance().getCookie(url));
+    }
   }
 
   public interface PlatformNavigationCallback {
-    void isOnPageWithoutNavigation(boolean value);
+    void onPageStarted(boolean needsToolbar);
 
     void onUserSignedOut();
 
-    void onLoadExternalContent(String url);
+    void onExternalContentRequested(String url);
+
+    void onFirstTimeUserLoggedIn();
   }
 }

@@ -46,7 +46,7 @@ public class WebViewFragment extends Fragment {
 
   private static final String     ARG_URL = "URL";
 
-  private final String            LOG_TAG = WebViewFragment.class.getName();
+  public static final String      TAG     = WebViewFragment.class.getName();
 
   private String                  mUrl;
 
@@ -95,11 +95,10 @@ public class WebViewFragment extends Fragment {
       @Override
       public void onClick(View v) {
         if (mListener != null)
-          mListener.onCloseFragment();
+          mListener.onCloseWebViewFragment();
       }
     });
     mWebView = (WebView) layout.findViewById(R.id.WebViewFragment_WebView);
-    // TODO customize web view client
     mWebView.setWebViewClient(new WebViewClient());
     mWebView.getSettings().setJavaScriptEnabled(true);
     mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
@@ -161,6 +160,6 @@ public class WebViewFragment extends Fragment {
   }
 
   public interface WebViewFragmentCallback {
-    void onCloseFragment();
+    void onCloseWebViewFragment();
   }
 }

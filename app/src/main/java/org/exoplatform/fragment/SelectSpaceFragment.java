@@ -160,7 +160,6 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
     if (selectedSpace != null) {
       getShareActivity().onSpaceSelected(selectedSpace);
     }
-    // else TODO handle failure to get space
   }
 
   public ShareExtensionActivity getShareActivity() {

@@ -75,4 +75,9 @@
         <item name="android:drawableEnd">@drawable/icon_chevron_right_grey</item>
     </style>
 
+    <style name="MainTheme.GotItButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/main_screen_button_yellow</item>
+    </style>
+
 </resources>

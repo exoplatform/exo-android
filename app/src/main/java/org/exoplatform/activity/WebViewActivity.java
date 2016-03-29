@@ -22,12 +22,14 @@ package org.exoplatform.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import org.exoplatform.App;
 import org.exoplatform.R;
+import org.exoplatform.fragment.OnBoardingManagerFragment;
 import org.exoplatform.fragment.PlatformWebViewFragment;
 import org.exoplatform.fragment.WebViewFragment;
 import org.exoplatform.model.Server;
@@ -37,24 +39,27 @@ import java.net.URL;
 import java.util.Date;
 
 /**
- * Created by chautn on 10/14/15. Activity that loads Platform into a web view
+ * Activity that loads Platform into a web view
+ * 
+ * @author chautn on 10/14/15
+ * @author paristote
  */
 public class WebViewActivity extends AppCompatActivity implements PlatformWebViewFragment.PlatformNavigationCallback,
-    WebViewFragment.WebViewFragmentCallback {
+    WebViewFragment.WebViewFragmentCallback, OnBoardingManagerFragment.OnBoardingFragmentCallback {
 
   public static final String      INTENT_KEY_URL = "URL";
 
-  private static final String     LOG_TAG        = WebViewActivity.class.getName();
+  public static final String      LOG_TAG        = WebViewActivity.class.getName();
 
-  private PlatformWebViewFragment platformFragment;
+  private PlatformWebViewFragment mPlatformFragment;
 
-  private WebViewFragment         webViewFragment;
+  private WebViewFragment         mWebViewFragment;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_webview);
-    // toolbar, hidden by default, visible on certain pages cf
+    // Toolbar hidden by default, visible on certain pages cf
     // PlatformWebViewFragment->onPageStarted
     Toolbar mToolbar = (Toolbar) findViewById(R.id.WebClient_Toolbar);
     setSupportActionBar(mToolbar);
@@ -62,12 +67,14 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
       getSupportActionBar().hide();
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    // url of the intranet to load
+    // Url of the intranet to load
     String url = getIntent().getStringExtra(INTENT_KEY_URL);
     try {
       Server server = new Server(new URL(url), new Date().getTime());
-      platformFragment = PlatformWebViewFragment.newInstance(server);
-      getSupportFragmentManager().beginTransaction().add(R.id.WebClient_WebViewFragment, platformFragment).commit();
+      mPlatformFragment = PlatformWebViewFragment.newInstance(server);
+      getSupportFragmentManager().beginTransaction()
+                                 .add(R.id.WebClient_WebViewFragment, mPlatformFragment, PlatformWebViewFragment.TAG)
+                                 .commit();
     } catch (MalformedURLException e) {
       throw new IllegalArgumentException("Cannot load the Platform intranet at URL " + url, e);
     }
@@ -84,13 +91,13 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
 
   @Override
   public void onBackPressed() {
-    // leave the activity if there is no previous page to go back to,
-    // on either Platform fragment or WebView fragment
+    // Leave the activity if there is no previous web page to go back to,
+    // on either the Platform fragment or the WebView fragment
     boolean eventHandled = false;
-    if (platformFragment != null && platformFragment.isVisible())
-      eventHandled = platformFragment.goBack();
-    else if (webViewFragment != null && webViewFragment.isVisible())
-      eventHandled = webViewFragment.goBack();
+    if (mPlatformFragment != null && mPlatformFragment.isVisible())
+      eventHandled = mPlatformFragment.goBack();
+    else if (mWebViewFragment != null && mWebViewFragment.isVisible())
+      eventHandled = mWebViewFragment.goBack();
     if (!eventHandled)
       super.onBackPressed();
   }
@@ -114,8 +121,8 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   }
 
   @Override
-  public void isOnPageWithoutNavigation(boolean value) {
-    showHideToolbar(value);
+  public void onPageStarted(boolean needsToolbar) {
+    showHideToolbar(needsToolbar);
   }
 
   @Override
@@ -125,23 +132,44 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   }
 
   @Override
-  public void onLoadExternalContent(String url) {
+  public void onExternalContentRequested(String url) {
     // create and open a new fragment
-    webViewFragment = WebViewFragment.newInstance(url);
+    mWebViewFragment = WebViewFragment.newInstance(url);
     getSupportFragmentManager().beginTransaction()
                                .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
-                               .add(R.id.WebClient_WebViewFragment, webViewFragment)
-                               .addToBackStack("WEBVIEW_FRAGMENT")
-                               .hide(platformFragment)
+                               .add(R.id.WebClient_WebViewFragment, mWebViewFragment, WebViewFragment.TAG)
+                               .addToBackStack(WebViewFragment.TAG)
+                               .hide(mPlatformFragment)
                                .commit();
   }
 
   @Override
-  public void onCloseFragment() {
+  public void onFirstTimeUserLoggedIn() {
+    // show the on-boarding screen
+    getSupportFragmentManager().beginTransaction()
+                               .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
+                               .add(R.id.WebClient_WebViewFragment,
+                                    new OnBoardingManagerFragment(),
+                                    OnBoardingManagerFragment.TAG)
+                               .addToBackStack(OnBoardingManagerFragment.TAG)
+                               .hide(mPlatformFragment)
+                               .commit();
+  }
+
+  @Override
+  public void onCloseWebViewFragment() {
     // remove the fragment from the activity
     getSupportFragmentManager().popBackStack();
-    getSupportFragmentManager().beginTransaction().remove(webViewFragment).show(platformFragment).commit();
+    getSupportFragmentManager().beginTransaction().remove(mWebViewFragment).show(mPlatformFragment).commit();
     // a new instance will be created if we load an external url again
-    webViewFragment = null;
+    mWebViewFragment = null;
+  }
+
+  @Override
+  public void onCloseOnBoardingFragment() {
+    // remove the fragment from the activity
+    Fragment onBoardingFragment = getSupportFragmentManager().findFragmentByTag(OnBoardingManagerFragment.TAG);
+    getSupportFragmentManager().popBackStack();
+    getSupportFragmentManager().beginTransaction().remove(onBoardingFragment).show(mPlatformFragment).commit();
   }
 }
