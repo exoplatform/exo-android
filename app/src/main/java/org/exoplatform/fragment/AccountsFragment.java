@@ -70,7 +70,7 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
 
   @Override
   public boolean setViewValue(View view, Object data, String textRepresentation) {
-    Server acc = (Server) data;
+    final Server acc = (Server) data;
 
     TextView server = (TextView) view.findViewById(R.id.share_account_item_server_url);
     server.setText(acc.getShortUrl());
@@ -87,26 +87,29 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
     } else {
       Picasso.with(getActivity()).load(R.drawable.empty_drawable).into(icon);
     }
-    return true;
-  }
 
-  @Override
-  public void onListItemClick(ListView l, View v, int position, long id) {
-    if (mServerList != null && position >= 0 && position < mServerList.size()) {
-      Server acc = mServerList.get(position);
-      // TODO allow to edit credentials when they already exist
-      if (acc.getLastLogin() != null && !"".equals(acc.getLastLogin()) && acc.getLastPassword() != null
-          && !"".equals(acc.getLastPassword())) {
-        getShareActivity().onAccountSelected(acc);
-        getShareActivity().openFragment(ComposeFragment.getFragment(),
-                                        ComposeFragment.COMPOSE_FRAGMENT,
-                                        ShareExtensionActivity.Anim.FROM_LEFT);
-      } else {
-        getShareActivity().getActivityPost().ownerAccount = acc;
-        SignInFragment signIn = SignInFragment.getFragment();
-        getShareActivity().openFragment(signIn, SignInFragment.SIGN_IN_FRAGMENT, ShareExtensionActivity.Anim.FROM_RIGHT);
-      }
+    if (view.getId() == R.id.share_account_item_layout) {
+      // Set the click listeners on the whole cell
+      view.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          if (acc.getLastLogin() != null && !"".equals(acc.getLastLogin()) && acc.getLastPassword() != null
+              && !"".equals(acc.getLastPassword())) {
+            onSelectAccount(acc);
+          } else {
+            onSignInAccount(acc);
+          }
+        }
+      });
+      view.setOnLongClickListener(new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+          onSignInAccount(acc);
+          return true;
+        }
+      });
     }
+    return true;
   }
 
   @Override
@@ -148,5 +151,18 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
     } else {
       throw new UnsupportedOperationException("This fragment is only valid in the activity org.exoplatform.activity.ShareExtensionActivity");
     }
+  }
+
+  private void onSelectAccount(Server server) {
+    getShareActivity().onAccountSelected(server);
+    getShareActivity().openFragment(ComposeFragment.getFragment(),
+                                    ComposeFragment.COMPOSE_FRAGMENT,
+                                    ShareExtensionActivity.Anim.FROM_LEFT);
+  }
+
+  private void onSignInAccount(Server server) {
+    getShareActivity().getActivityPost().ownerAccount = server;
+    SignInFragment signIn = SignInFragment.getFragment();
+    getShareActivity().openFragment(signIn, SignInFragment.SIGN_IN_FRAGMENT, ShareExtensionActivity.Anim.FROM_RIGHT);
   }
 }

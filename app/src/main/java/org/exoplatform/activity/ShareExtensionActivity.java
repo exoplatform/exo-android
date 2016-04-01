@@ -140,7 +140,8 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
         Toast.makeText(this, R.string.ShareActivity_Error_NoAccountConfigured, Toast.LENGTH_LONG).show();
         finish();
         return;
-        // We could open NewServerActivity to create a new intranet, and return here after
+        // We could open NewServerActivity to create a new intranet, and return
+        // here after
       }
 
       Server srv = mActivityPost.ownerAccount;
@@ -212,7 +213,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       setTitle(R.string.ShareActivity_SignIn_Title_EnterCredentials);
     } else if (AccountsFragment.ACCOUNTS_FRAGMENT.equals(key)) {
       setToolbarButtonType(ToolbarButtonType.HIDDEN);
-      setTitle(R.string.ShareActivity_Compose_Title_SignInToPost);
+      setTitle(R.string.ShareActivity_Intranets_Title_Intranets);
     } else if (SelectSpaceFragment.SPACES_FRAGMENT.equals(key)) {
       setToolbarButtonType(ToolbarButtonType.HIDDEN);
       setTitle(R.string.ShareActivity_Compose_Title_ShareWith);
