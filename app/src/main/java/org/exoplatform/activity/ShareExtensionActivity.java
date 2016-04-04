@@ -121,9 +121,11 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       if ("text/plain".equals(type)) {
         // User is sharing some text
         mActivityPost.title = intent.getStringExtra(Intent.EXTRA_TEXT);
+        mActivityPost.type = SocialActivity.TYPE_DEFAULT;
       } else {
         // User is sharing some document(s)
         mActivityPost.title = "";
+        mActivityPost.type = SocialActivity.TYPE_DOC;
         if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
           mAttachmentUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         } else {
@@ -157,6 +159,14 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       // ACTION_SEND intent
       finish();
     }
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    finish();
+    // Don't keep the share extension in standby when we switch to another app,
+    // or hit the home button
   }
 
   private boolean isIntentCorrect() {

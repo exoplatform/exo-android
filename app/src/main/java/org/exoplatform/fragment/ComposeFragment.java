@@ -160,10 +160,17 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
     setAccountLabel();
     setSpaceLabel();
     setTouchListener();
-    setThumbnailImage(getShareActivity().getThumbnail());
     SocialActivity activity = getShareActivity().getActivityPost();
-    if (activity.postAttachedFiles != null)
-      setNumberOfAttachments(activity.postAttachedFiles.size());
+    if (!SocialActivity.TYPE_DOC.equals(activity.type)) {
+      // Text or link activity, no thumbnail
+      mThumbnailImageView.setVisibility(View.GONE);
+      mMoreAttachmentsLabel.setVisibility(View.GONE);
+    } else {
+      // Doc activity
+      setThumbnailImage(getShareActivity().getThumbnail());
+      if (activity.postAttachedFiles != null)
+        setNumberOfAttachments(activity.postAttachedFiles.size());
+    }
     super.onResume();
   }
 
