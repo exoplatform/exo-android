@@ -124,6 +124,7 @@ public class ConnectServerActivity extends AppCompatActivity {
       mConnectButton.setText(R.string.ConnectActivity_Title_DiscoverExoTribe);
       mConnectButton.setOnClickListener(onClickDiscoverTribe());
       mOtherButton.setText(R.string.ConnectActivity_Title_AddIntranet);
+      mDiscoverTribeLink.setVisibility(View.INVISIBLE);
     } else {
       // Rule SIGN_IN_05
       Server serverToConnect = mServerManager.getLastVisitedServer();
