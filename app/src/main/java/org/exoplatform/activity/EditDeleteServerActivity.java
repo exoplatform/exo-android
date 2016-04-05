@@ -20,6 +20,7 @@ package org.exoplatform.activity;
  *
  */
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -63,7 +64,7 @@ public class EditDeleteServerActivity extends AppCompatActivity {
       mOriginalUrl = getIntent().getStringExtra(INTENT_KEY_URL);
       mNewUrlField = (EditText) findViewById(R.id.Settings_Edit_UrlField);
       mNewUrlField.setText(mOriginalUrl);
-      mServerManager = new ServerManagerImpl(getSharedPreferences(App.Preferences.FILE_NAME, 0));
+      mServerManager = new ServerManagerImpl(getSharedPreferences(App.Preferences.PREFS_FILE_NAME, 0));
       Button deleteButton = (Button) findViewById(R.id.Settings_Delete_Button);
       deleteButton.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -87,14 +88,22 @@ public class EditDeleteServerActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.EditServer_Menu_Save) {
       String url = mNewUrlField.getText().toString().trim();
-      ServerUtils.verifyUrl(url, this, new ServerUtils.ServerVerificationCallback() {
+      final ProgressDialog progressDialog = ServerUtils.savingServerDialog(this);
+      ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
+        @Override
+        public void onVerificationStarted() {
+          progressDialog.show();
+        }
+
         @Override
         public void onServerValid(Server server) {
           saveServer(server);
+          progressDialog.dismiss();
         }
 
         @Override
         public void onServerNotSupported() {
+          progressDialog.dismiss();
           ServerUtils.dialogWithTitleAndMessage(EditDeleteServerActivity.this,
                                                 R.string.ServerManager_Error_TitleVersion,
                                                 R.string.ServerManager_Error_PlatformVersionNotSupported).show();
@@ -102,6 +111,7 @@ public class EditDeleteServerActivity extends AppCompatActivity {
 
         @Override
         public void onServerInvalid() {
+          progressDialog.dismiss();
           ServerUtils.dialogWithTitleAndMessage(EditDeleteServerActivity.this,
                                                 R.string.ServerManager_Error_TitleIncorrect,
                                                 R.string.ServerManager_Error_IncorrectUrl).show();

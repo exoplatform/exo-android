@@ -26,7 +26,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -40,6 +39,7 @@ import org.exoplatform.activity.ShareExtensionActivity;
 import org.exoplatform.model.Server;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +82,7 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
       username.setText(acc.getLastLogin());
 
     ImageView icon = (ImageView) view.findViewById(R.id.share_account_item_icon);
-    if (getShareActivity().getActivityPost().ownerAccount.equals(acc)) {
+    if (acc.equals(getShareActivity().getActivityPost().ownerAccount)) {
       Picasso.with(getActivity()).load(R.drawable.icon_check_circle_grey).into(icon);
     } else {
       Picasso.with(getActivity()).load(R.drawable.empty_drawable).into(icon);
@@ -119,8 +119,9 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
 
   @Override
   public void onResume() {
-    ServerManager serverManager = new ServerManagerImpl(getContext().getSharedPreferences(App.Preferences.FILE_NAME, 0));
+    ServerManager serverManager = new ServerManagerImpl(getContext().getSharedPreferences(App.Preferences.PREFS_FILE_NAME, 0));
     mServerList = serverManager.getServerList();
+    Collections.sort(mServerList, Collections.reverseOrder());
     ArrayList<Map<String, Server>> data = new ArrayList<>(mServerList.size());
     for (Server account : mServerList) {
       Map<String, Server> map = new HashMap<>();
@@ -161,7 +162,10 @@ public class AccountsFragment extends ListFragment implements SimpleAdapter.View
   }
 
   private void onSignInAccount(Server server) {
+    // It's important to set the ownerAccount property before calling
+    // verifySelectedIntranet()
     getShareActivity().getActivityPost().ownerAccount = server;
+    getShareActivity().verifySelectedIntranet();
     SignInFragment signIn = SignInFragment.getFragment();
     getShareActivity().openFragment(signIn, SignInFragment.SIGN_IN_FRAGMENT, ShareExtensionActivity.Anim.FROM_RIGHT);
   }

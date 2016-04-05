@@ -25,6 +25,7 @@ import org.exoplatform.model.PlatformInfo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 
 /**
  * Created by Philippe on 3/7/16. Interface to connect to the Platform's REST
@@ -42,6 +43,13 @@ public interface LoginRestService {
   @GET("/rest/private/platform/info")
   Call<PlatformInfo> login(@Header("Authorization") String authorization);
 
+  /**
+   * Login service.<br/>
+   * Authentication is made with the BasicAuthenticator from ExoHttpClient.
+   * 
+   * @see ExoHttpClient
+   * @return a Call object with a PlatformInfo response
+   */
   @GET("/rest/private/platform/info")
   Call<PlatformInfo> login();
 

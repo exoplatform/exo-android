@@ -49,11 +49,9 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
 
   public ServerAdapter(@NonNull Context context, @NonNull ServerClickListener listener) {
     this.mListener = listener;
-    mServerManager = new ServerManagerImpl(context.getSharedPreferences(App.Preferences.FILE_NAME, 0));
+    mServerManager = new ServerManagerImpl(context.getSharedPreferences(App.Preferences.PREFS_FILE_NAME, 0));
     mServers = mServerManager.getServerList();
-    if (mServers != null) {
-      Collections.sort(mServers, Collections.reverseOrder());
-    }
+    Collections.sort(mServers, Collections.reverseOrder());
   }
 
   public ServerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

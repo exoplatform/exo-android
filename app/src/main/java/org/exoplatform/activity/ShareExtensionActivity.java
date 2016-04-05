@@ -35,13 +35,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import org.exoplatform.App;
-import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
 import org.exoplatform.tool.ServerManager;
 import org.exoplatform.tool.ServerManagerImpl;
@@ -57,14 +55,11 @@ import org.exoplatform.service.share.LoginTask;
 import org.exoplatform.service.share.PrepareAttachmentsTask;
 import org.exoplatform.service.share.ShareService;
 import org.exoplatform.tool.DocumentUtils;
-import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.PlatformUtils;
+import org.exoplatform.tool.ServerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Cookie;
-import okhttp3.HttpUrl;
 
 /**
  * Created by The eXo Platform SAS
@@ -104,6 +99,8 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
   // the thumbnail bitmap
   private Bitmap             mThumbnail;
 
+  private boolean            mShouldCleanup;
+
   @Override
   protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);
@@ -111,6 +108,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     setContentView(R.layout.activity_share_extension);
     Toolbar toolbar = (Toolbar) findViewById(R.id.Share_Toolbar);
     setSupportActionBar(toolbar);
+    mShouldCleanup = true;
     mToolbarButton = (Button) findViewById(R.id.Share_Main_Button);
     mUserLoggedIn = false;
     mActivityPost = new SocialActivity();
@@ -139,7 +137,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       }
 
       if (!prepareAccounts()) {
-        Toast.makeText(this, R.string.ShareActivity_Error_NoAccountConfigured, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.ShareActivity_Error_NoAccountConfigured, Toast.LENGTH_LONG).show();
         finish();
         return;
         // We could open NewServerActivity to create a new intranet, and return
@@ -164,9 +162,17 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
   @Override
   protected void onStop() {
     super.onStop();
+    if (mShouldCleanup)
+      cleanup();
     finish();
     // Don't keep the share extension in standby when we switch to another app,
     // or hit the home button
+  }
+
+  private void cleanup() {
+    if (mActivityPost != null)
+      DocumentUtils.deleteLocalFiles(mActivityPost.postAttachedFiles);
+    PlatformUtils.reset();
   }
 
   private boolean isIntentCorrect() {
@@ -178,12 +184,12 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
 
   private boolean prepareAccounts() {
     // Load the list of accounts
-    ServerManager serverManager = new ServerManagerImpl(getSharedPreferences(App.Preferences.FILE_NAME, 0));
+    ServerManager serverManager = new ServerManagerImpl(App.Preferences.get(this));
     // Init the activity with the selected account
     mActivityPost.ownerAccount = serverManager.getLastVisitedServer();
     if (mActivityPost.ownerAccount == null) {
       List<Server> serverList = serverManager.getServerList();
-      if (serverList == null || serverList.size() == 0) {
+      if (serverList.size() == 0) {
         return false;
       } else {
         // use the first server in the list
@@ -239,9 +245,6 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     // If we're on the composer, call super to finish the activity
     ComposeFragment composer = ComposeFragment.getFragment();
     if (composer.isAdded()) {
-      if (mActivityPost != null)
-        DocumentUtils.deleteLocalFiles(mActivityPost.postAttachedFiles);
-      PlatformUtils.reset();
       super.onBackPressed();
     } else if (AccountsFragment.getFragment().isAdded()) {
       // close the accounts fragment and reopen the composer fragment
@@ -312,24 +315,24 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
 
       if (mActivityPost.ownerAccount == null || !mUserLoggedIn) {
         // no account selected or account offline
-        Toast.makeText(this, R.string.ShareActivity_Error_CannotPostBecauseOffline, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.ShareActivity_Error_CannotPostBecauseOffline, Toast.LENGTH_LONG).show();
         return;
       }
 
       if (!mActivityPost.hasAttachment() && mActivityPost.title.trim().isEmpty()) {
         // no document or message to share
-        Toast.makeText(this, R.string.ShareActivity_Error_CannotPostBecauseEmpty, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.ShareActivity_Error_CannotPostBecauseEmpty, Toast.LENGTH_LONG).show();
         return;
       }
 
-      if (BuildConfig.DEBUG)
-        Log.d(LOG_TAG, "Starting share service...");
-      Intent share = new Intent(getBaseContext(), ShareService.class);
+      Intent share = new Intent(this, ShareService.class);
       share.putExtra(ShareService.POST_INFO, mActivityPost);
       startService(share);
-      Toast.makeText(getBaseContext(), R.string.ShareActivity_Message_OperationStarted, Toast.LENGTH_LONG).show();
+      Toast.makeText(getApplicationContext(), R.string.ShareActivity_Message_OperationStarted, Toast.LENGTH_LONG).show();
 
       // Post is in progress, our work is done here
+      // Cleanup will be done in the ShareService
+      mShouldCleanup = false;
       finish();
       break;
 
@@ -366,7 +369,8 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     if (mUserLoggedIn) {
       openFragment(SelectSpaceFragment.getFragment(), SelectSpaceFragment.SPACES_FRAGMENT, Anim.FROM_RIGHT);
     } else {
-      Toast.makeText(this, R.string.ShareActivity_Error_CannotSelectSpaceBecauseOffline, Toast.LENGTH_LONG).show();
+      Toast.makeText(getApplicationContext(), R.string.ShareActivity_Error_CannotSelectSpaceBecauseOffline, Toast.LENGTH_LONG)
+           .show();
     }
   }
 
@@ -374,6 +378,65 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     // When we come back from the space selector activity
     mActivityPost.destinationSpace = space;
     openFragment(ComposeFragment.getFragment(), ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
+  }
+
+  /*
+   * VERIFY INTRANET
+   */
+
+  /**
+   * Check that the currently selected intranet is based on a Platform 4.3+
+   * server.<br/>
+   * If not, displays an alert and go back to the AccountsFragment.
+   */
+  public void verifySelectedIntranet() {
+    final Server server = mActivityPost.ownerAccount;
+    if (server == null)
+      throw new IllegalArgumentException("Server to check must not be null");
+
+    ServerUtils.verifyUrl(server.getUrl().toString(), new ServerUtils.ServerVerificationCallback() {
+      @Override
+      public void onVerificationStarted() {
+      }
+
+      @Override
+      public void onServerValid(Server server) {
+      }
+
+      @Override
+      public void onServerNotSupported() {
+        showDialog(R.string.ServerManager_Error_TitleVersion,
+                   R.string.ServerManager_Alert_PlatformVersionNotSupported,
+                   Anim.FROM_LEFT);
+        // Move then non-supported intranet at the bottom of the history
+        server.setLastVisited(-1L);
+        // Set signed-out state and update the server
+        handleLoginResult(false);
+      }
+
+      @Override
+      public void onServerInvalid() {
+        showDialog(R.string.ServerManager_Error_TitleIncorrect, R.string.ServerManager_Error_IncorrectUrl, Anim.FROM_LEFT);
+        // Move the incorrect intranet at the bottom of the history
+        server.setLastVisited(-1L);
+        // Set signed-out state and update the server
+        handleLoginResult(false);
+      }
+    });
+  }
+
+  private void showDialog(int title, int message, final Anim backToAccountsAnim) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(ShareExtensionActivity.this);
+    builder.setCancelable(false)
+           .setTitle(title)
+           .setMessage(message)
+           .setNeutralButton(R.string.Word_Back, new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int which) {
+               openFragment(AccountsFragment.getFragment(), AccountsFragment.ACCOUNTS_FRAGMENT, backToAccountsAnim);
+             }
+           });
+    builder.create().show();
   }
 
   /*
@@ -404,27 +467,27 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     } else {
       server.setLastPassword("");
     }
-    new ServerManagerImpl(getSharedPreferences(App.Preferences.FILE_NAME, 0)).addServer(server);
+    new ServerManagerImpl(App.Preferences.get(this)).addServer(server);
     setToolbarButtonEnabled(mUserLoggedIn);
   }
 
   @Override
   public void onLoginSuccess(PlatformInfo result) {
     handleLoginResult(true);
-    // -------
-    if (BuildConfig.DEBUG) {
-      Server server = mActivityPost.ownerAccount;
-      HttpUrl url = HttpUrl.parse(server.getUrl().toString());
-      for (Cookie c : ExoHttpClient.getInstance().cookieJar().loadForRequest(url)) {
-        Log.d(LOG_TAG, "COOKIE : " + c.toString());
-      }
-    }
   }
 
   @Override
   public void onLoginFailed() {
     Toast.makeText(getApplicationContext(), R.string.ShareActivity_Error_SignInFailed, Toast.LENGTH_LONG).show();
     handleLoginResult(false);
+  }
+
+  @Override
+  public void onPlatformVersionNotSupported() {
+    handleLoginResult(false);
+    showDialog(R.string.ServerManager_Error_TitleVersion,
+               R.string.ServerManager_Alert_PlatformVersionNotSupported,
+               Anim.FROM_RIGHT);
   }
 
   /*
@@ -443,7 +506,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
   @Override
   public void onPrepareAttachmentsFinished(PrepareAttachmentsTask.AttachmentsResult result) {
     if (result.error != null) {
-      Toast.makeText(this, result.error, Toast.LENGTH_LONG).show();
+      Toast.makeText(getApplicationContext(), result.error, Toast.LENGTH_LONG).show();
     }
     mThumbnail = result.thumbnail;
     mActivityPost.postAttachedFiles = result.attachments;

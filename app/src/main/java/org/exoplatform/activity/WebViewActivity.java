@@ -20,9 +20,11 @@ package org.exoplatform.activity;
  *
  */
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -33,6 +35,8 @@ import org.exoplatform.fragment.OnBoardingManagerFragment;
 import org.exoplatform.fragment.PlatformWebViewFragment;
 import org.exoplatform.fragment.WebViewFragment;
 import org.exoplatform.model.Server;
+import org.exoplatform.tool.ServerManagerImpl;
+import org.exoplatform.tool.ServerUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -71,6 +75,7 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
     String url = getIntent().getStringExtra(INTENT_KEY_URL);
     try {
       Server server = new Server(new URL(url), new Date().getTime());
+      verifyIntranet(server);
       mPlatformFragment = PlatformWebViewFragment.newInstance(server);
       getSupportFragmentManager().beginTransaction()
                                  .add(R.id.WebClient_WebViewFragment, mPlatformFragment, PlatformWebViewFragment.TAG)
@@ -84,7 +89,7 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   protected void onStop() {
     super.onStop();
     // Saving the last time an intranet was visited, for rule SIGN_IN_13
-    SharedPreferences.Editor pref = getSharedPreferences(App.Preferences.FILE_NAME, 0).edit();
+    SharedPreferences.Editor pref = getSharedPreferences(App.Preferences.PREFS_FILE_NAME, 0).edit();
     pref.putLong(App.Preferences.LAST_VISIT_TIME, System.nanoTime());
     pref.apply();
   }
@@ -171,5 +176,56 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
     Fragment onBoardingFragment = getSupportFragmentManager().findFragmentByTag(OnBoardingManagerFragment.TAG);
     getSupportFragmentManager().popBackStack();
     getSupportFragmentManager().beginTransaction().remove(onBoardingFragment).show(mPlatformFragment).commit();
+  }
+
+  /**
+   * Check that the intranet is based on a Platform 4.3+ server.<br/>
+   * If not, displays an alert and go back to the previous activity.
+   * 
+   * @param server the Intranet to check
+   */
+  private void verifyIntranet(final Server server) throws MalformedURLException {
+    if (server == null)
+      throw new MalformedURLException("Cannot verify a null server");
+
+    ServerUtils.verifyUrl(server.getUrl().toString(), new ServerUtils.ServerVerificationCallback() {
+      @Override
+      public void onVerificationStarted() {
+      }
+
+      @Override
+      public void onServerValid(Server server) {
+      }
+
+      @Override
+      public void onServerNotSupported() {
+        showDialog(R.string.ServerManager_Error_TitleVersion, R.string.ServerManager_Alert_PlatformVersionNotSupported);
+        // Move then non-supported intranet at the bottom of the history
+        server.setLastVisited(-1L);
+        new ServerManagerImpl(App.Preferences.get(WebViewActivity.this)).addServer(server);
+      }
+
+      @Override
+      public void onServerInvalid() {
+        showDialog(R.string.ServerManager_Error_TitleIncorrect, R.string.ServerManager_Error_IncorrectUrl);
+        // Move the incorrect intranet at the bottom of the history
+        server.setLastVisited(-1L);
+        new ServerManagerImpl(App.Preferences.get(WebViewActivity.this)).addServer(server);
+      }
+
+      private void showDialog(int title, int message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WebViewActivity.this);
+        builder.setCancelable(false)
+               .setTitle(title)
+               .setMessage(message)
+               .setNeutralButton(R.string.Word_Back, new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+                   WebViewActivity.this.finish();
+                 }
+               });
+        builder.create().show();
+      }
+    });
   }
 }

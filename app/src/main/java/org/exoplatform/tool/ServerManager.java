@@ -20,6 +20,8 @@ package org.exoplatform.tool;
  *
  */
 
+import android.support.annotation.NonNull;
+
 import org.exoplatform.model.Server;
 
 import java.net.URL;
@@ -34,7 +36,7 @@ public interface ServerManager {
   /**
    * @return the collection of servers.
    */
-  ArrayList<Server> getServerList();
+  @NonNull ArrayList<Server> getServerList();
 
   /**
    * adds a server to the store.

@@ -21,6 +21,7 @@ package org.exoplatform.fragment;
  */
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -70,12 +71,19 @@ public class AddServerFragment extends Fragment {
     return fragmentLayout;
   }
 
-  // when users taps "Go" on "Enter" on the keyboard
+  // when users taps "Go" or "Enter" on the keyboard
   private void submitUrl() {
     String url = mIntranetUrlField.getText().toString().trim();
-    ServerUtils.verifyUrl(url, getActivity(), new ServerUtils.ServerVerificationCallback() {
+    final ProgressDialog progressDialog = ServerUtils.savingServerDialog(getActivity());
+    ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
+      @Override
+      public void onVerificationStarted() {
+        progressDialog.show();
+      }
+
       @Override
       public void onServerValid(Server server) {
+        progressDialog.dismiss();
         Intent intent = new Intent(getActivity(), WebViewActivity.class);
         intent.putExtra(WebViewActivity.INTENT_KEY_URL, server.getUrl().toString());
         startActivity(intent);
@@ -83,6 +91,7 @@ public class AddServerFragment extends Fragment {
 
       @Override
       public void onServerNotSupported() {
+        progressDialog.dismiss();
         ServerUtils.dialogWithTitleAndMessage(getActivity(),
                                               R.string.ServerManager_Error_TitleVersion,
                                               R.string.ServerManager_Error_PlatformVersionNotSupported).show();
@@ -90,6 +99,7 @@ public class AddServerFragment extends Fragment {
 
       @Override
       public void onServerInvalid() {
+        progressDialog.dismiss();
         ServerUtils.dialogWithTitleAndMessage(getActivity(),
                                               R.string.ServerManager_Error_TitleIncorrect,
                                               R.string.ServerManager_Error_IncorrectUrl).show();

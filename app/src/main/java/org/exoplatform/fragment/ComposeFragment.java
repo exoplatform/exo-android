@@ -205,7 +205,7 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
         mAccountSelector.setText(R.string.ShareActivity_Compose_Title_SignInToPost);
       }
 
-      ServerManager serverManager = new ServerManagerImpl(getContext().getSharedPreferences(App.Preferences.FILE_NAME, 0));
+      ServerManager serverManager = new ServerManagerImpl(App.Preferences.get(getContext()));
       boolean manyAccounts = serverManager.getServerList().size() > 1;
       if (manyAccounts || !getShareActivity().isLoggedIn()) {
         // Show a > icon if 2 or more accounts exist or the user is not logged
@@ -283,6 +283,12 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
     isSigningIn = false;
     if (getView() != null) {
       mAccountSelector.setText(R.string.ShareActivity_Compose_Title_SignInToPost);
+      getView().findViewById(R.id.share_space_wrapper).setVisibility(View.GONE);
     }
+  }
+
+  @Override
+  public void onPlatformVersionNotSupported() {
+    onLoginFailed();
   }
 }

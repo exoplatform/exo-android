@@ -20,6 +20,7 @@ package org.exoplatform.activity;
  *
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -44,12 +46,15 @@ import com.squareup.picasso.Picasso;
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
+import org.exoplatform.tool.ServerManager;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.model.Server;
+import org.exoplatform.tool.ServerUtils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -67,8 +72,6 @@ public class ConnectServerActivity extends AppCompatActivity {
 
   TextView             mDiscoverTribeLink;
 
-  ServerManagerImpl    mServerManager;
-
   int                  mBackgroundImageId;
 
   Point                mScreenSize             = new Point();
@@ -80,6 +83,9 @@ public class ConnectServerActivity extends AppCompatActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    if (ServerUtils.legacyServersExist(this)) {
+      migrateLegacyServersAsync();
+    }
     if (savedInstanceState == null) {
       // won't be called if the device was rotated
       bypassIfRecentlyVisited();
@@ -114,47 +120,7 @@ public class ConnectServerActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
-
-    SharedPreferences prefs = getSharedPreferences(App.Preferences.FILE_NAME, 0);
-    mServerManager = new ServerManagerImpl(prefs);
-
-    int serverCount = mServerManager.getServerCount();
-    if (serverCount == 0) {
-      // Rule SIGN_IN_02
-      mConnectButton.setText(R.string.ConnectActivity_Title_DiscoverExoTribe);
-      mConnectButton.setOnClickListener(onClickDiscoverTribe());
-      mOtherButton.setText(R.string.ConnectActivity_Title_AddIntranet);
-      mDiscoverTribeLink.setVisibility(View.INVISIBLE);
-    } else {
-      // Rule SIGN_IN_05
-      Server serverToConnect = mServerManager.getLastVisitedServer();
-      if (serverToConnect.isExoTribe()) {
-        // Connect to eXo Tribe
-        mConnectButton.setText(R.string.ConnectActivity_Title_ConnnectToExoTribe);
-      } else {
-        // Connect to <br/> www.intranet-url.com
-        int width = mScreenSize.x;
-        int urlLength = serverToConnect.getShortUrl().length();
-        String labelFormat = String.format(connectLabelFormat(width, urlLength),
-                                           getString(R.string.ConnectActivity_Title_ConnectTo),
-                                           serverToConnect.getShortUrl());
-        mConnectButton.setText(Html.fromHtml(labelFormat));
-      }
-
-      mConnectButton.setOnClickListener(onClickConnectServer(serverToConnect));
-      if (serverCount == 1) {
-        mOtherButton.setText(R.string.ConnectActivity_Title_AddNewIntranet);
-      } else {
-        mOtherButton.setText(R.string.ConnectActivity_Title_Others);
-      }
-      if (mServerManager.tribeServerExists()) {
-        mDiscoverTribeLink.setVisibility(View.INVISIBLE);
-      } else {
-        // Rule SIGN_IN_08
-        mDiscoverTribeLink.setVisibility(View.VISIBLE);
-        mDiscoverTribeLink.setOnClickListener(onClickDiscoverTribe());
-      }
-    }
+    setupButtons();
   }
 
   @Override
@@ -179,6 +145,98 @@ public class ConnectServerActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  private void migrateLegacyServersAsync() {
+    new AsyncTask<Void, Void, Void>() {
+      @Override
+      protected Void doInBackground(Void... params) {
+        Context ctx = ConnectServerActivity.this;
+        List<Server> serverList = ServerUtils.loadLegacyServerList(ctx);
+        new ServerManagerImpl(App.Preferences.get(ctx)).save(serverList);
+        deleteFile(App.Preferences.EXO_2X_SERVERS_STORAGE);
+        return null;
+      }
+
+      @Override
+      protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        setupButtons();
+      }
+    }.execute();
+  }
+
+  // Rules SIGN_IN_02, SIGN_IN_05 and SIGN_IN_08
+  private void setupButtons() {
+    ServerManager serverManager = new ServerManagerImpl(App.Preferences.get(this));
+    int serverCount = serverManager.getServerCount();
+    // First button
+    if (serverCount == 0) {
+      setupConnectToButton(null);
+    } else {
+      Server serverToConnect = serverManager.getLastVisitedServer();
+      setupConnectToButton(serverToConnect);
+    }
+    // Second button
+    setupAddIntranetButton(serverCount);
+    // Discover eXo Tribe link: hide if the Tribe server exists
+    setupDiscoverTribeLink(serverCount > 0 && !serverManager.tribeServerExists());
+  }
+
+  /**
+   * Setup the Connect to | Discover eXo Tribe button
+   * 
+   * @param serverToConnect the server to connect to, if any
+   */
+  private void setupConnectToButton(@Nullable Server serverToConnect) {
+    if (serverToConnect == null) {
+      mConnectButton.setText(R.string.ConnectActivity_Title_DiscoverExoTribe);
+      mConnectButton.setOnClickListener(onClickDiscoverTribe());
+    } else {
+      if (serverToConnect.isExoTribe()) {
+        // Connect to eXo Tribe
+        mConnectButton.setText(R.string.ConnectActivity_Title_ConnnectToExoTribe);
+      } else {
+        // Connect to www.intranet-url.com
+        int width = mScreenSize.x;
+        int urlLength = serverToConnect.getShortUrl().length();
+        String labelFormat = String.format(connectLabelFormat(width, urlLength),
+                                           getString(R.string.ConnectActivity_Title_ConnectTo),
+                                           serverToConnect.getShortUrl());
+        mConnectButton.setText(Html.fromHtml(labelFormat));
+      }
+      mConnectButton.setOnClickListener(onClickConnectServer(serverToConnect));
+    }
+  }
+
+  /**
+   * Setup the Add intranet | Add new intranet | Others button <br/>
+   * Action is defined in xml layout.
+   * 
+   * @param serverCount the number of existing servers
+   */
+  private void setupAddIntranetButton(int serverCount) {
+    if (serverCount == 0) {
+      mOtherButton.setText(R.string.ConnectActivity_Title_AddIntranet);
+    } else if (serverCount == 1) {
+      mOtherButton.setText(R.string.ConnectActivity_Title_AddNewIntranet);
+    } else {
+      mOtherButton.setText(R.string.ConnectActivity_Title_Others);
+    }
+  }
+
+  /**
+   * Setup the Discover eXo Tribe link
+   * 
+   * @param visible whether we should show or hide the link
+   */
+  private void setupDiscoverTribeLink(boolean visible) {
+    if (visible) {
+      mDiscoverTribeLink.setVisibility(View.VISIBLE);
+      mDiscoverTribeLink.setOnClickListener(onClickDiscoverTribe());
+    } else {
+      mDiscoverTribeLink.setVisibility(View.INVISIBLE);
+    }
+  }
+
   /*
    * BUTTON ACTIONS
    */
@@ -195,7 +253,7 @@ public class ConnectServerActivity extends AppCompatActivity {
         openWebViewWithURL(App.TRIBE_URL);
         try {
           Server serverToConnect = new Server(new URL(App.TRIBE_URL));
-          mServerManager.addServer(serverToConnect);
+          new ServerManagerImpl(App.Preferences.get(ConnectServerActivity.this)).addServer(serverToConnect);
         } catch (MalformedURLException e) {
           Log.d(this.getClass().getName(), e.getMessage());
         }

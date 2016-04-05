@@ -1,7 +1,7 @@
 package org.exoplatform.tool;
 
 /*
- * Copyright (C) 2003-${YEAR} eXo Platform SAS.
+ * Copyright (C) 2003-2016 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -42,7 +42,7 @@ import okhttp3.Route;
 /**
  * A Http Client based on OkHttpClient with the following customizations:
  * <ul>
- * <li>The User-Agent is set to "eXo/{app-version}"</li>
+ * <li>The User-Agent is set to "eXo/{app-version} (Android)"</li>
  * <li>The connection times out after 10 seconds</li>
  * <li>Accepts all cookies and stores them in the java.net.CookieManager</li>
  * </ul>
@@ -54,7 +54,7 @@ public class ExoHttpClient {
   /**
    * @return the Http Client with the following customizations:
    *         <ul>
-   *         <li>The User-Agent is set to "eXo/{app-version}"</li>
+   *         <li>The User-Agent is set to "eXo/{app-version} (Android)"</li>
    *         <li>The connection times out after 10 seconds</li>
    *         <li>Accepts all cookies and stores them in the
    *         java.net.CookieManager</li>
@@ -80,30 +80,27 @@ public class ExoHttpClient {
     return getInstance().cookieJar().loadForRequest(okhttpUrl);
   }
 
-  // public static OkHttpClient newAuthenticatedClient(String username, String
-  // password) {
-  // OkHttpClient getInstance = getInstance().newBuilder()
-  // .authenticator(new BasicAuthenticator(username, password))
-  // .build();
-  // return getInstance;
-  // }
+  public static OkHttpClient newAuthenticatedClient(String username, String password) {
+    return getInstance().newBuilder().authenticator(new BasicAuthenticator(username, password)).build();
+  }
 
+  /**
+   * Interceptor that adds eXo's custom user agent to every request.
+   */
   private static class ExoUserAgentInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
       String ver = BuildConfig.VERSION_NAME;
-      Request req = chain.request().newBuilder().header("User-Agent", "eXo/" + ver + " (Android)") // replaces
-                                                                                                   // any
-                                                                                                   // existing
-                                                                                                   // User-Agent
-                                                                                                   // header
-                         .build();
-
+      // Replaces any existing User-Agent header
+      Request req = chain.request().newBuilder().header("User-Agent", "eXo/" + ver + " (Android)").build();
       return chain.proceed(req);
     }
   }
 
+  /**
+   * Authenticator that retries a request with a Basic authorization header.
+   */
   private static class BasicAuthenticator implements Authenticator {
 
     private String username, password;

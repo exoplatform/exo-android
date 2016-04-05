@@ -26,6 +26,7 @@
     <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
     <string name="ServerManager.Error.IncorrectUrl">Unable to connect to the intranet</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
+    <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
 
     <string name="ConnectActivity.Title.ConnectShare">Connect, share and work together</string>
     <string name="ConnectActivity.Title.DiscoverExoTribe">Discover eXo Tribe</string>

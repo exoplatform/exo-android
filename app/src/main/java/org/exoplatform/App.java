@@ -38,16 +38,18 @@ public class App extends Application {
     public static SharedPreferences get(Context context) {
       if (context == null)
         throw new IllegalArgumentException("Context must not be null");
-      return context.getSharedPreferences(FILE_NAME, MODE_PRIVATE);
+      return context.getSharedPreferences(PREFS_FILE_NAME, MODE_PRIVATE);
     }
 
-    public static final String FILE_NAME           = "eXoPreferences";
+    public static final String PREFS_FILE_NAME        = "eXoPreferences";
 
-    public static final String LAST_VISIT_TIME     = "LAST_VISIT_TIME";
+    public static final String LAST_VISIT_TIME        = "LAST_VISIT_TIME";
 
-    public static final String SERVERS_STORAGE     = "SERVERS_STORAGE";
+    public static final String SERVERS_STORAGE        = "SERVERS_STORAGE";
 
-    public static final String DID_SHOW_ONBOARDING = "ONBOARDING";
+    public static final String EXO_2X_SERVERS_STORAGE = "ServerList.xml";
+
+    public static final String DID_SHOW_ONBOARDING    = "ONBOARDING";
   }
 
   public static class Platform {

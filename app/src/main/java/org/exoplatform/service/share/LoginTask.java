@@ -23,17 +23,18 @@ package org.exoplatform.service.share;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.exoplatform.App;
 import org.exoplatform.model.PlatformInfo;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.LoginRestService;
 import org.exoplatform.tool.PlatformUtils;
+import org.exoplatform.tool.ServerUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Credentials;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -42,14 +43,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by paristote on 3/11/16. An async task used to authenticate a user on
  * a given server.
  */
-public class LoginTask extends AsyncTask<Server, Void, PlatformInfo> {
+public class LoginTask extends AsyncTask<Server, Void, LoginTask.LoginResult> {
 
   public interface Listener {
     void onLoginStarted(LoginTask thisTask);
 
     void onLoginSuccess(PlatformInfo result);
 
+    void onPlatformVersionNotSupported();
+
     void onLoginFailed();
+  }
+
+  class LoginResult {
+    Server       mServer;
+
+    PlatformInfo mPlatformInfo;
   }
 
   private List<Listener> mListeners;
@@ -71,22 +80,22 @@ public class LoginTask extends AsyncTask<Server, Void, PlatformInfo> {
   }
 
   @Override
-  protected PlatformInfo doInBackground(Server... params) {
+  protected LoginResult doInBackground(Server... params) {
     if (params.length > 0) {
       Server server = params[0];
       Retrofit retrofit = new Retrofit.Builder().baseUrl(server.getUrl().toString())
                                                 .addConverterFactory(GsonConverterFactory.create())
-                                                .client(ExoHttpClient.getInstance())
+                                                .client(ExoHttpClient.newAuthenticatedClient(server.getLastLogin(),
+                                                                                             server.getLastPassword()))
                                                 .build();
       LoginRestService loginService = retrofit.create(LoginRestService.class);
       try {
-        Response<PlatformInfo> response = loginService.login(Credentials.basic(server.getLastLogin(), server.getLastPassword()))
-                                                      .execute();
+        Response<PlatformInfo> response = loginService.login().execute();
         if (response.isSuccess()) {
-          PlatformUtils.init(server.getUrl().toString(), response.body());
-          return response.body();
-        } else {
-          PlatformUtils.reset();
+          LoginResult result = new LoginResult();
+          result.mPlatformInfo = response.body();
+          result.mServer = server;
+          return result;
         }
       } catch (IOException e) {
         Log.e("LoginTask", e.getMessage());
@@ -96,13 +105,27 @@ public class LoginTask extends AsyncTask<Server, Void, PlatformInfo> {
   }
 
   @Override
-  protected void onPostExecute(PlatformInfo result) {
+  protected void onPostExecute(LoginResult result) {
     super.onPostExecute(result);
-    for (Listener l : mListeners) {
-      if (result != null)
-        l.onLoginSuccess(result);
-      else
+    if (result == null) {
+      // Login failed
+      for (Listener l : mListeners) {
         l.onLoginFailed();
+      }
+    } else {
+      PlatformUtils.reset();
+      Double plfVersion = ServerUtils.convertVersionFromString(result.mPlatformInfo.platformVersion);
+      if (plfVersion >= App.Platform.MIN_SUPPORTED_VERSION) {
+        // Login successful and Platform version supported
+        PlatformUtils.init(result.mServer.getUrl().toString(), result.mPlatformInfo);
+        for (Listener l : mListeners) {
+          l.onLoginSuccess(result.mPlatformInfo);
+        }
+      } else {
+        for (Listener l : mListeners) {
+          l.onPlatformVersionNotSupported();
+        }
+      }
     }
   }
 }
