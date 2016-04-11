@@ -38,9 +38,12 @@ import org.exoplatform.service.share.Action.ActionListener;
 import org.exoplatform.service.share.PostAction.PostActionListener;
 import org.exoplatform.tool.DocumentUtils;
 import org.exoplatform.tool.ExoHttpClient;
+import org.exoplatform.tool.LinkAnalyzer;
 import org.exoplatform.tool.PlatformUtils;
 import org.exoplatform.tool.SocialRestService;
-import org.exoplatform.tool.TitleExtractor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,7 +64,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * IntentService that publishes a post with optional attachments. If multiple
  * files are attached, the first one is part of the activity, the other are
  * added in comments on the activity.
- * 
+ *
  * @author Philippe Aristote paristote@exoplatform.com
  * @since Jun 4, 2015
  */
@@ -255,7 +258,7 @@ public class ShareService extends IntentService {
 
   /**
    * Post a comment on an activity
-   * 
+   *
    * @param activity the activity to comment
    * @param commentInfo the info to put in the comment
    * @return true if the comment was posted successfully
@@ -303,17 +306,33 @@ public class ShareService extends IntentService {
     // Return null if there is no link
     if (link == null)
       return null;
-    Map<String, String> templateParams = new HashMap<>();
-    templateParams.put("comment", postInfo.title);
-    templateParams.put("link", link);
-    templateParams.put("description", "");
-    templateParams.put("image", "");
+    // Extract some information from the link
+    String title = "";
+    String description = "";
+    String imageUrl = "";
     try {
-      templateParams.put("title", TitleExtractor.getPageTitle(link));
-    } catch (IOException e) {
-      Log.e(LOG_TAG, "Cannot retrieve link title", e);
-      templateParams.put("title", link);
+      LinkAnalyzer.Metadata linkData = LinkAnalyzer.getMetadata(link);
+      if (linkData != null) {
+        title = linkData.title;
+        description = linkData.description;
+        if (linkData.imageUrlList != null && !linkData.imageUrlList.isEmpty())
+          imageUrl = linkData.imageUrlList.get(0);
+      }
+    } catch (MalformedURLException e) {
+      Log.w(LOG_TAG, "Cannot get metadata from url "+link, e);
     }
+    // Build the template params
+    Map<String, String> templateParams = new HashMap<>();
+    // activity's body
+    templateParams.put("comment", postInfo.title);
+    // link to the shared web page
+    templateParams.put("link", link);
+    // the web page's title, or the link itself if no title was extracted
+    templateParams.put("title", !"".equals(title) ? title : link);
+    // the page's excerpt, or an empty string
+    templateParams.put("description", description);
+    // url to an image in the page, or an empty string
+    templateParams.put("image", imageUrl);
     return templateParams;
   }
 
@@ -361,7 +380,7 @@ public class ShareService extends IntentService {
   /**
    * Send a local notification to inform of the progress. Only called if the
    * share contains 1 or more attachments.
-   * 
+   *
    * @param current the index of the current file being uploaded
    * @param total the total number of files to upload
    */
@@ -383,7 +402,7 @@ public class ShareService extends IntentService {
 
   /**
    * Notify the end of the sharing. The message depends on the given result.
-   * 
+   *
    * @param result one of {@link ShareResult} values
    */
   private void notifyResult(ShareResult result) {
