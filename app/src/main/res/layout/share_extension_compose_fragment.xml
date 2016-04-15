@@ -29,15 +29,17 @@
         android:id="@+id/share_scroll_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/share_attachment_thumbnail"
+        android:layout_toStartOf="@+id/share_attachment_thumbnail"
         android:layout_above="@+id/share_actions_wrapper">
 
         <EditText
             android:id="@+id/share_post_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginEnd="105dp"
-            android:layout_marginRight="105dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:background="@android:color/transparent"
             android:gravity="center_vertical|top"
             android:hint="@string/ShareActivity.Compose.Hint.WorkingOn"
