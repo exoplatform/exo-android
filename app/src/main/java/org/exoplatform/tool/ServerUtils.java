@@ -92,6 +92,12 @@ public class ServerUtils {
           @Override
           public void onResponse(Call<PlatformInfo> call, Response<PlatformInfo> response) {
             if (response.isSuccess()) {
+              try {
+                // This will be the URL that was finally called after any HTTP redirection(s)
+                URL finalUrl = new URL(response.raw().request().url().toString());
+                // Update the server URL to the final value
+                server.setUrl(finalUrl);
+              } catch (MalformedURLException ignored) {}
               Double plfVersion = ServerUtils.convertVersionFromString(response.body().platformVersion);
               if (plfVersion >= App.Platform.MIN_SUPPORTED_VERSION) {
                 callback.onServerValid(server);

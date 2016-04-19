@@ -30,6 +30,7 @@ proguard/
 /.idea/workspace.xml
 /.idea/libraries
 .idea/*
+*.iml
 
 # OS X
 .DS_Store
