@@ -91,7 +91,7 @@ public class ServerUtils {
         platformService.getInfo().enqueue(new Callback<PlatformInfo>() {
           @Override
           public void onResponse(Call<PlatformInfo> call, Response<PlatformInfo> response) {
-            if (response.isSuccess()) {
+            if (response.isSuccessful()) {
               try {
                 // This will be the URL that was finally called after any HTTP redirection(s)
                 URL finalUrl = new URL(response.raw().request().url().toString());

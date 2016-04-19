@@ -91,7 +91,7 @@ public class LoginTask extends AsyncTask<Server, Void, LoginTask.LoginResult> {
       LoginRestService loginService = retrofit.create(LoginRestService.class);
       try {
         Response<PlatformInfo> response = loginService.login().execute();
-        if (response.isSuccess()) {
+        if (response.isSuccessful()) {
           LoginResult result = new LoginResult();
           result.mPlatformInfo = response.body();
           result.mServer = server;

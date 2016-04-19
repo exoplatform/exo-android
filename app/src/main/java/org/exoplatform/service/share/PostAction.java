@@ -96,19 +96,19 @@ public class PostAction extends Action {
     try {
       if (postInfo.isPublic()) {
         Response<SocialActivity> response = service.createActivity("", postInfo).execute();
-        if (listener instanceof PostActionListener && response.isSuccess()) {
+        if (listener instanceof PostActionListener && response.isSuccessful()) {
           ((PostActionListener) listener).mCreatedActivity = response.body();
         }
-        return response.isSuccess(); // return the result of the createActivity
-                                     // method call
+        return response.isSuccessful(); // return the result of the createActivity
+                                        // method call
       } else {
         String spaceId = postInfo.destinationSpace.getIdentityId();
         if (spaceId != null) {
           Response<SocialActivity> response = service.createActivity(spaceId, postInfo).execute();
-          if (listener instanceof PostActionListener && response.isSuccess()) {
+          if (listener instanceof PostActionListener && response.isSuccessful()) {
             ((PostActionListener) listener).mCreatedActivity = response.body();
           }
-          return response.isSuccess(); // return the result of the
+          return response.isSuccessful(); // return the result of the
                                        // createActivity method call
         } else {
           Log.e(LOG_TAG, "Post message failed: could not get space ID for space " + postInfo.destinationSpace);

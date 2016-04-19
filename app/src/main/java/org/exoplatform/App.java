@@ -24,10 +24,21 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
+
 /**
- * Created by chautn on 10/26/15. Exo Application instance and constants.
+ * Exo Application instance and constants.
+ * @author chautn on 10/26/15.
  */
 public class App extends Application {
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    Fabric.with(this, new Crashlytics());
+  }
 
   public static final String TRIBE_URL      = "https://community.exoplatform.com";
 

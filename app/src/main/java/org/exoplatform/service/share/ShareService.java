@@ -294,7 +294,7 @@ public class ShareService extends IntentService {
     SocialComment comment = new SocialComment(bld.toString());
     try {
       Response<SocialComment> response = service.createCommentOnActivity(activity.id, comment).execute();
-      ret = response.isSuccess();
+      ret = response.isSuccessful();
     } catch (IOException e) {
       Log.e(LOG_TAG, "Post comment failed", e);
     }
