@@ -173,10 +173,10 @@ public class PlatformWebViewFragment extends Fragment {
 
   @Override
   public void onDetach() {
+    super.onDetach();
     mWebView.stopLoading();
     mWebView.destroy();
     mListener = null;
-    super.onDetach();
   }
 
   /**
@@ -289,7 +289,9 @@ public class PlatformWebViewFragment extends Fragment {
         refreshLayoutForContent(contentType);
       // Inform the activity whether we are on the login or register page
       String path = uri.getPath();
-      mListener.onPageStarted(path != null && LOGIN_REGISTER_PAGE.matcher(path).matches());
+      if (mListener != null)
+        // May be called after the listener has been set to null in onDetach
+        mListener.onPageStarted(path != null && LOGIN_REGISTER_PAGE.matcher(path).matches());
       // Return to the previous activity if user has signed out
       String queryString = uri.getQuery();
       if (queryString != null && queryString.contains("portal:action=Logout")) {
