@@ -48,13 +48,19 @@
     <style name="MainTheme.DeleteServerButton">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/rounded_red_button</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:padding">@dimen/space_medium</item>
     </style>
 
     <style name="MainTheme.DoneWebViewButton">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/rounded_black_button</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:padding">@dimen/space_medium</item>
+    </style>
+
+    <style name="MainTheme.GotItButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/main_screen_button_yellow</item>
+        <item name="android:padding">@dimen/space_medium</item>
     </style>
 
     <style name="MainTheme.GreyHeader">
@@ -73,11 +79,6 @@
         <item name="android:singleLine">true</item>
         <item name="android:drawableRight">@drawable/icon_chevron_right_grey</item>
         <item name="android:drawableEnd">@drawable/icon_chevron_right_grey</item>
-    </style>
-
-    <style name="MainTheme.GotItButton">
-        <item name="android:textAllCaps">true</item>
-        <item name="android:background">@drawable/main_screen_button_yellow</item>
     </style>
 
 </resources>

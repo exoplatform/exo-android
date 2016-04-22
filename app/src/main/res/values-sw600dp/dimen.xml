@@ -20,6 +20,7 @@
   -->
 
 <resources>
+    <dimen name="Global.TextSize">30sp</dimen>
 
     <dimen name="MainScreen.eXo.Title">50sp</dimen>
     <dimen name="MainScreen.eXo.Subtitle">30sp</dimen>
@@ -29,4 +30,18 @@
     <dimen name="MainScreen.Buttons.MarginVertical">40dp</dimen>
     <dimen name="MainScreen.Buttons.Padding">20dp</dimen>
 
+    <dimen name="ShareActivity.Accounts.Icon.Size">24dp</dimen>
+    <dimen name="ShareActivity.Spaces.Icon.Size">40dp</dimen>
+    <dimen name="ShareActivity.Thumbnail.Size">150dp</dimen>
+
+    <dimen name="GreyHeader.Padding">20dp</dimen>
+    <dimen name="GreyHeader.TextSize">40sp</dimen>
+
+    <dimen name="OnBoarding.Title.TextSize">32sp</dimen>
+    <dimen name="OnBoarding.Message.TextSize">24sp</dimen>
+
+    <dimen name="space_small">10dp</dimen>
+    <dimen name="space_medium">20dp</dimen>
+    <dimen name="space_large">30dp</dimen>
+    <dimen name="space_xlarge">60dp</dimen>
 </resources>

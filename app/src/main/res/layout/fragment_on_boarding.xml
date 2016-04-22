@@ -35,14 +35,14 @@
         android:id="@+id/OnBoardingFragment.PageIndicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"/>
+        android:layout_margin="@dimen/space_medium"/>
 
     <Button
         android:id="@+id/OnBoardingFragment.Button.GotIt"
         style="@style/MainTheme.GotItButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/space_small"
         android:text="@string/OnBoarding.Title.GotItButton"/>
 
 </LinearLayout>

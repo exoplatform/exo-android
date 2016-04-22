@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:padding="10dp"
+            android:padding="@dimen/space_small"
             android:singleLine="true"
             android:text="@string/WebClient.WebView.Title.Loading"/>
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:contentDescription="@string/WebClient.WebView.Hint.Close"
-            android:padding="15dp"
+            android:padding="@dimen/space_large"
             android:src="@drawable/icon_close_black_24dp"/>
     </LinearLayout>
 
@@ -58,7 +58,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/WebViewFragment.NavigationBar"/>
 
-    <!-- Progress bar at the top -->
+    <!-- Progress bar at the top TODO: set custom style -->
     <ProgressBar
         android:id="@+id/WebViewFragment.ProgressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"

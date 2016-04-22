@@ -36,4 +36,12 @@
 
     <dimen name="GreyHeader.Padding">10dp</dimen>
     <dimen name="GreyHeader.TextSize">20sp</dimen>
+
+    <dimen name="OnBoarding.Title.TextSize">24sp</dimen>
+    <dimen name="OnBoarding.Message.TextSize">18sp</dimen>
+
+    <dimen name="space_small">5dp</dimen>
+    <dimen name="space_medium">10dp</dimen>
+    <dimen name="space_large">15dp</dimen>
+    <dimen name="space_xlarge">30dp</dimen>
 </resources>

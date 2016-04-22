@@ -37,9 +37,9 @@
             android:id="@+id/share_post_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginTop="@dimen/space_large"
+            android:layout_marginLeft="@dimen/space_large"
+            android:layout_marginStart="@dimen/space_large"
             android:background="@android:color/transparent"
             android:gravity="center_vertical|top"
             android:hint="@string/ShareActivity.Compose.Hint.WorkingOn"
@@ -54,7 +54,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/space_large"
         android:contentDescription="@string/ShareActivity.Compose.Hint.Thumbnail"
         android:src="@drawable/icon_for_placeholder_image"/>
 
@@ -89,7 +89,7 @@
             android:background="@color/eXoGrey"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:padding="@dimen/space_large">
 
             <TextView
                 android:id="@+id/textView1"
@@ -102,8 +102,8 @@
                 android:id="@+id/share_account"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="@dimen/space_small"
+                android:layout_marginStart="@dimen/space_small"
                 android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_chevron_right_grey"
                 android:drawableRight="@drawable/icon_chevron_right_grey"
@@ -121,7 +121,7 @@
             android:background="@color/eXoGrey"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="15dp"
+            android:padding="@dimen/space_large"
             android:visibility="gone">
 
             <TextView
@@ -135,8 +135,8 @@
                 android:id="@+id/share_space"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="@dimen/space_small"
+                android:layout_marginStart="@dimen/space_small"
                 android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_chevron_right_grey"
                 android:drawableRight="@drawable/icon_chevron_right_grey"

@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/onboarding_00_welcome"
-        android:padding="10dp"
+        android:padding="@dimen/space_medium"
         android:contentDescription="@string/OnBoarding.Message.Welcome"/>
 
     <TextView
@@ -39,8 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="24sp"
-        android:padding="10dp"
+        android:textSize="@dimen/OnBoarding.Title.TextSize"
+        android:padding="@dimen/space_medium"
         tools:text="@string/OnBoarding.Title.Welcome"/>
 
     <TextView
@@ -48,8 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:textSize="18sp"
-        android:padding="10dp"
+        android:textSize="@dimen/OnBoarding.Message.TextSize"
+        android:padding="@dimen/space_medium"
         tools:text="@string/OnBoarding.Message.Welcome"/>
 
 </LinearLayout>

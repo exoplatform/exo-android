@@ -76,8 +76,7 @@
             android:layout_toStartOf="@+id/Settings.ApplicationVersionTextView"
             android:padding="@dimen/GreyHeader.Padding"
             android:text="@string/SettingsActivity.Title.ApplicationVersion"
-            android:textColor="@color/black"
-            android:textSize="@dimen/GreyHeader.TextSize"/>
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/Settings.ApplicationVersionTextView"
@@ -87,7 +86,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/GreyHeader.Padding"
-            android:textSize="@dimen/GreyHeader.TextSize"
             tools:text="4.3"/>
 
     </RelativeLayout>

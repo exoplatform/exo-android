@@ -24,8 +24,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
+                android:paddingBottom="@dimen/space_large"
+                android:paddingTop="@dimen/space_large"
                 tools:context=".activity.ShareExtensionActivity">
 
     <ImageView
@@ -35,8 +35,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_medium"
         android:contentDescription="@string/ShareActivity.Compose.Title.Intranet"
         android:src="@drawable/icon_check_circle_grey"/>
 
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/share_account_item_server_url"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/space_small"
         android:layout_toEndOf="@id/share_account_item_icon"
         android:layout_toRightOf="@id/share_account_item_icon"
         android:visibility="gone"
