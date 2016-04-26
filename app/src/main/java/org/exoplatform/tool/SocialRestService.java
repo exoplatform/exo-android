@@ -40,12 +40,14 @@ import retrofit2.http.Query;
 public interface SocialRestService {
 
   /**
-   * Loads all spaces of the authenticated user (by session cookie).<br/>
-   * Use the method SocialSpace.getIdentityId() to post an activity to a space
+   * Loads 20 spaces starting from offset, of the authenticated user (by session cookie).<br/>
+   * Use the method SocialSpace.getIdentityId() on a resulting space, to post an activity to that space
    * stream.
    */
-  @GET("/rest/v1/social/spaces")
-  Call<RestSpaceList> loadSpaces();
+  @GET("/rest/v1/social/spaces?returnSize=true")
+  Call<SpaceListResult> loadSpaces(@Query("offset") String offset);
+
+   //@Query("sort") String sort
 
   /**
    * Creates an activity.<br/>
@@ -83,13 +85,15 @@ public interface SocialRestService {
   /**
    * A class that maps to the response JSON of a list of spaces
    */
-  class RestSpaceList {
+  class SpaceListResult {
 
     public List<SocialSpace> spaces;
 
     public int               offset;
 
     public int               limit;
+
+    public int               size;
 
   }
 

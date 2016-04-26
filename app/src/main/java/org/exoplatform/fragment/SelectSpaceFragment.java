@@ -20,49 +20,44 @@ package org.exoplatform.fragment;
  *
  */
 
-import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import org.exoplatform.R;
 import org.exoplatform.activity.ShareExtensionActivity;
 import org.exoplatform.model.SocialSpace;
-import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.SocialRestService;
+import org.exoplatform.tool.SpaceListAdapter;
+import org.exoplatform.tool.SpaceListLoader;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by paristote on 3/8/16. Fragment that displays a list of the user's
  * spaces.
  */
-public class SelectSpaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<SocialSpace>>,
+public class SelectSpaceFragment extends Fragment implements LoaderManager.LoaderCallbacks<SocialRestService.SpaceListResult>,
     AdapterView.OnItemClickListener {
 
   public static final String         SPACES_FRAGMENT = "spaces_fragment";
+
+  private final int INITIAL_LOAD = 1;
+
+  private final int MORE_LOAD = 2;
 
   private SpaceListAdapter           mSpaceListAdapter;
 
@@ -71,6 +66,8 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
   private ListView                   mSpaceListView;
 
   private TextView                   mMessageView;
+
+  private ProgressBar                mProgressView;
 
   private static SelectSpaceFragment instance;
 
@@ -105,6 +102,7 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
     mSpaceListView.setOnItemClickListener(this);
     mMessageView = (TextView) layout.findViewById(R.id.list_spaces_message_view);
     mSpaceListView.setEmptyView(mMessageView);
+    setupFooterProgressBar(); // must be called after mSpaceListView is created
     return layout;
   }
 
@@ -113,52 +111,85 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
     super.onResume();
     mSpaceListAdapter = new SpaceListAdapter(getActivity(), getShareActivity().getActivityPost().ownerAccount.getUrl().toString());
     mSpaceListView.setAdapter(mSpaceListAdapter);
-    getLoaderManager().initLoader(0, null, this).forceLoad();
+    // Will start loading spaces starting at offset = 0
+    getLoaderManager().initLoader(INITIAL_LOAD, null, this).forceLoad();
   }
 
   @Override
-  public Loader<List<SocialSpace>> onCreateLoader(int id, Bundle args) {
-    return new AsyncTaskLoader<List<SocialSpace>>(getActivity()) {
-      @Override
-      public List<SocialSpace> loadInBackground() {
-        List<SocialSpace> spaces = new ArrayList<>();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(getShareActivity().getActivityPost().ownerAccount.getUrl().toString())
-                                                  .client(ExoHttpClient.getInstance())
-                                                  .addConverterFactory(GsonConverterFactory.create())
-                                                  .build();
-        SocialRestService service = retrofit.create(SocialRestService.class);
-        try {
-          Response<SocialRestService.RestSpaceList> response = service.loadSpaces().execute();
-          if (response != null && response.body() != null)
-            spaces.addAll(response.body().spaces);
-        } catch (IOException e) {
-          Log.e(SelectSpaceFragment.this.getClass().getName(), e.getMessage(), e);
-        }
-        return spaces;
+  public Loader<SocialRestService.SpaceListResult> onCreateLoader(int id, Bundle args) {
+    int offset = (args == null) ? 0 : args.getInt("LOAD_OFFSET", 0);
+    return new SpaceListLoader(getActivity(), offset, getShareActivity().getActivityPost().ownerAccount);
+  }
+
+  @Override
+  public void onLoadFinished(Loader<SocialRestService.SpaceListResult> loader, SocialRestService.SpaceListResult data) {
+    mProgressView.setVisibility(View.INVISIBLE);
+    if (data == null || data.spaces == null || data.spaces.isEmpty()) {
+      // Empty state
+      mMessageView.setText(R.string.ShareActivity_Spaces_Title_NoSpace);
+    } else {
+      // Set on scroll listener on the list view, to load more spaces when reaching the bottom
+      int totalSpaceCount = data.size;
+      int currentOffset = data.offset;
+      int loadSpaceCount = data.limit; // always 20
+      setLoadMoreSpacesListener(currentOffset, loadSpaceCount, totalSpaceCount);
+      // Save and display the loaded spaces
+      List<SocialSpace> loadedSpaces = data.spaces;
+      switch (loader.getId()) {
+        case MORE_LOAD:
+          // Add the loaded spaces to the existing list of spaces
+          mSpaceList.addAll(loadedSpaces);
+          break;
+        case INITIAL_LOAD:
+        default:
+          // Display the loaded spaces
+          mSpaceList = loadedSpaces;
+          break;
       }
-    };
-  }
-
-  @Override
-  public void onLoadFinished(Loader<List<SocialSpace>> loader, List<SocialSpace> data) {
-    if (data != null) {
-      mSpaceList = data;
-      mSpaceListAdapter.setSpaceList(data);
+      mSpaceListAdapter.setSpaceList(mSpaceList);
       mSpaceListAdapter.notifyDataSetChanged();
-      if (data.isEmpty())
-        mMessageView.setText(R.string.ShareActivity_Spaces_Title_NoSpace);
     }
   }
 
   @Override
-  public void onLoaderReset(Loader<List<SocialSpace>> loader) {
+  public void onLoaderReset(Loader<SocialRestService.SpaceListResult> loader) {
   }
 
   @Override
   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     SocialSpace selectedSpace = mSpaceList.get(position);
-    if (selectedSpace != null) {
-      getShareActivity().onSpaceSelected(selectedSpace);
+    getShareActivity().onSpaceSelected(selectedSpace);
+  }
+
+  private void setLoadMoreSpacesListener(int currentOffset, int loadedSpaceCount, int totalSpaceCount) {
+    if (mSpaceListView != null) {
+      final int newOffset = currentOffset+loadedSpaceCount;
+      if (newOffset < totalSpaceCount) {
+        // Means we have more spaces to load when we reach the bottom of the listview
+        mProgressView.setVisibility(View.VISIBLE);
+//        mSpaceListView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mSpaceListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+          @Override
+          public void onScrollStateChanged(AbsListView view, int scrollState) {
+          }
+
+          @Override
+          public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            if (totalItemCount > 0 && firstVisibleItem + visibleItemCount == totalItemCount) {
+              if (!getLoaderManager().hasRunningLoaders()) {
+                Bundle args = new Bundle();
+                args.putInt("LOAD_OFFSET", newOffset);
+                getLoaderManager().restartLoader(MORE_LOAD, args, SelectSpaceFragment.this).forceLoad();
+              }
+            }
+          }
+        });
+      } else {
+        // We already loaded all the possible spaces
+        mSpaceListView.setOnScrollListener(null);
+//        mSpaceListView.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+        mProgressView.setVisibility(View.GONE);
+      }
     }
   }
 
@@ -170,77 +201,21 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
     }
   }
 
-  static class SpaceListAdapter extends BaseAdapter {
-
-    private Context           mContext;
-
-    private List<SocialSpace> mSpaceList;
-
-    private String            baseUrl;   // Needed to make the full avatar url
-
-    public SpaceListAdapter(Context ctx, String url) {
-      mContext = ctx;
-      baseUrl = url;
+  private void setupFooterProgressBar() {
+    mProgressView = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleSmall);
+    // To get an horizontal bar, use android.R.attr.progressBarStyleHorizontal as the progress bar style
+    mProgressView.setIndeterminate(true);
+    int eXoYellow = getResources().getColor(R.color.eXoYellow);
+    mProgressView.getIndeterminateDrawable().setColorFilter(eXoYellow, PorterDuff.Mode.SRC_IN);
+    mProgressView.setLayoutParams(new ListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT, AbsListView.LayoutParams.WRAP_CONTENT));
+    mProgressView.setPadding(0, 10, 0, 10); // 0px left and right, 10px top and bottom
+    mProgressView.setVisibility(View.INVISIBLE);
+    LinearLayout layout = new LinearLayout(getContext());
+    layout.setGravity(Gravity.CENTER);
+    layout.addView(mProgressView);
+    if (mSpaceListView != null) {
+      mSpaceListView.addFooterView(layout);
+      mSpaceListView.setFooterDividersEnabled(false);
     }
-
-    public void setSpaceList(List<SocialSpace> list) {
-      mSpaceList = list;
-    }
-
-    @Override
-    public int getCount() {
-      return mSpaceList == null ? 0 : mSpaceList.size();
-    }
-
-    @Override
-    public Object getItem(int pos) {
-      return mSpaceList == null ? null : mSpaceList.get(pos);
-    }
-
-    @Override
-    public long getItemId(int pos) {
-      return pos;
-    }
-
-    @Override
-    public View getView(int index, View convertView, ViewGroup parent) {
-      ViewHolder holder;
-      if (convertView == null) {
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.select_space_fragment_space_item, parent, false);
-        holder = new ViewHolder();
-        holder.spaceName = (TextView) convertView.findViewById(R.id.item_space_name);
-        holder.spaceAvatar = (ImageView) convertView.findViewById(R.id.item_space_avatar);
-        convertView.setTag(holder);
-      } else {
-        holder = (ViewHolder) convertView.getTag();
-      }
-
-      SocialSpace space = (SocialSpace) getItem(index);
-      holder.spaceName.setText(space.displayName);
-      URL url = null;
-      String avatarUrl = space.avatarUrl;
-      try {
-        url = new URL(avatarUrl);
-      } catch (MalformedURLException ignored) {
-      }
-      if (url == null) {
-        avatarUrl = baseUrl + space.avatarUrl;
-      }
-      Picasso.with(mContext)
-             .load(avatarUrl)
-             .placeholder(R.drawable.icon_space_default)
-             .error(R.drawable.icon_space_default)
-             .resizeDimen(R.dimen.ShareActivity_Spaces_Icon_Size, R.dimen.ShareActivity_Spaces_Icon_Size)
-             .into(holder.spaceAvatar);
-      holder.spaceAvatar.setContentDescription(space.displayName);
-      return convertView;
-    }
-  }
-
-  static class ViewHolder {
-    ImageView spaceAvatar;
-
-    TextView  spaceName;
   }
 }
