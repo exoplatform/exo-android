@@ -23,7 +23,7 @@ android {
         applicationId "org.exoplatform"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1604151255
+        versionCode 1604222005
         versionName "4.3"
     }
     useLibrary 'org.apache.http.legacy'
