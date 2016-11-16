@@ -101,6 +101,7 @@ public class WebViewFragment extends Fragment {
     mWebView = (WebView) layout.findViewById(R.id.WebViewFragment_WebView);
     mWebView.setWebViewClient(new WebViewClient());
     mWebView.getSettings().setJavaScriptEnabled(true);
+    mWebView.getSettings().setDomStorageEnabled(true);
     mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setBuiltInZoomControls(true);

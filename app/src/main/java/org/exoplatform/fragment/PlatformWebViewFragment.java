@@ -125,6 +125,7 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.setWebViewClient(new PlatformWebViewClient());
     mWebView.getSettings().setJavaScriptEnabled(true);
     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+    mWebView.getSettings().setDomStorageEnabled(true);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
     }
