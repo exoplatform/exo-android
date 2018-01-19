@@ -21,7 +21,9 @@ package org.exoplatform.fragment;
  */
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -33,6 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -68,6 +71,8 @@ public class PlatformWebViewFragment extends Fragment {
   // the URL to load in the web view
   private static final String        ARG_SERVER          = "SERVER";
 
+  private static final int FILECHOOSER_RESULTCODE = 1;
+
   public static final String         TAG                 = PlatformWebViewFragment.class.getName();
 
   private PlatformNavigationCallback mListener;
@@ -79,6 +84,8 @@ public class PlatformWebViewFragment extends Fragment {
   private Server                     mServer;
 
   private Button                     mDoneButton;
+
+  private ValueCallback<Uri[]>       mUploadMessage;
 
   private boolean                    mDidShowOnboarding;
 
@@ -145,6 +152,18 @@ public class PlatformWebViewFragment extends Fragment {
           mProgressBar.setVisibility(ProgressBar.VISIBLE);
         }
       }
+
+      @Override
+      public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+        mUploadMessage = filePathCallback;
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("*/*");
+        PlatformWebViewFragment.this.startActivityForResult(
+                Intent.createChooser(i, "File Browser"),
+                FILECHOOSER_RESULTCODE);
+        return true;
+      }
     });
     mWebView.loadUrl(mServer.getUrl().toString());
     // done button for content without navigation, e.g. image
@@ -160,6 +179,19 @@ public class PlatformWebViewFragment extends Fragment {
       });
     }
     return layout;
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if(requestCode == FILECHOOSER_RESULTCODE) {
+      if (mUploadMessage == null) {
+        return;
+      }
+      Uri result = data == null || resultCode != Activity.RESULT_OK ? null
+              : data.getData();
+      mUploadMessage.onReceiveValue(new Uri[] {result});
+      mUploadMessage = null;
+    }
   }
 
   @Override
