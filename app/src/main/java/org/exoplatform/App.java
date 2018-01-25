@@ -26,6 +26,9 @@ import android.content.SharedPreferences;
 
 import com.crashlytics.android.Crashlytics;
 
+import org.exoplatform.service.push.PushTokenStorage;
+import org.exoplatform.service.push.PushTokenSynchronizer;
+
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -38,6 +41,7 @@ public class App extends Application {
   public void onCreate() {
     super.onCreate();
     Fabric.with(this, new Crashlytics());
+    PushTokenSynchronizer.getInstance().setTokenAndSync(PushTokenStorage.getInstance().getPushToken(this));
   }
 
   public static final String TRIBE_URL      = "https://community.exoplatform.com";

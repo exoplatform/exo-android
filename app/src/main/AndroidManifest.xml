@@ -165,6 +165,29 @@
 
         <!-- Crashlytics -->
         <meta-data android:name="com.crashlytics.ApiKey" android:value="b8421f485868032ad402cef01a4bd7c70263d97e"/>
+
+        <!-- Push notifications, Firebase -->
+        <service
+            android:name=".service.push.PushNotificationsService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".service.push.PushTokenService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/icon_share_notif" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/eXoGrey" />
+
     </application>
 
 </manifest>

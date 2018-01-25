@@ -47,7 +47,10 @@ import org.exoplatform.R;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.ServerManagerImpl;
-import org.exoplatform.tool.WebViewCookieHandler;
+import org.exoplatform.tool.cookies.CookiesConverter;
+import org.exoplatform.tool.cookies.CookiesInterceptor;
+import org.exoplatform.tool.cookies.CookiesInterceptorFactory;
+import org.exoplatform.tool.cookies.WebViewCookieHandler;
 
 import java.io.IOException;
 import java.net.URLConnection;
@@ -85,6 +88,12 @@ public class PlatformWebViewFragment extends Fragment {
   private final Pattern              INTRANET_HOME_PAGE  = Pattern.compile("^(.*)(/portal/intranet)(/?)$");
 
   private final Pattern              LOGIN_REGISTER_PAGE = Pattern.compile("(/[a-z0-9]*/)([a-z0-9]*/)?(login|register)");
+
+  private final String               LOGOUT_PATH         = "portal:action=Logout";
+
+  private CookiesInterceptor         mCookiesInterceptor = new CookiesInterceptorFactory().create();
+
+  private CookiesConverter           mCookiesConverter   = new CookiesConverter();
 
   public PlatformWebViewFragment() {
     // Required empty public constructor
@@ -268,6 +277,9 @@ public class PlatformWebViewFragment extends Fragment {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
       if (url != null && url.contains(mServer.getShortUrl())) {
+        if (url.contains(LOGOUT_PATH)) {
+          mListener.onUserJustBeforeSignedOut();
+        }
         // url is on the server's domain, keep loading normally
         return super.shouldOverrideUrlLoading(view, url);
       } else {
@@ -295,7 +307,7 @@ public class PlatformWebViewFragment extends Fragment {
         mListener.onPageStarted(path != null && LOGIN_REGISTER_PAGE.matcher(path).matches());
       // Return to the previous activity if user has signed out
       String queryString = uri.getQuery();
-      if (queryString != null && queryString.contains("portal:action=Logout")) {
+      if (queryString != null && queryString.contains(LOGOUT_PATH)) {
         mListener.onUserSignedOut();
       }
     }
@@ -306,6 +318,7 @@ public class PlatformWebViewFragment extends Fragment {
       if (!mDidShowOnboarding && INTRANET_HOME_PAGE.matcher(url).matches()) {
         checkUserLoggedInAsync();
       }
+      mCookiesInterceptor.intercept(mCookiesConverter.toMap(CookieManager.getInstance().getCookie(url)), url);
       if (BuildConfig.DEBUG)
         Log.d(TAG, "COOKIES: " + CookieManager.getInstance().getCookie(url));
     }
@@ -315,6 +328,8 @@ public class PlatformWebViewFragment extends Fragment {
     void onPageStarted(boolean needsToolbar);
 
     void onUserSignedOut();
+
+    void onUserJustBeforeSignedOut();
 
     void onExternalContentRequested(String url);
 

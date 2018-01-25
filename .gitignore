@@ -34,3 +34,7 @@ proguard/
 
 # OS X
 .DS_Store
+
+# Google services #
+**/google-services.json
+

@@ -1,4 +1,4 @@
-package org.exoplatform.tool;
+package org.exoplatform.tool.cookies;
 
 /*
  * Copyright (C) 2003-2016 eXo Platform SAS.
@@ -38,6 +38,7 @@ import okhttp3.HttpUrl;
 public class WebViewCookieHandler implements CookieJar {
 
   private CookieManager webviewCookieManager = CookieManager.getInstance();
+  private CookiesConverter cookiesConverter = new CookiesConverter();
 
   @Override
   public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
@@ -56,14 +57,7 @@ public class WebViewCookieHandler implements CookieJar {
       // last_login_username=root;
       // JSESSIONIDSSO=AF9296C7B383CE3D4032340FB36F85C3;
       // JSESSIONID=A068BB1CCBFE5B24BCF5A0E622C193EB
-      if (cookiesStr != null) {
-        String[] cookieArray = cookiesStr.split(";");
-        for (String cookie : cookieArray) {
-          String[] parts = cookie.split("=");
-          if (parts.length >= 2)
-            cookieList.add(new Cookie.Builder().domain(url.host()).name(parts[0].trim()).value(parts[1].trim()).build());
-        }
-      }
+      cookieList.addAll(cookiesConverter.toList(url.host(), cookiesStr));
     }
     return cookieList;
   }
