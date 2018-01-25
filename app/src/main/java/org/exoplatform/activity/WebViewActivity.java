@@ -35,6 +35,7 @@ import org.exoplatform.fragment.OnBoardingManagerFragment;
 import org.exoplatform.fragment.PlatformWebViewFragment;
 import org.exoplatform.fragment.WebViewFragment;
 import org.exoplatform.model.Server;
+import org.exoplatform.service.push.PushTokenSynchronizerLocator;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
 
@@ -134,6 +135,11 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   public void onUserSignedOut() {
     // fragments and activity will be cleaned-up automatically
     finish();
+  }
+
+  @Override
+  public void onUserJustBeforeSignedOut() {
+    PushTokenSynchronizerLocator.getInstance().tryToDestroyToken();
   }
 
   @Override

@@ -81,6 +81,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.0'
+    testImplementation 'org.mockito:mockito-core:2.10.0'
 
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
@@ -92,8 +94,13 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     implementation 'com.squareup.okhttp3:okhttp:3.2.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     implementation 'org.jsoup:jsoup:1.9.1'
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
         transitive = true
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
