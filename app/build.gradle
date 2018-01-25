@@ -21,8 +21,8 @@ android {
 
     defaultConfig {
         applicationId "org.exoplatform"
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion 16
+        targetSdkVersion 27
         versionCode 1604281805
         versionName "5.0"
     }
