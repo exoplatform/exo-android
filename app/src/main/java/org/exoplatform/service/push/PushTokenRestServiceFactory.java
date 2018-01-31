@@ -20,13 +20,18 @@ package org.exoplatform.service.push;
  *
  */
 
+import org.exoplatform.BuildConfig;
 import org.exoplatform.tool.cookies.WebViewCookieHandler;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
+import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
 
 class PushTokenRestServiceFactory {
 
@@ -39,8 +44,11 @@ class PushTokenRestServiceFactory {
   }
 
   private OkHttpClient createClient() {
+    final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+    interceptor.setLevel(BuildConfig.DEBUG ? BODY : NONE);
     return new OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
+            .addInterceptor(interceptor)
             .cookieJar(new WebViewCookieHandler())
             .build();
   }

@@ -37,6 +37,8 @@ public class PushTokenSynchronizer {
 
   private static final String TAG = PushTokenSynchronizer.class.getSimpleName();
 
+  private boolean isSynchronized = false;
+
   public static PushTokenSynchronizer getInstance() {
     if (instance == null) {
       instance = new PushTokenSynchronizer();
@@ -52,6 +54,7 @@ public class PushTokenSynchronizer {
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
       if (response.isSuccessful()) {
         Log.i(TAG, "Push token registered successfully");
+        isSynchronized = true;
       } else {
         Log.e(TAG, "Register token unsuccessfully response");
       }
@@ -70,6 +73,7 @@ public class PushTokenSynchronizer {
         Log.i(TAG, "Push token destroyed successfully");
         username = null;
         url = null;
+        isSynchronized = false;
       } else {
         Log.e(TAG, "Destroy token unsuccessfully response");
       }
@@ -90,7 +94,9 @@ public class PushTokenSynchronizer {
   private String token;
 
   public void setConnectedUserAndSync(@Nullable String username, @Nullable String url) {
-    if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(url) && !TextUtils.equals(this.username, username) && !TextUtils.equals(this.url, url)) {
+    final boolean isValuesNotEmpty = !TextUtils.isEmpty(username) && !TextUtils.isEmpty(url);
+    final boolean isValuesChanged = !TextUtils.equals(this.username, username) && !TextUtils.equals(this.url, url);
+    if (isValuesNotEmpty && (isValuesChanged || !isSynchronized)) {
       this.username = username;
       this.url = url;
       tryToSynchronizeToken();
@@ -98,14 +104,16 @@ public class PushTokenSynchronizer {
   }
 
   public void setTokenAndSync(@Nullable String token) {
-    if (!TextUtils.isEmpty(token) && !TextUtils.equals(this.token, token)) {
+    final boolean isValueNotEmpty = !TextUtils.isEmpty(token);
+    final boolean isValueChanged = !TextUtils.equals(this.token, token);
+    if (isValueNotEmpty && (isValueChanged || !isSynchronized)) {
       this.token = token;
       tryToSynchronizeToken();
     }
   }
 
   public void tryToDestroyToken() {
-    if (!isStateValid()) {
+    if (!isStateValid() || !isSynchronized) {
       return;
     }
 
