@@ -34,7 +34,7 @@ public class PushTokenService extends FirebaseInstanceIdService {
     super.onTokenRefresh();
     String newToken = FirebaseInstanceId.getInstance().getToken();
     PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
-    PushTokenSynchronizer.getInstance().setTokenAndSync(newToken);
+    PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
     Log.d(TAG, "Refreshed push token: " + newToken);
   }
 }

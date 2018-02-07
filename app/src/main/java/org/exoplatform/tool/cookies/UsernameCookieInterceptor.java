@@ -23,7 +23,7 @@ package org.exoplatform.tool.cookies;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import org.exoplatform.service.push.PushTokenSynchronizer;
+import org.exoplatform.service.push.PushTokenSynchronizerLocator;
 
 import java.net.URL;
 import java.util.Map;
@@ -35,7 +35,7 @@ class UsernameCookieInterceptor implements CookiesInterceptor {
   @Override
   public void intercept(Map<String, String> cookies, String url) {
     if (cookies.containsKey(USERNAME_COOKIE_KEY)) {
-      PushTokenSynchronizer.getInstance().setConnectedUserAndSync(cookies.get(USERNAME_COOKIE_KEY), calculateBaseUrl(url));
+      PushTokenSynchronizerLocator.getInstance().setConnectedUserAndSync(cookies.get(USERNAME_COOKIE_KEY), calculateBaseUrl(url));
     }
   }
 

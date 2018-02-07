@@ -33,21 +33,7 @@ import retrofit2.Response;
 
 public class PushTokenSynchronizer {
 
-  private static PushTokenSynchronizer instance;
-
   private static final String TAG = PushTokenSynchronizer.class.getSimpleName();
-
-  private boolean isSynchronized = false;
-
-  public static PushTokenSynchronizer getInstance() {
-    if (instance == null) {
-      instance = new PushTokenSynchronizer();
-    }
-    return instance;
-  }
-
-  private PushTokenSynchronizer() {
-  }
 
   private Callback<ResponseBody> registerCallback = new Callback<ResponseBody>() {
     @Override
@@ -85,6 +71,8 @@ public class PushTokenSynchronizer {
     }
   };
 
+  private PushTokenRestServiceFactory restServiceFactory;
+
   private PushTokenRestService restService;
 
   private String username;
@@ -92,6 +80,12 @@ public class PushTokenSynchronizer {
   private String url;
 
   private String token;
+
+  private boolean isSynchronized = false;
+
+  public PushTokenSynchronizer(PushTokenRestServiceFactory restServiceFactory) {
+    this.restServiceFactory = restServiceFactory;
+  }
 
   public void setConnectedUserAndSync(@Nullable String username, @Nullable String url) {
     final boolean isValuesNotEmpty = !TextUtils.isEmpty(username) && !TextUtils.isEmpty(url);
@@ -138,7 +132,7 @@ public class PushTokenSynchronizer {
 
   private void initRestServiceIfNeeded() {
     if (restService == null) {
-      restService = new PushTokenRestServiceFactory().create(url);
+      restService = restServiceFactory.create(url);
     }
   }
 

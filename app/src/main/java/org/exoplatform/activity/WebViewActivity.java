@@ -35,7 +35,7 @@ import org.exoplatform.fragment.OnBoardingManagerFragment;
 import org.exoplatform.fragment.PlatformWebViewFragment;
 import org.exoplatform.fragment.WebViewFragment;
 import org.exoplatform.model.Server;
-import org.exoplatform.service.push.PushTokenSynchronizer;
+import org.exoplatform.service.push.PushTokenSynchronizerLocator;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
 
@@ -139,7 +139,7 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
 
   @Override
   public void onUserJustBeforeSignedOut() {
-    PushTokenSynchronizer.getInstance().tryToDestroyToken();
+    PushTokenSynchronizerLocator.getInstance().tryToDestroyToken();
   }
 
   @Override
