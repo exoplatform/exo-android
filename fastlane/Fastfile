@@ -1,0 +1,57 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new Beta Build to Appaloosa for production"
+  lane :beta do
+    gradle(task: "clean")
+    gradle(
+        task: "assemble",
+        build_type: "release",
+        flavor: "beta"
+    )
+    appaloosa(
+        # binary: './app/build/outputs/apk/release/app-preprod-unsigned.apk',
+        binary: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}",
+        store_id: ENV['APPALOOSA_EXO_STORE_ID'],
+        api_token: ENV['APPALOOSA_EXO_API_TOKEN'],
+        group_ids: '8782', # eXo
+        screenshots: ''
+    )
+  end
+
+  desc "Deploy a new version to the Google Play Beta track"
+  lane :store_beta do
+    gradle(
+      task: "clean assemble",
+      build_type: "release",
+      flavor: "store"
+      )
+    upload_to_play_store(
+      # apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}",
+      # json_key: '',
+      track: 'beta', # production, beta, alpha, rollout
+      skip_upload_apk: false,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      validate_only: false,
+      check_superseded_tracks: true
+    )
+  end
+end

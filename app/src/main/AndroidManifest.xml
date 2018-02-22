@@ -37,7 +37,7 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="eXo"
+        android:label="eXo${appLabelEnvironmentSuffix}"
         android:theme="@style/MainTheme">
 
         <!-- Activities -->
@@ -164,7 +164,6 @@
             android:exported="false"/>
 
         <!-- Crashlytics -->
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="b8421f485868032ad402cef01a4bd7c70263d97e"/>
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="${crashlyticsApiKey}"/>
     </application>
-
 </manifest>

@@ -1,24 +1,47 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         maven { url "https://repository.exoplatform.org/public/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
 allprojects {
+    buildscript {
+        repositories {
+            maven { url "https://repository.exoplatform.org/public/" }
+        }
+    }
     repositories {
         maven { url "https://repository.exoplatform.org/public/" }
         mavenLocal()
+    }
+
+    afterEvaluate { project ->
+        // Load signing configuration
+        def propsFile = file(System.getenv('GOOGLE_PLAY_EXO_KEYSTORE_PROPS'))
+        def configName = 'release'
+
+        if (propsFile.exists() && project.hasProperty("android") && android.signingConfigs.hasProperty(configName)) {
+            println "Loading signing config for $project from " + propsFile
+            def props = new Properties()
+            props.load(new FileInputStream(propsFile))
+            android.signingConfigs[configName].storeFile = file(props['storeFile'])
+            android.signingConfigs[configName].storePassword = props['storePassword']
+            android.signingConfigs[configName].keyAlias = props['keyAlias']
+            android.signingConfigs[configName].keyPassword = props['keyPassword']
+        }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+// This block encapsulate custom properties and make theme available to all modules in the project.
+ext {
+    minSdkVersion = 16 // Android 4.1
+    compileSdkVersion = 26
+    supportLibVersion = "26.1.0"
 }
