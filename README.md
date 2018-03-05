@@ -1,6 +1,5 @@
-# ATIS Network Android application
+# eXo Mobile Android application
 
-This project is based on a fork of [eXo Mobile Android application](https://github.com/exoplatform/exo-android/)
 ## how-to test
 
 TODO: add doc for local testing

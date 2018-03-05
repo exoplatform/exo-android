@@ -20,17 +20,27 @@ allprojects {
 
     afterEvaluate { project ->
         // Load signing configuration
-        def propsFile = file(System.getenv('GOOGLE_PLAY_EXO_KEYSTORE_PROPS'))
         def configName = 'release'
 
-        if (propsFile.exists() && project.hasProperty("android") && android.signingConfigs.hasProperty(configName)) {
-            println "Loading signing config for $project from " + propsFile
-            def props = new Properties()
-            props.load(new FileInputStream(propsFile))
-            android.signingConfigs[configName].storeFile = file(props['storeFile'])
-            android.signingConfigs[configName].storePassword = props['storePassword']
-            android.signingConfigs[configName].keyAlias = props['keyAlias']
-            android.signingConfigs[configName].keyPassword = props['keyPassword']
+        if (project.hasProperty("android") && android.signingConfigs.hasProperty(configName)) {
+            def propsFileEnv = System.getenv('GOOGLE_PLAY_EXO_KEYSTORE_PROPS')
+            if (propsFileEnv != null){
+                def propsFile = file(propsFileEnv)
+                if (propsFile.exists()) {
+                    println "Loading signing config for $project from " + propsFile
+                    def props = new Properties()
+                    props.load(new FileInputStream(propsFile))
+                    android.signingConfigs[configName].storeFile = file(props['storeFile'])
+                    android.signingConfigs[configName].storePassword = props['storePassword']
+                    android.signingConfigs[configName].keyAlias = props['keyAlias']
+                    android.signingConfigs[configName].keyPassword = props['keyPassword']
+                } else {
+                    println "The property file referenced by GOOGLE_PLAY_EXO_KEYSTORE_PROPS environment variable doesn't exists or is not readable !"
+                        +" no signing configuration for release will be configured. (GOOGLE_PLAY_EXO_KEYSTORE_PROPS: "+propsFileEnv+")"
+                }
+            } else {
+                println "GOOGLE_PLAY_EXO_KEYSTORE_PROPS environment variable doesn't exists ! no signing configuration for release will be configured."
+            }
         }
     }
 }
@@ -39,7 +49,7 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-// This block encapsulate custom properties and make theme available to all modules in the project.
+// This block encapsulate custom properties and make them available to all modules in the project.
 ext {
     minSdkVersion = 16 // Android 4.1
     compileSdkVersion = 26

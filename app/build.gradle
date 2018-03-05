@@ -15,7 +15,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.compileSdkVersion
         versionCode 27
-        versionName "5.0.0-SNAPSHOT"
+        versionName "5.0.x-SNAPSHOT"
         manifestPlaceholders = [
             crashlyticsApiKey: "b8421f485868032ad402cef01a4bd7c70263d97e",
             appLabelEnvironmentSuffix:""
@@ -41,7 +41,7 @@ android {
     }
     flavorDimensions "mode"
     productFlavors {
-        store {
+        local {
             dimension "mode"
         }
         beta {
@@ -50,12 +50,21 @@ android {
             versionNameSuffix "-beta"
             manifestPlaceholders = [appLabelEnvironmentSuffix:" (beta)"]
         }
+        store {
+            dimension "mode"
+        }
     }
     // Ignore certain variants
     variantFilter { variant ->
         def names = variant.flavors*.name
-        if (variant.buildType.name.contains("debug") && names.contains("store")) {
-            setIgnore(true)
+        if (variant.buildType.name.contains("debug")) {
+            if (names.contains("beta") || names.contains("store")) {
+                setIgnore(true)
+            }
+        } else if (variant.buildType.name.contains("release")) {
+            if (names.contains("local")) {
+                setIgnore(true)
+            }
         }
     }
 
