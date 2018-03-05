@@ -43,12 +43,13 @@ android {
     productFlavors {
         local {
             dimension "mode"
+            manifestPlaceholders = [appLabelEnvironmentSuffix:" FB (push-notifs)"]
         }
         beta {
             dimension "mode"
-            applicationIdSuffix ".beta"
-            versionNameSuffix "-beta"
-            manifestPlaceholders = [appLabelEnvironmentSuffix:" (beta)"]
+            applicationIdSuffix ".fb.push_notifs"
+            versionNameSuffix "-fb.push_notifs"
+            manifestPlaceholders = [appLabelEnvironmentSuffix:" FB (push-notifs)"]
         }
         store {
             dimension "mode"
