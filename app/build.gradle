@@ -1,59 +1,98 @@
 buildscript {
-    repositories {
-        maven { url 'https://repository.exoplatform.org/content/repositories/fabric-releases/' }
-    }
-
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.21.6'
+        classpath 'io.fabric.tools:gradle:1.22.1'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-repositories {
-    maven { url 'https://repository.exoplatform.org/content/repositories/fabric-releases/' }
-}
-
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
         applicationId "org.exoplatform"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1604281805
-        versionName "5.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode 27
+        versionName "5.0.x-SNAPSHOT"
+        manifestPlaceholders = [
+            crashlyticsApiKey: "b8421f485868032ad402cef01a4bd7c70263d97e",
+            appLabelEnvironmentSuffix:""
+        ]
+    }
+    signingConfigs {
+        release
     }
     useLibrary 'org.apache.http.legacy'
+
     buildTypes {
         release {
             minifyEnabled false
+            useProguard false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
     }
+    flavorDimensions "mode"
+    productFlavors {
+        local {
+            dimension "mode"
+        }
+        beta {
+            dimension "mode"
+            applicationIdSuffix ".beta"
+            versionNameSuffix "-beta"
+            manifestPlaceholders = [appLabelEnvironmentSuffix:" (beta)"]
+        }
+        store {
+            dimension "mode"
+        }
+    }
+    // Ignore certain variants
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (variant.buildType.name.contains("debug")) {
+            if (names.contains("beta") || names.contains("store")) {
+                setIgnore(true)
+            }
+        } else if (variant.buildType.name.contains("release")) {
+            if (names.contains("local")) {
+                setIgnore(true)
+            }
+        }
+    }
+
     lintOptions {
         warning 'InvalidPackage'
+        // FIXME: remove this lint option on EllipsizeMaxLines
+        // temporarily changed to warning instead of error due to project timing constraints
+        // (https://issuetracker.google.com/issues/36950033)
+        warning 'EllipsizeMaxLines'
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.android.support:cardview-v7:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
-    compile 'org.jsoup:jsoup:1.9.1'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
+    implementation 'org.jsoup:jsoup:1.9.1'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
         transitive = true
     }
 }
