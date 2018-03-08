@@ -1,0 +1,104 @@
+{
+  "project_info": {
+    "project_number": "672580172611",
+    "firebase_url": "https://exo-mobile.firebaseio.com",
+    "project_id": "exo-mobile",
+    "storage_bucket": "exo-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580172611:android:c343a3190065b821",
+        "android_client_info": {
+          "package_name": "org.exoplatform"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580172611:android:85f3a40c4b2fe2fa",
+        "android_client_info": {
+          "package_name": "org.exoplatform.fb.push_notifs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580172611:android:33de91761687f6a7",
+        "android_client_info": {
+          "package_name": "org.exoplatform.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
