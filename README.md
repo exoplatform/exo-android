@@ -1,5 +1,7 @@
 # eXo Mobile Android application
 
+Minimum Android SDK compatibility : 4.4 (KitKat)
+
 ## how-to test
 
 TODO: add doc for local testing
