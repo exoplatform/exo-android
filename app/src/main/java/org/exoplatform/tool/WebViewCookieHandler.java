@@ -52,7 +52,7 @@ public class WebViewCookieHandler implements CookieJar {
   public List<Cookie> loadForRequest(HttpUrl url) {
     List<Cookie> cookieList = new ArrayList<>();
     if (url != null) {
-      String cookiesStr = webviewCookieManager.getCookie(url.host());
+      String cookiesStr = webviewCookieManager.getCookie(url.url().toString());
       // last_login_username=root;
       // JSESSIONIDSSO=AF9296C7B383CE3D4032340FB36F85C3;
       // JSESSIONID=A068BB1CCBFE5B24BCF5A0E622C193EB
