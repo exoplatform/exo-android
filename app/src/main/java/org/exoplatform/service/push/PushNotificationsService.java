@@ -20,10 +20,20 @@ package org.exoplatform.service.push;
  *
  */
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.Build;
+import android.service.notification.StatusBarNotification;
+import android.support.v4.app.NotificationCompat;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import org.exoplatform.R;
 
 public class PushNotificationsService extends FirebaseMessagingService {
 
@@ -34,5 +44,39 @@ public class PushNotificationsService extends FirebaseMessagingService {
     super.onMessageReceived(remoteMessage);
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getFrom());
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getData());
+
+    sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"));
+  }
+
+  private void sendNotification(String messageTitle, String messageBody) {
+    String channelId = getString(R.string.default_notification_channel_id);
+    int notificationId = (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
+
+    NotificationManager notificationManager =
+            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+    // Since android Oreo notification channel is needed.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      NotificationChannel channel = new NotificationChannel(channelId,
+              "eXo Notifications Channel",
+              NotificationManager.IMPORTANCE_DEFAULT);
+      notificationManager.createNotificationChannel(channel);
+    }
+
+    CharSequence contentText;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      contentText = Html.fromHtml(messageBody, Html.FROM_HTML_MODE_LEGACY);
+    } else {
+      contentText = Html.fromHtml(messageBody);
+    }
+
+    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
+              .setSmallIcon(R.drawable.icon_share_notif)
+              .setContentTitle(messageTitle)
+              .setContentText(contentText)
+              .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
+              .setAutoCancel(true);
+
+    notificationManager.notify(notificationId, notificationBuilder.build());
   }
 }
