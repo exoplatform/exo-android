@@ -22,7 +22,7 @@ package org.exoplatform.model;
 
 public class TokenInfo {
 
-  private final String device = "android";
+  private final String type = "android";
 
   private final String token;
 
@@ -33,8 +33,8 @@ public class TokenInfo {
     this.username = username;
   }
 
-  public String getDevice() {
-    return device;
+  public String getType() {
+    return type;
   }
 
   public String getToken() {
