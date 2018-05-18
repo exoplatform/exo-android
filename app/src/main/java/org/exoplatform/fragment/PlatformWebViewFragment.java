@@ -65,6 +65,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
+
 /**
  * WebView that is configured to display content from a Platform 4.3+ intranet.
  * TODO extend WebViewFragment to reuse some methods
@@ -174,7 +176,12 @@ public class PlatformWebViewFragment extends Fragment {
         return true;
       }
     });
-    mWebView.loadUrl(mServer.getUrl().toString());
+    String url = this.getActivity().getIntent().getStringExtra(INTENT_KEY_URL);
+    if(url != null && !url.equals("")) {
+      mWebView.loadUrl(url);
+    } else {
+      mWebView.loadUrl(mServer.getUrl().toString());
+    }
     // done button for content without navigation, e.g. image
     mDoneButton = (Button) layout.findViewById(R.id.PlatformWebViewFragment_Done_Button);
     if (mDoneButton != null) {

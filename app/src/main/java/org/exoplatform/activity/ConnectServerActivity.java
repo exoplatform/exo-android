@@ -57,6 +57,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Random;
 
+import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
+
 /**
  * Main Activity
  * 
@@ -278,7 +280,7 @@ public class ConnectServerActivity extends AppCompatActivity {
       throw new IllegalArgumentException("URL must not be null");
 
     Intent intent = new Intent(this, WebViewActivity.class);
-    intent.putExtra(WebViewActivity.INTENT_KEY_URL, url);
+    intent.putExtra(INTENT_KEY_URL, url);
     this.startActivity(intent);
   }
 
@@ -290,9 +292,14 @@ public class ConnectServerActivity extends AppCompatActivity {
     SharedPreferences prefs = App.Preferences.get(this);
     Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
     long lastVisit = prefs.getLong(App.Preferences.LAST_VISIT_TIME, 0L);
+    // Rule SIGN_IN_13: if the app was left less than 1h ago
     if (serverToConnect != null && (System.nanoTime() - App.DELAY_1H_NANOS) < lastVisit) {
-      // Rule SIGN_IN_13: if the app was left less than 1h ago
-      openWebViewWithURL(serverToConnect.getUrl().toString());
+      String url = getIntent().getStringExtra(INTENT_KEY_URL);
+      if(url != null && !url.equals("")) {
+        openWebViewWithURL(url);
+      } else {
+        openWebViewWithURL(serverToConnect.getUrl().toString());
+      }
     }
     if (BuildConfig.DEBUG) {
       long minSinceLastVisit = (System.nanoTime() - lastVisit) / (60000000000L);

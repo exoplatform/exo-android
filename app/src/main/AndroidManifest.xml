@@ -80,7 +80,11 @@
         </activity>
         <!-- WebView activity -->
         <activity android:name=".activity.WebViewActivity"
+                  android:parentActivityName=".activity.ConnectServerActivity"
                   android:configChanges="orientation|screenSize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ConnectServerActivity"/>
         </activity>
         <!-- Share Extension activity -->
         <activity

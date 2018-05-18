@@ -51,10 +51,10 @@ public class PushNotificationsService extends FirebaseMessagingService {
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getFrom());
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getData());
 
-    sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"));
+    sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"), remoteMessage.getData().get("url"));
   }
 
-  private void sendNotification(String messageTitle, String messageBody) {
+  private void sendNotification(String messageTitle, String messageBody, String messageTargetUrl) {
     String channelId = getString(R.string.default_notification_channel_id);
     int notificationId = (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
 
@@ -64,7 +64,7 @@ public class PushNotificationsService extends FirebaseMessagingService {
     // Since android Oreo notification channel is needed.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       NotificationChannel channel = new NotificationChannel(channelId,
-              "eXo Notifications Channel",
+              "eXo",
               NotificationManager.IMPORTANCE_DEFAULT);
       notificationManager.createNotificationChannel(channel);
     }
@@ -76,11 +76,17 @@ public class PushNotificationsService extends FirebaseMessagingService {
       contentText = Html.fromHtml(messageBody);
     }
 
-    Intent notificationIntent = new Intent(this, ConnectServerActivity.class);
+    Intent notificationIntent;
+    if(messageTargetUrl != null && !messageTargetUrl.equals("")) {
+      notificationIntent = new Intent(this, WebViewActivity.class);
+      notificationIntent.putExtra(WebViewActivity.INTENT_KEY_URL, messageTargetUrl);
+    } else {
+      notificationIntent = new Intent(this, ConnectServerActivity.class);
+    }
 
     PendingIntent pendingIntent =
             TaskStackBuilder.create(this)
-                    .addNextIntent(notificationIntent)
+                    .addNextIntentWithParentStack(notificationIntent)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
