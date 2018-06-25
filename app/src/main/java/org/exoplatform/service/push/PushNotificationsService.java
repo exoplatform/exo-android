@@ -40,6 +40,10 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.exoplatform.R;
 import org.exoplatform.activity.ConnectServerActivity;
 import org.exoplatform.activity.WebViewActivity;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class PushNotificationsService extends FirebaseMessagingService {
 
@@ -70,10 +74,14 @@ public class PushNotificationsService extends FirebaseMessagingService {
     }
 
     CharSequence contentText;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       contentText = Html.fromHtml(messageBody, Html.FROM_HTML_MODE_LEGACY);
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      String sanitizedMessageBody = sanitizeMessageBody(messageBody);
+      contentText = Html.fromHtml(sanitizedMessageBody, Html.FROM_HTML_MODE_LEGACY);
     } else {
-      contentText = Html.fromHtml(messageBody);
+      String sanitizedMessageBody = sanitizeMessageBody(messageBody);
+      contentText = Html.fromHtml(sanitizedMessageBody);
     }
 
     Intent notificationIntent;
@@ -98,5 +106,26 @@ public class PushNotificationsService extends FirebaseMessagingService {
               .setAutoCancel(true);
 
     notificationManager.notify(notificationId, notificationBuilder.build());
+  }
+
+  /**
+   * The API Html.fromHtml does not support blockquote and ul/li tags before API 26.
+   * This method replaces blockquote tags by i tags and ul/li tags by p/div tags.
+   * @param messageBody The raw HTML message
+   * @return The sanitized message
+   */
+  private String sanitizeMessageBody(String messageBody) {
+    Document document = Jsoup.parse(messageBody);
+
+    // Replace "blockquote" tags by "i" tags
+    Elements blockquoteTags = document.getElementsByTag("blockquote");
+    blockquoteTags.tagName("i");
+
+    // Replace "ul/li" by "p/div"
+    Elements ulTags = document.getElementsByTag("ul");
+    ulTags.select("li").tagName("div");
+    ulTags.tagName("p");
+
+    return document.outerHtml();
   }
 }
