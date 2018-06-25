@@ -95,7 +95,8 @@ public class PushNotificationsService extends FirebaseMessagingService {
     PendingIntent pendingIntent =
             TaskStackBuilder.create(this)
                     .addNextIntentWithParentStack(notificationIntent)
-                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                    // must use an unique id as a first param to be sure to not reuse old intents
+                    .getPendingIntent(notificationId, PendingIntent.FLAG_UPDATE_CURRENT);
 
     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
               .setSmallIcon(R.drawable.icon_share_notif)
