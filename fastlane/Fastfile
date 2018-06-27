@@ -9,6 +9,9 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+# minimum version for fastlane
+fastlane_version "2.98.0"
+
 default_platform(:android)
 
 platform :android do
@@ -20,6 +23,11 @@ platform :android do
   desc "Submit a new Beta Build to Appaloosa for production"
   lane :beta do
     gradle(task: "clean")
+    add_badge(
+      shield: "5.1-M04-blue", 
+      dark: true,
+      glob: "/app/src/main/res/mipmap-*/ic_launcher.png"
+      )
     gradle(
         task: "assemble",
         build_type: "release",
