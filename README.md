@@ -1,6 +1,9 @@
 # eXo Mobile Android application
 
-Minimum Android SDK compatibility : 4.4 (KitKat)
+Minimum compatibility :
+
+- Android SDK : 4.4 (KitKat)
+- Fastlane : 2.105.0
 
 ## how-to test
 

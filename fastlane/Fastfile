@@ -10,7 +10,7 @@
 # update_fastlane
 
 # minimum version for fastlane
-fastlane_version "2.98.0"
+fastlane_version "2.105.0"
 
 default_platform(:android)
 
