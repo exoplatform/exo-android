@@ -15,6 +15,6 @@ public class TokenInfoMatcher implements ArgumentMatcher<TokenInfo> {
 
   @Override
   public boolean matches(TokenInfo argument) {
-    return "android".equals(argument.getDevice()) && username.equals(argument.getUsername()) && token.equals(argument.getToken());
+    return "android".equals(argument.getType()) && username.equals(argument.getUsername()) && token.equals(argument.getToken());
   }
 }
