@@ -30,7 +30,12 @@ Submit a new Beta Build to Appaloosa for production
 ```
 fastlane android store_beta
 ```
-Deploy a new version to the Google Play Beta track
+Deploy and publish a new version to the Google Play Beta track
+### android store
+```
+fastlane android store
+```
+Deploy a new version to the Google Play Production track (no publication)
 
 ----
 

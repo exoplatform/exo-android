@@ -43,13 +43,13 @@ platform :android do
     )
   end
 
-  desc "Deploy a new version to the Google Play Beta track"
+  desc "Deploy and publish a new version to the Google Play Beta track"
   lane :store_beta do
     gradle(
       task: "clean assemble",
       build_type: "release",
       flavor: "store"
-      )
+    )
     upload_to_play_store(
       # apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}",
       # json_key: '',
@@ -59,6 +59,26 @@ platform :android do
       skip_upload_images: true,
       skip_upload_screenshots: true,
       validate_only: false,
+      check_superseded_tracks: true
+    )
+  end
+
+  desc "Deploy a new version to the Google Play Production track (no publication)"
+  lane :store do
+    gradle(
+      task: "clean assemble",
+      build_type: "release",
+      flavor: "store"
+    )
+    upload_to_play_store(
+      # apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}",
+      # json_key: '',
+      track: 'production', # production, beta, alpha, rollout
+      skip_upload_apk: false,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      validate_only: true,
       check_superseded_tracks: true
     )
   end
