@@ -1,7 +1,7 @@
 package org.exoplatform.activity;
 
 /*
- * Copyright (C) 2003-2016 eXo Platform SAS.
+ * Copyright (C) 2003-2019 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -23,6 +23,7 @@ package org.exoplatform.activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -182,6 +183,11 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
     Fragment onBoardingFragment = getSupportFragmentManager().findFragmentByTag(OnBoardingManagerFragment.TAG);
     getSupportFragmentManager().popBackStack();
     getSupportFragmentManager().beginTransaction().remove(onBoardingFragment).show(mPlatformFragment).commit();
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
 
   /**
