@@ -1,7 +1,7 @@
 package org.exoplatform.fragment;
 
 /*
- * Copyright (C) 2003-2016 eXo Platform SAS.
+ * Copyright (C) 2003-2019 eXo Platform SAS.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -22,12 +22,17 @@ package org.exoplatform.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +40,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
+import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -65,6 +72,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.content.Context.DOWNLOAD_SERVICE;
 import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
 
 /**
@@ -77,6 +86,8 @@ public class PlatformWebViewFragment extends Fragment {
   private static final String        ARG_SERVER          = "SERVER";
 
   private static final int FILECHOOSER_RESULTCODE = 1;
+
+  private static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST = 2;
 
   public static final String         TAG                 = PlatformWebViewFragment.class.getName();
 
@@ -103,6 +114,14 @@ public class PlatformWebViewFragment extends Fragment {
   private CookiesInterceptor         mCookiesInterceptor = new CookiesInterceptorFactory().create();
 
   private CookiesConverter           mCookiesConverter   = new CookiesConverter();
+
+  private String downloadFileUrl;
+
+  private String downloadUserAgent;
+
+  private String downloadFileContentDisposition;
+
+  private String downloadFileMimetype;
 
   public PlatformWebViewFragment() {
     // Required empty public constructor
@@ -176,7 +195,27 @@ public class PlatformWebViewFragment extends Fragment {
         return true;
       }
     });
-    String url = this.getActivity().getIntent().getStringExtra(INTENT_KEY_URL);
+
+    mWebView.setDownloadListener(new DownloadListener() {
+      public void onDownloadStart(String url, String userAgent,
+                                  String contentDisposition, String mimetype,
+                                  long contentLength) {
+        if (!hasPermission(getContext())) {
+          // save info of file to download before waiting for permission, so it
+          // can be downloaded from the callback method (onRequestPermissionsResult)
+          downloadFileUrl = url;
+          downloadUserAgent = userAgent;
+          downloadFileContentDisposition = contentDisposition;
+          downloadFileMimetype = mimetype;
+
+          requestPermissions(new String[]{ WRITE_EXTERNAL_STORAGE },
+                  WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST);
+        } else {
+          downloadFile(url, userAgent, contentDisposition, mimetype);
+        }
+      }
+    });
+    String url = getActivity().getIntent().getStringExtra(INTENT_KEY_URL);
     if(url != null && !url.equals("")) {
       mWebView.loadUrl(url);
     } else {
@@ -195,6 +234,44 @@ public class PlatformWebViewFragment extends Fragment {
       });
     }
     return layout;
+  }
+
+  public static boolean hasPermission(Context context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null) {
+      return ActivityCompat.checkSelfPermission(context, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+    return true;
+  }
+
+  private void downloadFile(String url, String userAgent, String contentDisposition, String mimetype) {
+    String filename = URLUtil.guessFileName(url, contentDisposition, mimetype);
+
+    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+
+    String cookie = CookieManager.getInstance().getCookie(url);
+    request.addRequestHeader("Cookie", cookie);
+    request.addRequestHeader("User-Agent", userAgent);
+
+    request.allowScanningByMediaScanner();
+    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+    DownloadManager downloadmanager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
+
+    downloadmanager.enqueue(request);
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    switch (requestCode) {
+      case WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST: {
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+          downloadFile(downloadFileUrl, downloadUserAgent, downloadFileContentDisposition, downloadFileMimetype);
+        }
+        return;
+      }
+    }
+
   }
 
   @Override
