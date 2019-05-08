@@ -334,7 +334,7 @@ public class PlatformWebViewFragment extends Fragment {
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
       mWebView.getSettings().setUseWideViewPort(false);
       mWebView.getSettings().setLoadWithOverviewMode(false);
-      mWebView.getSettings().setBuiltInZoomControls(false);
+      mWebView.getSettings().setBuiltInZoomControls(true);
       mDoneButton.setVisibility(View.GONE);
     }
   }
