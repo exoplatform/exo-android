@@ -111,6 +111,7 @@ public class ServerUtils {
 
           @Override
           public void onFailure(Call<PlatformInfo> call, Throwable t) {
+            Log.e(LOG_TAG, "Unable to retrieve platform information", t);
             callback.onServerInvalid();
           }
         });
