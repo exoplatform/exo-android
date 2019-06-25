@@ -56,10 +56,6 @@ public class WebViewFragment extends Fragment {
 
   protected ProgressBar           mProgressBar;
 
-  protected ImageButton           mCloseButton;
-
-  protected TextView              mPageTitle;
-
   public WebViewFragment() {
     // Required empty public constructor
   }
@@ -89,15 +85,6 @@ public class WebViewFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_web_view, container, false);
-    mPageTitle = (TextView) layout.findViewById(R.id.WebViewFragment_PageTitle);
-    mCloseButton = (ImageButton) layout.findViewById(R.id.WebViewFragment_CloseButton);
-    mCloseButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (mListener != null)
-          mListener.onCloseWebViewFragment();
-      }
-    });
     mWebView = (WebView) layout.findViewById(R.id.WebViewFragment_WebView);
     mWebView.setWebViewClient(new WebViewClient());
     mWebView.getSettings().setJavaScriptEnabled(true);
@@ -105,13 +92,12 @@ public class WebViewFragment extends Fragment {
     mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setBuiltInZoomControls(true);
-    mWebView.getSettings().setDisplayZoomControls(true);
+    mWebView.getSettings().setDisplayZoomControls(false);
     mProgressBar = (ProgressBar) layout.findViewById(R.id.WebViewFragment_ProgressBar);
     mWebView.setWebChromeClient(new WebChromeClient() {
       @Override
       public void onReceivedTitle(WebView view, String title) {
         super.onReceivedTitle(view, title);
-        mPageTitle.setText(title);
       }
 
       @Override
