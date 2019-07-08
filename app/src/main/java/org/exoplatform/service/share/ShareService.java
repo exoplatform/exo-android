@@ -139,6 +139,9 @@ public class ShareService extends IntentService {
    * upload the file
    */
   private UploadInfo initUpload() {
+    int newVersion = PostAction.loadPlatformInformation().platformVersion.substring(0, 5).compareTo("5.2.2");
+    if (newVersion <= 0)
+       SocialActivity.TYPE_DOC = "DOC_ACTIVITY";
     postInfo.type = SocialActivity.TYPE_DOC;
     UploadInfo uploadInfo = new UploadInfo();
     uploadInfo.init(postInfo);

@@ -32,6 +32,7 @@ import java.io.IOException;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static java.security.AccessController.getContext;
 
 /**
  * Created by The eXo Platform SAS<br/>
@@ -84,6 +85,22 @@ public class PostAction extends Action {
       postInfo.type = SocialActivity.TYPE_DEFAULT;
     else
       postInfo.type = SocialActivity.TYPE_DEFAULT_SPACE;
+  }
+
+  public static SocialRestService.PlatformInformation loadPlatformInformation() {
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(PlatformUtils.getPlatformDomain())
+            .client(ExoHttpClient.getInstance())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    SocialRestService service = retrofit.create(SocialRestService.class);
+    try {
+      Response<SocialRestService.PlatformInformation> response = service.GetPlatformVersion().execute();
+      if (response != null && response.body() != null)
+        return response.body();
+    } catch (IOException e) {
+      Log.e(getContext().getClass().getName(), e.getMessage(), e);
+    }
+    return null;
   }
 
   private boolean postActivity() {

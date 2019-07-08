@@ -23,10 +23,12 @@ package org.exoplatform.tool;
 import org.exoplatform.model.SocialActivity;
 import org.exoplatform.model.SocialComment;
 import org.exoplatform.model.SocialSpace;
+import org.json.JSONObject;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -82,6 +84,9 @@ public interface SocialRestService {
   @POST("/rest/v1/social/spaces/{id}/activities")
   Call<SocialActivity> createSpaceActivity(@Path("id") String spaceId, @Body SocialActivity activity);
 
+  @GET("/rest/platform/info")
+  Call<PlatformInformation> GetPlatformVersion();
+
   /**
    * A class that maps to the response JSON of a list of spaces
    */
@@ -95,6 +100,24 @@ public interface SocialRestService {
 
     public int               size;
 
+  }
+
+  class PlatformInformation {
+    public String productCode;
+    public String buildNumber;
+    public String platformEdition;
+    public String platformVersion;
+    public String unlockKey;
+    public String nbUsers;
+    public String dateOfKeyGeneration;
+    public boolean isMobileCompliant;
+    public String platformBuildNumber;
+    public String platformRevision;
+    public String userHomeNodePath;
+    public String runningProfile;
+    public String currentRepoName;
+    public String defaultWorkSpaceName;
+    public String duration;
   }
 
 }

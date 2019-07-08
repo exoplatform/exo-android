@@ -45,7 +45,7 @@ public class SocialActivity implements Parcelable {
 
   public final static String TYPE_DEFAULT_SPACE = "exosocial:spaces";
 
-  public final static String TYPE_DOC           = "files:spaces";
+  public static String       TYPE_DOC           = "files:spaces";
 
   public final static String TYPE_LINK          = "LINK_ACTIVITY";
 
