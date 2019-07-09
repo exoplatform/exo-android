@@ -24,6 +24,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.exoplatform.App;
+import org.exoplatform.tool.ServerUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +46,9 @@ public class SocialActivity implements Parcelable {
 
   public final static String TYPE_DEFAULT_SPACE = "exosocial:spaces";
 
-  public static String       TYPE_DOC           = "files:spaces";
+  public final static String DOC_ACTIVITY_TYPE      = "files:spaces";
+
+  public final static String OLD_DOC_ACTIVITY_TYPE  = "DOC_ACTIVITY";
 
   public final static String TYPE_LINK          = "LINK_ACTIVITY";
 
@@ -179,13 +182,14 @@ public class SocialActivity implements Parcelable {
     String docPath = docLink.substring(beginPath.length());
     templateParams.put("DOCPATH", docPath);
     templateParams.put("DOCNAME", uploadInfo.fileToUpload.documentName);
+    if (!ServerUtils.isOldVersion()){
     templateParams.put("docTitle",this.title);
     templateParams.put("imagePath", "");
     templateParams.put("dateCreated",new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
     templateParams.put("lastModified",new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
     templateParams.put("contentName",this.title);
     templateParams.put("contentLink",uploadInfo.drive + docPath);
-    templateParams.put("isSymlink","false");
+    templateParams.put("isSymlink","false");}
     String mimeType = uploadInfo.fileToUpload.documentMimeType;
     if (mimeType != null && !mimeType.trim().isEmpty()) {
       templateParams.put("mimeType", uploadInfo.fileToUpload.documentMimeType);

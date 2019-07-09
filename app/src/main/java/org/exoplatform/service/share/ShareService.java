@@ -40,6 +40,7 @@ import org.exoplatform.tool.DocumentUtils;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.LinkAnalyzer;
 import org.exoplatform.tool.PlatformUtils;
+import org.exoplatform.tool.ServerUtils;
 import org.exoplatform.tool.SocialRestService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -139,10 +140,9 @@ public class ShareService extends IntentService {
    * upload the file
    */
   private UploadInfo initUpload() {
-    int newVersion = PostAction.loadPlatformInformation().platformVersion.substring(0, 5).compareTo("5.2.2");
-    if (newVersion <= 0)
-       SocialActivity.TYPE_DOC = "DOC_ACTIVITY";
-    postInfo.type = SocialActivity.TYPE_DOC;
+    if (ServerUtils.isOldVersion())
+    postInfo.type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    else postInfo.type = SocialActivity.DOC_ACTIVITY_TYPE;
     UploadInfo uploadInfo = new UploadInfo();
     uploadInfo.init(postInfo);
 

@@ -25,6 +25,7 @@ import android.util.Log;
 import org.exoplatform.model.SocialActivity;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.PlatformUtils;
+import org.exoplatform.tool.ServerUtils;
 import org.exoplatform.tool.SocialRestService;
 
 import java.io.IOException;
@@ -32,7 +33,6 @@ import java.io.IOException;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by The eXo Platform SAS<br/>
@@ -62,8 +62,10 @@ public class PostAction extends Action {
 
   @Override
   protected boolean doExecute() {
-
-    if (SocialActivity.TYPE_DOC.equals(postInfo.type)) {
+    String type = SocialActivity.DOC_ACTIVITY_TYPE;
+    if (ServerUtils.isOldVersion())
+      type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    if (type.equals(postInfo.type)) {
       postInfo.addTemplateParam("MESSAGE", postInfo.title);
       if (postInfo.title != null && postInfo.title.trim().isEmpty()) {
         postInfo.title = postInfo.postAttachedFiles.get(0);
@@ -85,22 +87,6 @@ public class PostAction extends Action {
       postInfo.type = SocialActivity.TYPE_DEFAULT;
     else
       postInfo.type = SocialActivity.TYPE_DEFAULT_SPACE;
-  }
-
-  public static SocialRestService.PlatformInformation loadPlatformInformation() {
-    Retrofit retrofit = new Retrofit.Builder().baseUrl(PlatformUtils.getPlatformDomain())
-            .client(ExoHttpClient.getInstance())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    SocialRestService service = retrofit.create(SocialRestService.class);
-    try {
-      Response<SocialRestService.PlatformInformation> response = service.GetPlatformVersion().execute();
-      if (response != null && response.body() != null)
-        return response.body();
-    } catch (IOException e) {
-      Log.e(getContext().getClass().getName(), e.getMessage(), e);
-    }
-    return null;
   }
 
   private boolean postActivity() {

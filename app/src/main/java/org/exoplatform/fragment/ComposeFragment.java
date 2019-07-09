@@ -48,6 +48,7 @@ import org.exoplatform.model.SocialActivity;
 import org.exoplatform.model.SocialSpace;
 import org.exoplatform.service.share.LoginTask;
 import org.exoplatform.service.share.PrepareAttachmentsTask;
+import org.exoplatform.tool.ServerUtils;
 
 /**
  * Created by The eXo Platform SAS
@@ -161,7 +162,10 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
     setSpaceLabel();
     setTouchListener();
     SocialActivity activity = getShareActivity().getActivityPost();
-    if (!SocialActivity.TYPE_DOC.equals(activity.type)) {
+    String type = SocialActivity.DOC_ACTIVITY_TYPE;
+    if (ServerUtils.isOldVersion())
+       type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    if (!type.equals(activity.type)) {
       // Text or link activity, no thumbnail
       mThumbnailImageView.setVisibility(View.GONE);
       mMoreAttachmentsLabel.setVisibility(View.GONE);
