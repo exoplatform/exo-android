@@ -62,9 +62,12 @@ public class PostAction extends Action {
 
   @Override
   protected boolean doExecute() {
-    String type = SocialActivity.DOC_ACTIVITY_TYPE;
-    if (ServerUtils.isOldVersion())
+    String type;
+    if (ServerUtils.isOldVersion()) {
       type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    } else {
+      type = SocialActivity.DOC_ACTIVITY_TYPE;
+    }
     if (type.equals(postInfo.type)) {
       postInfo.addTemplateParam("MESSAGE", postInfo.title);
       if (postInfo.title != null && postInfo.title.trim().isEmpty()) {

@@ -123,9 +123,11 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       } else {
         // User is sharing some document(s)
         mActivityPost.title = "";
-        if (ServerUtils.isOldVersion())
-        mActivityPost.type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
-        else mActivityPost.type = SocialActivity.DOC_ACTIVITY_TYPE;
+        if (ServerUtils.isOldVersion()) {
+          mActivityPost.type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+        } else {
+          mActivityPost.type = SocialActivity.DOC_ACTIVITY_TYPE;
+        }
         if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
           mAttachmentUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         } else {

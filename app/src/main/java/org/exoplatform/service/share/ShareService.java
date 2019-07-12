@@ -140,9 +140,11 @@ public class ShareService extends IntentService {
    * upload the file
    */
   private UploadInfo initUpload() {
-    if (ServerUtils.isOldVersion())
-    postInfo.type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
-    else postInfo.type = SocialActivity.DOC_ACTIVITY_TYPE;
+    if (ServerUtils.isOldVersion()) {
+      postInfo.type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    } else {
+      postInfo.type = SocialActivity.DOC_ACTIVITY_TYPE;
+    }
     UploadInfo uploadInfo = new UploadInfo();
     uploadInfo.init(postInfo);
 

@@ -162,9 +162,12 @@ public class ComposeFragment extends Fragment implements LoginTask.Listener, Pre
     setSpaceLabel();
     setTouchListener();
     SocialActivity activity = getShareActivity().getActivityPost();
-    String type = SocialActivity.DOC_ACTIVITY_TYPE;
-    if (ServerUtils.isOldVersion())
-       type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    String type;
+    if (ServerUtils.isOldVersion()) {
+      type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    } else {
+      type = SocialActivity.DOC_ACTIVITY_TYPE;
+    }
     if (!type.equals(activity.type)) {
       // Text or link activity, no thumbnail
       mThumbnailImageView.setVisibility(View.GONE);
