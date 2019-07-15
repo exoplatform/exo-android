@@ -106,7 +106,7 @@ public class ServerUtils {
                 // Update the server URL to the final value
                 server.setUrl(finalUrl);
               } catch (MalformedURLException ignored) {}
-                plfVersion = response.body().platformVersion;
+              plfVersion = response.body().platformVersion;
               if (ServerUtils.convertVersionFromString(plfVersion)>= App.Platform.MIN_SUPPORTED_VERSION) {
                 callback.onServerValid(server);
               } else {

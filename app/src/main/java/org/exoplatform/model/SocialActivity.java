@@ -182,14 +182,15 @@ public class SocialActivity implements Parcelable {
     String docPath = docLink.substring(beginPath.length());
     templateParams.put("DOCPATH", docPath);
     templateParams.put("DOCNAME", uploadInfo.fileToUpload.documentName);
-    if (!ServerUtils.isOldVersion()){
-    templateParams.put("docTitle",this.title);
-    templateParams.put("imagePath", "");
-    templateParams.put("dateCreated",new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
-    templateParams.put("lastModified",new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
-    templateParams.put("contentName",this.title);
-    templateParams.put("contentLink",uploadInfo.drive + docPath);
-    templateParams.put("isSymlink","false");}
+    if (!ServerUtils.isOldVersion()) {
+      templateParams.put("docTitle", this.title);
+      templateParams.put("imagePath", "");
+      templateParams.put("dateCreated", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
+      templateParams.put("lastModified", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
+      templateParams.put("contentName", this.title);
+      templateParams.put("contentLink", uploadInfo.drive + docPath);
+      templateParams.put("isSymlink", "false");
+    }
     String mimeType = uploadInfo.fileToUpload.documentMimeType;
     if (mimeType != null && !mimeType.trim().isEmpty()) {
       templateParams.put("mimeType", uploadInfo.fileToUpload.documentMimeType);
