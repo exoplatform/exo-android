@@ -25,6 +25,7 @@ import android.util.Log;
 import org.exoplatform.model.SocialActivity;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.PlatformUtils;
+import org.exoplatform.tool.ServerUtils;
 import org.exoplatform.tool.SocialRestService;
 
 import java.io.IOException;
@@ -61,8 +62,13 @@ public class PostAction extends Action {
 
   @Override
   protected boolean doExecute() {
-
-    if (SocialActivity.TYPE_DOC.equals(postInfo.type)) {
+    String type;
+    if (ServerUtils.isOldVersion()) {
+      type = SocialActivity.OLD_DOC_ACTIVITY_TYPE;
+    } else {
+      type = SocialActivity.DOC_ACTIVITY_TYPE;
+    }
+    if (type.equals(postInfo.type)) {
       postInfo.addTemplateParam("MESSAGE", postInfo.title);
       if (postInfo.title != null && postInfo.title.trim().isEmpty()) {
         postInfo.title = postInfo.postAttachedFiles.get(0);

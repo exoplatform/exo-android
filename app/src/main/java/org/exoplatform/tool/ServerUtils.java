@@ -62,6 +62,14 @@ public class ServerUtils {
 
   public static final String LOG_TAG = "ServerUtils";
 
+    public static String plfVersion;
+
+    public static boolean isOldVersion() {
+        if (plfVersion.substring(0, 5).compareTo("5.2.2") <= 0)
+            return true;
+        else return false;
+    }
+
   public interface ServerVerificationCallback {
     void onVerificationStarted();
 
@@ -98,8 +106,8 @@ public class ServerUtils {
                 // Update the server URL to the final value
                 server.setUrl(finalUrl);
               } catch (MalformedURLException ignored) {}
-              Double plfVersion = ServerUtils.convertVersionFromString(response.body().platformVersion);
-              if (plfVersion >= App.Platform.MIN_SUPPORTED_VERSION) {
+              plfVersion = response.body().platformVersion;
+              if (ServerUtils.convertVersionFromString(plfVersion)>= App.Platform.MIN_SUPPORTED_VERSION) {
                 callback.onServerValid(server);
               } else {
                 callback.onServerNotSupported();
