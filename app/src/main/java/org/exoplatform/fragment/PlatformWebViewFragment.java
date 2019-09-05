@@ -392,11 +392,17 @@ public class PlatformWebViewFragment extends Fragment {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-      if (url.contains(LOGOUT_PATH)) {
-        mListener.onUserJustBeforeSignedOut();
+      if (url != null && url.contains(mServer.getShortUrl())) {
+        if (url.contains(LOGOUT_PATH)) {
+          mListener.onUserJustBeforeSignedOut();
+        }
+        // url is on the server's domain, keep loading normally
+        return super.shouldOverrideUrlLoading(view, url);
+      } else {
+        // url is on an external domain, load in a different fragment
+        mListener.onExternalContentRequested(url);
+        return true;
       }
-      mListener.onExternalContentRequested(url);
-      return true;
     }
 
     @Override
