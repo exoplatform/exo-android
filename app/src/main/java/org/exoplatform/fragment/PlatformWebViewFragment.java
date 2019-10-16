@@ -211,7 +211,7 @@ public class PlatformWebViewFragment extends Fragment {
           requestPermissions(new String[]{ WRITE_EXTERNAL_STORAGE },
                   WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST);
         } else {
-          downloadFile(url, userAgent, contentDisposition, mimetype);
+          downloadFile(url, userAgent, contentDisposition);
         }
       }
     });
@@ -243,8 +243,8 @@ public class PlatformWebViewFragment extends Fragment {
     return true;
   }
 
-  private void downloadFile(String url, String userAgent, String contentDisposition, String mimetype) {
-    String filename = URLUtil.guessFileName(url, contentDisposition, mimetype);
+  private void downloadFile(String url, String userAgent, String contentDisposition) {
+    String filename = URLUtil.guessFileName(url, contentDisposition, null);
 
     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 
@@ -266,7 +266,7 @@ public class PlatformWebViewFragment extends Fragment {
       case WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST: {
         if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          downloadFile(downloadFileUrl, downloadUserAgent, downloadFileContentDisposition, downloadFileMimetype);
+          downloadFile(downloadFileUrl, downloadUserAgent, downloadFileContentDisposition);
         }
         return;
       }
