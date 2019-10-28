@@ -32,6 +32,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -44,6 +45,8 @@ import android.webkit.DownloadListener;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -63,7 +66,13 @@ import org.exoplatform.tool.cookies.CookiesInterceptorFactory;
 import org.exoplatform.tool.cookies.WebViewCookieHandler;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import okhttp3.Call;
@@ -389,6 +398,51 @@ public class PlatformWebViewFragment extends Fragment {
   }
 
   private class PlatformWebViewClient extends WebViewClient {
+
+    private List<String> resourceIds = new ArrayList<>();
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+
+      if(request.getUrl().getPath().equals("/portal/download")) {
+        String resourceId = request.getUrl().getQueryParameter("resourceId");
+        if(!resourceIds.contains(resourceId)) {
+          resourceIds.add(resourceId);
+          try {
+            URL url = new URL(request.getUrl().toString() + "&remove=false");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            return new WebResourceResponse(connection.getContentType(), connection.getHeaderField("encoding"), connection.getResponseCode(), String.valueOf(connection.getResponseCode()), flattenHeaders(connection.getHeaderFields()), connection.getInputStream());
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        } else {
+          resourceIds.remove(resourceId);
+        }
+      }
+
+      return super.shouldInterceptRequest(view, request);
+    }
+
+    @NonNull
+    private Map<String, String> flattenHeaders(Map<String, List<String>> headers) {
+      Map<String, String> flattenHeaders = new HashMap<>();
+      for(String headerName : headers.keySet()) {
+        String headerConcatenatedValue = "";
+        List<String> headerValues = headers.get(headerName);
+        if(headerValues != null && !headerValues.isEmpty()) {
+          if (headerValues.size() > 1) {
+            for (String headerValue : headerValues) {
+              headerConcatenatedValue += headerValue + ";";
+            }
+          } else {
+            headerConcatenatedValue = headerValues.get(0);
+          }
+        }
+        flattenHeaders.put(headerName, headerConcatenatedValue);
+      }
+      return flattenHeaders;
+    }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
