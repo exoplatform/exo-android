@@ -53,6 +53,6 @@ task clean(type: Delete) {
 // This block encapsulate custom properties and make them available to all modules in the project.
 ext {
     minSdkVersion = 19 // Android 4.4 (KitKat)
-    compileSdkVersion = 26
+    compileSdkVersion = 28
     supportLibVersion = "26.1.0"
 }
