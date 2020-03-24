@@ -101,16 +101,16 @@ public class PostAction extends Action {
     SocialRestService service = retrofit.create(SocialRestService.class);
     try {
       if (postInfo.isPublic()) {
-        Response<SocialActivity> response = service.createActivity("", postInfo).execute();
+        Response<SocialActivity> response = service.createPublicActivity(postInfo.ownerAccount.getLastLogin(), postInfo).execute();
         if (listener instanceof PostActionListener && response.isSuccessful()) {
           ((PostActionListener) listener).mCreatedActivity = response.body();
         }
         return response.isSuccessful(); // return the result of the createActivity
                                         // method call
       } else {
-        String spaceId = postInfo.destinationSpace.getIdentityId();
+        String spaceId = postInfo.destinationSpace.id;
         if (spaceId != null) {
-          Response<SocialActivity> response = service.createActivity(spaceId, postInfo).execute();
+          Response<SocialActivity> response = service.createSpaceActivity(spaceId, postInfo).execute();
           if (listener instanceof PostActionListener && response.isSuccessful()) {
             ((PostActionListener) listener).mCreatedActivity = response.body();
           }
