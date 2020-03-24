@@ -117,7 +117,7 @@ public class LoginTask extends AsyncTask<Server, Void, LoginTask.LoginResult> {
       Double plfVersion = ServerUtils.convertVersionFromString(result.mPlatformInfo.platformVersion);
       if (plfVersion >= App.Platform.MIN_SUPPORTED_VERSION) {
         // Login successful and Platform version supported
-        PlatformUtils.init(result.mServer.getUrl().toString(), result.mPlatformInfo);
+        PlatformUtils.init(result.mServer.getUrl().toString(), result.mPlatformInfo, result.mServer.getLastLogin());
         for (Listener l : mListeners) {
           l.onLoginSuccess(result.mPlatformInfo);
         }

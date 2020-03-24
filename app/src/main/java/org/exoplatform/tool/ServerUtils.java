@@ -65,7 +65,7 @@ public class ServerUtils {
     public static String plfVersion;
 
     public static boolean isOldVersion() {
-        if (plfVersion.substring(0, 5).compareTo("5.2.2") <= 0)
+        if (plfVersion != null && plfVersion.substring(0, 5).compareTo("5.2.2") <= 0)
             return true;
         else return false;
     }

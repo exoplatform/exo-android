@@ -37,11 +37,20 @@ public class PlatformUtils {
 
   private static String       platformDomain;
 
-  public static void init(String domain, PlatformInfo info) {
+  public static void init(String domain, PlatformInfo info, String userName) {
     if (domain == null || info == null)
       throw new IllegalArgumentException("Domain and Info parameters must not be null.");
 
     platformInfo = info;
+    if(platformInfo.defaultWorkSpaceName == null || platformInfo.defaultWorkSpaceName.isEmpty()) {
+      platformInfo.defaultWorkSpaceName = "collaboration";
+    }
+    if(platformInfo.currentRepoName == null || platformInfo.currentRepoName.isEmpty()){
+      platformInfo.currentRepoName = "repository";
+    }
+    if(platformInfo.userHomeNodePath == null || platformInfo.userHomeNodePath.isEmpty()) {
+      platformInfo.userHomeNodePath = makeUserPersonalDocumentsPath(userName);
+    }
 
     try {
       URL urlDomain = new URL(domain);
@@ -59,6 +68,7 @@ public class PlatformUtils {
   public static String getUserHomeJcrFolderPath() {
     if (platformInfo == null || platformDomain == null)
       throw new NullPointerException("Incorrect Platform domain or info attributes. Use PlatformUtils.init().");
+
 
     StringBuilder b = new StringBuilder(platformDomain).append(App.Platform.DOCUMENT_JCR_PATH)
                                                        .append("/")
@@ -78,4 +88,9 @@ public class PlatformUtils {
   public static String getPlatformDomain() {
     return platformDomain;
   }
+
+  private static String makeUserPersonalDocumentsPath(String userName) {
+    return "/Users/" + userName.substring(0,1) + "___/" +  userName.substring(0,2) + "___/" + userName;
+  }
+
 }
