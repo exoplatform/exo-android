@@ -465,12 +465,7 @@ public class PlatformWebViewFragment extends Fragment {
       super.onPageStarted(view, url, favicon);
       Uri uri = Uri.parse(url);
       // Show / hide the Done button
-      String contentType = URLConnection.guessContentTypeFromName(uri.getPath());
-      if (contentType == null)
-        getContentTypeAsync(url);
-      // new GetContentTypeHeaderTask().execute(url);
-      else
-        refreshLayoutForContent(contentType);
+      refreshLayoutForContent("text/html");
       // Inform the activity whether we are on the login or register page
       String path = uri.getPath();
       if (mListener != null)
