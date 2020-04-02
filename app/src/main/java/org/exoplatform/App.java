@@ -77,6 +77,8 @@ public class App extends Application {
 
     public static final String DOCUMENT_CONTROL_PATH_REST   = "/rest/managedocument/uploadFile/control";
 
+    public static final String CREATE_FOLDER_PATH_REST   = "/rest/private/managedocument/createFolder";
+
     public static final Double MIN_SUPPORTED_VERSION        = 4.3;
   }
 

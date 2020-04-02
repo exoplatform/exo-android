@@ -43,9 +43,12 @@ import android.webkit.MimeTypeMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.exoplatform.App;
 import org.exoplatform.model.DocumentInfo;
+import org.exoplatform.model.SocialActivity;
+import org.exoplatform.model.UploadInfo;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -94,34 +97,55 @@ public class DocumentUtils {
   /**
    * Creates a folder at the JCR destination url, with Webdav.
    *
-   * @param destination the JCR url of the folder to create
+   * @param uploadInfo Upload information
    * @return true if the folder exists or was created, false otherwise
    */
-  public static boolean createFolder(String destination) {
+  public static boolean createFolder(UploadInfo uploadInfo) {
     HttpResponse response;
     try {
-      destination = encodeDocumentUrl(destination);
+      String folderUrl = uploadInfo.jcrUrl + "/" + uploadInfo.folder;
+      String destination = encodeDocumentUrl(folderUrl);
       StringBuilder cookieString = new StringBuilder();
       for (Cookie c : ExoHttpClient.cookiesForUrl(destination)) {
         cookieString.append(c.name()).append("=").append(c.value()).append(";");
       }
-      WebdavMethod create = new WebdavMethod("HEAD", destination);
+      WebdavMethod propfind = new WebdavMethod("PROPFIND", destination);
       // TODO use okhttp
-      create.addHeader("Cookie", cookieString.toString());
-      response = new DefaultHttpClient().execute(create);
+      propfind.addHeader("Cookie", cookieString.toString());
+      response = new DefaultHttpClient().execute(propfind);
       int status = response.getStatusLine().getStatusCode();
       if (status >= HttpStatus.SC_OK && status < HttpStatus.SC_MULTIPLE_CHOICES) {
         return true;
       } else {
-        create = new WebdavMethod("MKCOL", destination);
-        create.addHeader("Cookie", cookieString.toString());
-        // TODO use okhttp
-        response = new DefaultHttpClient().execute(create);
-        status = response.getStatusLine().getStatusCode();
+          try {
+            String stringUrl = new StringBuilder(PlatformUtils.getPlatformDomain())
+                    .append(App.Platform.CREATE_FOLDER_PATH_REST)
+                    .toString();
+            Uri createFolderUri = Uri.parse(stringUrl);
+            createFolderUri = createFolderUri.buildUpon()
+                    .appendQueryParameter("workspaceName", PlatformUtils.getPlatformInfo().defaultWorkSpaceName)
+                    .appendQueryParameter("driveName", uploadInfo.drive)
+                    .appendQueryParameter("currentFolder", uploadInfo.folder)
+                    .appendQueryParameter("folderName", "mobile")
+                    .build();
+            HttpGet createFolderReq = new HttpGet(createFolderUri.toString());
+            cookieString = new StringBuilder();
 
-        return status >= HttpStatus.SC_OK && status < HttpStatus.SC_MULTIPLE_CHOICES;
-      }
+            for (okhttp3.Cookie c : ExoHttpClient.cookiesForUrl(stringUrl.toString())) {
+              cookieString.append(c.name()).append("=").append(c.value()).append(";");
+            }
+            createFolderReq.addHeader("Cookie", cookieString.toString());
+            // Execute the request and retrieve the status code
+            HttpResponse createFolder = new DefaultHttpClient().execute(createFolderReq);
 
+            status = createFolder.getStatusLine().getStatusCode();
+            return status >= HttpStatus.SC_OK && status < HttpStatus.SC_MULTIPLE_CHOICES;
+
+          } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage(), e);
+            return false;
+          }
+        }
     } catch (IOException e) {
       Log.e(LOG_TAG, e.getMessage(), e);
       return false;
