@@ -54,9 +54,7 @@ public class CreateFolderAction extends Action {
 
   @Override
   protected boolean doExecute() {
-
-    String folderUrl = uploadInfo.jcrUrl + "/" + uploadInfo.folder;
-    boolean createFolder = DocumentUtils.createFolder(folderUrl);
+    boolean createFolder = DocumentUtils.createFolder(uploadInfo);
     boolean ret;
     if (createFolder) {
       ret = listener.onSuccess("Destination folder ready");

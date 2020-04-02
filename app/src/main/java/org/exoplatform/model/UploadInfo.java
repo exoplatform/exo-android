@@ -68,13 +68,13 @@ public class UploadInfo {
       // File will be uploaded in the Public folder of the user's drive
       // e.g. /Users/u___/us___/use___/user/Public/Mobile
       drive = App.Platform.DOCUMENT_PERSONAL_DRIVE_NAME;
-      folder = "Public/Mobile";
+      folder = "Public/mobile";
       jcrUrl = PlatformUtils.getUserHomeJcrFolderPath();
     } else {
       // File will be uploaded in the Documents folder of the space's drive
       // e.g. /Groups/spaces/the_space/Documents/Mobile
       drive = ".spaces." + postInfo.destinationSpace.getOriginalName();
-      folder = "Mobile";
+      folder = "mobile";
       StringBuilder url = new StringBuilder(postInfo.ownerAccount.getUrl().toString()).append(App.Platform.DOCUMENT_JCR_PATH)
                                                                                       .append("/")
                                                                                       .append(repository)
