@@ -21,10 +21,12 @@ package org.exoplatform.service.share;
  */
 
 import android.app.IntentService;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -78,6 +80,10 @@ public class ShareService extends IntentService {
   private int                notifId     = 1;
 
   private SocialActivity     postInfo;
+
+  private static String CHANNEL_NAME = "EXO_CHANNEL";
+  private static String CHANNEL_DESCRIPTION = "EXO_CHANNEL_DESCRIPTION";
+  private static String CHANNEL_ID = "EXO_CHANNEL_ID";
 
   // key is uri in device, value is url on server
   private List<UploadInfo>   uploadedMap = new ArrayList<>();
@@ -372,7 +378,7 @@ public class ShareService extends IntentService {
                                            : getString(R.string.ShareService_Title_ShareMessage);
     String text = postInfo.hasAttachment() ? getString(R.string.ShareService_Message_UploadInProgress)
                                           : getString(R.string.ShareService_Message_PostShortly);
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "EXO_NOTIFICATION_CHANNEL");
     builder.setSmallIcon(R.drawable.icon_share_notif);
     builder.setContentTitle(title);
     builder.setContentText(text);
@@ -439,7 +445,8 @@ public class ShareService extends IntentService {
     }
     String title = postInfo.hasAttachment() ? getString(R.string.ShareService_Title_ShareDocument)
                                            : getString(R.string.ShareService_Title_ShareMessage);
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+    createNotificationChannel();
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
     builder.setSmallIcon(R.drawable.icon_share_notif);
     builder.setContentTitle(title);
     builder.setContentText(text);
@@ -447,6 +454,22 @@ public class ShareService extends IntentService {
     builder.setProgress(0, 0, false);
     NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     manager.notify(notifId, builder.build());
+  }
+
+  /**
+   * Creates a Notification channel
+   */
+  private void createNotificationChannel() {
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      int importance = NotificationManager.IMPORTANCE_DEFAULT;
+      NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance);
+      channel.setDescription(CHANNEL_DESCRIPTION);
+      // Register the channel with the system; you can't change the importance
+      // or other notification behaviors after this
+      NotificationManager notificationManager = getSystemService(NotificationManager.class);
+      notificationManager.createNotificationChannel(channel);
+    }
   }
 
 }
