@@ -172,7 +172,7 @@ public class DocumentUtils {
        */
       String decodedUri = Uri.decode(document.toString());
       int fileIdx = decodedUri.indexOf("file://");
-      if (fileIdx > -1) {
+      if (fileIdx > -1 && !decodedUri.startsWith("content://com.google.android.apps")) {
         long id = -1;
         try {
           id = ContentUris.parseId(document);
