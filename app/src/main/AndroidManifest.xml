@@ -40,6 +40,9 @@
         android:label="eXo${appLabelEnvironmentSuffix}"
         android:theme="@style/MainTheme">
 
+        <!-- Enable Apache HTTP for Android 9 -->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
         <!-- Activities -->
         <!-- Home activity -->
         <activity android:name=".activity.ConnectServerActivity">
