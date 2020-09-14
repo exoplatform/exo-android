@@ -1,46 +1,134 @@
 {
   "project_info": {
-    "project_number": "1060067685170",
-    "firebase_url": "https://testpushexodebug.firebaseio.com",
-    "project_id": "testpushexodebug",
-    "storage_bucket": "testpushexodebug.appspot.com"
+    "project_number": "672580172611",
+    "firebase_url": "https://exo-mobile.firebaseio.com",
+    "project_id": "exo-mobile",
+    "storage_bucket": "exo-mobile.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1060067685170:android:5f61a33256cae2e25d5d2b",
+        "mobilesdk_app_id": "1:672580172611:android:c343a3190065b821",
+        "android_client_info": {
+          "package_name": "org.exoplatform"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580172611:android:765ccd80fdf19002",
+        "android_client_info": {
+          "package_name": "org.exoplatform.beta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580172611:android:33de91761687f6a7",
         "android_client_info": {
           "package_name": "org.exoplatform.debug"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1060067685170-hjq4bg2u5sdvpu40kmhm81qpsdq5vmfb.apps.googleusercontent.com",
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBr9KgfoTIigOQrTGzgjGrEL-S4CYBGUSw"
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1060067685170-hjq4bg2u5sdvpu40kmhm81qpsdq5vmfb.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1060067685170-ppt386fq7ls4iajm5eltps8b2l7oklpa.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "org.exoplatform.beta"
-              }
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580172611:android:85f3a40c4b2fe2fa",
+        "android_client_info": {
+          "package_name": "org.exoplatform.fb.push_notifs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }git
     }
   ],
   "configuration_version": "1"

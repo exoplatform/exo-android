@@ -57,5 +57,4 @@ task clean(type: Delete) {
 ext {
     minSdkVersion = 19 // Android 4.4 (KitKat)
     compileSdkVersion = 29
-    supportLibVersion = "28"
 }
