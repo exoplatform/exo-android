@@ -1,10 +1,12 @@
 buildscript {
     repositories {
         maven { url "https://repository.exoplatform.org/public/" }
+        mavenCentral()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.google.gms:google-services:3.1.1'
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
@@ -17,6 +19,7 @@ allprojects {
     repositories {
         maven { url "https://repository.exoplatform.org/public/" }
         mavenLocal()
+        google()
     }
 
     afterEvaluate { project ->
@@ -53,6 +56,5 @@ task clean(type: Delete) {
 // This block encapsulate custom properties and make them available to all modules in the project.
 ext {
     minSdkVersion = 19 // Android 4.4 (KitKat)
-    compileSdkVersion = 28
-    supportLibVersion = "26.1.0"
+    compileSdkVersion = 29
 }

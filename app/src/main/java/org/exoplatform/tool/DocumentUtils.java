@@ -35,11 +35,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -441,7 +441,7 @@ public class DocumentUtils {
    * {@link ActivityCompat#requestPermissions(Activity, String[], int)}).
    * 
    * @param caller The activity that requires the permission. Must implement
-   *          {@link OnRequestPermissionsResultCallback}.
+   *          {@link ActivityCompat.OnRequestPermissionsResultCallback}.
    * @param permissionCode The code defined internally, e.g.
    *          {@link org.exoplatform.App.Permissions#REQUEST_PICK_IMAGE_FROM_GALLERY}
    *          .
@@ -449,7 +449,7 @@ public class DocumentUtils {
    *         false if the permission was already granted
    */
   public static boolean didRequestPermission(Activity caller, int permissionCode) {
-    if (caller == null || !(caller instanceof OnRequestPermissionsResultCallback))
+    if (caller == null || !(caller instanceof ActivityCompat.OnRequestPermissionsResultCallback))
       throw new IllegalArgumentException("Caller activity must implement OnRequestPermissionsResultCallback");
 
     boolean res = false;

@@ -21,9 +21,9 @@ package org.exoplatform.tool;
  */
 
 import android.content.Context;
-import android.support.v4.BuildConfig;
-import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
+
+import androidx.loader.content.AsyncTaskLoader;
 
 import org.exoplatform.model.Server;
 
@@ -41,12 +41,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SpaceListLoader extends AsyncTaskLoader<SocialRestService.SpaceListResult> {
 
     private int mOffset;
+    private int limit;
 
     private Server mServer;
 
-    public SpaceListLoader(Context context, int offset, Server server) {
+    public SpaceListLoader(Context context, int offset, int limit, Server server) {
         super(context);
         this.mOffset = offset;
+        this.limit = limit;
         this.mServer = server;
     }
 
@@ -58,7 +60,7 @@ public class SpaceListLoader extends AsyncTaskLoader<SocialRestService.SpaceList
                 .build();
         SocialRestService service = retrofit.create(SocialRestService.class);
         try {
-            Response<SocialRestService.SpaceListResult> response = service.loadSpaces(String.valueOf(mOffset)).execute();
+            Response<SocialRestService.SpaceListResult> response = service.loadSpaces(String.valueOf(mOffset), String.valueOf(limit)).execute();
             if (response != null && response.body() != null)
                 return response.body();
         } catch (IOException e) {
