@@ -26,7 +26,7 @@
               android:orientation="vertical"
               tools:context=".activity.ShareExtensionActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/Share.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -43,7 +43,7 @@
             android:textAllCaps="true"
             tools:text="SHARE"/>
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/share_extension_fragment"

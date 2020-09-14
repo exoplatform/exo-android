@@ -21,13 +21,14 @@ package org.exoplatform.fragment;
  */
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
 
 import org.exoplatform.R;
 import org.exoplatform.activity.ShareExtensionActivity;

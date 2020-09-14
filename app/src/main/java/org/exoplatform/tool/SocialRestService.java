@@ -45,7 +45,7 @@ public interface SocialRestService {
    * stream.
    */
   @GET("/rest/v1/social/spaces?returnSize=true")
-  Call<SpaceListResult> loadSpaces(@Query("offset") String offset);
+  Call<SpaceListResult> loadSpaces(@Query("offset") String offset, @Query("limit") String limit);
 
    //@Query("sort") String sort
 

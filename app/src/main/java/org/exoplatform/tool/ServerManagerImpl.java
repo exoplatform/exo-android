@@ -21,8 +21,9 @@ package org.exoplatform.tool;
  */
 
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 

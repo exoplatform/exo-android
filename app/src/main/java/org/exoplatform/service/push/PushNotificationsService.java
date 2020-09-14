@@ -28,11 +28,10 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.service.notification.StatusBarNotification;
-import android.support.v4.app.NotificationCompat;
 import android.text.Html;
-import android.text.Spanned;
 import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
