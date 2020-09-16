@@ -20,8 +20,9 @@ package org.exoplatform.tool.cookies;
  *
  */
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
 
 import org.exoplatform.service.push.PushTokenSynchronizerLocator;
 

@@ -20,9 +20,10 @@ package org.exoplatform.service.push;
  *
  */
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import org.exoplatform.model.TokenInfo;
 

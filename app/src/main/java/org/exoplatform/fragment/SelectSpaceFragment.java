@@ -22,10 +22,6 @@ package org.exoplatform.fragment;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +32,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 import org.exoplatform.R;
 import org.exoplatform.activity.ShareExtensionActivity;
@@ -118,7 +120,7 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
   @Override
   public Loader<SocialRestService.SpaceListResult> onCreateLoader(int id, Bundle args) {
     int offset = (args == null) ? 0 : args.getInt("LOAD_OFFSET", 0);
-    return new SpaceListLoader(getActivity(), offset, getShareActivity().getActivityPost().ownerAccount);
+    return new SpaceListLoader(getActivity(), offset, 20, getShareActivity().getActivityPost().ownerAccount);
   }
 
   @Override
@@ -163,7 +165,7 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
 
   private void setLoadMoreSpacesListener(int currentOffset, int loadedSpaceCount, int totalSpaceCount) {
     if (mSpaceListView != null) {
-      final int newOffset = currentOffset+loadedSpaceCount;
+      final int newOffset = currentOffset + loadedSpaceCount;
       if (newOffset < totalSpaceCount) {
         // Means we have more spaces to load when we reach the bottom of the listview
         mProgressView.setVisibility(View.VISIBLE);
