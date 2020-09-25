@@ -38,6 +38,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="eXo${appLabelEnvironmentSuffix}"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/MainTheme">
 
         <!-- Enable Apache HTTP for Android 9 -->
