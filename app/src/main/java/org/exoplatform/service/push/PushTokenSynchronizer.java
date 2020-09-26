@@ -20,12 +20,16 @@ package org.exoplatform.service.push;
  *
  */
 
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import org.exoplatform.model.TokenInfo;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -53,25 +57,6 @@ public class PushTokenSynchronizer {
     }
   };
 
-  private Callback<ResponseBody> destroyCallback = new Callback<ResponseBody>() {
-    @Override
-    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-      if (response.isSuccessful()) {
-        Log.i(TAG, "Push token destroyed successfully");
-        username = null;
-        url = null;
-        isSynchronized = false;
-      } else {
-        Log.e(TAG, "Destroy token unsuccessfully response");
-      }
-    }
-
-    @Override
-    public void onFailure(Call<ResponseBody> call, Throwable t) {
-      Log.e(TAG, "Destroy token onFailure: ", t);
-    }
-  };
-
   private PushTokenRestServiceFactory restServiceFactory;
 
   private PushTokenRestService restService;
@@ -90,7 +75,7 @@ public class PushTokenSynchronizer {
 
   public void setConnectedUserAndSync(@Nullable String username, @Nullable String url) {
     final boolean isValuesNotEmpty = !TextUtils.isEmpty(username) && !TextUtils.isEmpty(url);
-    final boolean isValuesChanged = !TextUtils.equals(this.username, username) && !TextUtils.equals(this.url, url);
+    final boolean isValuesChanged = !(TextUtils.equals(this.username, username) && TextUtils.equals(this.url, url));
     if (isValuesNotEmpty && (isValuesChanged || !isSynchronized)) {
       this.username = username;
       this.url = url;
@@ -113,10 +98,14 @@ public class PushTokenSynchronizer {
     }
 
     initRestServiceIfNeeded();
-
-    restService
-            .deleteToken(token)
-            .enqueue(destroyCallback);
+    DestroyTokenTask destroyTokenTask = new DestroyTokenTask();
+    destroyTokenTask.execute(token);
+    try {
+      // Wait for response before continuing the logout process
+      Boolean result = destroyTokenTask.get();
+    } catch (ExecutionException | InterruptedException e) {
+      Log.e(TAG, "Problem getting destroy token response", e);
+    }
   }
 
   private void tryToSynchronizeToken() {
@@ -139,5 +128,29 @@ public class PushTokenSynchronizer {
 
   private boolean isStateValid() {
     return !TextUtils.isEmpty(username) && !TextUtils.isEmpty(url) && !TextUtils.isEmpty(token);
+  }
+
+  private class DestroyTokenTask extends AsyncTask<String, Void,Boolean> {
+
+    @Override
+    protected Boolean doInBackground(String... strings) {
+      try {
+        String token = strings[0];
+        Response<ResponseBody> response = restService
+                .deleteToken(token)
+                .execute();
+        if (response.isSuccessful()) {
+          Log.i(TAG, "Push token destroyed successfully");
+          username = null;
+          url = null;
+          isSynchronized = false;
+        } else {
+          Log.e(TAG, "Destroying token failed");
+        }
+        return true;
+      } catch (IOException e) {
+        return false;
+      }
+    }
   }
 }
