@@ -31,8 +31,12 @@ import android.os.Build;
 import android.text.Html;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -127,5 +131,12 @@ public class PushNotificationsService extends FirebaseMessagingService {
     ulTags.tagName("p");
 
     return document.outerHtml();
+  }
+
+  @Override
+  public void onNewToken(@NonNull String newToken) {
+    super.onNewToken(newToken);
+    PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
+    PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
   }
 }
