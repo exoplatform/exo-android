@@ -23,8 +23,12 @@ package org.exoplatform;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.exoplatform.service.push.PushTokenStorage;
 import org.exoplatform.service.push.PushTokenSynchronizerLocator;
@@ -41,7 +45,14 @@ public class App extends Application {
   public void onCreate() {
     super.onCreate();
     Fabric.with(this, new Crashlytics());
-    PushTokenSynchronizerLocator.getInstance().setTokenAndSync(PushTokenStorage.getInstance().getPushToken(this));
+    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+      @Override
+      public void onSuccess(InstanceIdResult instanceIdResult) {
+        String newToken = instanceIdResult.getToken();
+        PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
+        PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
+      }
+    });
   }
 
   public static final String TRIBE_URL      = "https://community.exoplatform.com";
