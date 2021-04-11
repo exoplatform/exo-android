@@ -14,8 +14,8 @@ android {
         applicationId "org.exoplatform"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.compileSdkVersion
-        versionCode 43
-        versionName "5.1.7"
+        versionCode 44
+        versionName "5.1.8"
         manifestPlaceholders = [
             crashlyticsApiKey: "b8421f485868032ad402cef01a4bd7c70263d97e",
             appLabelEnvironmentSuffix:""
