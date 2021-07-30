@@ -1,0 +1,94 @@
+# eXo Android application continuous deployment to Appaloosa.
+
+# Required Github secrets:
+
+# - SSH_KEY: Private SSH Key to allow accessing to a private Github repository.
+# - KNOWN_HOSTS: Known hosts containing Github servers fingerprints. Can be taken from existing one or Generate a one https://github.community/t/please-provide-ssh-known-hosts-for-gh-services-in-actions/16164/3.
+# - API_TOKEN_APPALOOSA: Appaloosa Store api token
+# - STORE_ID_APPALOOSA: Appaloosa Store id
+# - KEY_ALIAS: Keystore alias
+# - STORE_PASSWORD: Keystore password
+# - KEY_PASSWORD: Certificate passoword
+
+name: eXo Android Beta Appaloosa CI/CD
+
+on:
+  push:
+    branches: [develop, acceptance]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Skip deployment triggered by a rebase action or technical commits
+    if: "!contains(github.event.pusher.name, 'exo-swf')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Use SSH Key to gather certificate from a private Github repository. Use a dedicated on is recommended.
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - name: Setup JDK 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Setup Android SDK
+        uses:
+          android-actions/setup-android@v2
+      # Setup Ruby 2.6 (2.7 not yet compatible with bundler)
+      - name: Setup ruby 2.6
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      # Install Bundler and dependencies gems
+      - name: Install bundler and dependencies
+        run: gem install bundler && bundle install
+      # Upgrade fastlane to latest version
+      - name: Upgrade fastlane
+        run: bundle update fastlane
+      - name: Initialize Keystore
+        run: |
+          cat > /tmp/keystore.properties << EOF
+          storeFile=${PWD}/eXoPlatform.keystore
+          storePassword=${STORE_PASSWORD}
+          keyAlias=${KEY_ALIAS}
+          keyPassword=${KEY_PASSWORD}
+          EOF
+        env:
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      - name: Generate new version
+        env:
+          TAG_PREFIX: "6.2-beta"
+        run: |
+          git config --global user.email "exo-swf@exoplatform.com"
+          git config --global user.name "eXo Software Factory"
+          git fetch --tags
+          CURRENT_TAG=$(git tag -l | grep ${TAG_PREFIX} | tail -n 1)
+          if [ -z "${CURRENT_TAG}" ]; then
+            echo "NEW_TAG=${TAG_PREFIX}01" >> $GITHUB_ENV
+            INDEX="01"
+          else 
+            INDEX=$((0x$(echo $CURRENT_TAG | sed "s|.*${TAG_PREFIX}||")))
+            ((INDEX++))
+            [ "${INDEX}" -lt "10" ] && INDEX="0${INDEX}"
+            echo "NEW_TAG=${TAG_PREFIX}${INDEX}" >> $GITHUB_ENV
+          fi
+          echo "INDEX=${INDEX}" >> $GITHUB_ENV
+      - name: Set Android Application version
+        run: |
+          echo "EXO_APP_ENVIRONMENT=${NEW_TAG}" >> $GITHUB_ENV
+          sed -E -i -e "s/versionCode.*/versionCode ${INDEX}/" app/build.gradle
+      # Deploy eXo Android bundle to appalossa store
+      - name: "Deploy eXo Beta to appaloosa"
+        uses: maierj/fastlane-action@v2.0.1
+        with:
+          lane: "android ci_beta"
+        env:
+          APPALOOSA_EXO_API_TOKEN: ${{ secrets.API_TOKEN_APPALOOSA }}
+          APPALOOSA_EXO_STORE_ID: ${{ secrets.STORE_ID_APPALOOSA }}
+          GOOGLE_PLAY_EXO_KEYSTORE_PROPS: /tmp/keystore.properties
+      - name: Create tag and Push it to repository
+        run: git tag ${NEW_TAG} -m '' && git push origin ${NEW_TAG}

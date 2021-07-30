@@ -43,6 +43,28 @@ platform :android do
     )
   end
 
+  lane :ci_beta do
+    gradle(task: "clean")
+    add_badge(
+      shield: ENV['EXO_APP_ENVIRONMENT'] + "-green",
+      dark: true,
+      glob: "/app/src/main/res/mipmap-*/ic_launcher.png"
+      )
+    gradle(
+        task: "assemble",
+        build_type: "release",
+        flavor: "beta"
+    )
+    appaloosa(
+        # binary: './app/build/outputs/apk/release/app-preprod-unsigned.apk',
+        binary: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}",
+        store_id: ENV['APPALOOSA_EXO_STORE_ID'],
+        api_token: ENV['APPALOOSA_EXO_API_TOKEN'],
+        group_ids: '8782', # eXo
+        screenshots: ''
+    )
+  end
+
   desc "Deploy and publish a new version to the Google Play Beta track"
   lane :store_beta do
     gradle(
