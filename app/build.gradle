@@ -49,6 +49,12 @@ android {
             versionNameSuffix "-beta"
             manifestPlaceholders = [appLabelEnvironmentSuffix:" (beta)"]
         }
+        dev {
+            dimension "mode"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            manifestPlaceholders = [appLabelEnvironmentSuffix:" (dev)"]
+        }
         store {
             dimension "mode"
         }
@@ -57,7 +63,7 @@ android {
     variantFilter { variant ->
         def names = variant.flavors*.name
         if (variant.buildType.name.contains("debug")) {
-            if (names.contains("beta") || names.contains("store")) {
+            if (names.contains("dev") || names.contains("beta") || names.contains("store")) {
                 setIgnore(true)
             }
         } else if (variant.buildType.name.contains("release")) {
