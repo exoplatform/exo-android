@@ -25,15 +25,20 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "672580172611-6mcv4oprdbik6uduejv31khjfdv2skhj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.exoplatform.mob.eXoPlatformiPHone"
+              }
+            }
+          ]
         }
       }
     },
@@ -56,15 +61,20 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "672580172611-6mcv4oprdbik6uduejv31khjfdv2skhj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.exoplatform.mob.eXoPlatformiPHone"
+              }
+            }
+          ]
         }
       }
     },
@@ -87,15 +97,56 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "672580172611-6mcv4oprdbik6uduejv31khjfdv2skhj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.exoplatform.mob.eXoPlatformiPHone"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580172611:android:c1069c8defcfa8297c8df6",
+        "android_client_info": {
+          "package_name": "org.exoplatform.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU3VvMPyijAf1BIJWM760VwGX2NMj5gIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "672580172611-6mcv4oprdbik6uduejv31khjfdv2skhj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.exoplatform.mob.eXoPlatformiPHone"
+              }
+            }
+          ]
         }
       }
     },
@@ -118,15 +169,20 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672580172611-thkb11g0g5dkbu7f8cjcmdc0vl0np4nn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "672580172611-6mcv4oprdbik6uduejv31khjfdv2skhj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.exoplatform.mob.eXoPlatformiPHone"
+              }
+            }
+          ]
         }
       }
     }
