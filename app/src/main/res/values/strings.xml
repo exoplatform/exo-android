@@ -65,6 +65,8 @@
     <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
     <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
     <string name="OnBoarding.Title.GotItButton">Got It</string>
+    <string name="OnBoarding.Title.CurrentPage">3</string>
+    <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
 
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Cancel</string>

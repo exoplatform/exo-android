@@ -27,7 +27,9 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 
@@ -41,6 +43,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import org.exoplatform.R;
+import org.exoplatform.activity.BoardingActivity;
 import org.exoplatform.activity.ConnectServerActivity;
 import org.exoplatform.activity.WebViewActivity;
 import org.jsoup.Jsoup;
@@ -48,16 +51,40 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class PushNotificationsService extends FirebaseMessagingService {
 
   private static final String TAG = PushNotificationsService.class.getSimpleName();
-
+  URL rootURL = null;
+  int count = 0;
   @Override
   public void onMessageReceived(RemoteMessage remoteMessage) {
     super.onMessageReceived(remoteMessage);
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getFrom());
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getData());
-
+//import android.preference.PreferenceManager;
+    SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
+    // Read previous value. If not found, use 0 as default value.
+    try {
+      rootURL = new URL(remoteMessage.getData().get("url"));
+      System.out.println("rootURL ===> " + rootURL.toString());
+      String urlDomain = rootURL.getHost();
+      String urlProtocol = rootURL.getProtocol();
+      String urlKey = urlProtocol + "://" + urlDomain;
+      System.out.println("urlProtocol ===> " + urlProtocol);
+      System.out.println("getHost ===> " + urlDomain);
+      System.out.println("urlKey ===> " + urlKey);
+      count = shared.getInt(urlKey, 0);
+      count = count + 1;
+      // we need to save the value again for another badge count
+      SharedPreferences.Editor editor = shared.edit();
+      editor.putInt(urlKey, count);
+      editor.apply();
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
     sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"), remoteMessage.getData().get("url"));
   }
 
@@ -92,7 +119,8 @@ public class PushNotificationsService extends FirebaseMessagingService {
       notificationIntent = new Intent(this, WebViewActivity.class);
       notificationIntent.putExtra(WebViewActivity.INTENT_KEY_URL, messageTargetUrl);
     } else {
-      notificationIntent = new Intent(this, ConnectServerActivity.class);
+      // notificationIntent = new Intent(this, ConnectServerActivity.class);
+      notificationIntent = new Intent(this, BoardingActivity.class);
     }
 
     PendingIntent pendingIntent =
@@ -102,12 +130,12 @@ public class PushNotificationsService extends FirebaseMessagingService {
                     .getPendingIntent(notificationId, PendingIntent.FLAG_UPDATE_CURRENT);
 
     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
-              .setSmallIcon(R.drawable.icon_share_notif)
-              .setContentTitle(messageTitle)
-              .setContentText(contentText)
-              .setContentIntent(pendingIntent)
-              .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
-              .setAutoCancel(true);
+            .setSmallIcon(R.drawable.icon_share_notif)
+            .setContentTitle(messageTitle)
+            .setContentText(contentText)
+            .setContentIntent(pendingIntent)
+            .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
+            .setAutoCancel(true);
 
     notificationManager.notify(notificationId, notificationBuilder.build());
   }
@@ -120,7 +148,7 @@ public class PushNotificationsService extends FirebaseMessagingService {
    */
   private String sanitizeMessageBody(String messageBody) {
     Document document = Jsoup.parse(messageBody);
-
+    Log.d(TAG, "messageBody: " + messageBody);
     // Replace "blockquote" tags by "i" tags
     Elements blockquoteTags = document.getElementsByTag("blockquote");
     blockquoteTags.tagName("i");
