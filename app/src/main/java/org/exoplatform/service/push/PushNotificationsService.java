@@ -73,9 +73,6 @@ public class PushNotificationsService extends FirebaseMessagingService {
       String urlDomain = rootURL.getHost();
       String urlProtocol = rootURL.getProtocol();
       String urlKey = urlProtocol + "://" + urlDomain;
-      System.out.println("urlProtocol ===> " + urlProtocol);
-      System.out.println("getHost ===> " + urlDomain);
-      System.out.println("urlKey ===> " + urlKey);
       count = shared.getInt(urlKey, 0);
       count = count + 1;
       // we need to save the value again for another badge count
@@ -83,7 +80,7 @@ public class PushNotificationsService extends FirebaseMessagingService {
       editor.putInt(urlKey, count);
       editor.apply();
     } catch (MalformedURLException e) {
-      e.printStackTrace();
+      Log.e("Malformed URL", String.valueOf(e));
     }
     sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"), remoteMessage.getData().get("url"));
   }
