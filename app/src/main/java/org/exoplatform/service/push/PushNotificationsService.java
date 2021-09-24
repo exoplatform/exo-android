@@ -64,26 +64,18 @@ public class PushNotificationsService extends FirebaseMessagingService {
     super.onMessageReceived(remoteMessage);
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getFrom());
     Log.d(TAG, "onMessageReceived: " + remoteMessage.getData());
-//import android.preference.PreferenceManager;
     SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(this);
     // Read previous value. If not found, use 0 as default value.
     try {
       rootURL = new URL(remoteMessage.getData().get("url"));
-      System.out.println("rootURL ===> " + rootURL.toString());
-      String urlDomain = rootURL.getHost();
-      String urlProtocol = rootURL.getProtocol();
-      String urlKey = urlProtocol + "://" + urlDomain;
-      System.out.println("urlProtocol ===> " + urlProtocol);
-      System.out.println("getHost ===> " + urlDomain);
-      System.out.println("urlKey ===> " + urlKey);
-      count = shared.getInt(urlKey, 0);
-      count = count + 1;
+      String urlKey = rootURL.getProtocol() + "://" + rootURL.getHost();
+      count = shared.getInt(urlKey, 0) + 1;
       // we need to save the value again for another badge count
       SharedPreferences.Editor editor = shared.edit();
       editor.putInt(urlKey, count);
       editor.apply();
     } catch (MalformedURLException e) {
-      e.printStackTrace();
+      Log.e("Malformed URL", String.valueOf(e));
     }
     sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"), remoteMessage.getData().get("url"));
   }
@@ -115,6 +107,7 @@ public class PushNotificationsService extends FirebaseMessagingService {
     }
 
     Intent notificationIntent;
+
     if(messageTargetUrl != null && !messageTargetUrl.equals("")) {
       notificationIntent = new Intent(this, WebViewActivity.class);
       notificationIntent.putExtra(WebViewActivity.INTENT_KEY_URL, messageTargetUrl);
@@ -146,6 +139,7 @@ public class PushNotificationsService extends FirebaseMessagingService {
    * @param messageBody The raw HTML message
    * @return The sanitized message
    */
+
   private String sanitizeMessageBody(String messageBody) {
     Document document = Jsoup.parse(messageBody);
     Log.d(TAG, "messageBody: " + messageBody);

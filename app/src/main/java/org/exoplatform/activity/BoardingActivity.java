@@ -11,26 +11,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
-
 import java.util.TimerTask;
 
 public class BoardingActivity extends AppCompatActivity {
+
     private ViewPager mSlideViewPager;
     private TabLayout mDotLayout;
     private SliderAdapter sliderAdapter;
@@ -39,6 +36,7 @@ public class BoardingActivity extends AppCompatActivity {
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
     Boolean isFromInstances;
+
     private static final int REQUEST_CODE = 101;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -49,6 +47,7 @@ public class BoardingActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             bypassIfRecentlyVisited();
         }
+
         statusBarColor();
         mSlideViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
         mDotLayout = (TabLayout) findViewById(R.id.onboarding_dots);
@@ -64,6 +63,7 @@ public class BoardingActivity extends AppCompatActivity {
                 "Scan the QR Code that appear\n in your eXo settings",
                 "Enter the password to log in\n quickly"
         };
+
         final String[] slide_page_numbers = {"1","2","3"};
 
         // The_slide_timer
@@ -95,7 +95,6 @@ public class BoardingActivity extends AppCompatActivity {
                 slideTitle.setText(slide_headings[position]);
                 currentPage.setText(slide_page_numbers[position]);
             }
-
             @Override
             public void onPageSelected(int position) { }
 
@@ -106,6 +105,7 @@ public class BoardingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
     }
 
     @Override
@@ -196,6 +196,7 @@ public class BoardingActivity extends AppCompatActivity {
                 }
             }
         }
+
         if (BuildConfig.DEBUG) {
             long minSinceLastVisit = (System.nanoTime() - lastVisit) / (60000000000L);
             Log.d(this.getClass().getName(), "*** Minutes since last visit : " + minSinceLastVisit);
