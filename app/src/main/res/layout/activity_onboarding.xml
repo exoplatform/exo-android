@@ -11,44 +11,57 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#ffff">
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/exo_logo"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="30dp"
+                android:background="@drawable/exo_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/current_page_textview"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:text="@string/OnBoarding.Title.CurrentPage"
-                android:textSize="20dp"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/rounded_corner"
+                android:gravity="center"
+                android:text="@string/OnBoarding.Title.CurrentPage"
                 android:textAlignment="center"
                 android:textColor="@color/cardview_dark_background"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"/>
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/onboarding_title_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <TextView
                 android:id="@+id/onboarding_title_text_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="53dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
                 android:text="@string/OnBoarding.Title.SlideTitle"
                 android:textAlignment="center"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"/>
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/ll2"

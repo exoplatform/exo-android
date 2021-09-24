@@ -44,7 +44,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -52,19 +52,18 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="300dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="340dp"
+        android:layout_marginBottom="300dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_height="30dp"
             android:paddingLeft="20dp"
             android:text="Enter you eXo URL"
             android:textColor="@color/cardview_dark_background"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
