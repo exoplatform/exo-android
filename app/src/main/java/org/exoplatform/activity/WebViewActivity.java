@@ -22,6 +22,7 @@ package org.exoplatform.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -47,12 +48,12 @@ import java.util.Date;
 
 /**
  * Activity that loads Platform into a web view
- * 
+ *
  * @author chautn on 10/14/15
  * @author paristote
  */
 public class WebViewActivity extends AppCompatActivity implements PlatformWebViewFragment.PlatformNavigationCallback,
-    WebViewFragment.WebViewFragmentCallback, OnBoardingManagerFragment.OnBoardingFragmentCallback {
+        WebViewFragment.WebViewFragmentCallback, OnBoardingManagerFragment.OnBoardingFragmentCallback {
 
   public static final String      INTENT_KEY_URL = "URL";
 
@@ -81,8 +82,8 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
       verifyIntranet(server);
       mPlatformFragment = PlatformWebViewFragment.newInstance(server);
       getSupportFragmentManager().beginTransaction()
-                                 .add(R.id.WebClient_WebViewFragment, mPlatformFragment, PlatformWebViewFragment.TAG)
-                                 .commit();
+              .add(R.id.WebClient_WebViewFragment, mPlatformFragment, PlatformWebViewFragment.TAG)
+              .commit();
     } catch (MalformedURLException e) {
       throw new IllegalArgumentException("Cannot load the Platform intranet at URL " + url, e);
     }
@@ -107,16 +108,23 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
     else if (mWebViewFragment != null && mWebViewFragment.isVisible())
       eventHandled = mWebViewFragment.goBack();
     if (!eventHandled)
-      super.onBackPressed();
+      onBackToServerList();
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
-      finish();
+      onBackToServerList();
       return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  public void onBackToServerList(){
+    Intent intent = new Intent(WebViewActivity.this, ConnectToExoListActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+    finish();
   }
 
   private void showHideToolbar(boolean show) {
@@ -136,6 +144,8 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   @Override
   public void onUserSignedOut() {
     // fragments and activity will be cleaned-up automatically
+    Intent intent = new Intent(WebViewActivity.this, ConnectToExoListActivity.class);
+    startActivity(intent);
     finish();
   }
 
@@ -149,24 +159,24 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
     // create and open a new fragment
     mWebViewFragment = WebViewFragment.newInstance(url);
     getSupportFragmentManager().beginTransaction()
-                               .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
-                               .add(R.id.WebClient_WebViewFragment, mWebViewFragment, WebViewFragment.TAG)
-                               .addToBackStack(WebViewFragment.TAG)
-                               .hide(mPlatformFragment)
-                               .commit();
+            .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
+            .add(R.id.WebClient_WebViewFragment, mWebViewFragment, WebViewFragment.TAG)
+            .addToBackStack(WebViewFragment.TAG)
+            .hide(mPlatformFragment)
+            .commit();
   }
 
   @Override
   public void onFirstTimeUserLoggedIn() {
     // show the on-boarding screen
     getSupportFragmentManager().beginTransaction()
-                               .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
-                               .add(R.id.WebClient_WebViewFragment,
-                                    new OnBoardingManagerFragment(),
-                                    OnBoardingManagerFragment.TAG)
-                               .addToBackStack(OnBoardingManagerFragment.TAG)
-                               .hide(mPlatformFragment)
-                               .commit();
+            .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
+            .add(R.id.WebClient_WebViewFragment,
+                    new OnBoardingManagerFragment(),
+                    OnBoardingManagerFragment.TAG)
+            .addToBackStack(OnBoardingManagerFragment.TAG)
+            .hide(mPlatformFragment)
+            .commit();
   }
 
   @Override
@@ -194,7 +204,7 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   /**
    * Check that the intranet is based on a Platform 4.3+ server.<br/>
    * If not, displays an alert and go back to the previous activity.
-   * 
+   *
    * @param server the Intranet to check
    */
   private void verifyIntranet(final Server server) throws MalformedURLException {
@@ -204,10 +214,12 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
     ServerUtils.verifyUrl(server.getUrl().toString(), new ServerUtils.ServerVerificationCallback() {
       @Override
       public void onVerificationStarted() {
+        //
       }
 
       @Override
       public void onServerValid(Server server) {
+        //
       }
 
       @Override
@@ -229,14 +241,14 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
       private void showDialog(int title, int message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(WebViewActivity.this);
         builder.setCancelable(false)
-               .setTitle(title)
-               .setMessage(message)
-               .setNeutralButton(R.string.Word_Back, new DialogInterface.OnClickListener() {
-                 @Override
-                 public void onClick(DialogInterface dialog, int which) {
-                   WebViewActivity.this.finish();
-                 }
-               });
+                .setTitle(title)
+                .setMessage(message)
+                .setNeutralButton(R.string.Word_Back, new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    WebViewActivity.this.finish();
+                  }
+                });
         builder.create().show();
       }
     });

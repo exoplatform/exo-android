@@ -25,12 +25,18 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +72,7 @@ import org.exoplatform.tool.cookies.CookiesInterceptor;
 import org.exoplatform.tool.cookies.CookiesInterceptorFactory;
 import org.exoplatform.tool.cookies.WebViewCookieHandler;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -85,6 +92,9 @@ import okhttp3.Response;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.UrlConnectionDownloader;
 
 /**
  * WebView that is configured to display content from a Platform 4.3+ intranet.
@@ -317,7 +327,7 @@ public class PlatformWebViewFragment extends Fragment {
 
   /**
    * Go back in the webview's history, if possible
-   * 
+   *
    * @return true if the webview did go back, false otherwise
    */
   public boolean goBack() {
@@ -333,7 +343,7 @@ public class PlatformWebViewFragment extends Fragment {
       // Display content fullscreen, with done button visible
       if (getActivity() != null)
         getActivity().getWindow()
-                     .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
       mWebView.getSettings().setUseWideViewPort(true);
       mWebView.getSettings().setLoadWithOverviewMode(true);
       mWebView.getSettings().setBuiltInZoomControls(true);
@@ -486,6 +496,9 @@ public class PlatformWebViewFragment extends Fragment {
         checkUserLoggedInAsync();
       }
       mCookiesInterceptor.intercept(mCookiesConverter.toMap(CookieManager.getInstance().getCookie(url)), url);
+      if (url.contains("/portal/dw")) {
+        getAvatarServerLogo();
+      }
       if (BuildConfig.DEBUG)
         Log.d(TAG, "COOKIES: " + CookieManager.getInstance().getCookie(url));
     }
@@ -502,4 +515,51 @@ public class PlatformWebViewFragment extends Fragment {
 
     void onFirstTimeUserLoggedIn();
   }
+
+
+  private void getAvatarServerLogo() {
+    OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
+    String plfInfo = mServer.getUrl().getProtocol() + "://" + mServer.getShortUrl() + "/portal/rest/v1/platform/branding/logo";
+    System.out.println("ImageURL ======>" + plfInfo);
+// imageUrlLogo =======> https://maint-ft1.exoplatform.org/portal/rest/v1/platform/branding/logo
+    Request req = new Request.Builder().url(plfInfo).get().build();
+    client.newCall(req).enqueue(new Callback() {
+      @Override
+      public void onFailure(Call call, IOException e) {
+        // ignore network failure
+      }
+
+      @Override
+      public void onResponse(Call call, Response response) throws IOException {
+        if (response.isSuccessful()) {
+          final Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+          // Remember to set the bitmap in the main thread.
+          new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+              SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(PlatformWebViewFragment.this.getContext());
+              SharedPreferences.Editor editor = preferences.edit();
+              editor.putString(mServer.getShortUrl(), encodeTobase64(bitmap));
+              System.out.println("Image Base64 ======>" + encodeTobase64(bitmap));
+              editor.commit();
+            }
+          });
+        }
+        response.body().close();
+      }
+    });
+  }
+
+  // method for bitmap to base64
+  public static String encodeTobase64(Bitmap image) {
+    Bitmap immage = image;
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+    byte[] b = baos.toByteArray();
+    String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+    Log.d("Image Log:", imageEncoded);
+    return imageEncoded;
+  }
 }
+

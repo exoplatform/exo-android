@@ -1,37 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (C) 2003-2016 eXo Platform SAS.
-  ~
-  ~ This is free software; you can redistribute it and/or modify it
-  ~ under the terms of the GNU Lesser General Public License as
-  ~ published by the Free Software Foundation; either version 3 of
-  ~ the License, or (at your option) any later version.
-  ~
-  ~ This software is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  ~ Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public
-  ~ License along with this software; if not, write to the Free
-  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-  ~
--->
-<manifest
-    package="org.exoplatform"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.exoplatform">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false"/>
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".App"
@@ -39,18 +14,38 @@
         android:icon="@mipmap/ic_launcher"
         android:label="eXo${appLabelEnvironmentSuffix}"
         android:theme="@style/MainTheme">
-
+        <activity
+            android:name=".activity.ConnectToExoListActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.WebViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.WebViewActivity" />
+        </activity>
         <!-- Enable Apache HTTP for Android 9 -->
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-
-        <!-- Activities -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" /> <!-- Activities -->
         <!-- Home activity -->
-        <activity android:name=".activity.ConnectServerActivity">
+        <activity android:name=".activity.BoardingActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.AddDomainServerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:parentActivityName=".activity.BoardingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.BoardingActivity" />
+        </activity>
+        <activity
+            android:name=".activity.ScannerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Design.NoActionBar">
         </activity>
         <!-- New / Select server activity -->
         <activity
@@ -60,18 +55,16 @@
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ConnectServerActivity"/>
-        </activity>
-        <!-- Settings activity -->
+                android:value=".activity.ConnectServerActivity" />
+        </activity> <!-- Settings activity -->
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/SettingsActivity.Title.Settings"
             android:parentActivityName=".activity.ConnectServerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ConnectServerActivity"/>
-        </activity>
-        <!-- Edit and Delete Server activity -->
+                android:value=".activity.ConnectServerActivity" />
+        </activity> <!-- Edit and Delete Server activity -->
         <activity
             android:name=".activity.EditDeleteServerActivity"
             android:label="@string/SettingsActivity.Title.Edit"
@@ -79,112 +72,90 @@
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.SettingsActivity"/>
-        </activity>
-        <!-- WebView activity -->
-        <activity android:name=".activity.WebViewActivity"
-                  android:parentActivityName=".activity.ConnectServerActivity"
-                  android:configChanges="orientation|screenSize">
+                android:value=".activity.SettingsActivity" />
+        </activity> <!-- WebView activity -->
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName=".activity.AddDomainServerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ConnectServerActivity"/>
-        </activity>
-        <!-- Share Extension activity -->
+                android:value=".activity.AddDomainServerActivity" />
+        </activity> <!-- Share Extension activity -->
         <activity
             android:name=".activity.ShareExtensionActivity"
             android:label="@string/Word.eXo">
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="application/*"/>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND_MULTIPLE"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="application/*"/>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
+                <action android:name="android.intent.action.SEND" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:mimeType="audio/*"/>
+                <data android:mimeType="audio/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND_MULTIPLE"/>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:mimeType="audio/*"/>
+                <data android:mimeType="audio/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
+                <action android:name="android.intent.action.SEND" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:mimeType="image/*"/>
+                <data android:mimeType="image/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND_MULTIPLE"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="image/*"/>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="text/*"/>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND_MULTIPLE"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="text/*"/>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="video/*"/>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="video/*" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND_MULTIPLE"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-
-                <data android:mimeType="video/*"/>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="video/*" />
             </intent-filter>
-        </activity>
-
-        <!-- Services -->
+        </activity> <!-- Services -->
         <service
             android:name=".service.share.ShareService"
-            android:exported="false"/>
-
-        <!-- Crashlytics -->
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="${crashlyticsApiKey}"/>
-
-        <!-- Push notifications, Firebase -->
-        <service
-            android:name=".service.push.PushNotificationsService">
+            android:exported="false" /> <!-- Crashlytics -->
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="${crashlyticsApiKey}" /> <!-- Push notifications, Firebase -->
+        <service android:name=".service.push.PushNotificationsService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service
-            android:name=".service.push.PushTokenService">
+        <service android:name=".service.push.PushTokenService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
@@ -194,6 +165,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/eXoGrey" />
-
     </application>
+
 </manifest>

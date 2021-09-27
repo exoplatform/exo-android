@@ -23,10 +23,14 @@
 
     <color name="black">#000000</color>
     <color name="black_overlay">#66000000</color>
-
+    <color name="status_bar_color">#5A8EC7</color>
     <color name="eXoYellow">#ffcb08</color>
     <color name="eXoYellowTransparent">#a6ffcb08</color>
     <color name="eXoGrey">#b6b7ba</color>
     <color name="eXoGreyTransparent">#a6b6b7ba</color>
 
+    <color name="colorPrimary">#f44336</color>
+    <color name="colorPrimaryDark">#d32f2f</color>
+    <color name="colorAccent">#00c853</color>
+    <color name="transparent_blue">#322100c8</color>
 </resources>
