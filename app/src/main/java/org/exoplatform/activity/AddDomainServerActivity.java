@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -76,7 +79,46 @@ public class AddDomainServerActivity extends AppCompatActivity {
                 return false;
             }
         });
+        companyTextField.addTextChangedListener(new TextWatcher() {
 
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+            }
+            @Override
+            public void afterTextChanged(Editable et) {
+                String s=et.toString();
+                if(!s.equals(s.toLowerCase())){
+                    s=s.toLowerCase();
+                    companyTextField.setText(s);
+                    companyTextField.setSelection(companyTextField.length()); //fix reverse texting
+                }
+            }
+        });
+        addDomainTextField.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+            }
+            @Override
+            public void afterTextChanged(Editable et) {
+                String s=et.toString();
+                if(!s.equals(s.toLowerCase())){
+                    s=s.toLowerCase();
+                    addDomainTextField.setText(s);
+                    addDomainTextField.setSelection(addDomainTextField.length()); //fix reverse texting
+                }
+            }
+        });
         // Hide keyboard when tapped outside of fields
         parentLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
