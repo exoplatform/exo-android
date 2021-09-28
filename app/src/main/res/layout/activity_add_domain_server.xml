@@ -90,8 +90,9 @@
                 android:layout_height="match_parent"
                 android:paddingStart="20sp"
                 android:text="company"
-                android:textColorHint="@color/eXoGreyTransparent"
+                android:textAllCaps="false"
                 android:textColor="@color/eXoGreyTransparent"
+                android:textColorHint="@color/eXoGreyTransparent"
                 android:textSize="15sp" />
 
             <EditText
@@ -99,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text=".exoplatform.org"
+                android:textAllCaps="false"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="15sp" />
 
