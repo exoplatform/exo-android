@@ -33,6 +33,8 @@ public class BoardingActivity extends AppCompatActivity {
     private SliderAdapter sliderAdapter;
     private TextView slideTitle;
     private TextView currentPage;
+    private TextView scanQRBtn;
+
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
     Boolean isFromInstances;
@@ -54,14 +56,16 @@ public class BoardingActivity extends AppCompatActivity {
         slideTitle = (TextView) findViewById(R.id.onboarding_title_text_view);
         currentPage = (TextView) findViewById(R.id.current_page_textview);
         scanQRFragmentBtn = (LinearLayout) findViewById(R.id.scan_code_button);
+        scanQRBtn = (TextView) findViewById(R.id.ScanButtonTitle);
         enterServerFragmentBtn = (TextView) findViewById(R.id.enter_server_url);
         sliderAdapter = new SliderAdapter(this);
         mSlideViewPager.setAdapter(sliderAdapter);
-
+        scanQRBtn.setText(R.string.Onboarding_Button_Scan);
+        enterServerFragmentBtn.setText(R.string.Onboarding_Button_addURL);
         final String[] slide_headings = {
-                "Display the QR Code in your\n eXo settings",
-                "Scan the QR Code that appear\n in your eXo settings",
-                "Enter the password to log in\n quickly"
+                this.getResources().getString(R.string.Onboarding_Title_Slide1),
+                this.getResources().getString(R.string.Onboarding_Title_slide2),
+                this.getResources().getString(R.string.Onboarding_Title_slide3)
         };
 
         final String[] slide_page_numbers = {"1","2","3"};

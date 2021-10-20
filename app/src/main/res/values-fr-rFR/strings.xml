@@ -1,23 +1,4 @@
-<!--
-  ~ Copyright (C) 2003-2016 eXo Platform SAS.
-  ~
-  ~ This is free software; you can redistribute it and/or modify it
-  ~ under the terms of the GNU Lesser General Public License as
-  ~ published by the Free Software Foundation; either version 3 of
-  ~ the License, or (at your option) any later version.
-  ~
-  ~ This software is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  ~ Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public
-  ~ License along with this software; if not, write to the Free
-  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-  ~
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">eXo</string>
 
@@ -78,17 +59,18 @@
     <string name="Word.Done">Done</string>
 
     <!-- Onboarding -->
-    <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
-    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
-    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
-    <string name="Onboarding.Button.Scan">Scan Code</string>
-    <string name="Onboarding.Button.addURL">Enter server URL</string>
+    <string name="Onboarding.Title.Slide1">Affichez le QR Code dans votre\n paramètres eXo</string>
+    <string name="Onboarding.Title.slide2">Scannez le QR Code qui apparaît\n dans vos paramètres eXo</string>
+    <string name="Onboarding.Title.slide3">Entrez le mot de passe pour\n vous connecter vite</string>
+    <string name="Onboarding.Button.Scan">Scannez le code</string>
+    <string name="Onboarding.Button.addURL">Entrez l\'URL du serveur</string>
 
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Add server domain</string>
-    <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
+    <string name="AddDomain.Title.Header">Ajouter un domaine de serveur</string>
+    <string name="AddDomain.Title.addURL">Entrez votre URL eXo</string>
 
     <!-- Share Extension -->
+
     <string name="ShareActivity.Main.Title.Post">Post</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
     <string name="ShareActivity.Compose.Title.ShareWith">Share this post with</string>

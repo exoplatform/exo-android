@@ -27,9 +27,9 @@ public class SliderAdapter extends PagerAdapter {
 
     // Arrays
     public static int[] slide_images = {
-            R.drawable.slide_one_gif_en,
-            R.drawable.slide_tow_gif_en,
-            R.drawable.slide_three_gif_en
+            R.drawable.slide1_gif_en,
+            R.drawable.slide2_gif_en,
+            R.drawable.slide3_gif_en
     };
 
     @Override

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,8 @@ public class AddDomainServerActivity extends AppCompatActivity {
     EditText companyTextField,addDomainTextField;
     RelativeLayout parentLayout,addDomainButton;
     Boolean isAlreadyFocused = false;
+    TextView headerTitle;
+    TextView addURLTextView;
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -42,6 +45,11 @@ public class AddDomainServerActivity extends AppCompatActivity {
         closeButton = (ImageView) findViewById(R.id.close_button_add_domain);
         clearButton = (Button) findViewById(R.id.clear_button_add_domain);
         addDomainButton = (RelativeLayout) findViewById(R.id.add_domain_button_layout);
+        headerTitle = (TextView) findViewById(R.id.textViewAddServer);
+        addURLTextView = (TextView) findViewById(R.id.addURLTextView);
+        headerTitle.setText(R.string.AddDomain_Title_Header);
+        addURLTextView.setText(R.string.AddDomain_Title_addURL);
+
         statusBarColor();
         addDomainButton.setOnClickListener(new View.OnClickListener() {
             @Override
