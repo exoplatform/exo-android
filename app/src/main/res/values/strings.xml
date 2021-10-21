@@ -77,6 +77,16 @@
     <string name="Word.Space">Space</string>
     <string name="Word.Done">Done</string>
 
+    <!-- Onboarding -->
+    <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
+    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
+    <string name="Onboarding.Button.Scan">Scan Code</string>
+    <string name="Onboarding.Button.addURL">Enter server URL</string>
+
+    <!-- Add Domain -->
+    <string name="AddDomain.Title.Header">Add server domain</string>
+    <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
 
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Post</string>
