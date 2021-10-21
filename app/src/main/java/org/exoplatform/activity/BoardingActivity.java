@@ -24,6 +24,7 @@ import org.exoplatform.R;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
+
 import java.util.TimerTask;
 
 public class BoardingActivity extends AppCompatActivity {
@@ -69,7 +70,6 @@ public class BoardingActivity extends AppCompatActivity {
         };
 
         final String[] slide_page_numbers = {"1","2","3"};
-
         // The_slide_timer
         java.util.Timer timer = new java.util.Timer();
         timer.scheduleAtFixedRate(new The_slide_timer(),2000,8000);

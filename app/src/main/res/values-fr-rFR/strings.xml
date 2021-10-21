@@ -2,61 +2,61 @@
 <resources>
     <string name="app_name">eXo</string>
 
-    <string name="ServerManager.Message.SavingServer">Saving intranet…</string>
-    <string name="ServerManager.Error.TitleIncorrect">Intranet URL error</string>
-    <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Unable to connect to the intranet</string>
-    <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
-    <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
+    <string name="ServerManager.Message.SavingServer">Sauvegarde de l\'intranet…</string>
+    <string name="ServerManager.Error.TitleIncorrect">Erreur d\'URL intranet</string>
+    <string name="ServerManager.Error.TitleVersion">Version de la plateforme non prise en charge</string>
+    <string name="ServerManager.Error.IncorrectUrl">Impossible de se connecter à l\'intranet</string>
+    <string name="ServerManager.Error.PlatformVersionNotSupported">L\'application ne prend en charge que la version 4.3 ou ultérieure de la plateforme</string>
+    <string name="ServerManager.Alert.PlatformVersionNotSupported">Votre intranet utilise une version de Platforme non prise en charge par cette application. Nous vous recommandons de passer à la plateforme 4.3 ou d\'utiliser l\'application version 2.</string>
 
-    <string name="ConnectActivity.Title.ConnectShare">Connect, share and work together</string>
-    <string name="ConnectActivity.Title.DiscoverExoTribe">Discover eXo Tribe</string>
-    <string name="ConnectActivity.Title.AddIntranet">Add intranet</string>
-    <string name="ConnectActivity.Title.AddNewIntranet">Add new intranet</string>
-    <string name="ConnectActivity.Title.ConnectTo">Connect to</string>
-    <string name="ConnectActivity.Title.Others">Others</string>
-    <string name="ConnectActivity.Title.ConnnectToExoTribe">Connect to eXo Tribe</string>
+    <string name="ConnectActivity.Title.ConnectShare">Connectez-vous, partagez et travaillez ensemble</string>
+    <string name="ConnectActivity.Title.DiscoverExoTribe">Découvrez eXo Tribe</string>
+    <string name="ConnectActivity.Title.AddIntranet">Ajouter un intranet</string>
+    <string name="ConnectActivity.Title.AddNewIntranet">Ajouter un nouvel intranet</string>
+    <string name="ConnectActivity.Title.ConnectTo">Se connecter à</string>
+    <string name="ConnectActivity.Title.Others">Autres</string>
+    <string name="ConnectActivity.Title.ConnnectToExoTribe">Connectez-vous à eXo Tribe</string>
 
-    <string name="ServersActivity.Title.SignInToExo">Sign in to eXo</string>
-    <string name="AddServerFragment.Title.NewIntranet">New intranet</string>
-    <string name="AddServerFragment.Title.EnterIntranetUrl">Enter your intranet URL</string>
-    <string name="ServersFragment.Title.MyIntranets">My intranets</string>
+    <string name="ServersActivity.Title.SignInToExo">Connectez-vous à eXo</string>
+    <string name="AddServerFragment.Title.NewIntranet">Nouvel intranet</string>
+    <string name="AddServerFragment.Title.EnterIntranetUrl">Entrez votre URL intranet</string>
+    <string name="ServersFragment.Title.MyIntranets">Mes intranets</string>
 
-    <string name="SettingsActivity.Title.Settings">Settings</string>
+    <string name="SettingsActivity.Title.Settings">Paramètres</string>
     <string name="SettingsActivity.Header.Intranets">Intranets</string>
-    <string name="SettingsActivity.Header.NoIntranet">No intranet</string>
-    <string name="SettingsActivity.Header.About">About</string>
-    <string name="SettingsActivity.Title.ConnectIntranet">Connect your intranet</string>
-    <string name="SettingsActivity.Title.ApplicationVersion">Application Version</string>
-    <string name="SettingsActivity.Title.Edit">Edit</string>
-    <string name="SettingsActivity.Title.Save">Save</string>
-    <string name="SettingsActivity.Title.EnterIntranetUrl">Enter your intranet URL</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Delete server</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this server ?</string>
+    <string name="SettingsActivity.Header.NoIntranet">Pas d\'intranet</string>
+    <string name="SettingsActivity.Header.About">À propos</string>
+    <string name="SettingsActivity.Title.ConnectIntranet">Connectez votre intranet</string>
+    <string name="SettingsActivity.Title.ApplicationVersion">Version de l\'application</string>
+    <string name="SettingsActivity.Title.Edit">Modifier</string>
+    <string name="SettingsActivity.Title.Save">Sauvegarder</string>
+    <string name="SettingsActivity.Title.EnterIntranetUrl">Entrez votre URL intranet</string>
+    <string name="SettingsActivity.Title.DeleteConfirmation">Supprimer le serveur</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Voulez-vous vraiment supprimer ce serveur ?</string>
 
-    <string name="WebClient.WebView.Title.Loading">Loading…</string>
-    <string name="WebClient.WebView.Hint.Close">Close web page</string>
+    <string name="WebClient.WebView.Title.Loading">Chargement…</string>
+    <string name="WebClient.WebView.Hint.Close">Fermer la page Web</string>
 
-    <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
+    <string name="OnBoarding.Title.Welcome">Bienvenue sur eXo !</string>
     <string name="OnBoarding.Title.Collaboration">Collaboration</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
-    <string name="OnBoarding.Title.Networking">Social Networking</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
+    <string name="OnBoarding.Title.Networking">Réseaux sociaux</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform est une solution d\'intranet social dont les fonctionnalités et le design sont centrés sur l\'utilisateur</string>
     <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
-    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
-    <string name="OnBoarding.Title.GotItButton">Got It</string>
+    <string name="OnBoarding.Message.Engagement">Travaillez mieux ensemble via des notes, des documents, des forums ou des calendriers, tous intégrés aux flux d\'activité</string>
+    <string name="OnBoarding.Message.Networking">Découvrez, trouvez et connectez-vous aux personnes de votre réseau avec des intérêts communs, afin que vous puissiez collaborer et travailler ensemble</string>
+    <string name="OnBoarding.Title.GotItButton">J\'ai compris</string>
     <string name="OnBoarding.Title.CurrentPage">3</string>
-    <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
+    <string name="OnBoarding.Title.SlideTitle">Affichez le QR Code dans vos\n paramètres eXo.</string>
 
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">Cancel</string>
-    <string name="Word.Back">Back</string>
-    <string name="Word.Delete">Delete</string>
+    <string name="Word.OK">D\'accord</string>
+    <string name="Word.Cancel">Annuler</string>
+    <string name="Word.Back">Retour</string>
+    <string name="Word.Delete">Supprimer</string>
     <string name="Word.eXo">eXo</string>
     <string name="Word.eXoPlatform">eXo Platform</string>
-    <string name="Word.Space">Space</string>
-    <string name="Word.Done">Done</string>
+    <string name="Word.Space">Espace</string>
+    <string name="Word.Done">Terminé</string>
 
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Affichez le QR Code dans votre\n paramètres eXo</string>
@@ -71,47 +71,47 @@
 
     <!-- Share Extension -->
 
-    <string name="ShareActivity.Main.Title.Post">Post</string>
+    <string name="ShareActivity.Main.Title.Post">Poster</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
-    <string name="ShareActivity.Compose.Title.ShareWith">Share this post with</string>
-    <string name="ShareActivity.Compose.Title.AllConnections">All my connections</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Login</string>
-    <string name="ShareActivity.Compose.Title.SigningIn">Signing in…</string>
-    <string name="ShareActivity.Compose.Title.SignInToPost">Please sign in to post</string>
-    <string name="ShareActivity.Compose.Hint.WorkingOn">What are you working on?</string>
-    <string name="ShareActivity.Compose.Hint.Thumbnail">Thumbnail</string>
-    <string name="ShareActivity.Intranets.Title.Intranets">Select an intranet</string>
-    <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your credentials</string>
-    <string name="ShareActivity.SignIn.Title.Username">Username</string>
-    <string name="ShareActivity.SignIn.Title.Password">Password</string>
-    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces…</string>
-    <string name="ShareActivity.Spaces.Title.NoSpace">You are not in any space</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Leave</string>
-    <string name="ShareActivity.PermissionDialog.Title.AppSettings">Open App Settings</string>
-    <string name="ShareActivity.Error.SignInFailed">Login failed, please try again</string>
-    <string name="ShareActivity.Error.NoAccountConfigured">No account configured</string>
-    <string name="ShareActivity.Error.CannotReadDoc">Cannot access the document to share</string>
-    <string name="ShareActivity.Error.FileTooBig">Cannot share documents more than 10 MB</string>
-    <string name="ShareActivity.Error.TooManyFiles">Cannot share more than 10 documents</string>
-    <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">You must select an account and sign in to select a space</string>
-    <string name="ShareActivity.Error.CannotPostBecauseOffline">You must select an account and sign in to post</string>
-    <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
-    <string name="ShareActivity.Message.OperationStarted">Share in progress, check the status in the notification area</string>
+    <string name="ShareActivity.Compose.Title.ShareWith">Partagez cette publication avec</string>
+    <string name="ShareActivity.Compose.Title.AllConnections">Toutes mes connexions</string>
+    <string name="ShareActivity.Compose.Title.SignIn">Connexion</string>
+    <string name="ShareActivity.Compose.Title.SigningIn">Connectez-vous…</string>
+    <string name="ShareActivity.Compose.Title.SignInToPost">Veuillez vous connecter pour publier</string>
+    <string name="ShareActivity.Compose.Hint.WorkingOn">Sur quoi travaillez-vous?</string>
+    <string name="ShareActivity.Compose.Hint.Thumbnail">Vignette</string>
+    <string name="ShareActivity.Intranets.Title.Intranets">Sélectionnez un intranet</string>
+    <string name="ShareActivity.SignIn.Title.EnterCredentials">Entrez vos identifiants</string>
+    <string name="ShareActivity.SignIn.Title.Username">Nom d\'utilisateur</string>
+    <string name="ShareActivity.SignIn.Title.Password">Mot de passe</string>
+    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Récupérer des espaces…</string>
+    <string name="ShareActivity.Spaces.Title.NoSpace">Vous n\'êtes dans aucun espace</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">Le partage doit s\'arrêter car l\'accès au stockage est interdit pour cette application.\nPour ne pas l\'autoriser, ouvrez les paramètres de l\'application et activez l\'autorisation de stockage.</string>
+    <string name="ShareActivity.PermissionDialog.Title.Leave">Quitter</string>
+    <string name="ShareActivity.PermissionDialog.Title.AppSettings">Ouvrir les paramètres de l\'application</string>
+    <string name="ShareActivity.Error.SignInFailed">Échec de la connexion, veuillez réessayer</string>
+    <string name="ShareActivity.Error.NoAccountConfigured">Aucun compte configuré</string>
+    <string name="ShareActivity.Error.CannotReadDoc">Impossible d\'accéder au document à partager</string>
+    <string name="ShareActivity.Error.FileTooBig">Impossible de partager des documents de plus de 10 Mo</string>
+    <string name="ShareActivity.Error.TooManyFiles">Impossible de partager plus de 10 documents</string>
+    <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">Vous devez sélectionner un compte et vous connecter pour sélectionner un espace</string>
+    <string name="ShareActivity.Error.CannotPostBecauseOffline">Vous devez sélectionner un compte et vous connecter pour publier</string>
+    <string name="ShareActivity.Error.CannotPostBecauseEmpty">Vous devez au moins partager un document ou un message</string>
+    <string name="ShareActivity.Message.OperationStarted">Partage en cours, vérifiez l\'état dans la zone de notification</string>
 
-    <string name="ShareService.Message.OperationSuccess">Success</string>
-    <string name="ShareService.Title.ShareDocument">Share document</string>
-    <string name="ShareService.Title.ShareMessage">Share message</string>
-    <string name="ShareService.Message.UploadInProgress">Upload in progress</string>
-    <string name="ShareService.Message.PostShortly">Your message will be posted shortly</string>
-    <string name="ShareService.Error.UploadFailed">Could not share the document</string>
-    <string name="ShareService.Error.PostFailed">Could not post the message</string>
-    <string name="ShareService.Error.CommentFailed">Could not comment the message</string>
-    <string name="ShareService.Error.UploadFolderFailed">Could not prepare the destination folder</string>
-    <string name="ShareService.Error.IncorrectAccount">Could not retrieve the account settings</string>
-    <string name="ShareService.Error.SomeFilesCannotShare">Some documents cannot be shared</string>
-    <string name="ShareService.Error.AllFilesCannotShare">All documents cannot be shared</string>
-    <string name="ShareService.Error.NullPostInfo">Share failed. Incorrect data.</string>
+    <string name="ShareService.Message.OperationSuccess">Succès</string>
+    <string name="ShareService.Title.ShareDocument">Partager un document</string>
+    <string name="ShareService.Title.ShareMessage">Partager un message</string>
+    <string name="ShareService.Message.UploadInProgress">Chargement en cours</string>
+    <string name="ShareService.Message.PostShortly">Votre message sera publié sous peu</string>
+    <string name="ShareService.Error.UploadFailed">Impossible de partager le document</string>
+    <string name="ShareService.Error.PostFailed">Impossible de poster le message</string>
+    <string name="ShareService.Error.CommentFailed">Impossible de commenter le message</string>
+    <string name="ShareService.Error.UploadFolderFailed">Impossible de préparer le dossier de destination</string>
+    <string name="ShareService.Error.IncorrectAccount">Impossible de récupérer les paramètres du compte</string>
+    <string name="ShareService.Error.SomeFilesCannotShare">Certains documents ne peuvent pas être partagés</string>
+    <string name="ShareService.Error.AllFilesCannotShare">Tous les documents ne peuvent pas être partagés</string>
+    <string name="ShareService.Error.NullPostInfo">Échec du partage. Données incorrectes.</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 </resources>
