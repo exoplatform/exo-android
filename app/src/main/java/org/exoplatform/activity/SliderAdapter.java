@@ -31,8 +31,8 @@ public class SliderAdapter extends PagerAdapter {
 
     public static int[] slide_images = {
             Locale.getDefault().getLanguage().equals("en") ? R.drawable.slide1_gif_en : R.drawable.slide1_gif_fr,
-            Locale.getDefault().getLanguage().equals("en") ? R.drawable.slide1_gif_en : R.drawable.slide1_gif_fr,
-            Locale.getDefault().getLanguage().equals("en") ? R.drawable.slide1_gif_en : R.drawable.slide1_gif_fr
+            Locale.getDefault().getLanguage().equals("en") ? R.drawable.slide2_gif_en : R.drawable.slide2_gif_fr,
+            Locale.getDefault().getLanguage().equals("en") ? R.drawable.slide3_gif_en : R.drawable.slide3_gif_fr
     };
 
     @Override
