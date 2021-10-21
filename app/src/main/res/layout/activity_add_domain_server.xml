@@ -56,7 +56,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/addURLTextView"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:paddingLeft="20dp"
