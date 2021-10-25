@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
     Button  clearButton;
     EditText companyTextField,addDomainTextField;
     RelativeLayout parentLayout,addDomainButton;
+    LinearLayout topViewAddUrlLayout;
     Boolean isAlreadyFocused = false;
     TextView headerTitle;
     TextView addURLTextView;
@@ -40,6 +42,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_domain_server);
         parentLayout = findViewById(R.id.container_add_view);
+        topViewAddUrlLayout = (LinearLayout) findViewById(R.id.topViewAddUrl);
         addDomainTextField = (EditText) findViewById(R.id.textEditAddDomain);
         companyTextField = (EditText) findViewById(R.id.company_placeholder);
         closeButton = (ImageView) findViewById(R.id.close_button_add_domain);
@@ -86,7 +89,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
         });
 
         // Hide keyboard when tapped outside of fields
-        parentLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        topViewAddUrlLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
