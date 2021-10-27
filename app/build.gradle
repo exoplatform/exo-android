@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId "org.exoplatform"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.compileSdkVersion
+        minSdkVersion 28
+        targetSdkVersion 28
         versionCode 01
         versionName "6.2.0"
         manifestPlaceholders = [
