@@ -19,13 +19,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.journeyapps.barcodescanner.CaptureManager;
 
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
@@ -44,7 +41,6 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView slideTitle;
     private TextView currentPage;
     private TextView scanQRBtn;
-    int PERMISSION_CAMERA = 0;
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
@@ -130,9 +126,6 @@ public class BoardingActivity extends AppCompatActivity {
                 intent.putExtra("SCAN_CAMERA_ID", 0);
                 startActivityForResult(intent,REQUEST_CODE);
             } else {
-
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
                 Toast.makeText(BoardingActivity.this, "Permission denied to read your Camera", Toast.LENGTH_SHORT).show();
             }
         }
