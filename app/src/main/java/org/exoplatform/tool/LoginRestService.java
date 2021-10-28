@@ -25,7 +25,6 @@ import org.exoplatform.model.PlatformInfo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 
 /**
  * Created by Philippe on 3/7/16. Interface to connect to the Platform's REST
