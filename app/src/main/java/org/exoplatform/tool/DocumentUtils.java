@@ -47,7 +47,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.exoplatform.App;
 import org.exoplatform.model.DocumentInfo;
-import org.exoplatform.model.SocialActivity;
 import org.exoplatform.model.UploadInfo;
 
 import java.io.File;
