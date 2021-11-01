@@ -2,6 +2,7 @@ package org.exoplatform.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,9 +10,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,12 +41,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public ArrayList<Server>   serverList;
     private final Activity activity;
     private ServerManagerImpl mServerManager;
-
+    private ActionDialog dialog;
+    int positionToDelete;
     public RecyclerAdapter(Activity activity) {
         this.activity = activity;
         mServerManager = new ServerManagerImpl(activity.getSharedPreferences(App.Preferences.PREFS_FILE_NAME, 0));
         this.serverList = mServerManager.getServerList();
         Collections.sort(serverList, Collections.reverseOrder());
+        dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
+                R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, activity);
+        dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteServer(positionToDelete);
+            }
+        });
+
+        dialog.cancelAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     @NonNull
@@ -84,9 +105,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             itemViewHolder.deleteServer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteServer(position);
+                    positionToDelete = position;
+                    dialog.showDialog();
                 }
             });
+
             itemViewHolder.server_card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -153,23 +176,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void deleteServer(final int position) {
         final String serverUrl = serverList.get(position).getUrl().toString();
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(R.string.SettingsActivity_Title_DeleteConfirmation);
-        builder.setMessage(R.string.SettingsActivity_Message_DeleteConfirmation);
-        builder.setNegativeButton(R.string.Word_Cancel, null);
-        builder.setPositiveButton(R.string.Word_OK, new AlertDialog.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mServerManager.removeServer(serverUrl);
-                serverList.remove(position);
-                notifyDataSetChanged();
-                if (serverList.isEmpty()) {
-                    Intent intent = new Intent(activity, BoardingActivity.class);
-                    activity.startActivity(intent);
-                }
-            }
-        });
-        builder.show();
+        mServerManager.removeServer(serverUrl);
+        serverList.remove(position);
+        notifyDataSetChanged();
+        if (serverList.isEmpty()) {
+            Intent intent = new Intent(activity, BoardingActivity.class);
+            activity.startActivity(intent);
+        }
+        dialog.dismiss();
     }
 
     public void onActivityResume() {
