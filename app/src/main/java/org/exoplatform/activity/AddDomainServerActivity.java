@@ -107,7 +107,11 @@ public class AddDomainServerActivity extends AppCompatActivity {
 
     // when users taps "Go" or "Enter" on the keyboard
     private void submitUrl() {
-        String composedUrl = "https://" + companyTextField.getText().toString() + addDomainTextField.getText().toString();
+        String composedUrl = companyTextField.getText().toString() + addDomainTextField.getText().toString();
+        while (composedUrl.contains("https://")) {
+            composedUrl = composedUrl.replace("https://", "");
+        }
+        composedUrl = "https://" + composedUrl;
         final String url = composedUrl.trim();
         Log.d("url ======= >",url);
         final ProgressDialog progressDialog = ServerUtils.savingServerDialog(AddDomainServerActivity.this);
@@ -142,6 +146,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
