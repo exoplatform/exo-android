@@ -2,15 +2,20 @@ package org.exoplatform.activity;
 
 import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
@@ -79,9 +85,8 @@ public class BoardingActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BoardingActivity.this,ScannerActivity.class);
-                intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                startActivityForResult(intent,REQUEST_CODE);
+                Activity context = BoardingActivity.this;
+                context.requestPermissions(new String[]{Manifest.permission.CAMERA}, 1011);
             }
         });
 
@@ -110,6 +115,20 @@ public class BoardingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == 1011) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(BoardingActivity.this, ScannerActivity.class);
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+                intent.putExtra("SCAN_CAMERA_ID", 0);
+                startActivityForResult(intent,REQUEST_CODE);
+            } else {
+                Toast.makeText(BoardingActivity.this, "Permission denied to read your Camera", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
