@@ -3,6 +3,7 @@ package org.exoplatform.activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.ResultPoint;
@@ -37,8 +39,8 @@ public class ScannerActivity extends AppCompatActivity {
     ImageView qr_code_imageView;
     ViewfinderView viewFinder;
     private Handler handler;
-    int PERMISSION_CAMERA = 0;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,12 +95,6 @@ public class ScannerActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return barcodeScannerView.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        capture.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
 
     BarcodeCallback callback = new BarcodeCallback() {
         @Override
