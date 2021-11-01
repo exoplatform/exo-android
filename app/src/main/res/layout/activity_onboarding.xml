@@ -21,11 +21,11 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/exo_logo"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/exo_onboardng"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
