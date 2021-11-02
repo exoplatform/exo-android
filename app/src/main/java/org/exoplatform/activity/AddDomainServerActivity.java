@@ -97,11 +97,11 @@ public class AddDomainServerActivity extends AppCompatActivity {
 
     // when users taps "Go" or "Enter" on the keyboard
     private void submitUrl() {
-        StringBuilder urlPrefix = new StringBuilder(companyTextField.getText().toString());
-        if (!urlPrefix.toString().startsWith("https://")) {
-            urlPrefix.append("https://");
+        String urlPrefix = companyTextField.getText().toString();
+        if (!urlPrefix.startsWith("https://")) {
+            urlPrefix = "https://" + urlPrefix;
         }
-        final String url =  urlPrefix.append(addDomainTextField.getText().toString()).toString().trim();
+        final String url =  urlPrefix + addDomainTextField.getText().toString().trim();
         Log.d("url ======= >",url);
         final ProgressDialog progressDialog = ServerUtils.savingServerDialog(AddDomainServerActivity.this);
         ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
