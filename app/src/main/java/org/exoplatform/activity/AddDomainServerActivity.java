@@ -136,7 +136,6 @@ public class AddDomainServerActivity extends AppCompatActivity {
         });
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
