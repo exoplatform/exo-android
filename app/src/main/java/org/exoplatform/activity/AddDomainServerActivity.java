@@ -60,12 +60,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
                 submitUrl();
             }
         });
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        closeButton.setOnClickListener(v -> onBackPressed());
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,25 +71,20 @@ public class AddDomainServerActivity extends AppCompatActivity {
             }
         });
         addDomainTextField = (EditText) findViewById(R.id.textEditAddDomain);
-        companyTextField.setOnTouchListener(new View.OnTouchListener(){
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (!isAlreadyFocused) {
-                    companyTextField.setText("");
-                    companyTextField.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                    requestFocusTo(companyTextField);
-                    isAlreadyFocused = true;
-                }
-                return false;
+        companyTextField.setOnTouchListener((arg0, arg1) -> {
+            if (!isAlreadyFocused) {
+                companyTextField.setText("");
+                companyTextField.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                requestFocusTo(companyTextField);
+                isAlreadyFocused = true;
             }
+            return false;
         });
 
         // Hide keyboard when tapped outside of fields
-        topViewAddUrlLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    hideSoftKeyboard(AddDomainServerActivity.this);
-                }
+        topViewAddUrlLayout.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                hideSoftKeyboard(AddDomainServerActivity.this);
             }
         });
     }
@@ -107,12 +97,11 @@ public class AddDomainServerActivity extends AppCompatActivity {
 
     // when users taps "Go" or "Enter" on the keyboard
     private void submitUrl() {
-        String composedUrl = companyTextField.getText().toString() + addDomainTextField.getText().toString();
-        while (composedUrl.contains("https://")) {
-            composedUrl = composedUrl.replace("https://", "");
+        StringBuilder urlPrefix = new StringBuilder(companyTextField.getText().toString());
+        if (!urlPrefix.toString().startsWith("https://")) {
+            urlPrefix.append("https://");
         }
-        composedUrl = "https://" + composedUrl;
-        final String url = composedUrl.trim();
+        final String url =  urlPrefix.append(addDomainTextField.getText().toString()).toString().trim();
         Log.d("url ======= >",url);
         final ProgressDialog progressDialog = ServerUtils.savingServerDialog(AddDomainServerActivity.this);
         ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
