@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ public class BoardingActivity extends AppCompatActivity {
             try {
                 bypassIfRecentlyVisited();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("error", String.valueOf(e));
             }
         }
         statusBarColor();
@@ -241,7 +242,7 @@ public class BoardingActivity extends AppCompatActivity {
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("error", String.valueOf(e));
         }
     }
 
@@ -278,7 +279,7 @@ public class BoardingActivity extends AppCompatActivity {
                             handler.onSuccess(false);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Log.e("error", String.valueOf(e));
                         handler.onFailure(e);
                     }
                 }
