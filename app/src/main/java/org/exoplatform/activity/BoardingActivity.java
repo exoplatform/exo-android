@@ -32,6 +32,7 @@ import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.TimerTask;
 
 import okhttp3.OkHttpClient;
@@ -46,6 +47,8 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView slideTitle;
     private TextView currentPage;
     private TextView scanQRBtn;
+    public static ServerManagerImpl mServerManager;
+    private ArrayList<Server> serverList;
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
@@ -65,6 +68,8 @@ public class BoardingActivity extends AppCompatActivity {
                 Log.e("error", String.valueOf(e));
             }
         }
+        mServerManager = new ServerManagerImpl((BoardingActivity.this).getSharedPreferences(App.Preferences.PREFS_FILE_NAME, 0));
+        serverList = mServerManager.getServerList();
         statusBarColor();
         mSlideViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
         mDotLayout = (TabLayout) findViewById(R.id.onboarding_dots);
@@ -231,8 +236,10 @@ public class BoardingActivity extends AppCompatActivity {
                      }else{
                          isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
                          if (!isFromInstances) {
-                             Intent intent = new Intent(BoardingActivity.this, ConnectToExoListActivity.class);
-                             startActivity(intent);
+                             if (serverList.size() != 0){
+                                 Intent intent = new Intent(BoardingActivity.this, ConnectToExoListActivity.class);
+                                 startActivity(intent);
+                             }
                          }
                      }
                 }
