@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,18 +19,23 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.exoplatform.App;
-import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
 
+import java.io.IOException;
 import java.util.TimerTask;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class BoardingActivity extends AppCompatActivity {
 
@@ -54,9 +58,12 @@ public class BoardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
         if (savedInstanceState == null) {
-            bypassIfRecentlyVisited();
+            try {
+                bypassIfRecentlyVisited();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
         statusBarColor();
         mSlideViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
         mDotLayout = (TabLayout) findViewById(R.id.onboarding_dots);
@@ -203,35 +210,86 @@ public class BoardingActivity extends AppCompatActivity {
         }
     }
 
-    private void bypassIfRecentlyVisited() {
+    private void bypassIfRecentlyVisited() throws IOException {
         SharedPreferences prefs = App.Preferences.get(this);
         Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-        long lastVisit = prefs.getLong(App.Preferences.LAST_VISIT_TIME, 0L);
-        // Rule SIGN_IN_13: if the app was left less than 1h ago
-        if (serverToConnect != null && (System.nanoTime() - App.DELAY_1H_NANOS) < lastVisit) {
-            String url = getIntent().getStringExtra(INTENT_KEY_URL);
-            if(url != null && !url.equals("")) {
-                openWebViewWithURL(url);
-            } else {
-                isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
-                if (!isFromInstances) {
-                    openWebViewWithURL(serverToConnect.getUrl().toString());
+        try {
+            setWakeUpActivityRoot(new ResultHandler<Boolean>() {
+                @Override
+                public void onSuccess(Boolean isSessionsAlive) {
+                     if (isSessionsAlive) {
+                         String url = getIntent().getStringExtra(INTENT_KEY_URL);
+                         if(url != null && !url.equals("")) {
+                             openWebViewWithURL(url);
+                         } else {
+                             isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
+                             if (!isFromInstances) {
+                                 openWebViewWithURL(serverToConnect.getUrl().toString());
+                             }
+                         }
+                     }else{
+                         isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
+                         if (!isFromInstances) {
+                             Intent intent = new Intent(BoardingActivity.this, ConnectToExoListActivity.class);
+                             startActivity(intent);
+                         }
+                     }
                 }
-            }
-        }
+                @Override
+                public void onFailure(Exception e) {
 
-        if (BuildConfig.DEBUG) {
-            long minSinceLastVisit = (System.nanoTime() - lastVisit) / (60000000000L);
-            Log.d(this.getClass().getName(), "*** Minutes since last visit : " + minSinceLastVisit);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void openWebViewWithURL(String url) {
         if (url == null)
             throw new IllegalArgumentException("URL must not be null");
-
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra(INTENT_KEY_URL, url);
         this.startActivity(intent);
+    }
+
+    private void setWakeUpActivityRoot(final ResultHandler<Boolean> handler) throws IOException {
+        SharedPreferences prefs = App.Preferences.get(this);
+        Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
+        String username = prefs.getString("connectedUsername","username");
+        String cookies = prefs.getString("connectedCookies","cookies");
+        if (serverToConnect != null) {
+            final String url = serverToConnect.getUrl().getProtocol() + "://" + serverToConnect.getShortUrl() + "/portal/rest/state/status/" + username;
+            System.out.println("url =========> " + url);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try  {
+                        OkHttpClient client = new OkHttpClient();
+                        Request request = new Request.Builder()
+                                .addHeader("Content-Type", "application/json")
+                                .addHeader("Cookie", cookies)
+                                .url(url)
+                                .build();
+                        Response httpResponse = client.newCall(request).execute();
+                        if (httpResponse.code() == 200){
+                            handler.onSuccess(true);
+                        }else{
+                            handler.onSuccess(false);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        handler.onFailure(e);
+                    }
+                }
+            });
+            thread.start();
+        }
+
+    }
+
+    public interface ResultHandler<T> {
+        void onSuccess(T data);
+        void onFailure(Exception e);
     }
 }

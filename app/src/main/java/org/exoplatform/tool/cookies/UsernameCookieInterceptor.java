@@ -20,10 +20,13 @@ package org.exoplatform.tool.cookies;
  *
  */
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
+import org.exoplatform.App;
 import org.exoplatform.service.push.PushTokenSynchronizerLocator;
 
 import java.net.URL;
@@ -32,11 +35,20 @@ import java.util.Map;
 class UsernameCookieInterceptor implements CookiesInterceptor {
 
   private static final String USERNAME_COOKIE_KEY = "last_login_username";
+  private static final String SESSION_COOKIE_KEY = "JSESSIONID";
+  private static final String SESSIONSSO_COOKIE_KEY = "JSESSIONIDSSO";
+  private static final String REMEMBERME_COOKIE_KEY = "rememberme";
 
   @Override
-  public void intercept(Map<String, String> cookies, String url) {
+  public void intercept(Map<String, String> cookies, String url, Context context) {
     if (cookies.containsKey(USERNAME_COOKIE_KEY)) {
       PushTokenSynchronizerLocator.getInstance().setConnectedUserAndSync(cookies.get(USERNAME_COOKIE_KEY), calculateBaseUrl(url));
+      SharedPreferences shared = App.Preferences.get(context);
+      SharedPreferences.Editor editor = shared.edit();
+      String cookiesStr = SESSION_COOKIE_KEY+ "=" + cookies.get(SESSION_COOKIE_KEY) + ";" + REMEMBERME_COOKIE_KEY+ "=" + cookies.get(REMEMBERME_COOKIE_KEY) + ";" + SESSIONSSO_COOKIE_KEY+ "=" + cookies.get(SESSIONSSO_COOKIE_KEY);
+      editor.putString("connectedUsername",cookies.get(USERNAME_COOKIE_KEY));
+      editor.putString("connectedCookies", cookiesStr);
+      editor.apply();
     }
   }
 
