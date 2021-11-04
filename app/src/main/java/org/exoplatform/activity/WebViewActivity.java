@@ -152,6 +152,9 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   @Override
   public void onUserJustBeforeSignedOut() {
     PushTokenSynchronizerLocator.getInstance().tryToDestroyToken();
+    Intent intent = new Intent(WebViewActivity.this, ConnectToExoListActivity.class);
+    startActivity(intent);
+    finish();
   }
 
   @Override

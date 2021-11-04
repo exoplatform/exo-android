@@ -286,7 +286,6 @@ public class BoardingActivity extends AppCompatActivity {
             });
             thread.start();
         }
-
     }
 
     public interface ResultHandler<T> {
