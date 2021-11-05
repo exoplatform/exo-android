@@ -260,8 +260,8 @@ public class BoardingActivity extends AppCompatActivity {
         String username = prefs.getString("connectedUsername","username");
         String cookies = prefs.getString("connectedCookies","cookies");
         if (serverToConnect != null) {
-            final String url = serverToConnect.getUrl().getProtocol() + "://" + serverToConnect.getShortUrl() + "/portal/rest/state/status/" + username;
-            System.out.println("url =========> " + url);
+            final String url = App.getCheckSessionURL(serverToConnect.getUrl().getProtocol(),serverToConnect.getShortUrl(),username);
+            Log.d("url =========> ",url);
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {

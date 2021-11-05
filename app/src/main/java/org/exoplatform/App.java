@@ -103,4 +103,10 @@ public class App extends Application {
   public static class Permissions {
     public static final int REQUEST_PICK_IMAGE_FROM_GALLERY = 8;
   }
+
+  public static final String CHECK_SESSION_PATH_URL      = "/portal/rest/state/status/";
+
+  public static String getCheckSessionURL(String protocol,String shortURL, String username) {
+     return protocol + "://" + shortURL + CHECK_SESSION_PATH_URL + username;
+  }
 }
