@@ -116,7 +116,10 @@
                         android:textAllCaps="false"
                         android:textColor="@color/eXoGreyTransparent"
                         android:textColorHint="@color/eXoGreyTransparent"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:inputType="text|textNoSuggestions"
+                        android:singleLine="true"
+                        android:imeOptions="actionGo" />
 
                     <EditText
                         android:id="@+id/textEditAddDomain"
@@ -125,8 +128,10 @@
                         android:text=".exoplatform.org"
                         android:textAllCaps="false"
                         android:textColor="@color/cardview_dark_background"
-                        android:textSize="15sp" />
-
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:inputType="text|textNoSuggestions"
+                        android:imeOptions="actionGo" />
                 </LinearLayout>
 
                 <RelativeLayout
