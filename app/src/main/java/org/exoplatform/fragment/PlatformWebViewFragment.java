@@ -495,7 +495,7 @@ public class PlatformWebViewFragment extends Fragment {
       if (!mDidShowOnboarding && INTRANET_HOME_PAGE.matcher(url).matches()) {
         checkUserLoggedInAsync();
       }
-      mCookiesInterceptor.intercept(mCookiesConverter.toMap(CookieManager.getInstance().getCookie(url)), url);
+      mCookiesInterceptor.intercept(mCookiesConverter.toMap(CookieManager.getInstance().getCookie(url)), url,PlatformWebViewFragment.this.getContext());
       if (url.contains("/portal/dw")) {
         getAvatarServerLogo();
       }
@@ -521,7 +521,6 @@ public class PlatformWebViewFragment extends Fragment {
     OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
     String plfInfo = mServer.getUrl().getProtocol() + "://" + mServer.getShortUrl() + "/portal/rest/v1/platform/branding/logo";
     System.out.println("ImageURL ======>" + plfInfo);
-// imageUrlLogo =======> https://maint-ft1.exoplatform.org/portal/rest/v1/platform/branding/logo
     Request req = new Request.Builder().url(plfInfo).get().build();
     client.newCall(req).enqueue(new Callback() {
       @Override

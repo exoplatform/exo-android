@@ -20,8 +20,10 @@ package org.exoplatform.tool.cookies;
  *
  */
 
+import android.content.Context;
+
 import java.util.Map;
 
 public interface CookiesInterceptor {
-  void intercept(Map<String, String> cookies, String url);
+  void intercept(Map<String, String> cookies, String url, Context context);
 }
