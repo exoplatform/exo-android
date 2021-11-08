@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,8 +55,8 @@ public class AddDomainServerActivity extends AppCompatActivity {
         addURLTextView = (TextView) findViewById(R.id.addURLTextView);
         headerTitle.setText(R.string.AddDomain_Title_Header);
         addURLTextView.setText(R.string.AddDomain_Title_addURL);
-
         statusBarColor();
+        handleActionGoKeyKeyboard();
         addDomainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +146,29 @@ public class AddDomainServerActivity extends AppCompatActivity {
         }else {
             getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color));
         }
+    }
+
+    private void handleActionGoKeyKeyboard(){
+        addDomainTextField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    submitUrl();
+                    return true;
+                }
+                return false; // otherwise let the system handle the event
+            }
+        });
+        companyTextField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    submitUrl();
+                    return true;
+                }
+                return false; // otherwise let the system handle the event
+            }
+        });
     }
 
     public static void hideSoftKeyboard(Activity context) {
