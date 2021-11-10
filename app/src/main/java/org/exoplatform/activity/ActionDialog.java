@@ -46,7 +46,7 @@ public class ActionDialog {
         private void setDialog() {
             dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.custom_dialog);
+            dialog.setContentView(R.layout.custom_dialog_logo);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
