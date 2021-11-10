@@ -50,8 +50,8 @@
     <string name="SettingsActivity.Title.Edit">Edit</string>
     <string name="SettingsActivity.Title.Save">Save</string>
     <string name="SettingsActivity.Title.EnterIntranetUrl">Enter your intranet URL</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Delete server</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this server ?</string>
+    <string name="SettingsActivity.Title.DeleteConfirmation">Delete intranet</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo ?</string>
 
     <string name="WebClient.WebView.Title.Loading">Loading…</string>
     <string name="WebClient.WebView.Hint.Close">Close web page</string>
