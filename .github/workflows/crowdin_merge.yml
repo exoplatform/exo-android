@@ -42,10 +42,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: ${{ env.BASE_BRANCH }}
-<<<<<<< HEAD
         token: ${{ secrets.ADMIN_TOKEN }}
-=======
->>>>>>> f2a3134 (Add Crowdin Integration)
         depth: 0
     - name: Merge Crowdin Sync Branch
       run: |
