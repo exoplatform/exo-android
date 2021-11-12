@@ -31,8 +31,8 @@
     <string name="SettingsActivity.Title.Edit">Modifier</string>
     <string name="SettingsActivity.Title.Save">Sauvegarder</string>
     <string name="SettingsActivity.Title.EnterIntranetUrl">Entrez votre URL intranet</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Supprimer le serveur</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Voulez-vous vraiment supprimer ce serveur ?</string>
+    <string name="SettingsActivity.Title.DeleteConfirmation">Supprimer instance eXo</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Voulez-vous vraiment supprimer cette instance eXo ?</string>
 
     <string name="WebClient.WebView.Title.Loading">Chargement…</string>
     <string name="WebClient.WebView.Hint.Close">Fermer la page Web</string>
