@@ -1,11 +1,11 @@
 name: Sync Crowdin with eXo Mobile Project
 on:
-  schedule:
-    - cron:  '0 18 * * *' # Everyday at 06 PM UTC
+  push:
+    branches: [tmp-163]
   workflow_dispatch:
 env:
   CROWDIN_SYNC_BRANCH: 'integration/6.2.x'
-  BASE_BRANCH: 'acceptance'
+  BASE_BRANCH: 'tmp-163'
 
 jobs:
   synchronize-with-crowdin:
