@@ -73,9 +73,11 @@ public class AddDomainServerActivity extends AppCompatActivity {
                 requestFocusTo(addDomainTextField);
             }
         });
+        companyTextField.requestFocus();
         addDomainTextField = (EditText) findViewById(R.id.textEditAddDomain);
         companyTextField.setOnTouchListener((arg0, arg1) -> {
             if (!isAlreadyFocused) {
+                companyTextField.setHint("");
                 companyTextField.setText("");
                 companyTextField.setTextColor(getResources().getColor(R.color.cardview_dark_background));
                 requestFocusTo(companyTextField);
