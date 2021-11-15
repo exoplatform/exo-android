@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -204,11 +205,7 @@ public class BoardingActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
-        }else {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color));
-        }
+        getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
     }
 
     private void bypassIfRecentlyVisited() throws IOException {
@@ -225,7 +222,9 @@ public class BoardingActivity extends AppCompatActivity {
                          } else {
                              isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
                              if (!isFromInstances) {
-                                 openWebViewWithURL(serverToConnect.getUrl().toString());
+                                 SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(BoardingActivity.this);
+                                 String urlLogin = shared.getString("urlLogin", serverToConnect.getUrl().toString());
+                                 openWebViewWithURL(urlLogin);
                              }
                          }
                      }else{

@@ -183,9 +183,7 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setJavaScriptEnabled(true);
     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
     mWebView.getSettings().setDomStorageEnabled(true);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-    }
+    mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
     mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setDisplayZoomControls(false);
@@ -257,7 +255,7 @@ public class PlatformWebViewFragment extends Fragment {
   }
 
   public static boolean hasPermission(Context context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null) {
+    if (context != null) {
       return ActivityCompat.checkSelfPermission(context, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
     return true;
@@ -497,6 +495,10 @@ public class PlatformWebViewFragment extends Fragment {
       }
       mCookiesInterceptor.intercept(mCookiesConverter.toMap(CookieManager.getInstance().getCookie(url)), url,PlatformWebViewFragment.this.getContext());
       if (url.contains("/portal/dw")) {
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putString("urlLogin", url);
+        editor.apply();
         getAvatarServerLogo();
       }
       if (BuildConfig.DEBUG)
