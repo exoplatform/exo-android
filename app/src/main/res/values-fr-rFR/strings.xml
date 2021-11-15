@@ -66,8 +66,8 @@
     <string name="Onboarding.Button.addURL">Entrez l\'URL du serveur</string>
 
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Ajouter un domaine de serveur</string>
-    <string name="AddDomain.Title.addURL">Entrez votre URL eXo</string>
+    <string name="AddDomain.Title.Header">Ajouter votre eXo</string>
+    <string name="AddDomain.Title.addURL">Entrez l\'URL de votre eXo</string>
 
     <!-- Share Extension -->
 
