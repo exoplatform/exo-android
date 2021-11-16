@@ -47,6 +47,7 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView slideTitle;
     private TextView currentPage;
     private TextView scanQRBtn;
+    private ActionDialog dialog;
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
@@ -172,17 +173,31 @@ public class BoardingActivity extends AppCompatActivity {
             @Override
             public void onServerNotSupported() {
                 progressDialog.dismiss();
-                ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
-                        R.string.ServerManager_Error_TitleVersion,
-                        R.string.ServerManager_Error_PlatformVersionNotSupported).show();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleVersion,
+                        R.string.ServerManager_Error_PlatformVersionNotSupported, R.string.Word_OK, BoardingActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
 
             @Override
             public void onServerInvalid() {
                 progressDialog.dismiss();
-                ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
-                        R.string.ServerManager_Error_TitleIncorrect,
-                        R.string.ServerManager_Error_IncorrectUrl).show();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleIncorrect,
+                        R.string.ServerManager_Error_IncorrectUrl, R.string.Word_OK, BoardingActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }

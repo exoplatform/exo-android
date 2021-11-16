@@ -37,6 +37,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
     Boolean isAlreadyFocused = false;
     TextView headerTitle;
     TextView addURLTextView;
+    private ActionDialog dialog;
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -126,17 +127,31 @@ public class AddDomainServerActivity extends AppCompatActivity {
             @Override
             public void onServerNotSupported() {
                 progressDialog.dismiss();
-                ServerUtils.dialogWithTitleAndMessage(AddDomainServerActivity.this,
-                        R.string.ServerManager_Error_TitleVersion,
-                        R.string.ServerManager_Error_PlatformVersionNotSupported).show();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleVersion,
+                        R.string.ServerManager_Error_PlatformVersionNotSupported, R.string.Word_OK, AddDomainServerActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
 
             @Override
             public void onServerInvalid() {
                 progressDialog.dismiss();
-                ServerUtils.dialogWithTitleAndMessage(AddDomainServerActivity.this,
-                        R.string.ServerManager_Error_TitleIncorrect,
-                        R.string.ServerManager_Error_IncorrectUrl).show();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleIncorrect,
+                        R.string.ServerManager_Error_IncorrectUrl, R.string.Word_OK, AddDomainServerActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }
