@@ -115,11 +115,12 @@
                         android:maxLines="1"
                         android:cursorVisible="true"
                         android:textAllCaps="false"
-                        android:textColor="@color/eXoGreyTransparent"
+                        android:textColor="@color/cardview_dark_background"
                         android:textColorHint="@color/eXoGreyTransparent"
                         android:textSize="15sp"
                         android:inputType="text|textNoSuggestions"
                         android:singleLine="true"
+                        android:background="#FFFFFF"
                         android:imeOptions="actionGo" />
 
                     <EditText
@@ -133,6 +134,7 @@
                         android:singleLine="true"
                         android:text=".exoplatform.org"
                         android:textAllCaps="false"
+                        android:background="#FFFFFF"
                         android:textColor="@color/cardview_dark_background"
                         android:textSize="15sp" />
                 </LinearLayout>
