@@ -18,9 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="0dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="25dp"
             android:orientation="vertical">
 
             <TextView
@@ -29,8 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Delete eXo"
-                android:textColor="#000"
-                android:textStyle="bold|italic" />
+                android:textSize="17sp"
+                android:textColor="#545454"
+                android:textStyle="bold|normal" />
 
             <TextView
                 android:id="@+id/tv_subtitle"
@@ -38,18 +39,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:text="Do you want to delete this eXo"
                 android:textAlignment="center"
-                android:textColor="#000"
+                android:textColor="#545454"
                 android:textStyle="normal" />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:gravity="center">
 
                 <TextView
@@ -60,7 +61,7 @@
                     android:gravity="center"
                     android:text="Cancel"
                     android:textAllCaps="false"
-                    android:textColor="@color/black_overlay"
+                    android:textColor="#545454"
                     android:textSize="15sp"
                     android:textStyle="bold"/>
 
