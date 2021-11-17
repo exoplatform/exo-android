@@ -38,6 +38,8 @@ public class AddDomainServerActivity extends AppCompatActivity {
     TextView headerTitle;
     TextView addURLTextView;
     private ActionDialog dialog;
+    private CheckConnectivity checkConnectivity;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -45,6 +47,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_domain_server);
+        checkConnectivity = new CheckConnectivity(AddDomainServerActivity.this);
         parentLayout = findViewById(R.id.container_add_view);
         topViewAddUrlLayout = (LinearLayout) findViewById(R.id.topViewAddUrl);
         addDomainTextField = (EditText) findViewById(R.id.textEditAddDomain);
@@ -103,57 +106,59 @@ public class AddDomainServerActivity extends AppCompatActivity {
 
     // when users taps "Go" or "Enter" on the keyboard
     private void submitUrl() {
-        String urlPrefix = companyTextField.getText().toString() + addDomainTextField.getText().toString();
-        if (!urlPrefix.startsWith("https://")) {
-            urlPrefix = "https://" + urlPrefix;
+        if (checkConnectivity.isConnectedToInternet()) {
+            String urlPrefix = companyTextField.getText().toString() + addDomainTextField.getText().toString();
+            if (!urlPrefix.startsWith("https://")) {
+                urlPrefix = "https://" + urlPrefix;
+            }
+            final String url = urlPrefix.trim();
+            Log.d("url ======= >", url);
+            final ProgressDialog progressDialog = ServerUtils.savingServerDialog(AddDomainServerActivity.this);
+            ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
+                @Override
+                public void onVerificationStarted() {
+                    progressDialog.show();
+                }
+
+                @Override
+                public void onServerValid(Server server) {
+                    progressDialog.dismiss();
+                    Intent intent = new Intent(AddDomainServerActivity.this, WebViewActivity.class);
+                    intent.putExtra(WebViewActivity.INTENT_KEY_URL, url);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onServerNotSupported() {
+                    progressDialog.dismiss();
+                    dialog = new ActionDialog(R.string.ServerManager_Error_TitleVersion,
+                            R.string.ServerManager_Error_PlatformVersionNotSupported, R.string.Word_OK, AddDomainServerActivity.this);
+                    dialog.cancelAction.setVisibility(View.GONE);
+                    dialog.showDialog();
+                    dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+
+                @Override
+                public void onServerInvalid() {
+                    progressDialog.dismiss();
+                    dialog = new ActionDialog(R.string.ServerManager_Error_TitleIncorrect,
+                            R.string.ServerManager_Error_IncorrectUrl, R.string.Word_OK, AddDomainServerActivity.this);
+                    dialog.cancelAction.setVisibility(View.GONE);
+                    dialog.showDialog();
+                    dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
         }
-        final String url =  urlPrefix.trim();
-        Log.d("url ======= >",url);
-        final ProgressDialog progressDialog = ServerUtils.savingServerDialog(AddDomainServerActivity.this);
-        ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
-            @Override
-            public void onVerificationStarted() {
-                progressDialog.show();
-            }
-
-            @Override
-            public void onServerValid(Server server) {
-                progressDialog.dismiss();
-                Intent intent = new Intent(AddDomainServerActivity.this, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.INTENT_KEY_URL, url);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onServerNotSupported() {
-                progressDialog.dismiss();
-                dialog = new ActionDialog(R.string.ServerManager_Error_TitleVersion,
-                        R.string.ServerManager_Error_PlatformVersionNotSupported, R.string.Word_OK, AddDomainServerActivity.this);
-                dialog.cancelAction.setVisibility(View.GONE);
-                dialog.showDialog();
-                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-            }
-
-            @Override
-            public void onServerInvalid() {
-                progressDialog.dismiss();
-                dialog = new ActionDialog(R.string.ServerManager_Error_TitleIncorrect,
-                        R.string.ServerManager_Error_IncorrectUrl, R.string.Word_OK, AddDomainServerActivity.this);
-                dialog.cancelAction.setVisibility(View.GONE);
-                dialog.showDialog();
-                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-            }
-        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
