@@ -5,9 +5,14 @@ import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,6 +27,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -47,6 +53,8 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView slideTitle;
     private TextView currentPage;
     private TextView scanQRBtn;
+    private ActionDialog dialog;
+    private CheckConnectivity checkConnectivity;
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
@@ -59,6 +67,9 @@ public class BoardingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
+        dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
+                R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
+        checkConnectivity = new CheckConnectivity(BoardingActivity.this);
         if (savedInstanceState == null) {
             try {
                 bypassIfRecentlyVisited();
@@ -119,12 +130,14 @@ public class BoardingActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) { }
         });
+
     }
 
     @Override
     public void onBackPressed() {
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == 1011) {// If request is cancelled, the result arrays are empty.
@@ -154,37 +167,39 @@ public class BoardingActivity extends AppCompatActivity {
     }
 
     private void submitUrl(final String url) {
-        final ProgressDialog progressDialog = ServerUtils.savingServerDialog(this);
-        ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
-            @Override
-            public void onVerificationStarted() {
-                progressDialog.show();
-            }
+        if (checkConnectivity.isConnectedToInternet()) {
+            final ProgressDialog progressDialog = ServerUtils.savingServerDialog(this);
+            ServerUtils.verifyUrl(url, new ServerUtils.ServerVerificationCallback() {
+                @Override
+                public void onVerificationStarted() {
+                    progressDialog.show();
+                }
 
-            @Override
-            public void onServerValid(Server server) {
-                progressDialog.dismiss();
-                Intent intent = new Intent(BoardingActivity.this, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.INTENT_KEY_URL, url); // server.getUrl().toString()
-                startActivity(intent);
-            }
+                @Override
+                public void onServerValid(Server server) {
+                    progressDialog.dismiss();
+                    Intent intent = new Intent(BoardingActivity.this, WebViewActivity.class);
+                    intent.putExtra(WebViewActivity.INTENT_KEY_URL, url); // server.getUrl().toString()
+                    startActivity(intent);
+                }
 
-            @Override
-            public void onServerNotSupported() {
-                progressDialog.dismiss();
-                ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
-                        R.string.ServerManager_Error_TitleVersion,
-                        R.string.ServerManager_Error_PlatformVersionNotSupported).show();
-            }
+                @Override
+                public void onServerNotSupported() {
+                    progressDialog.dismiss();
+                    ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
+                            R.string.ServerManager_Error_TitleVersion,
+                            R.string.ServerManager_Error_PlatformVersionNotSupported).show();
+                }
 
-            @Override
-            public void onServerInvalid() {
-                progressDialog.dismiss();
-                ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
-                        R.string.ServerManager_Error_TitleIncorrect,
-                        R.string.ServerManager_Error_IncorrectUrl).show();
-            }
-        });
+                @Override
+                public void onServerInvalid() {
+                    progressDialog.dismiss();
+                    ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
+                            R.string.ServerManager_Error_TitleIncorrect,
+                            R.string.ServerManager_Error_IncorrectUrl).show();
+                }
+            });
+        }
     }
 
     public class The_slide_timer extends TimerTask {
@@ -254,38 +269,39 @@ public class BoardingActivity extends AppCompatActivity {
     }
 
     private void setWakeUpActivityRoot(final ResultHandler<Boolean> handler) throws IOException {
-        SharedPreferences prefs = App.Preferences.get(this);
-        Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-        String username = prefs.getString("connectedUsername","username");
-        String cookies = prefs.getString("connectedCookies","cookies");
-        if (serverToConnect != null) {
-            final String url = App.getCheckSessionURL(serverToConnect.getUrl().getProtocol(),serverToConnect.getShortUrl(),username);
-            Log.d("url =========> ",url);
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try  {
-                        OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder()
-                                .addHeader("Content-Type", "application/json")
-                                .addHeader("Cookie", cookies)
-                                .url(url)
-                                .build();
-                        Response httpResponse = client.newCall(request).execute();
-                        if (httpResponse.code() == 200){
-                            handler.onSuccess(true);
-                        }else{
-                            handler.onSuccess(false);
+        if (checkConnectivity.isConnectedToInternet()) {
+            SharedPreferences prefs = App.Preferences.get(this);
+            Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
+            String username = prefs.getString("connectedUsername", "username");
+            String cookies = prefs.getString("connectedCookies", "cookies");
+            if (serverToConnect != null) {
+                final String url = App.getCheckSessionURL(serverToConnect.getUrl().getProtocol(), serverToConnect.getShortUrl(), username);
+                Log.d("url =========> ", url);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            OkHttpClient client = new OkHttpClient();
+                            Request request = new Request.Builder()
+                                    .addHeader("Content-Type", "application/json")
+                                    .addHeader("Cookie", cookies)
+                                    .url(url)
+                                    .build();
+                            Response httpResponse = client.newCall(request).execute();
+                            if (httpResponse.code() == 200) {
+                                handler.onSuccess(true);
+                            } else {
+                                handler.onSuccess(false);
+                            }
+                        } catch (Exception e) {
+                            Log.e("error", String.valueOf(e));
+                            handler.onFailure(e);
                         }
-                    } catch (Exception e) {
-                        Log.e("error", String.valueOf(e));
-                        handler.onFailure(e);
                     }
-                }
-            });
-            thread.start();
+                });
+                thread.start();
+            }
         }
-
     }
 
     public interface ResultHandler<T> {

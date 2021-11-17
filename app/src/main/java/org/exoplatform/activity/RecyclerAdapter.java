@@ -35,6 +35,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final Activity activity;
     private ServerManagerImpl mServerManager;
     private ActionDialog dialog;
+    private CheckConnectivity checkConnectivity;
+
     int positionToDelete;
     public RecyclerAdapter(Activity activity) {
         this.activity = activity;
@@ -43,6 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Collections.sort(serverList, Collections.reverseOrder());
         dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
                 R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, activity);
+        checkConnectivity = new CheckConnectivity(activity);
         dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,12 +109,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             itemViewHolder.server_card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SharedPreferences.Editor editor = shared.edit();
-                    editor.putInt(urlKey, 0);
-                    editor.apply();
-                    Intent intent = new Intent(activity, WebViewActivity.class);
-                    intent.putExtra(WebViewActivity.INTENT_KEY_URL, server.getUrl().toString());
-                    activity.startActivity(intent);
+                    if (checkConnectivity.isConnectedToInternet()){
+                        SharedPreferences.Editor editor = shared.edit();
+                        editor.putInt(urlKey, 0);
+                        editor.apply();
+                        Intent intent = new Intent(activity, WebViewActivity.class);
+                        intent.putExtra(WebViewActivity.INTENT_KEY_URL, server.getUrl().toString());
+                        activity.startActivity(intent);
+                    }
                 }
             });
         } else if (holder instanceof FooterViewHolder) {

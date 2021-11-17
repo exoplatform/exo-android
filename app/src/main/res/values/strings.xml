@@ -65,8 +65,9 @@
     <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
     <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
     <string name="OnBoarding.Title.GotItButton">Got It</string>
-    <string name="OnBoarding.Title.CurrentPage">3</string>
     <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
+    <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
+    <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
 
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Cancel</string>
@@ -116,7 +117,6 @@
     <string name="ShareActivity.Error.CannotPostBecauseOffline">You must select an account and sign in to post</string>
     <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
     <string name="ShareActivity.Message.OperationStarted">Share in progress, check the status in the notification area</string>
-
     <string name="ShareService.Message.OperationSuccess">Success</string>
     <string name="ShareService.Title.ShareDocument">Share document</string>
     <string name="ShareService.Title.ShareMessage">Share message</string>
@@ -130,6 +130,5 @@
     <string name="ShareService.Error.SomeFilesCannotShare">Some documents cannot be shared</string>
     <string name="ShareService.Error.AllFilesCannotShare">All documents cannot be shared</string>
     <string name="ShareService.Error.NullPostInfo">Share failed. Incorrect data.</string>
-
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 </resources>
