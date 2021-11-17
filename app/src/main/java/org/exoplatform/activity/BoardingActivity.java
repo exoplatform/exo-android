@@ -55,7 +55,6 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView scanQRBtn;
     private ActionDialog dialog;
     private CheckConnectivity checkConnectivity;
-
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
     Boolean isFromInstances;
@@ -183,23 +182,36 @@ public class BoardingActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
 
-                @Override
-                public void onServerNotSupported() {
-                    progressDialog.dismiss();
-                    ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
-                            R.string.ServerManager_Error_TitleVersion,
-                            R.string.ServerManager_Error_PlatformVersionNotSupported).show();
-                }
+            @Override
+            public void onServerNotSupported() {
+                progressDialog.dismiss();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleVersion,
+                        R.string.ServerManager_Error_PlatformVersionNotSupported, R.string.Word_OK, BoardingActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
 
-                @Override
-                public void onServerInvalid() {
-                    progressDialog.dismiss();
-                    ServerUtils.dialogWithTitleAndMessage(BoardingActivity.this,
-                            R.string.ServerManager_Error_TitleIncorrect,
-                            R.string.ServerManager_Error_IncorrectUrl).show();
-                }
-            });
-        }
+            @Override
+            public void onServerInvalid() {
+                progressDialog.dismiss();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleIncorrect,
+                        R.string.ServerManager_Error_IncorrectUrl, R.string.Word_OK, BoardingActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     public class The_slide_timer extends TimerTask {

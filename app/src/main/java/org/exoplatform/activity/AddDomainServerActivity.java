@@ -38,6 +38,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
     TextView headerTitle;
     TextView addURLTextView;
     private CheckConnectivity checkConnectivity;
+    private ActionDialog dialog;
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -126,23 +127,36 @@ public class AddDomainServerActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
 
-                @Override
-                public void onServerNotSupported() {
-                    progressDialog.dismiss();
-                    ServerUtils.dialogWithTitleAndMessage(AddDomainServerActivity.this,
-                            R.string.ServerManager_Error_TitleVersion,
-                            R.string.ServerManager_Error_PlatformVersionNotSupported).show();
-                }
+            @Override
+            public void onServerNotSupported() {
+                progressDialog.dismiss();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleVersion,
+                        R.string.ServerManager_Error_PlatformVersionNotSupported, R.string.Word_OK, AddDomainServerActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
 
-                @Override
-                public void onServerInvalid() {
-                    progressDialog.dismiss();
-                    ServerUtils.dialogWithTitleAndMessage(AddDomainServerActivity.this,
-                            R.string.ServerManager_Error_TitleIncorrect,
-                            R.string.ServerManager_Error_IncorrectUrl).show();
-                }
-            });
-        }
+            @Override
+            public void onServerInvalid() {
+                progressDialog.dismiss();
+                dialog = new ActionDialog(R.string.ServerManager_Error_TitleIncorrect,
+                        R.string.ServerManager_Error_IncorrectUrl, R.string.Word_OK, AddDomainServerActivity.this);
+                dialog.cancelAction.setVisibility(View.GONE);
+                dialog.showDialog();
+                dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
