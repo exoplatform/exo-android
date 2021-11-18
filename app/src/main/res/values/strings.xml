@@ -22,9 +22,9 @@
     <string name="app_name">eXo</string>
 
     <string name="ServerManager.Message.SavingServer">Saving intranet…</string>
-    <string name="ServerManager.Error.TitleIncorrect">Intranet URL error</string>
+    <string name="ServerManager.Error.TitleIncorrect">eXo instance URL error</string>
     <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Unable to connect to the intranet</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
 
