@@ -46,8 +46,9 @@
     <string name="OnBoarding.Message.Engagement">Travaillez mieux ensemble via des notes, des documents, des forums ou des calendriers, tous intégrés aux flux d\'activité</string>
     <string name="OnBoarding.Message.Networking">Découvrez, trouvez et connectez-vous aux personnes de votre réseau avec des intérêts communs, afin que vous puissiez collaborer et travailler ensemble</string>
     <string name="OnBoarding.Title.GotItButton">J\'ai compris</string>
-    <string name="OnBoarding.Title.CurrentPage">3</string>
     <string name="OnBoarding.Title.SlideTitle">Affichez le QR Code dans vos\n paramètres eXo.</string>
+    <string name="OnBoarding.Title.LostCnnection">Connexion Internet perdue</string>
+    <string name="OnBoarding.Message.LostCnnection">Veuillez vous assurer d\'avoir une connexion Internet.</string>
 
     <string name="Word.OK">D\'accord</string>
     <string name="Word.Cancel">Annuler</string>
