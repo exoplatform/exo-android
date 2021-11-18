@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -134,6 +135,9 @@ public class AddDomainServerActivity extends AppCompatActivity {
                     dialog = new ActionDialog(R.string.ServerManager_Error_TitleVersion,
                             R.string.ServerManager_Error_PlatformVersionNotSupported, R.string.Word_OK, AddDomainServerActivity.this);
                     dialog.cancelAction.setVisibility(View.GONE);
+                    LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)dialog.deleteAction.getLayoutParams();
+                    ll.setMarginStart(0);
+                    dialog.deleteAction.setLayoutParams(ll);
                     dialog.showDialog();
                     dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -149,6 +153,9 @@ public class AddDomainServerActivity extends AppCompatActivity {
                     dialog = new ActionDialog(R.string.ServerManager_Error_TitleIncorrect,
                             R.string.ServerManager_Error_IncorrectUrl, R.string.Word_OK, AddDomainServerActivity.this);
                     dialog.cancelAction.setVisibility(View.GONE);
+                    LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)dialog.deleteAction.getLayoutParams();
+                    ll.setMarginStart(0);
+                    dialog.deleteAction.setLayoutParams(ll);
                     dialog.showDialog();
                     dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
                         @Override
