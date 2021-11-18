@@ -207,7 +207,7 @@ public class SelectSpaceFragment extends Fragment implements LoaderManager.Loade
     mProgressView = new ProgressBar(getContext(), null, android.R.attr.progressBarStyleSmall);
     // To get an horizontal bar, use android.R.attr.progressBarStyleHorizontal as the progress bar style
     mProgressView.setIndeterminate(true);
-    int eXoYellow = getResources().getColor(R.color.eXoYellow);
+    int eXoYellow = getResources().getColor(R.color.eXoLightGray);
     mProgressView.getIndeterminateDrawable().setColorFilter(eXoYellow, PorterDuff.Mode.SRC_IN);
     mProgressView.setLayoutParams(new ListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT, AbsListView.LayoutParams.WRAP_CONTENT));
     mProgressView.setPadding(0, 10, 0, 10); // 0px left and right, 10px top and bottom
