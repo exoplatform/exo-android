@@ -37,7 +37,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/rounded_corner"
                 android:gravity="center"
-                android:text="@string/OnBoarding.Title.CurrentPage"
+                android:text="1"
                 android:textAlignment="center"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="20dp"

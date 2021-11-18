@@ -48,6 +48,7 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView currentPage;
     private TextView scanQRBtn;
     private ActionDialog dialog;
+    private CheckConnectivity checkConnectivity;
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
@@ -60,6 +61,9 @@ public class BoardingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
+        dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
+                R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
+        checkConnectivity = new CheckConnectivity(BoardingActivity.this);
         if (savedInstanceState == null) {
             try {
                 bypassIfRecentlyVisited();
@@ -269,38 +273,40 @@ public class BoardingActivity extends AppCompatActivity {
     }
 
     private void setWakeUpActivityRoot(final ResultHandler<Boolean> handler) throws IOException {
-        SharedPreferences prefs = App.Preferences.get(this);
-        Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-        String username = prefs.getString("connectedUsername","username");
-        String cookies = prefs.getString("connectedCookies","cookies");
-        if (serverToConnect != null) {
-            final String url = App.getCheckSessionURL(serverToConnect.getUrl().getProtocol(),serverToConnect.getShortUrl(),username);
-            Log.d("url =========> ",url);
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try  {
-                        OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder()
-                                .addHeader("Content-Type", "application/json")
-                                .addHeader("Cookie", cookies)
-                                .url(url)
-                                .build();
-                        Response httpResponse = client.newCall(request).execute();
-                        if (httpResponse.code() == 200){
-                            handler.onSuccess(true);
-                        }else{
-                            handler.onSuccess(false);
-                        }
-                    } catch (Exception e) {
-                        Log.e("error", String.valueOf(e));
-                        handler.onFailure(e);
-                    }
-                }
-            });
-            thread.start();
-        }
+        if (checkConnectivity.isConnectedToInternet()) {
 
+            SharedPreferences prefs = App.Preferences.get(this);
+            Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
+            String username = prefs.getString("connectedUsername", "username");
+            String cookies = prefs.getString("connectedCookies", "cookies");
+            if (serverToConnect != null) {
+                final String url = App.getCheckSessionURL(serverToConnect.getUrl().getProtocol(), serverToConnect.getShortUrl(), username);
+                Log.d("url =========> ", url);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            OkHttpClient client = new OkHttpClient();
+                            Request request = new Request.Builder()
+                                    .addHeader("Content-Type", "application/json")
+                                    .addHeader("Cookie", cookies)
+                                    .url(url)
+                                    .build();
+                            Response httpResponse = client.newCall(request).execute();
+                            if (httpResponse.code() == 200) {
+                                handler.onSuccess(true);
+                            } else {
+                                handler.onSuccess(false);
+                            }
+                        } catch (Exception e) {
+                            Log.e("error", String.valueOf(e));
+                            handler.onFailure(e);
+                        }
+                    }
+                });
+                thread.start();
+            }
+        }
     }
 
     public interface ResultHandler<T> {
