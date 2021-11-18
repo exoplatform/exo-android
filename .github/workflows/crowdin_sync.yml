@@ -15,14 +15,14 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: ${{ env.BASE_BRANCH }}
-        depth: 0
+        fetch-depth: 0
     - name: Reset Crowdin Sync Branch
       run: |
         git fetch
         git checkout ${CROWDIN_SYNC_BRANCH} || git checkout -b ${CROWDIN_SYNC_BRANCH}
         git reset --hard origin/${BASE_BRANCH}
     - name: crowdin action
-      uses: crowdin/github-action@1.0.4
+      uses: crowdin/github-action@1.4.1
       with:
         upload_translations: true
         download_translations: true
