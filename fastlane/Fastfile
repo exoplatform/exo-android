@@ -24,7 +24,7 @@ platform :android do
   lane :beta do
     gradle(task: "clean")
     add_badge(
-      shield: "5.1.8-RC01-blue",
+      shield: "6.2.0",
       dark: true,
       glob: "/app/src/main/res/mipmap-*/ic_launcher.png"
       )
