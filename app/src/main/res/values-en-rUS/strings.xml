@@ -21,15 +21,15 @@
 <resources>
     <string name="app_name">eXo</string>
     <string name="ServerManager.Message.SavingServer">Saving eXo connection</string>
-    <string name="ServerManager.Error.TitleIncorrect">eXo instance URL error</string>
+    <string name="ServerManager.Error.TitleIncorrect">Wrong eXo URL</string>
     <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct URL</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 6.2 or later</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Your exo instance uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 6.2 or use the application version 2.</string>
     <string name="ConnectActivity.Title.ConnectShare">Connect, share and work together</string>
     <string name="ConnectActivity.Title.DiscoverExoTribe">Discover eXo Tribe</string>
-    <string name="ConnectActivity.Title.AddIntranet">Add intranet</string>
-    <string name="ConnectActivity.Title.AddNewIntranet">Add new intranet</string>
+    <string name="ConnectActivity.Title.AddIntranet">Add eXo Connection</string>
+    <string name="ConnectActivity.Title.AddNewIntranet">Add new eXo connection</string>
     <string name="ConnectActivity.Title.ConnectTo">Connect to</string>
     <string name="ConnectActivity.Title.Others">Others</string>
     <string name="ConnectActivity.Title.ConnnectToExoTribe">Connect to eXo Tribe</string>
@@ -46,8 +46,8 @@
     <string name="SettingsActivity.Title.Edit">Edit</string>
     <string name="SettingsActivity.Title.Save">Save</string>
     <string name="SettingsActivity.Title.EnterIntranetUrl">Enter your eXo connection URL</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo instance</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
+    <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo Connection</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to deleted this connection ?</string>
     <string name="WebClient.WebView.Title.Loading">Loading&#8230;</string>
     <string name="WebClient.WebView.Hint.Close">Close web page</string>
     <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
@@ -61,7 +61,7 @@
     <string name="OnBoarding.Title.GotItButton">Got It</string>
     <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
     <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
-    <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
+    <string name="OnBoarding.Message.LostCnnection">Please make sure you are connected to Internet.</string>
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Cancel</string>
     <string name="Word.Back">Back</string>
@@ -72,16 +72,16 @@
     <string name="Word.Done">Done</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
-    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code displayed in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
     <string name="Onboarding.Button.Scan">Scan Code</string>
-    <string name="Onboarding.Button.addURL">Enter server URL</string>
+    <string name="Onboarding.Button.addURL">Enter eXo connection URL</string>
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Add your eXo</string>
-    <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
+    <string name="AddDomain.Title.Header">New eXo Connection</string>
+    <string name="AddDomain.Title.addURL">Enter your eXo connection address</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Post</string>
-    <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
+    <string name="ShareActivity.Compose.Title.Intranet">eXo</string>
     <string name="ShareActivity.Compose.Title.ShareWith">Share this post with</string>
     <string name="ShareActivity.Compose.Title.AllConnections">All my connections</string>
     <string name="ShareActivity.Compose.Title.SignIn">Login</string>
@@ -89,13 +89,13 @@
     <string name="ShareActivity.Compose.Title.SignInToPost">Please sign in to post</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Enter your message here.</string>
     <string name="ShareActivity.Compose.Hint.Thumbnail">Thumbnail</string>
-    <string name="ShareActivity.Intranets.Title.Intranets">Select an intranet</string>
-    <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your credentials</string>
+    <string name="ShareActivity.Intranets.Title.Intranets">Select an eXo</string>
+    <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your eXo credentials</string>
     <string name="ShareActivity.SignIn.Title.Username">Username</string>
     <string name="ShareActivity.SignIn.Title.Password">Password</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">You are not in any space</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">To enable sharing, you need to grant storage permissions.\nOpen the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Leave</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Open App Settings</string>
     <string name="ShareActivity.Error.SignInFailed">Login failed, please try again</string>
@@ -105,11 +105,11 @@
     <string name="ShareActivity.Error.TooManyFiles">Cannot share more than 10 documents</string>
     <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">You must select an account and sign in to select a space</string>
     <string name="ShareActivity.Error.CannotPostBecauseOffline">You must select an account and sign in to post</string>
-    <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
+    <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a post message</string>
     <string name="ShareActivity.Message.OperationStarted">Share in progress, check the status in the notification area</string>
     <string name="ShareService.Message.OperationSuccess">Success</string>
     <string name="ShareService.Title.ShareDocument">Share document</string>
-    <string name="ShareService.Title.ShareMessage">Share message</string>
+    <string name="ShareService.Title.ShareMessage">Share a post</string>
     <string name="ShareService.Message.UploadInProgress">Upload in progress</string>
     <string name="ShareService.Message.PostShortly">Your message will be posted shortly</string>
     <string name="ShareService.Error.UploadFailed">Could not share the document</string>

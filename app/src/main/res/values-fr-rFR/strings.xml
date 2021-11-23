@@ -29,7 +29,7 @@
     <string name="ConnectActivity.Title.ConnectShare">Connectez-vous, partagez et travaillez ensemble</string>
     <string name="ConnectActivity.Title.DiscoverExoTribe">Découvrir eXo Tribe</string>
     <string name="ConnectActivity.Title.AddIntranet">Ajouter instance eXo</string>
-    <string name="ConnectActivity.Title.AddNewIntranet">Add new intranet</string>
+    <string name="ConnectActivity.Title.AddNewIntranet">Ajouter nouvelle instance eXo</string>
     <string name="ConnectActivity.Title.ConnectTo">Se connecter à</string>
     <string name="ConnectActivity.Title.Others">Autres</string>
     <string name="ConnectActivity.Title.ConnnectToExoTribe">Se connecter à la tribe eXo</string>
@@ -77,7 +77,7 @@
     <string name="Onboarding.Button.Scan">Scanner le QR code</string>
     <string name="Onboarding.Button.addURL">Entrez l\'URL de l\'instance eXo</string>
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Add your eXo</string>
+    <string name="AddDomain.Title.Header">Ajouter une instance eXo</string>
     <string name="AddDomain.Title.addURL">Entrez votre URL instance eXo</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Publier</string>
