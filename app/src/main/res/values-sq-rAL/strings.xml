@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2003-2016 eXo Platform SAS.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 3 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  ~
+  -->
+<resources>
+    <string name="app_name">crwdns7014807:0crwdne7014807:0</string>
+    <string name="ServerManager.Message.SavingServer">crwdns7014809:0crwdne7014809:0</string>
+    <string name="ServerManager.Error.TitleIncorrect">crwdns7015171:0crwdne7015171:0</string>
+    <string name="ServerManager.Error.TitleVersion">crwdns7014813:0crwdne7014813:0</string>
+    <string name="ServerManager.Error.IncorrectUrl">crwdns7015173:0crwdne7015173:0</string>
+    <string name="ServerManager.Error.PlatformVersionNotSupported">crwdns7014817:0crwdne7014817:0</string>
+    <string name="ServerManager.Alert.PlatformVersionNotSupported">crwdns7014819:0crwdne7014819:0</string>
+    <string name="ConnectActivity.Title.ConnectShare">crwdns7014821:0crwdne7014821:0</string>
+    <string name="ConnectActivity.Title.DiscoverExoTribe">crwdns7014823:0crwdne7014823:0</string>
+    <string name="ConnectActivity.Title.AddIntranet">crwdns7014825:0crwdne7014825:0</string>
+    <string name="ConnectActivity.Title.AddNewIntranet">crwdns7014827:0crwdne7014827:0</string>
+    <string name="ConnectActivity.Title.ConnectTo">crwdns7014829:0crwdne7014829:0</string>
+    <string name="ConnectActivity.Title.Others">crwdns7014831:0crwdne7014831:0</string>
+    <string name="ConnectActivity.Title.ConnnectToExoTribe">crwdns7014833:0crwdne7014833:0</string>
+    <string name="ServersActivity.Title.SignInToExo">crwdns7014835:0crwdne7014835:0</string>
+    <string name="AddServerFragment.Title.NewIntranet">crwdns7014837:0crwdne7014837:0</string>
+    <string name="AddServerFragment.Title.EnterIntranetUrl">crwdns7014839:0crwdne7014839:0</string>
+    <string name="ServersFragment.Title.MyIntranets">crwdns7014841:0crwdne7014841:0</string>
+    <string name="SettingsActivity.Title.Settings">crwdns7014843:0crwdne7014843:0</string>
+    <string name="SettingsActivity.Header.Intranets">crwdns7014845:0crwdne7014845:0</string>
+    <string name="SettingsActivity.Header.NoIntranet">crwdns7014847:0crwdne7014847:0</string>
+    <string name="SettingsActivity.Header.About">crwdns7014849:0crwdne7014849:0</string>
+    <string name="SettingsActivity.Title.ConnectIntranet">crwdns7014851:0crwdne7014851:0</string>
+    <string name="SettingsActivity.Title.ApplicationVersion">crwdns7014853:0crwdne7014853:0</string>
+    <string name="SettingsActivity.Title.Edit">crwdns7014855:0crwdne7014855:0</string>
+    <string name="SettingsActivity.Title.Save">crwdns7014857:0crwdne7014857:0</string>
+    <string name="SettingsActivity.Title.EnterIntranetUrl">crwdns7014859:0crwdne7014859:0</string>
+    <string name="SettingsActivity.Title.DeleteConfirmation">crwdns7015175:0crwdne7015175:0</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">crwdns7015177:0crwdne7015177:0</string>
+    <string name="WebClient.WebView.Title.Loading">crwdns7014865:0crwdne7014865:0</string>
+    <string name="WebClient.WebView.Hint.Close">crwdns7014867:0crwdne7014867:0</string>
+    <string name="OnBoarding.Title.Welcome">crwdns7014869:0crwdne7014869:0</string>
+    <string name="OnBoarding.Title.Collaboration">crwdns7014871:0crwdne7014871:0</string>
+    <string name="OnBoarding.Title.Engagement">crwdns7014873:0crwdne7014873:0</string>
+    <string name="OnBoarding.Title.Networking">crwdns7014875:0crwdne7014875:0</string>
+    <string name="OnBoarding.Message.Welcome">crwdns7014877:0crwdne7014877:0</string>
+    <string name="OnBoarding.Message.Collaboration">crwdns7014879:0crwdne7014879:0</string>
+    <string name="OnBoarding.Message.Engagement">crwdns7014881:0crwdne7014881:0</string>
+    <string name="OnBoarding.Message.Networking">crwdns7014883:0crwdne7014883:0</string>
+    <string name="OnBoarding.Title.GotItButton">crwdns7014885:0crwdne7014885:0</string>
+    <string name="OnBoarding.Title.SlideTitle">crwdns7014889:0crwdne7014889:0</string>
+    <string name="OnBoarding.Title.LostCnnection">crwdns7015179:0crwdne7015179:0</string>
+    <string name="OnBoarding.Message.LostCnnection">crwdns7015181:0crwdne7015181:0</string>
+    <string name="Word.OK">crwdns7014891:0crwdne7014891:0</string>
+    <string name="Word.Cancel">crwdns7014893:0crwdne7014893:0</string>
+    <string name="Word.Back">crwdns7014895:0crwdne7014895:0</string>
+    <string name="Word.Delete">crwdns7014897:0crwdne7014897:0</string>
+    <string name="Word.eXo">crwdns7014899:0crwdne7014899:0</string>
+    <string name="Word.eXoPlatform">crwdns7014901:0crwdne7014901:0</string>
+    <string name="Word.Space">crwdns7014903:0crwdne7014903:0</string>
+    <string name="Word.Done">crwdns7014905:0crwdne7014905:0</string>
+    <!-- Onboarding -->
+    <string name="Onboarding.Title.Slide1">crwdns7014907:0crwdne7014907:0</string>
+    <string name="Onboarding.Title.slide2">crwdns7014909:0crwdne7014909:0</string>
+    <string name="Onboarding.Title.slide3">crwdns7014911:0crwdne7014911:0</string>
+    <string name="Onboarding.Button.Scan">crwdns7014913:0crwdne7014913:0</string>
+    <string name="Onboarding.Button.addURL">crwdns7014915:0crwdne7014915:0</string>
+    <!-- Add Domain -->
+    <string name="AddDomain.Title.Header">crwdns7015183:0crwdne7015183:0</string>
+    <string name="AddDomain.Title.addURL">crwdns7014919:0crwdne7014919:0</string>
+    <!-- Share Extension -->
+    <string name="ShareActivity.Main.Title.Post">crwdns7014921:0crwdne7014921:0</string>
+    <string name="ShareActivity.Compose.Title.Intranet">crwdns7014923:0crwdne7014923:0</string>
+    <string name="ShareActivity.Compose.Title.ShareWith">crwdns7014925:0crwdne7014925:0</string>
+    <string name="ShareActivity.Compose.Title.AllConnections">crwdns7014927:0crwdne7014927:0</string>
+    <string name="ShareActivity.Compose.Title.SignIn">crwdns7014929:0crwdne7014929:0</string>
+    <string name="ShareActivity.Compose.Title.SigningIn">crwdns7014931:0crwdne7014931:0</string>
+    <string name="ShareActivity.Compose.Title.SignInToPost">crwdns7014933:0crwdne7014933:0</string>
+    <string name="ShareActivity.Compose.Hint.WorkingOn">crwdns7014935:0crwdne7014935:0</string>
+    <string name="ShareActivity.Compose.Hint.Thumbnail">crwdns7014937:0crwdne7014937:0</string>
+    <string name="ShareActivity.Intranets.Title.Intranets">crwdns7014939:0crwdne7014939:0</string>
+    <string name="ShareActivity.SignIn.Title.EnterCredentials">crwdns7014941:0crwdne7014941:0</string>
+    <string name="ShareActivity.SignIn.Title.Username">crwdns7014943:0crwdne7014943:0</string>
+    <string name="ShareActivity.SignIn.Title.Password">crwdns7014945:0crwdne7014945:0</string>
+    <string name="ShareActivity.Spaces.Title.LoadingSpaces">crwdns7014947:0crwdne7014947:0</string>
+    <string name="ShareActivity.Spaces.Title.NoSpace">crwdns7014949:0crwdne7014949:0</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">crwdns7014951:0crwdne7014951:0</string>
+    <string name="ShareActivity.PermissionDialog.Title.Leave">crwdns7014953:0crwdne7014953:0</string>
+    <string name="ShareActivity.PermissionDialog.Title.AppSettings">crwdns7014955:0crwdne7014955:0</string>
+    <string name="ShareActivity.Error.SignInFailed">crwdns7014957:0crwdne7014957:0</string>
+    <string name="ShareActivity.Error.NoAccountConfigured">crwdns7014959:0crwdne7014959:0</string>
+    <string name="ShareActivity.Error.CannotReadDoc">crwdns7014961:0crwdne7014961:0</string>
+    <string name="ShareActivity.Error.FileTooBig">crwdns7014963:0crwdne7014963:0</string>
+    <string name="ShareActivity.Error.TooManyFiles">crwdns7014965:0crwdne7014965:0</string>
+    <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">crwdns7014967:0crwdne7014967:0</string>
+    <string name="ShareActivity.Error.CannotPostBecauseOffline">crwdns7014969:0crwdne7014969:0</string>
+    <string name="ShareActivity.Error.CannotPostBecauseEmpty">crwdns7014971:0crwdne7014971:0</string>
+    <string name="ShareActivity.Message.OperationStarted">crwdns7014973:0crwdne7014973:0</string>
+    <string name="ShareService.Message.OperationSuccess">crwdns7014975:0crwdne7014975:0</string>
+    <string name="ShareService.Title.ShareDocument">crwdns7014977:0crwdne7014977:0</string>
+    <string name="ShareService.Title.ShareMessage">crwdns7014979:0crwdne7014979:0</string>
+    <string name="ShareService.Message.UploadInProgress">crwdns7014981:0crwdne7014981:0</string>
+    <string name="ShareService.Message.PostShortly">crwdns7014983:0crwdne7014983:0</string>
+    <string name="ShareService.Error.UploadFailed">crwdns7014985:0crwdne7014985:0</string>
+    <string name="ShareService.Error.PostFailed">crwdns7014987:0crwdne7014987:0</string>
+    <string name="ShareService.Error.CommentFailed">crwdns7014989:0crwdne7014989:0</string>
+    <string name="ShareService.Error.UploadFolderFailed">crwdns7014991:0crwdne7014991:0</string>
+    <string name="ShareService.Error.IncorrectAccount">crwdns7014993:0crwdne7014993:0</string>
+    <string name="ShareService.Error.SomeFilesCannotShare">crwdns7014995:0crwdne7014995:0</string>
+    <string name="ShareService.Error.AllFilesCannotShare">crwdns7014997:0crwdne7014997:0</string>
+    <string name="ShareService.Error.NullPostInfo">crwdns7014999:0crwdne7014999:0</string>
+</resources>
