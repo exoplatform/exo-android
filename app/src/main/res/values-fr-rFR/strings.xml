@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2003-2016 eXo Platform SAS.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 3 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  ~
+  -->
+<resources>
+    <string name="app_name">eXo</string>
+    <string name="ServerManager.Message.SavingServer">Enregistrement de l\'instance eXo&#8230;</string>
+    <string name="ServerManager.Error.TitleIncorrect">Erreur dans l\'URL eXo</string>
+    <string name="ServerManager.Error.TitleVersion">Version de la plateforme non supporté</string>
+    <string name="ServerManager.Error.IncorrectUrl">Veuillez entrer une instance eXo valide</string>
+    <string name="ServerManager.Error.PlatformVersionNotSupported">L\'application ne prend en charge que la version 6.2 ou ultérieure de la plateforme</string>
+    <string name="ServerManager.Alert.PlatformVersionNotSupported">Votre instance eXo utilise une version de Platform non prise en charge par cette application. Nous vous recommandons de mettre à jour vers la plate-forme 6.2 ou d\'utiliser l\'application version 2.</string>
+    <string name="ConnectActivity.Title.ConnectShare">Connectez-vous, partagez et travaillez ensemble</string>
+    <string name="ConnectActivity.Title.DiscoverExoTribe">Découvrir eXo Tribe</string>
+    <string name="ConnectActivity.Title.AddIntranet">Ajouter instance eXo</string>
+    <string name="ConnectActivity.Title.AddNewIntranet">Ajouter nouvelle instance eXo</string>
+    <string name="ConnectActivity.Title.ConnectTo">Se connecter à</string>
+    <string name="ConnectActivity.Title.Others">Autres</string>
+    <string name="ConnectActivity.Title.ConnnectToExoTribe">Se connecter à la tribe eXo</string>
+    <string name="ServersActivity.Title.SignInToExo">Se connecter à eXo</string>
+    <string name="AddServerFragment.Title.NewIntranet">Nouvelle instance eXo</string>
+    <string name="AddServerFragment.Title.EnterIntranetUrl">Entrez l\'URL de votre instance eXo</string>
+    <string name="ServersFragment.Title.MyIntranets">Mes instances eXo</string>
+    <string name="SettingsActivity.Title.Settings">Paramètres</string>
+    <string name="SettingsActivity.Header.Intranets">Instances eXo</string>
+    <string name="SettingsActivity.Header.NoIntranet">Aucune instance eXo</string>
+    <string name="SettingsActivity.Header.About">A propos</string>
+    <string name="SettingsActivity.Title.ConnectIntranet">Connectez votre eXo</string>
+    <string name="SettingsActivity.Title.ApplicationVersion">Version de l\'application</string>
+    <string name="SettingsActivity.Title.Edit">Modifier</string>
+    <string name="SettingsActivity.Title.Save">Enregistrer</string>
+    <string name="SettingsActivity.Title.EnterIntranetUrl">Entrez l\'URL de votre instance eXo</string>
+    <string name="SettingsActivity.Title.DeleteConfirmation">Supprimer l\'instance eXo</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Voulez-vous vraiment supprimer cette instance eXo ?</string>
+    <string name="WebClient.WebView.Title.Loading">Chargement...</string>
+    <string name="WebClient.WebView.Hint.Close">Fermer cette page</string>
+    <string name="OnBoarding.Title.Welcome">Bienvenue sur eXo !</string>
+    <string name="OnBoarding.Title.Collaboration">Collaboration</string>
+    <string name="OnBoarding.Title.Engagement">Engagement</string>
+    <string name="OnBoarding.Title.Networking">Réseaux Sociaux</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform est un environnement numérique de travail centré sur les collaborateurs et les communautés.</string>
+    <string name="OnBoarding.Message.Collaboration">Les éléments de collaboration, tels que les espaces et les agendas, sont combinés pour faciliter la communication et la collaboration</string>
+    <string name="OnBoarding.Message.Engagement">Travaillez mieux ensemble à travers les notes, documents, discussions ou agendas, tous intégrés aux fil d\'activités</string>
+    <string name="OnBoarding.Message.Networking">Découvrez, trouvez et connectez des personnes dans votre réseau avec des intérêts partagés, afin que vous puissiez collaborer et travailler ensemble</string>
+    <string name="OnBoarding.Title.GotItButton">Compris</string>
+    <string name="OnBoarding.Title.SlideTitle">Affichez le QR Code dans vos paramètres eXo.</string>
+    <string name="OnBoarding.Title.LostCnnection">Connexion Internet perdue</string>
+    <string name="OnBoarding.Message.LostCnnection">Veuillez vous assurer d\'avoir une connexion Internet.</string>
+    <string name="Word.OK">OK</string>
+    <string name="Word.Cancel">Annuler</string>
+    <string name="Word.Back">Retour</string>
+    <string name="Word.Delete">Supprimer</string>
+    <string name="Word.eXo">eXo</string>
+    <string name="Word.eXoPlatform">eXoPlatform</string>
+    <string name="Word.Space">Espace</string>
+    <string name="Word.Done">Terminé</string>
+    <!-- Onboarding -->
+    <string name="Onboarding.Title.Slide1">Afficher le QR Code dans vos paramètres eXo</string>
+    <string name="Onboarding.Title.slide2">Scannez le QR Code qui apparaît dans vos paramètres eXo</string>
+    <string name="Onboarding.Title.slide3">Entrez le mot de passe pour vous connecter rapidement</string>
+    <string name="Onboarding.Button.Scan">Scanner le QR code</string>
+    <string name="Onboarding.Button.addURL">Entrez l\'URL de l\'instance eXo</string>
+    <!-- Add Domain -->
+    <string name="AddDomain.Title.Header">Ajouter une instance eXo</string>
+    <string name="AddDomain.Title.addURL">Entrez votre URL instance eXo</string>
+    <!-- Share Extension -->
+    <string name="ShareActivity.Main.Title.Post">Publier</string>
+    <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
+    <string name="ShareActivity.Compose.Title.ShareWith">Partager cette publication avec</string>
+    <string name="ShareActivity.Compose.Title.AllConnections">Toutes mes connexions</string>
+    <string name="ShareActivity.Compose.Title.SignIn">Connexion</string>
+    <string name="ShareActivity.Compose.Title.SigningIn">Connexion en cours&#8230;</string>
+    <string name="ShareActivity.Compose.Title.SignInToPost">Veuillez vous connecter</string>
+    <string name="ShareActivity.Compose.Hint.WorkingOn">Entrez votre message ici.</string>
+    <string name="ShareActivity.Compose.Hint.Thumbnail">Miniature</string>
+    <string name="ShareActivity.Intranets.Title.Intranets">Sélectionnez une instance eXo</string>
+    <string name="ShareActivity.SignIn.Title.EnterCredentials">Entrez vos identifiants</string>
+    <string name="ShareActivity.SignIn.Title.Username">Nom d\'utilisateur</string>
+    <string name="ShareActivity.SignIn.Title.Password">Mot de passe</string>
+    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Récupération des espaces&#8230;</string>
+    <string name="ShareActivity.Spaces.Title.NoSpace">Vous n\'êtes dans aucun espace</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">Le partage doit être interrompu parce que l\'accès au stockage est interdit pour cette application. Pour l\'autoriser, accéder aux paramètres de l\'application.</string>
+    <string name="ShareActivity.PermissionDialog.Title.Leave">Quitter</string>
+    <string name="ShareActivity.PermissionDialog.Title.AppSettings">Ouvrez les Réglages de l\'Application</string>
+    <string name="ShareActivity.Error.SignInFailed">La connexion a échoué, veuillez recommencer</string>
+    <string name="ShareActivity.Error.NoAccountConfigured">Aucun compte n\'est configuré</string>
+    <string name="ShareActivity.Error.CannotReadDoc">Impossible d\'accéder au document à partager</string>
+    <string name="ShareActivity.Error.FileTooBig">Vous ne pouvez pas partager de documents de plus de 10 Mo</string>
+    <string name="ShareActivity.Error.TooManyFiles">Vous ne pouvez pas partager plus de 10 documents</string>
+    <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">Veuillez choisir un compte et vous connecter pour accéder à la liste d\'espaces</string>
+    <string name="ShareActivity.Error.CannotPostBecauseOffline">Veuillez choisir un compte et vous connecter pour publier votre message</string>
+    <string name="ShareActivity.Error.CannotPostBecauseEmpty">Vous devez partager au moins un document ou un message</string>
+    <string name="ShareActivity.Message.OperationStarted">Le partage est en cours, suivez sa progression dans la barre de notifications</string>
+    <string name="ShareService.Message.OperationSuccess">Succès</string>
+    <string name="ShareService.Title.ShareDocument">Partage de document</string>
+    <string name="ShareService.Title.ShareMessage">Partager une publication</string>
+    <string name="ShareService.Message.UploadInProgress">Upload en cours</string>
+    <string name="ShareService.Message.PostShortly">Votre message sera publié dans un instant</string>
+    <string name="ShareService.Error.UploadFailed">L\'upload du document a échoué</string>
+    <string name="ShareService.Error.PostFailed">Impossible de publier</string>
+    <string name="ShareService.Error.CommentFailed">La publication du commentaire a échoué</string>
+    <string name="ShareService.Error.UploadFolderFailed">Le dossier n\'a pas pu être créé sur le serveur</string>
+    <string name="ShareService.Error.IncorrectAccount">Impossible d\'accéder aux paramètres du compte</string>
+    <string name="ShareService.Error.SomeFilesCannotShare">Certains documents ne peuvent pas être partagés</string>
+    <string name="ShareService.Error.AllFilesCannotShare">Tous les documents ne peuvent pas être partagés</string>
+    <string name="ShareService.Error.NullPostInfo">Échec du partage. Données incorrectes.</string>
+</resources>
