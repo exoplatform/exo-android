@@ -516,6 +516,7 @@ public class PlatformWebViewFragment extends Fragment {
     void onExternalContentRequested(String url);
 
     void onFirstTimeUserLoggedIn();
+
   }
 
 
@@ -538,11 +539,12 @@ public class PlatformWebViewFragment extends Fragment {
           new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-              SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(PlatformWebViewFragment.this.getContext());
-              SharedPreferences.Editor editor = preferences.edit();
-              editor.putString(mServer.getShortUrl(), encodeTobase64(bitmap));
-              System.out.println("Image Base64 ======>" + encodeTobase64(bitmap));
-              editor.commit();
+              if (bitmap != null) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(PlatformWebViewFragment.this.getContext());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(mServer.getShortUrl(), encodeTobase64(bitmap));
+                editor.commit();
+              }
             }
           });
         }
@@ -558,7 +560,6 @@ public class PlatformWebViewFragment extends Fragment {
     immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
     byte[] b = baos.toByteArray();
     String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-
     Log.d("Image Log:", imageEncoded);
     return imageEncoded;
   }
