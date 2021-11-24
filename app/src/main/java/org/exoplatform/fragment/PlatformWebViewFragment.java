@@ -64,6 +64,7 @@ import androidx.fragment.app.Fragment;
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
+import org.exoplatform.activity.RecyclerAdapter;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.ServerManagerImpl;
@@ -521,36 +522,39 @@ public class PlatformWebViewFragment extends Fragment {
 
 
   private void getAvatarServerLogo() {
-    OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
-    String plfInfo = mServer.getUrl().getProtocol() + "://" + mServer.getShortUrl() + "/portal/rest/v1/platform/branding/logo";
-    System.out.println("ImageURL ======>" + plfInfo);
-    Request req = new Request.Builder().url(plfInfo).get().build();
-    client.newCall(req).enqueue(new Callback() {
-      @Override
-      public void onFailure(Call call, IOException e) {
-        // ignore network failure
-      }
-
-      @Override
-      public void onResponse(Call call, Response response) throws IOException {
-        if (response.isSuccessful()) {
-          final Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
-          // Remember to set the bitmap in the main thread.
-          new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-              if (bitmap != null) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(PlatformWebViewFragment.this.getContext());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(mServer.getShortUrl(), encodeTobase64(bitmap));
-                editor.commit();
-              }
-            }
-          });
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(PlatformWebViewFragment.this.getContext());
+    String photo = preferences.getString(mServer.getShortUrl(), "photo");
+    if (photo == "photo" || photo == null){
+      OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
+      String plfInfo = mServer.getUrl().getProtocol() + "://" + mServer.getShortUrl() + "/portal/rest/v1/platform/branding/logo";
+      System.out.println("ImageURL ======>" + plfInfo);
+      Request req = new Request.Builder().url(plfInfo).get().build();
+      client.newCall(req).enqueue(new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+          // ignore network failure
         }
-        response.body().close();
-      }
-    });
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+          if (response.isSuccessful()) {
+            final Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+            // Remember to set the bitmap in the main thread.
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+              @Override
+              public void run() {
+                if (bitmap != null) {
+                  SharedPreferences.Editor editor = preferences.edit();
+                  editor.putString(mServer.getShortUrl(), encodeTobase64(bitmap));
+                  editor.commit();
+                }
+              }
+            });
+          }
+          response.body().close();
+        }
+      });
+    }
   }
 
   // method for bitmap to base64
