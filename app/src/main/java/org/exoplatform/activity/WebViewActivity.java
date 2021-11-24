@@ -26,6 +26,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,7 +54,7 @@ import java.util.Date;
  * @author chautn on 10/14/15
  * @author paristote
  */
-public class WebViewActivity extends AppCompatActivity implements PlatformWebViewFragment.PlatformNavigationCallback,
+public class  WebViewActivity extends AppCompatActivity implements PlatformWebViewFragment.PlatformNavigationCallback,
         WebViewFragment.WebViewFragmentCallback, OnBoardingManagerFragment.OnBoardingFragmentCallback {
 
   public static final String      INTENT_KEY_URL = "URL";
@@ -62,6 +64,7 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
   private PlatformWebViewFragment mPlatformFragment;
 
   private WebViewFragment         mWebViewFragment;
+  private ActionDialog dialog;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -242,17 +245,20 @@ public class WebViewActivity extends AppCompatActivity implements PlatformWebVie
       }
 
       private void showDialog(int title, int message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(WebViewActivity.this);
-        builder.setCancelable(false)
-                .setTitle(title)
-                .setMessage(message)
-                .setNeutralButton(R.string.Word_Back, new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which) {
-                    WebViewActivity.this.finish();
-                  }
-                });
-        builder.create().show();
+        dialog = new ActionDialog(title,
+                message, R.string.Word_Back, WebViewActivity.this);
+        dialog.cancelAction.setVisibility(View.GONE);
+        LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams)dialog.deleteAction.getLayoutParams();
+        ll.setMarginStart(0);
+        dialog.deleteAction.setLayoutParams(ll);
+        dialog.showDialog();
+        dialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            WebViewActivity.this.finish();
+            dialog.dismiss();
+          }
+        });
       }
     });
   }
