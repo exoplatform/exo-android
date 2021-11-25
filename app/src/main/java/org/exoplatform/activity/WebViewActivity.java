@@ -147,9 +147,6 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
   @Override
   public void onUserSignedOut() {
     // fragments and activity will be cleaned-up automatically
-    Intent intent = new Intent(WebViewActivity.this, ConnectToExoListActivity.class);
-    startActivity(intent);
-    finish();
   }
 
   @Override

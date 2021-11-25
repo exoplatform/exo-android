@@ -57,11 +57,7 @@ public class ConnectToExoListActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
-        }else {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color));
-        }
+        getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
     }
 
     public static class CustomLinearLayoutManager extends LinearLayoutManager {
