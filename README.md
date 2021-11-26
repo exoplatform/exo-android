@@ -2,8 +2,8 @@
 
 Minimum compatibility :
 
-- Android SDK : 4.4 (KitKat)
-- Fastlane : 2.105.0
+- Android SDK : 9.0 (Pie)
+- Fastlane : 2.135.2
 
 ## how-to test
 
