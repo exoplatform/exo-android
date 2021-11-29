@@ -1,9 +1,14 @@
 # eXo Mobile Android application
 
+Crowdin i18n jobs statues: 
+
+[![Sync Crowdin with eXo Mobile Project](https://github.com/exoplatform/exo-android/actions/workflows/crowdin_sync.yml/badge.svg)](https://github.com/exoplatform/exo-android/actions/workflows/crowdin_sync.yml)
+[![Merge Crowdin translation to eXo Mobile Project](https://github.com/exoplatform/exo-android/actions/workflows/crowdin_merge.yml/badge.svg)](https://github.com/exoplatform/exo-android/actions/workflows/crowdin_merge.yml)
+
 Minimum compatibility :
 
-- Android SDK : 4.4 (KitKat)
-- Fastlane : 2.105.0
+- Android SDK : 9.0 (Pie)
+- Fastlane : 2.135.2
 
 ## how-to test
 
