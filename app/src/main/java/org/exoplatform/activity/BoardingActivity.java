@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -236,6 +237,7 @@ public class BoardingActivity extends AppCompatActivity {
     private void bypassIfRecentlyVisited() throws IOException {
         SharedPreferences prefs = App.Preferences.get(this);
         Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
+        Uri uri = getIntent().getData();
         try {
             setWakeUpActivityRoot(new ResultHandler<Boolean>() {
                 @Override
@@ -247,9 +249,14 @@ public class BoardingActivity extends AppCompatActivity {
                          } else {
                              isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
                              if (!isFromInstances) {
-                                 SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(BoardingActivity.this);
-                                 String urlLogin = shared.getString("urlLogin", serverToConnect.getUrl().toString());
-                                 openWebViewWithURL(urlLogin);
+                                 if (uri != null) {
+                                     Log.d("deepLink url ======>",uri.toString());
+                                     openWebViewWithURL(uri.toString());
+                                 }else {
+                                     SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(BoardingActivity.this);
+                                     String urlLogin = shared.getString("urlLogin", serverToConnect.getUrl().toString());
+                                     openWebViewWithURL(urlLogin);
+                                 }
                              }
                          }
                      }else{
