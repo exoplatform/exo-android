@@ -3,6 +3,11 @@ name: eXo PR Task Webhook
 on:
   pull_request:
     branches: [ develop, acceptance ]
+    types: [opened, synchronize, reopened, edited, closed]
+  pull_request_review:
+    branches: [ develop, acceptance ]
+    types: [edited, dismissed]
+
 env:
   message: ${{ github.event.pull_request.title }}
   status: ${{ github.event.pull_request.status }}
