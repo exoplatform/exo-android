@@ -1,0 +1,35 @@
+name: eXo PR Task Webhook
+
+on:
+  pull_request:
+    branches: [ develop, acceptance ]
+env:
+  message: ${{ github.event.pull_request.title }}
+  status: ${{ github.event.pull_request.status }}
+  pull_number: ${{ github.event.pull_request.number }}
+  repo_name: ${{ github.event.repository.name }}
+  org_name: ${{ github.event.org.name }}
+jobs:
+  check_tasks:
+    name: Check for Tasks Ids
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check Tasks id existance
+        run: |
+          TASK_IDS="$(echo ${message:-}| grep -oP '[0-9]{4,}' | xargs)"
+          pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          if [ -z "${TASK_IDS}" ]; then 
+            echo "No tasks found! Abort."
+          fi
+          echo "::set-output name=tasks::${TASK_IDS}"
+
+  notif:
+    name: Notif tasks about PR change
+    runs-on: ubuntu-latest
+    needs: check_tasks
+    if: needs.check_tasks.outputs.tasks != ''
+    steps:
+      - name: Check PR status
+        run: echo ${status}
+
