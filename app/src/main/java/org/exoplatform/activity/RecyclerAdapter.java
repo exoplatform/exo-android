@@ -87,7 +87,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             System.out.println("urlKey Adapter ===> " + urlKey);
             int count = shared.getInt(urlKey, 0);
             System.out.println("count received Adapter ===> " + count);
-            if (count != 0) {
+            boolean isSessionTimedOut = shared.getBoolean("isSessionTimedOut",false);
+            if (isSessionTimedOut && count != 0){
                 itemViewHolder.notificationTextView.setText(String.valueOf(count));
             }else{
                 itemViewHolder.notificationTextView.setVisibility(View.GONE);
