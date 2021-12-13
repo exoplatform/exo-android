@@ -32,7 +32,7 @@ import org.exoplatform.tool.ServerUtils;
 public class AddDomainServerActivity extends AppCompatActivity {
     ImageView closeButton;
     Button  clearButton;
-    EditText companyTextField,addDomainTextField;
+    EditText companyTextField;
     RelativeLayout parentLayout,addDomainButton;
     LinearLayout topViewAddUrlLayout;
     Boolean isAlreadyFocused = false;
@@ -51,7 +51,6 @@ public class AddDomainServerActivity extends AppCompatActivity {
         checkConnectivity = new CheckConnectivity(AddDomainServerActivity.this);
         parentLayout = findViewById(R.id.container_add_view);
         topViewAddUrlLayout = (LinearLayout) findViewById(R.id.topViewAddUrl);
-        addDomainTextField = (EditText) findViewById(R.id.textEditAddDomain);
         companyTextField = (EditText) findViewById(R.id.company_placeholder);
         closeButton = (ImageView) findViewById(R.id.close_button_add_domain);
         clearButton = (Button) findViewById(R.id.clear_button_add_domain);
@@ -60,6 +59,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
         addURLTextView = (TextView) findViewById(R.id.addURLTextView);
         headerTitle.setText(R.string.AddDomain_Title_Header);
         addURLTextView.setText(R.string.AddDomain_Title_addURL);
+        companyTextField.setHint(R.string.AddDomain_Title_Placeholder);
         statusBarColor();
         handleActionGoKeyKeyboard();
         addDomainButton.setOnClickListener(new View.OnClickListener() {
@@ -73,13 +73,10 @@ public class AddDomainServerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 companyTextField.getText().clear();
-                addDomainTextField.getText().clear();
-                companyTextField.setVisibility(View.GONE);
-                requestFocusTo(addDomainTextField);
+                requestFocusTo(companyTextField);
             }
         });
         companyTextField.requestFocus();
-        addDomainTextField = (EditText) findViewById(R.id.textEditAddDomain);
         companyTextField.setOnTouchListener((arg0, arg1) -> {
             if (!isAlreadyFocused) {
                 companyTextField.setHint("");
@@ -108,7 +105,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
     // when users taps "Go" or "Enter" on the keyboard
     private void submitUrl() {
         if (checkConnectivity.isConnectedToInternet()) {
-            String urlPrefix = companyTextField.getText().toString() + addDomainTextField.getText().toString();
+            String urlPrefix = companyTextField.getText().toString();
             if (!urlPrefix.startsWith("https://")) {
                 urlPrefix = "https://" + urlPrefix;
             }
@@ -178,16 +175,6 @@ public class AddDomainServerActivity extends AppCompatActivity {
     }
 
     private void handleActionGoKeyKeyboard(){
-        addDomainTextField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    submitUrl();
-                    return true;
-                }
-                return false; // otherwise let the system handle the event
-            }
-        });
         companyTextField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
