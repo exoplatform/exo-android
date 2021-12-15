@@ -37,7 +37,7 @@
     <string name="AddServerFragment.Title.NewIntranet">Nueva intranet</string>
     <string name="AddServerFragment.Title.EnterIntranetUrl">Pon tu URL de intranet</string>
     <string name="ServersFragment.Title.MyIntranets">Mis intranets</string>
-    <string name="SettingsActivity.Title.Settings">Configuración</string>
+    <string name="SettingsActivity.Title.Settings">Ajustes</string>
     <string name="SettingsActivity.Header.Intranets">Intranets</string>
     <string name="SettingsActivity.Header.NoIntranet">Sin intranet</string>
     <string name="SettingsActivity.Header.About">Acerca de</string>
@@ -62,7 +62,7 @@
     <string name="OnBoarding.Title.SlideTitle">Muestra el código QR en tus\n ajustes de eXo.</string>
     <string name="OnBoarding.Title.LostCnnection">Sin conexión a Internet</string>
     <string name="OnBoarding.Message.LostCnnection">Asegúrate de tener conexión a Internet.</string>
-    <string name="Word.OK">Confirmar</string>
+    <string name="Word.OK">Aceptar</string>
     <string name="Word.Cancel">Cancelar</string>
     <string name="Word.Back">Atrás</string>
     <string name="Word.Delete">Eliminar</string>
@@ -79,6 +79,7 @@
     <!-- Add Domain -->
     <string name="AddDomain.Title.Header">Añade tu eXo</string>
     <string name="AddDomain.Title.addURL">Introduce tu URL de eXo</string>
+    <string name="AddDomain.Title.Placeholder">Introduce tu URL</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Publicar</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
