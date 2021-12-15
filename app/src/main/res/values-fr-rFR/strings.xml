@@ -79,6 +79,7 @@
     <!-- Add Domain -->
     <string name="AddDomain.Title.Header">Ajouter une instance eXo</string>
     <string name="AddDomain.Title.addURL">Entrez votre URL instance eXo</string>
+    <string name="AddDomain.Title.Placeholder">Please enter your url</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Publier</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
@@ -110,9 +111,9 @@
     <string name="ShareService.Message.OperationSuccess">Succès</string>
     <string name="ShareService.Title.ShareDocument">Partage de document</string>
     <string name="ShareService.Title.ShareMessage">Partager une publication</string>
-    <string name="ShareService.Message.UploadInProgress">Upload en cours</string>
+    <string name="ShareService.Message.UploadInProgress">Chargement en cours</string>
     <string name="ShareService.Message.PostShortly">Votre message sera publié dans un instant</string>
-    <string name="ShareService.Error.UploadFailed">L\'upload du document a échoué</string>
+    <string name="ShareService.Error.UploadFailed">Le chargement du document a échoué</string>
     <string name="ShareService.Error.PostFailed">Impossible de publier</string>
     <string name="ShareService.Error.CommentFailed">La publication du commentaire a échoué</string>
     <string name="ShareService.Error.UploadFolderFailed">Le dossier n\'a pas pu être créé sur le serveur</string>
