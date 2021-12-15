@@ -79,6 +79,7 @@
     <!-- Add Domain -->
     <string name="AddDomain.Title.Header">Add your eXo</string>
     <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
+    <string name="AddDomain.Title.Placeholder">Please enter your url</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Delen</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
