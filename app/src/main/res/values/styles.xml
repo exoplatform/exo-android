@@ -81,4 +81,7 @@
         <item name="android:drawableEnd">@drawable/icon_chevron_right_grey</item>
     </style>
 
+    <style name="SplashStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
 </resources>
