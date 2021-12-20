@@ -236,6 +236,7 @@ public class BoardingActivity extends AppCompatActivity {
 
     private void bypassIfRecentlyVisited() throws IOException {
         SharedPreferences prefs = App.Preferences.get(this);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(BoardingActivity.this);
         Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
         Uri uri = getIntent().getData();
         try {
@@ -258,6 +259,8 @@ public class BoardingActivity extends AppCompatActivity {
                                      openWebViewWithURL(urlLogin);
                                  }
                              }
+                             editor.putBoolean("isSessionTimedOut",false);
+                             editor.apply();
                          }
                      }else{
                          isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
@@ -265,6 +268,8 @@ public class BoardingActivity extends AppCompatActivity {
                              Intent intent = new Intent(BoardingActivity.this, ConnectToExoListActivity.class);
                              startActivity(intent);
                          }
+                         editor.putBoolean("isSessionTimedOut",true);
+                         editor.apply();
                      }
                 }
                 @Override
