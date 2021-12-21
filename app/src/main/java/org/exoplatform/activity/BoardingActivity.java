@@ -52,7 +52,6 @@ public class BoardingActivity extends AppCompatActivity {
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
-    Boolean isFromInstances;
 
     private static final int REQUEST_CODE = 101;
 
@@ -63,14 +62,6 @@ public class BoardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
         dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
                 R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
-        checkConnectivity = new CheckConnectivity(BoardingActivity.this);
-        if (savedInstanceState == null) {
-            try {
-                bypassIfRecentlyVisited();
-            } catch (IOException e) {
-                Log.e("error", String.valueOf(e));
-            }
-        }
         statusBarColor();
         mSlideViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
         mDotLayout = (TabLayout) findViewById(R.id.onboarding_dots);
@@ -231,97 +222,5 @@ public class BoardingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
         getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
-    }
-
-    private void bypassIfRecentlyVisited() throws IOException {
-        SharedPreferences prefs = App.Preferences.get(this);
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(BoardingActivity.this);
-        Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-        SharedPreferences.Editor editor = shared.edit();
-        try {
-            setWakeUpActivityRoot(new ResultHandler<Boolean>() {
-                @Override
-                public void onSuccess(Boolean isSessionsAlive) {
-                     if (isSessionsAlive) {
-                         String url = getIntent().getStringExtra(INTENT_KEY_URL);
-                         if(url != null && !url.equals("")) {
-                             openWebViewWithURL(url);
-                         } else {
-                             isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
-                             if (!isFromInstances) {
-                                 String urlLogin = shared.getString("urlLogin", serverToConnect.getUrl().toString());
-                                 openWebViewWithURL(urlLogin);
-                             }
-                             editor.putBoolean("isSessionTimedOut",false);
-                             editor.apply();
-                         }
-                     }else{
-                         isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
-                         if (!isFromInstances) {
-                             Intent intent = new Intent(BoardingActivity.this, ConnectToExoListActivity.class);
-                             startActivity(intent);
-                         }
-                         editor.putBoolean("isSessionTimedOut",true);
-                         editor.apply();
-                     }
-                }
-                @Override
-                public void onFailure(Exception e) {
-
-                }
-            });
-        } catch (IOException e) {
-            Log.e("error", String.valueOf(e));
-        }
-    }
-
-    private void openWebViewWithURL(String url) {
-        if (url == null)
-            throw new IllegalArgumentException("URL must not be null");
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(INTENT_KEY_URL, url);
-        this.startActivity(intent);
-    }
-
-    private void setWakeUpActivityRoot(final ResultHandler<Boolean> handler) throws IOException {
-        if (checkConnectivity.isConnectedToInternet()) {
-
-            SharedPreferences prefs = App.Preferences.get(this);
-            Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-            String username = prefs.getString("connectedUsername", "username");
-            String cookies = prefs.getString("connectedCookies", "cookies");
-            if (serverToConnect != null) {
-                final String url = App.getCheckSessionURL(serverToConnect.getUrl().getProtocol(), serverToConnect.getShortUrl(), username);
-                Log.d("url =========> ", url);
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            OkHttpClient client = new OkHttpClient();
-                            Request request = new Request.Builder()
-                                    .addHeader("Content-Type", "application/json")
-                                    .addHeader("Cookie", cookies)
-                                    .url(url)
-                                    .build();
-                            Response httpResponse = client.newCall(request).execute();
-                            if (httpResponse.code() == 200) {
-                                handler.onSuccess(true);
-                            } else {
-                                handler.onSuccess(false);
-                            }
-                        } catch (Exception e) {
-                            Log.e("error", String.valueOf(e));
-                            handler.onFailure(e);
-                        }
-                    }
-                });
-                thread.start();
-            }
-        }
-    }
-
-    public interface ResultHandler<T> {
-        void onSuccess(T data);
-        void onFailure(Exception e);
     }
 }

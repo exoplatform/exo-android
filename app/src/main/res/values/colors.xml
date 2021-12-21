@@ -28,7 +28,7 @@
     <color name="eXoYellowTransparent">#a6ffcb08</color>
     <color name="eXoGrey">#b6b7ba</color>
     <color name="eXoGreyTransparent">#a6b6b7ba</color>
-
+    <color name="eXoWhiteColor">#FFFFFF</color>
     <color name="colorPrimary">#f44336</color>
     <color name="colorPrimaryDark">#d32f2f</color>
     <color name="colorAccent">#00c853</color>
