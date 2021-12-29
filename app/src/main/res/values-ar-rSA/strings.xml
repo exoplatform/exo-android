@@ -21,10 +21,10 @@
 <resources>
     <string name="app_name">eXo</string>
     <string name="ServerManager.Message.SavingServer">Saving intranet&#8230;</string>
-    <string name="ServerManager.Error.TitleIncorrect">eXo instance URL error</string>
-    <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
-    <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
+    <string name="ServerManager.Error.TitleIncorrect">خطأ في عنوان الرابط الخاص بـ eXo</string>
+    <string name="ServerManager.Error.TitleVersion">إصدار المنصة غير مدعوم</string>
+    <string name="ServerManager.Error.IncorrectUrl">الرجاء إدخال eXo صحيح</string>
+    <string name="ServerManager.Error.PlatformVersionNotSupported">التطبيق يدعم فقط النسخة 6.0 من المنصة أو الأحدث</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
     <string name="ConnectActivity.Title.ConnectShare">Connect, share and work together</string>
     <string name="ConnectActivity.Title.DiscoverExoTribe">Discover eXo Tribe</string>
@@ -71,7 +71,7 @@
     <string name="Word.Space">فضاء</string>
     <string name="Word.Done">عمله</string>
     <!-- Onboarding -->
-    <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
+    <string name="Onboarding.Title.Slide1">عرض رمز QR في إعدادات eXo\n الخاصة بك</string>
     <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
     <string name="Onboarding.Button.Scan">Scan Code</string>
@@ -79,7 +79,7 @@
     <!-- Add Domain -->
     <string name="AddDomain.Title.Header">Add your eXo</string>
     <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
-    <string name="AddDomain.Title.Placeholder">Please enter your url</string>
+    <string name="AddDomain.Title.Placeholder">الرجاء إدخال عنوان الرابط</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">شارك</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
