@@ -185,7 +185,7 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
     mWebView.getSettings().setDomStorageEnabled(true);
     mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-    mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
+    mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android 9; NEO U22-XJ Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/79.0.3945.116 Safari/537.36");
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setDisplayZoomControls(false);
     // set progress bar
