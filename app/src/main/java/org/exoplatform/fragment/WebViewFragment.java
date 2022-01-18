@@ -20,22 +20,33 @@ package org.exoplatform.fragment;
  *
  */
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import androidx.fragment.app.Fragment;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import static android.webkit.PermissionRequest.RESOURCE_AUDIO_CAPTURE;
+import static android.webkit.PermissionRequest.RESOURCE_VIDEO_CAPTURE;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A simple web view with a progress bar, in a fragment
@@ -53,6 +64,12 @@ public class WebViewFragment extends Fragment {
   protected WebView               mWebView;
 
   protected ProgressBar           mProgressBar;
+
+  private static final int PERMISSIONS_REQUEST_VIDEO_CAPTURE = 101;
+
+  private static final int PERMISSIONS_REQUEST_AUDIO_CAPTURE = 102;
+
+  private PermissionRequest myRequest;
 
   public WebViewFragment() {
     // Required empty public constructor
@@ -83,15 +100,26 @@ public class WebViewFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_web_view, container, false);
-    mWebView = (WebView) layout.findViewById(R.id.WebViewFragment_WebView);
+    mWebView = layout.findViewById(R.id.WebViewFragment_WebView);
     mWebView.setWebViewClient(new WebViewClient());
     mWebView.getSettings().setJavaScriptEnabled(true);
     mWebView.getSettings().setDomStorageEnabled(true);
-    mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setBuiltInZoomControls(true);
     mWebView.getSettings().setDisplayZoomControls(false);
     mProgressBar = (ProgressBar) layout.findViewById(R.id.WebViewFragment_ProgressBar);
+
+    String[] permissions =
+            {Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.CAMERA};
+
+    ActivityCompat.requestPermissions(
+            this.getActivity(),
+            permissions,
+            1010);
     mWebView.setWebChromeClient(new WebChromeClient() {
       @Override
       public void onReceivedTitle(WebView view, String title) {
@@ -107,6 +135,10 @@ public class WebViewFragment extends Fragment {
         } else {
           mProgressBar.setVisibility(ProgressBar.VISIBLE);
         }
+      }
+      @Override
+      public void onPermissionRequest(PermissionRequest request) {
+        request.grant(request.getResources());
       }
     });
     mWebView.loadUrl(mUrl);
