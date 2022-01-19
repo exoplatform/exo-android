@@ -448,7 +448,7 @@ public class DocumentUtils {
    *         false if the permission was already granted
    */
   public static boolean didRequestPermission(Activity caller, int permissionCode) {
-    if (caller == null || !(caller instanceof ActivityCompat.OnRequestPermissionsResultCallback))
+    if (!(caller instanceof ActivityCompat.OnRequestPermissionsResultCallback))
       throw new IllegalArgumentException("Caller activity must implement OnRequestPermissionsResultCallback");
 
     boolean res = false;
