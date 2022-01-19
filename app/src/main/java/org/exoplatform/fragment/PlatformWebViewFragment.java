@@ -205,11 +205,6 @@ public class PlatformWebViewFragment extends Fragment {
       }
 
       @Override
-      public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
-        return true;
-      }
-
-      @Override
       public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
         mUploadMessage = filePathCallback;
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);

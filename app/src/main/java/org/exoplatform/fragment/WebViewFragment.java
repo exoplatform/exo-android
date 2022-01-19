@@ -65,12 +65,6 @@ public class WebViewFragment extends Fragment {
 
   protected ProgressBar           mProgressBar;
 
-  private static final int PERMISSIONS_REQUEST_VIDEO_CAPTURE = 101;
-
-  private static final int PERMISSIONS_REQUEST_AUDIO_CAPTURE = 102;
-
-  private PermissionRequest myRequest;
-
   public WebViewFragment() {
     // Required empty public constructor
   }
