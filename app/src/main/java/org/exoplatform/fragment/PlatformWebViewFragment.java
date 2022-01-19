@@ -189,6 +189,7 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setDisplayZoomControls(false);
+    mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
     // set progress bar
     mProgressBar = (ProgressBar) layout.findViewById(R.id.PlatformWebViewFragment_ProgressBar);
