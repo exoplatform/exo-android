@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
@@ -44,6 +45,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
+import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -185,9 +187,9 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
     mWebView.getSettings().setDomStorageEnabled(true);
     mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-    mWebView.getSettings().setUserAgentString("eXo/" + BuildConfig.VERSION_NAME + " (Android)");
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setDisplayZoomControls(false);
+
     // set progress bar
     mProgressBar = (ProgressBar) layout.findViewById(R.id.PlatformWebViewFragment_ProgressBar);
     mWebView.setWebChromeClient(new WebChromeClient() {
@@ -455,12 +457,13 @@ public class PlatformWebViewFragment extends Fragment {
     }
 
     @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+      String url = request.getUrl().toString();
       // For external and short links, broadcast logout event if done
       if (url.contains(LOGOUT_PATH)) {
         mListener.onUserJustBeforeSignedOut();
       }
-      if (url != null && url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, url)) {
+      if (url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request) && !url.contains(mServer.getShortUrl() + "/jitsi/"))  {
         // url is on the server's domain, keep loading normally
         return false;
       } else {
