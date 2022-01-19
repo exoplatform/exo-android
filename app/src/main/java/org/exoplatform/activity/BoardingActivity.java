@@ -53,7 +53,6 @@ public class BoardingActivity extends AppCompatActivity {
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
-    Boolean isFromInstances;
 
     private static final int REQUEST_CODE = 101;
 
@@ -64,14 +63,6 @@ public class BoardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
         dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
                 R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
-        checkConnectivity = new CheckConnectivity(BoardingActivity.this);
-        if (savedInstanceState == null) {
-            try {
-                bypassIfRecentlyVisited();
-            } catch (IOException e) {
-                Log.e("error", String.valueOf(e));
-            }
-        }
         statusBarColor();
         mSlideViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
         mDotLayout = (TabLayout) findViewById(R.id.onboarding_dots);

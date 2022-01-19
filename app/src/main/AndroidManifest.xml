@@ -6,8 +6,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.MICROPHONE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.microphone"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.any" />
 
     <application
         android:name=".App"
@@ -15,6 +20,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="eXo${appLabelEnvironmentSuffix}"
         android:theme="@style/MainTheme">
+        <activity
+            android:name=".activity.LauncherActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashStyle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.ConnectToExoListActivity"
             android:label="@string/app_name"
@@ -26,7 +41,8 @@
         <!-- Enable Apache HTTP for Android 9 -->
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" /> <!-- Activities -->
+            android:required="false" />
+        <!-- Activities -->
         <!-- Home activity -->
         <activity android:name=".activity.BoardingActivity">
             <intent-filter>
@@ -37,9 +53,6 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http"
-                    android:host="community.exoplatform.com"
-                    android:pathPrefix="/portal" />
                 <data android:scheme="https"
                     android:host="community.exoplatform.com"
                     android:pathPrefix="/portal" />
@@ -48,8 +61,8 @@
         <activity
             android:name=".activity.AddDomainServerActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Design.NoActionBar"
-            android:parentActivityName=".activity.BoardingActivity">
+            android:parentActivityName=".activity.BoardingActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.BoardingActivity" />
@@ -57,8 +70,7 @@
         <activity
             android:name=".activity.ScannerActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Design.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
         <!-- New / Select server activity -->
         <activity
             android:name=".activity.NewServerActivity"
@@ -99,12 +111,16 @@
             android:label="@string/Word.eXo">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="application/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="application/*" />
             </intent-filter>
             <intent-filter>
@@ -130,27 +146,37 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="image/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="video/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="video/*" />
             </intent-filter>
         </activity> <!-- Services -->
