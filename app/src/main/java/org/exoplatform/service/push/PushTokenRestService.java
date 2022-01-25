@@ -40,7 +40,7 @@ interface PushTokenRestService {
    * @param tokenInfo assigns current user to fetched token and register the pair on server
    * @return a Call object with a details about HTTP response
    */
-  @POST("/rest/private/v1/messaging/device")
+  @POST("/portal/rest/v1/messaging/device")
   Call<ResponseBody> registerToken(@Body TokenInfo tokenInfo);
 
   /**
@@ -49,6 +49,6 @@ interface PushTokenRestService {
    *
    * @return a Call object with a details about HTTP response
    */
-  @DELETE("/rest/private/v1/messaging/device/{token}")
+  @DELETE("/portal/rest/v1/messaging/device/{token}")
   Call<ResponseBody> deleteToken(@Path("token") @NonNull String token);
 }
