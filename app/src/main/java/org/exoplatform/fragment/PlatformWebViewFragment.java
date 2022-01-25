@@ -464,7 +464,7 @@ public class PlatformWebViewFragment extends Fragment {
       if (url.contains(LOGOUT_PATH)) {
         mListener.onUserJustBeforeSignedOut();
       }
-      if (url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request) && !url.contains(mServer.getShortUrl() + "/jitsi/"))  {
+      if (url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))  {
         // url is on the server's domain, keep loading normally
         return false;
       } else {

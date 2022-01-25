@@ -103,17 +103,13 @@ public class WebViewFragment extends Fragment {
     mWebView.getSettings().setDisplayZoomControls(false);
     mProgressBar = (ProgressBar) layout.findViewById(R.id.WebViewFragment_ProgressBar);
 
-    String[] permissions =
-            {Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.INTERNET,
-                    Manifest.permission.RECORD_AUDIO,
-                    Manifest.permission.CAMERA};
+    String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE,
+                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                             Manifest.permission.INTERNET,
+                             Manifest.permission.RECORD_AUDIO,
+                             Manifest.permission.CAMERA };
 
-    ActivityCompat.requestPermissions(
-            this.getActivity(),
-            permissions,
-            1010);
+    ActivityCompat.requestPermissions(this.getActivity(),permissions,1010);
     mWebView.setWebChromeClient(new WebChromeClient() {
       @Override
       public void onReceivedTitle(WebView view, String title) {
