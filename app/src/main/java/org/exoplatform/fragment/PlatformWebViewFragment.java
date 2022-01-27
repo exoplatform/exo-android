@@ -47,6 +47,7 @@ import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.PermissionRequest;
+import android.webkit.RenderProcessGoneDetail;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -230,16 +231,7 @@ public class PlatformWebViewFragment extends Fragment {
         });
         return true;
       }
-      @Override
-      public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-        Log.d("onConsoleMessage", consoleMessage.message());
-        String msg = consoleMessage.message();
-        if (msg.contains("Call stopped remotelly") || msg.contains("User call leaved")){
-          mListener.onCloseJitsiCall();
-          return true;
-        }
-        return false;
-      }
+
       @Override
       public void onProgressChanged(WebView view, int progress) {
         mProgressBar.setVisibility(ProgressBar.VISIBLE);
@@ -570,8 +562,6 @@ public class PlatformWebViewFragment extends Fragment {
     void onExternalContentRequested(String url);
 
     void onFirstTimeUserLoggedIn();
-
-    void onCloseJitsiCall();
   }
 
 

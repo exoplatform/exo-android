@@ -114,6 +114,11 @@ public class WebViewFragment extends Fragment {
         super.onReceivedTitle(view, title);
       }
 
+      public void onCloseWindow(WebView window) {
+        Log.d("onConsoleMessage", window.toString());
+        mListener.onCloseWebViewFragment();
+      }
+
       @Override
       public void onProgressChanged(WebView view, int progress) {
         mProgressBar.setVisibility(ProgressBar.VISIBLE);

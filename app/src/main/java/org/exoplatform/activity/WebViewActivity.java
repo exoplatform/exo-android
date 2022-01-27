@@ -170,13 +170,6 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
   }
 
   @Override
-  public void onCloseJitsiCall() {
-    // remove the fragment from the activity of the external url
-    getSupportFragmentManager().popBackStack();
-    getSupportFragmentManager().beginTransaction().remove(mWebViewFragment).show(mPlatformFragment).commit();
-  }
-
-  @Override
   public void onFirstTimeUserLoggedIn() {
     // show the on-boarding screen
     getSupportFragmentManager().beginTransaction()
@@ -191,11 +184,13 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
 
   @Override
   public void onCloseWebViewFragment() {
-    // remove the fragment from the activity
-    getSupportFragmentManager().popBackStack();
-    getSupportFragmentManager().beginTransaction().remove(mWebViewFragment).show(mPlatformFragment).commit();
-    // a new instance will be created if we load an external url again
-    mWebViewFragment = null;
+    if (mWebViewFragment != null && mPlatformFragment != null) {
+      // remove the fragment from the activity
+      getSupportFragmentManager().popBackStack();
+      getSupportFragmentManager().beginTransaction().remove(mWebViewFragment).show(mPlatformFragment).commit();
+      // a new instance will be created if we load an external url again
+      mWebViewFragment = null;
+    }
   }
 
   @Override
