@@ -43,12 +43,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -57,16 +59,20 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
 import org.exoplatform.activity.RecyclerAdapter;
+import org.exoplatform.activity.WebViewActivity;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.ServerManagerImpl;
@@ -145,6 +151,7 @@ public class PlatformWebViewFragment extends Fragment {
   private String downloadFileContentDisposition;
 
   private String downloadFileMimetype;
+  Integer count = 0;
 
   public PlatformWebViewFragment() {
     // Required empty public constructor
@@ -190,10 +197,49 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setDisplayZoomControls(false);
     mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+    mWebView.getSettings().setSupportMultipleWindows(true);
 
     // set progress bar
     mProgressBar = (ProgressBar) layout.findViewById(R.id.PlatformWebViewFragment_ProgressBar);
     mWebView.setWebChromeClient(new WebChromeClient() {
+      @Override
+      public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+        WebView newWebView = new WebView(getContext());
+        newWebView.getSettings().setJavaScriptEnabled(true);
+        newWebView.getSettings().setSupportZoom(true);
+        newWebView.getSettings().setBuiltInZoomControls(true);
+        newWebView.getSettings().setSupportMultipleWindows(true);
+        newWebView.getSettings().setDomStorageEnabled(true);
+        newWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        newWebView.getSettings().setUseWideViewPort(false);
+        view.addView(newWebView);
+        WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+        transport.setWebView(newWebView);
+        resultMsg.sendToTarget();
+        newWebView.setWebViewClient(new WebViewClient() {
+          @Override
+          public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            String url = request.getUrl().toString();
+            if (url.contains("/jitsi/meet")) {
+              // url is on an external domain, load in a different fragment
+              mListener.onExternalContentRequested(url);
+              return true;
+            }
+            return false;
+          }
+        });
+        return true;
+      }
+      @Override
+      public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+        Log.d("onConsoleMessage", consoleMessage.message());
+        String msg = consoleMessage.message();
+        if (msg.contains("Call stopped remotelly") || msg.contains("User call leaved")){
+          mListener.onCloseJitsiCall();
+          return true;
+        }
+        return false;
+      }
       @Override
       public void onProgressChanged(WebView view, int progress) {
         mProgressBar.setVisibility(ProgressBar.VISIBLE);
@@ -417,7 +463,6 @@ public class PlatformWebViewFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-
       if(request.getUrl().getPath().equals("/portal/download")) {
         String resourceId = request.getUrl().getQueryParameter("resourceId");
         if(!resourceIds.contains(resourceId)) {
@@ -460,11 +505,12 @@ public class PlatformWebViewFragment extends Fragment {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
       String url = request.getUrl().toString();
+      Log.d("shouldOverride", url);
       // For external and short links, broadcast logout event if done
       if (url.contains(LOGOUT_PATH)) {
         mListener.onUserJustBeforeSignedOut();
       }
-      if (url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request) && !url.contains(mServer.getShortUrl() + "/jitsi/"))  {
+      if (url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))  {
         // url is on the server's domain, keep loading normally
         return false;
       } else {
@@ -495,6 +541,8 @@ public class PlatformWebViewFragment extends Fragment {
     @Override
     public void onPageFinished(WebView view, String url) {
       super.onPageFinished(view, url);
+      Log.d("onPageFinished",url);
+
       if (!mDidShowOnboarding && INTRANET_HOME_PAGE.matcher(url).matches()) {
         checkUserLoggedInAsync();
       }
@@ -509,6 +557,7 @@ public class PlatformWebViewFragment extends Fragment {
       if (BuildConfig.DEBUG)
         Log.d(TAG, "COOKIES: " + CookieManager.getInstance().getCookie(url));
     }
+
   }
 
   public interface PlatformNavigationCallback {
@@ -522,6 +571,7 @@ public class PlatformWebViewFragment extends Fragment {
 
     void onFirstTimeUserLoggedIn();
 
+    void onCloseJitsiCall();
   }
 
 

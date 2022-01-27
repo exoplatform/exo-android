@@ -170,6 +170,13 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
   }
 
   @Override
+  public void onCloseJitsiCall() {
+    // remove the fragment from the activity of the external url
+    getSupportFragmentManager().popBackStack();
+    getSupportFragmentManager().beginTransaction().remove(mWebViewFragment).show(mPlatformFragment).commit();
+  }
+
+  @Override
   public void onFirstTimeUserLoggedIn() {
     // show the on-boarding screen
     getSupportFragmentManager().beginTransaction()
