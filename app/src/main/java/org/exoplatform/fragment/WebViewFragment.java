@@ -115,7 +115,7 @@ public class WebViewFragment extends Fragment {
       }
 
       public void onCloseWindow(WebView window) {
-        Log.d("onConsoleMessage", window.toString());
+        Log.d("onCloseWindow", window.toString());
         mListener.onCloseWebViewFragment();
       }
 
