@@ -91,7 +91,7 @@
     <string name="ShareActivity.Compose.Hint.Thumbnail">Miniature</string>
     <string name="ShareActivity.Intranets.Title.Intranets">Sélectionnez une instance eXo</string>
     <string name="ShareActivity.SignIn.Title.EnterCredentials">Entrez vos identifiants</string>
-    <string name="ShareActivity.SignIn.Title.Username">Nom d\'utilisateur</string>
+    <string name="ShareActivity.SignIn.Title.Username">Username</string>
     <string name="ShareActivity.SignIn.Title.Password">Mot de passe</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Récupération des espaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Vous n\'êtes dans aucun espace</string>
