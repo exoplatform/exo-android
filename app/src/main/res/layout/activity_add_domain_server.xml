@@ -108,34 +108,21 @@
 
                     <EditText
                         android:id="@+id/company_placeholder"
-                        android:layout_width="wrap_content"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
-                        android:paddingStart="20sp"
-                        android:hint="company"
-                        android:maxLines="1"
-                        android:cursorVisible="true"
-                        android:textAllCaps="false"
-                        android:textColor="@color/cardview_dark_background"
-                        android:textColorHint="@color/eXoGreyTransparent"
-                        android:textSize="15sp"
-                        android:inputType="text|textNoSuggestions"
-                        android:singleLine="true"
                         android:background="@android:color/transparent"
-                        android:imeOptions="actionGo" />
-
-                    <EditText
-                        android:id="@+id/textEditAddDomain"
-                        android:layout_width="186dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="0dp"
+                        android:cursorVisible="true"
+                        android:hint="Please enter your url"
                         android:imeOptions="actionGo"
                         android:inputType="text|textNoSuggestions"
                         android:maxLines="1"
+                        android:paddingStart="20sp"
                         android:singleLine="true"
-                        android:text=".exoplatform.org"
                         android:textAllCaps="false"
-                        android:background="@android:color/transparent"                        android:textColor="@color/cardview_dark_background"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textColorHint="@color/eXoGreyTransparent"
                         android:textSize="15sp" />
+
                 </LinearLayout>
 
                 <RelativeLayout
