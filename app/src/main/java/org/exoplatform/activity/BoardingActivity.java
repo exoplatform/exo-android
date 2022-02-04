@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -27,14 +29,22 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.exoplatform.App;
+import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
 import org.exoplatform.model.Server;
+import org.exoplatform.service.push.PushTokenSynchronizer;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
+import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
+import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -48,10 +58,12 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView currentPage;
     private TextView scanQRBtn;
     private ActionDialog dialog;
+    private ActionDialog updateDialog;
     private CheckConnectivity checkConnectivity;
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
+    String currentVersion;
 
     private static final int REQUEST_CODE = 101;
 
@@ -62,6 +74,30 @@ public class BoardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
         dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
                 R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
+        updateDialog = new ActionDialog(R.string.OnBoarding_Title_Update,
+                R.string.OnBoarding_Message_Update, R.string.Word_Update, BoardingActivity.this);
+        updateDialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent viewIntent =
+                            new Intent("android.intent.action.VIEW",
+                                    Uri.parse("https://play.google.com/store/apps/details?id=org.exoplatform"));
+                    startActivity(viewIntent);
+                }catch(Exception e) {
+                    Toast.makeText(getApplicationContext(),"Unable to Connect Try Again...",
+                            Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        updateDialog.cancelAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDialog.dismiss();
+            }
+        });
         statusBarColor();
         mSlideViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
         mDotLayout = (TabLayout) findViewById(R.id.onboarding_dots);
@@ -79,12 +115,19 @@ public class BoardingActivity extends AppCompatActivity {
                 this.getResources().getString(R.string.Onboarding_Title_slide2),
                 this.getResources().getString(R.string.Onboarding_Title_slide3)
         };
-
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
+        checkForeXoUpdate.execute();
         final String[] slide_page_numbers = {"1","2","3"};
         // The_slide_timer
         java.util.Timer timer = new java.util.Timer();
         timer.scheduleAtFixedRate(new The_slide_timer(),2000,8000);
         mDotLayout.setupWithViewPager(mSlideViewPager,true);
+
         // Set action buttons
         scanQRFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -202,7 +245,36 @@ public class BoardingActivity extends AppCompatActivity {
             }
         });
     }
+    public class CheckForeXoUpdate extends AsyncTask<Void, String, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            String newVersion = null;
+            try {
+                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=org.exoplatform")
+                        .timeout(30000)
+                        .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                        .referrer("http://www.google.com")
+                        .get()
+                        .select(".hAyfc .htlgb")
+                        .get(7)
+                        .ownText();
+                return newVersion;
+            } catch (Exception e) {
+                return newVersion;
+            }
+        }
 
+        @Override
+        protected void onPostExecute(String onlineVersion) {
+            super.onPostExecute(onlineVersion);
+            if (onlineVersion != null && !onlineVersion.isEmpty()) {
+                currentVersion = currentVersion.replace("-debug", "");
+                if (checkVersionUpdate(currentVersion,onlineVersion)) {
+                    updateDialog.showDialog();
+                }
+            }
+        }
+    }
     public class The_slide_timer extends TimerTask {
         @Override
         public void run() {
@@ -222,5 +294,48 @@ public class BoardingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
         getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
+    }
+
+    public static boolean checkVersionUpdate(String olderVerison, String newVersion) {
+        if (olderVerison.length() == 0 || newVersion.length() == 0) {
+            return false;
+        }
+        List<String> newVerList = Arrays.asList(newVersion.split("\\."));
+        List<String> oldVerList = Arrays.asList(olderVerison.split("\\."));
+
+        int diff = newVerList.size() - oldVerList.size();
+        List<String> newList = new ArrayList<>();
+        if (diff > 0) {
+            newList.addAll(oldVerList);
+            for (int i = 0; i < diff; i++) {
+                newList.add("0");
+            }
+            return examineArray(newList, newVerList, diff);
+        } else if (diff < 0) {
+            newList.addAll(newVerList);
+            for (int i = 0; i < -diff; i++) {
+                newList.add("0");
+            }
+            return examineArray(oldVerList, newList, diff);
+        } else {
+            return examineArray(oldVerList, newVerList, diff);
+        }
+
+    }
+    public static boolean examineArray(List<String> oldList, List<String> newList, int diff) {
+        boolean newVersionGreater = false;
+        for (int i = 0; i < oldList.size(); i++) {
+            if (Integer.parseInt(newList.get(i)) > Integer.parseInt(oldList.get(i))) {
+                newVersionGreater = true;
+                break;
+            } else if (Integer.parseInt(newList.get(i)) < Integer.parseInt(oldList.get(i))) {
+                newVersionGreater = false;
+                break;
+            } else {
+                newVersionGreater = diff > 0;
+            }
+        }
+
+        return newVersionGreater;
     }
 }
