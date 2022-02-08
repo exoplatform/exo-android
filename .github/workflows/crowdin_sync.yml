@@ -17,7 +17,7 @@ jobs:
         ref: ${{ env.BASE_BRANCH }}
         fetch-depth: 0
     - name: Synchronize crowdin with the project
-      uses: crowdin/github-action@1.4.4
+      uses: crowdin/github-action@1.4.6
       with:
         upload_translations: true
         download_translations: true

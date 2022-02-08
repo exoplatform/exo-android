@@ -52,6 +52,7 @@ public class BoardingActivity extends AppCompatActivity {
     String currentVersionString;
     Integer currentVersion;
     Integer storeVersion;
+
     private static final int REQUEST_CODE = 101;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
