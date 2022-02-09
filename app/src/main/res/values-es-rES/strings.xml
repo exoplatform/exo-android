@@ -62,6 +62,8 @@
     <string name="OnBoarding.Title.SlideTitle">Muestra el código QR en tus\n ajustes de eXo.</string>
     <string name="OnBoarding.Title.LostCnnection">Sin conexión a Internet</string>
     <string name="OnBoarding.Message.LostCnnection">Asegúrate de tener conexión a Internet.</string>
+    <string name="OnBoarding.Title.Update">Actualización eXo</string>
+    <string name="OnBoarding.Message.Update">Para usar la aplicación, descarga la última versión</string>
     <string name="Word.OK">Aceptar</string>
     <string name="Word.Cancel">Cancelar</string>
     <string name="Word.Back">Atrás</string>
@@ -70,6 +72,7 @@
     <string name="Word.eXoPlatform">eXo Platform</string>
     <string name="Word.Space">Espacio</string>
     <string name="Word.Done">Hecho</string>
+    <string name="Word.Update">Actualizar</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Muestra el código QR en tus\n ajustes de eXo.</string>
     <string name="Onboarding.Title.slide2">Escanea el código QR que aparece en\n tus ajustes de eXo</string>
