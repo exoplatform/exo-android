@@ -62,6 +62,8 @@
     <string name="OnBoarding.Title.SlideTitle">عرض رمز QR في إعدادات eXo\n الخاصة بك.</string>
     <string name="OnBoarding.Title.LostCnnection">فقدان الاتصال بالإنترنت</string>
     <string name="OnBoarding.Message.LostCnnection">الرجاء التأكد من أن لديك اتصال بالإنترنت.</string>
+    <string name="OnBoarding.Title.Update">eXo Update</string>
+    <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
     <string name="Word.OK">موافق</string>
     <string name="Word.Cancel">الغاء</string>
     <string name="Word.Back">رجوع</string>
@@ -70,6 +72,7 @@
     <string name="Word.eXoPlatform">اكزوبلاتفورم</string>
     <string name="Word.Space">مساحة</string>
     <string name="Word.Done">عمله</string>
+    <string name="Word.Update">تحديث</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">عرض رمز QR في إعدادات eXo\n الخاصة بك</string>
     <string name="Onboarding.Title.slide2">مسح رمز QR الذي يظهر في\n إعدادات eXo الخاصة بك</string>

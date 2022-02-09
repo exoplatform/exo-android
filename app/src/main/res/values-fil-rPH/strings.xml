@@ -62,14 +62,17 @@
     <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
     <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
     <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
+    <string name="OnBoarding.Title.Update">eXo Update</string>
+    <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Kanselahin</string>
-    <string name="Word.Back">Bumalik</string>
+    <string name="Word.Back">Likuran</string>
     <string name="Word.Delete">OK</string>
     <string name="Word.eXo">eXo</string>
     <string name="Word.eXoPlatform">eXo Platform</string>
     <string name="Word.Space">Ang Espasyo</string>
     <string name="Word.Done">Tapos na</string>
+    <string name="Word.Update">Mag-update</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
     <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
