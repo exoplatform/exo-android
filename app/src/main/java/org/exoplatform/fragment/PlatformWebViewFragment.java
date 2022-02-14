@@ -150,7 +150,7 @@ public class PlatformWebViewFragment extends Fragment {
   private String downloadUserAgent;
 
   private String downloadFileContentDisposition;
-  private final String               USER_AGENT  = "Mozilla/5.0 (Android) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Mobile Safari/537.36";
+  private final String USER_AGENT  = "Mozilla/5.0 (Android) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Mobile Safari/537.36";
 
   private String downloadFileMimetype;
   Integer count = 0;
@@ -200,8 +200,14 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setDisplayZoomControls(false);
     mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
     mWebView.getSettings().setSupportMultipleWindows(true);
-    mWebView.getSettings().setUserAgentString(USER_AGENT);
-
+    // set custom user agent by filtering the default one
+    String default_userAgent = mWebView.getSettings().getUserAgentString();
+    int startIndex = default_userAgent.indexOf("Mozilla/");
+    int endIndex = default_userAgent.indexOf("Chrome/");
+    String replacement = "";
+    String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
+    String userAgent = default_userAgent.replace(toBeReplaced, replacement);
+    mWebView.getSettings().setUserAgentString(userAgent);
     // set progress bar
     mProgressBar = (ProgressBar) layout.findViewById(R.id.PlatformWebViewFragment_ProgressBar);
     mWebView.setWebChromeClient(new WebChromeClient() {

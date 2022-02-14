@@ -55,7 +55,7 @@ public class WebViewFragment extends Fragment {
 
   private static final String     ARG_URL = "URL";
 
-  private final String               USER_AGENT  = "Mozilla/5.0 (Android) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Mobile Safari/537.36";
+  private final String USER_AGENT  = "Mozilla/5.0 (Android) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Mobile Safari/537.36";
 
   public static final String      TAG     = WebViewFragment.class.getName();
 
@@ -103,7 +103,14 @@ public class WebViewFragment extends Fragment {
     mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
     mWebView.getSettings().setBuiltInZoomControls(true);
     mWebView.getSettings().setDisplayZoomControls(false);
-    mWebView.getSettings().setUserAgentString(USER_AGENT);
+    // set custom user agent by filtering the default one
+    String default_userAgent = mWebView.getSettings().getUserAgentString();
+    int startIndex = default_userAgent.indexOf("Mozilla/");
+    int endIndex = default_userAgent.indexOf("Chrome/");
+    String replacement = "";
+    String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
+    String userAgent = default_userAgent.replace(toBeReplaced, replacement);
+    mWebView.getSettings().setUserAgentString(userAgent);
     mProgressBar = (ProgressBar) layout.findViewById(R.id.WebViewFragment_ProgressBar);
     String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE,
                              Manifest.permission.WRITE_EXTERNAL_STORAGE,
