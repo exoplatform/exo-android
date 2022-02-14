@@ -203,9 +203,8 @@ public class PlatformWebViewFragment extends Fragment {
     String default_userAgent = mWebView.getSettings().getUserAgentString();
     int startIndex = default_userAgent.indexOf("Mozilla/");
     int endIndex = default_userAgent.indexOf("Chrome/");
-    String replacement = "";
     String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
-    String userAgent = default_userAgent.replace(toBeReplaced, replacement);
+    String userAgent = default_userAgent.replace(toBeReplaced, "");
     mWebView.getSettings().setUserAgentString(userAgent);
     // set progress bar
     mProgressBar = (ProgressBar) layout.findViewById(R.id.PlatformWebViewFragment_ProgressBar);

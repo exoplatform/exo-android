@@ -105,9 +105,8 @@ public class WebViewFragment extends Fragment {
     String default_userAgent = mWebView.getSettings().getUserAgentString();
     int startIndex = default_userAgent.indexOf("Mozilla/");
     int endIndex = default_userAgent.indexOf("Chrome/");
-    String replacement = "";
     String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
-    String userAgent = default_userAgent.replace(toBeReplaced, replacement);
+    String userAgent = default_userAgent.replace(toBeReplaced, "");
     mWebView.getSettings().setUserAgentString(userAgent);
     mProgressBar = (ProgressBar) layout.findViewById(R.id.WebViewFragment_ProgressBar);
     String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE,
