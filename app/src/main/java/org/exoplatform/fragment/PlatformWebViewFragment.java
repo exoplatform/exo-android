@@ -199,7 +199,13 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setDisplayZoomControls(false);
     mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
     mWebView.getSettings().setSupportMultipleWindows(true);
-
+    // set custom user agent by filtering the default one
+    String default_userAgent = mWebView.getSettings().getUserAgentString();
+    int startIndex = default_userAgent.indexOf("Mozilla/");
+    int endIndex = default_userAgent.indexOf("Chrome/");
+    String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
+    String userAgent = default_userAgent.replace(toBeReplaced, "");
+    mWebView.getSettings().setUserAgentString(userAgent);
     // set progress bar
     mProgressBar = (ProgressBar) layout.findViewById(R.id.PlatformWebViewFragment_ProgressBar);
     mWebView.setWebChromeClient(new WebChromeClient() {
