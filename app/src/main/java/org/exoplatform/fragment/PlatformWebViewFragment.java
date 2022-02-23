@@ -55,6 +55,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -506,15 +507,20 @@ public class PlatformWebViewFragment extends Fragment {
       Log.d("shouldOverride", url);
       // For external and short links, broadcast logout event if done
       if (url.contains(LOGOUT_PATH)) {
+        clearWebviewData();
         mListener.onUserJustBeforeSignedOut();
       }
-      if (url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))  {
+      if ((url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))) {
         // url is on the server's domain, keep loading normally
         return false;
-      } else {
-        // url is on an external domain, load in a different fragment
-        mListener.onExternalContentRequested(url);
-        return true;
+      } else{
+        if (url.contains("/saml") || url.contains("//identity.") || url.contains("google") || url.contains("facebook") || url.contains("linkedin")){
+          return false;
+        }else{
+          // url is on an external domain, load in a different fragment
+          mListener.onExternalContentRequested(url);
+          return true;
+        }
       }
     }
 
@@ -532,6 +538,7 @@ public class PlatformWebViewFragment extends Fragment {
       // Return to the previous activity if user has signed out
       String queryString = uri.getQuery();
       if (queryString != null && queryString.contains("portal:action=Logout")) {
+        clearWebviewData();
         mListener.onUserSignedOut();
       }
     }
@@ -605,6 +612,20 @@ public class PlatformWebViewFragment extends Fragment {
         }
       });
     }
+  }
+
+  // Clear Webview Data and Cache before logging out .
+
+  private void clearWebviewData() {
+    mWebView.clearCache(true);
+    mWebView.clearFormData();
+    mWebView.clearHistory();
+    mWebView.clearSslPreferences();
+    PlatformWebViewFragment.this.getContext().deleteDatabase("webviewCache.db");
+    PlatformWebViewFragment.this.getContext().deleteDatabase("webview.db");
+    CookieManager.getInstance().removeAllCookies(null);
+    CookieManager.getInstance().flush();
+    WebStorage.getInstance().deleteAllData();
   }
 
   // method for bitmap to base64
