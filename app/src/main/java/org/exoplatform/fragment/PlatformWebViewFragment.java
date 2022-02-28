@@ -202,7 +202,7 @@ public class PlatformWebViewFragment extends Fragment {
     // set custom user agent by filtering the default one
     String default_userAgent = mWebView.getSettings().getUserAgentString();
     int startIndex = default_userAgent.indexOf("Mozilla/");
-    int endIndex = default_userAgent.indexOf("Chrome/");
+    int endIndex = default_userAgent.indexOf("wv");
     String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
     String userAgent = default_userAgent.replace(toBeReplaced, "");
     mWebView.getSettings().setUserAgentString(userAgent);
