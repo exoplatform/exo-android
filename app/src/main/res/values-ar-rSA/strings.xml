@@ -45,7 +45,7 @@
     <string name="SettingsActivity.Title.ApplicationVersion">الاصدار الخاصّ بالتطبيق</string>
     <string name="SettingsActivity.Title.Edit">تغيير</string>
     <string name="SettingsActivity.Title.Save">حفظ</string>
-    <string name="SettingsActivity.Title.EnterIntranetUrl">أدخل رابط الإنترانت الخاص بك</string>
+    <string name="SettingsActivity.Title.EnterIntranetUrl">أدخل رابط eXo الخاص بك</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">حذف مثيل eXo</string>
     <string name="SettingsActivity.Message.DeleteConfirmation">هل تريد حقاً حذف مثيل eXo هذا؟</string>
     <string name="WebClient.WebView.Title.Loading">جارٍ التحميل&#8230;</string>
@@ -62,8 +62,8 @@
     <string name="OnBoarding.Title.SlideTitle">عرض رمز QR في إعدادات eXo\n الخاصة بك.</string>
     <string name="OnBoarding.Title.LostCnnection">فقدان الاتصال بالإنترنت</string>
     <string name="OnBoarding.Message.LostCnnection">الرجاء التأكد من أن لديك اتصال بالإنترنت.</string>
-    <string name="OnBoarding.Title.Update">eXo Update</string>
-    <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
+    <string name="OnBoarding.Title.Update">تحديث eXo</string>
+    <string name="OnBoarding.Message.Update">لاستخدام التطبيق، الرجاء تحميل أحدث إصدار</string>
     <string name="Word.OK">موافق</string>
     <string name="Word.Cancel">الغاء</string>
     <string name="Word.Back">رجوع</string>

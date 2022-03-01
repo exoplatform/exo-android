@@ -55,6 +55,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -152,6 +153,15 @@ public class PlatformWebViewFragment extends Fragment {
   private String downloadFileContentDisposition;
 
   private String downloadFileMimetype;
+
+  private boolean isWhileLoginProcess = false;
+
+  private final String               FACEBOOK_LOGIN_PATH = "www.facebook.com/dialog/oauth";
+
+  private final String               GOOGLE_LOGIN_PATH = "accounts.google.com/o/oauth2";
+
+  private final String               LINKEDIN_LOGIN_PATH = "www.linkedin.com/uas/oauth2";
+
   Integer count = 0;
 
   public PlatformWebViewFragment() {
@@ -202,7 +212,7 @@ public class PlatformWebViewFragment extends Fragment {
     // set custom user agent by filtering the default one
     String default_userAgent = mWebView.getSettings().getUserAgentString();
     int startIndex = default_userAgent.indexOf("Mozilla/");
-    int endIndex = default_userAgent.indexOf("Chrome/");
+    int endIndex = default_userAgent.indexOf("wv");
     String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
     String userAgent = default_userAgent.replace(toBeReplaced, "");
     mWebView.getSettings().setUserAgentString(userAgent);
@@ -506,15 +516,25 @@ public class PlatformWebViewFragment extends Fragment {
       Log.d("shouldOverride", url);
       // For external and short links, broadcast logout event if done
       if (url.contains(LOGOUT_PATH)) {
+        clearWebviewData();
         mListener.onUserJustBeforeSignedOut();
       }
-      if (url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))  {
+
+      if (url.contains(GOOGLE_LOGIN_PATH) || url.contains(FACEBOOK_LOGIN_PATH) || url.contains(LINKEDIN_LOGIN_PATH)) {
+         isWhileLoginProcess = true ;
+      }
+
+      if (url.contains(mServer.getShortUrl()) && url.contains("/portal/login?username=")) {
+        isWhileLoginProcess = false ;
+      }
+
+      if (((url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))) || isWhileLoginProcess) {
         // url is on the server's domain, keep loading normally
         return false;
-      } else {
-        // url is on an external domain, load in a different fragment
-        mListener.onExternalContentRequested(url);
-        return true;
+      } else{
+          // url is on an external domain, load in a different fragment
+          mListener.onExternalContentRequested(url);
+          return true;
       }
     }
 
@@ -532,9 +552,11 @@ public class PlatformWebViewFragment extends Fragment {
       // Return to the previous activity if user has signed out
       String queryString = uri.getQuery();
       if (queryString != null && queryString.contains("portal:action=Logout")) {
+        clearWebviewData();
         mListener.onUserSignedOut();
       }
     }
+
 
     @Override
     public void onPageFinished(WebView view, String url) {
@@ -558,18 +580,19 @@ public class PlatformWebViewFragment extends Fragment {
 
   }
 
-  public interface PlatformNavigationCallback {
-    void onPageStarted(boolean needsToolbar);
+  // Clear Webview cache and data before logging out.
 
-    void onUserSignedOut();
-
-    void onUserJustBeforeSignedOut();
-
-    void onExternalContentRequested(String url);
-
-    void onFirstTimeUserLoggedIn();
+  private void clearWebviewData() {
+    mWebView.clearCache(true);
+    mWebView.clearFormData();
+    mWebView.clearHistory();
+    mWebView.clearSslPreferences();
+    PlatformWebViewFragment.this.getContext().deleteDatabase("webviewCache.db");
+    PlatformWebViewFragment.this.getContext().deleteDatabase("webview.db");
+    CookieManager.getInstance().removeAllCookies(null);
+    CookieManager.getInstance().flush();
+    WebStorage.getInstance().deleteAllData();
   }
-
 
   private void getAvatarServerLogo() {
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(PlatformWebViewFragment.this.getContext());
@@ -617,5 +640,18 @@ public class PlatformWebViewFragment extends Fragment {
     Log.d("Image Log:", imageEncoded);
     return imageEncoded;
   }
+
+  public interface PlatformNavigationCallback {
+    void onPageStarted(boolean needsToolbar);
+
+    void onUserSignedOut();
+
+    void onUserJustBeforeSignedOut();
+
+    void onExternalContentRequested(String url);
+
+    void onFirstTimeUserLoggedIn();
+  }
+
 }
 
