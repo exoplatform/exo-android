@@ -61,9 +61,9 @@ public class LauncherActivity extends AppCompatActivity {
                                 Log.d("deepLink url ======>",uri.toString());
                                 openWebViewWithURL(uri.toString());
                             }else {
-                                String urlLogin = shared.getString("urlLogin", serverToConnect.getUrl().toString());
-                                openWebViewWithURL(urlLogin);
-                                editor.putBoolean("isSessionTimedOut",false);
+                                Intent intent = new Intent(LauncherActivity.this, ConnectToExoListActivity.class);
+                                startActivity(intent);
+                                editor.putBoolean("isSessionTimedOut",true);
                                 editor.apply();
                             }
                         }
