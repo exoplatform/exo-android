@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -45,6 +46,8 @@ public class LauncherActivity extends AppCompatActivity {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(LauncherActivity.this);
         Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
         SharedPreferences.Editor editor = shared.edit();
+        Uri uri = getIntent().getData();
+
         try {
             setWakeUpActivityRoot(new LauncherActivity.ResultHandler<Boolean>() {
                 @Override
@@ -54,10 +57,15 @@ public class LauncherActivity extends AppCompatActivity {
                         if(url != null && !url.equals("")) {
                             openWebViewWithURL(url);
                         } else {
-                            String urlLogin = shared.getString("urlLogin", serverToConnect.getUrl().toString());
-                            openWebViewWithURL(urlLogin);
-                            editor.putBoolean("isSessionTimedOut",false);
-                            editor.apply();
+                            if (uri != null) {
+                                Log.d("deepLink url ======>",uri.toString());
+                                openWebViewWithURL(uri.toString());
+                            }else {
+                                Intent intent = new Intent(LauncherActivity.this, ConnectToExoListActivity.class);
+                                startActivity(intent);
+                                editor.putBoolean("isSessionTimedOut",true);
+                                editor.apply();
+                            }
                         }
                     }else{
                         Intent intent = new Intent(LauncherActivity.this, ConnectToExoListActivity.class);
