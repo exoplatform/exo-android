@@ -1,16 +1,13 @@
 package org.exoplatform.activity;
 
-import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,18 +23,17 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import org.exoplatform.App;
 import org.exoplatform.R;
 import org.exoplatform.model.Server;
-import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
+import org.jsoup.Jsoup;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.TimerTask;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import io.fabric.sdk.android.services.concurrency.AsyncTask;
 
 public class BoardingActivity extends AppCompatActivity {
 
@@ -48,11 +44,14 @@ public class BoardingActivity extends AppCompatActivity {
     private TextView currentPage;
     private TextView scanQRBtn;
     private ActionDialog dialog;
+    private ActionDialog updateDialog;
     private CheckConnectivity checkConnectivity;
 
     LinearLayout scanQRFragmentBtn;
     TextView enterServerFragmentBtn;
-    Boolean isFromInstances;
+    String currentVersionString;
+    Integer currentVersion;
+    Integer storeVersion;
 
     private static final int REQUEST_CODE = 101;
 
@@ -63,14 +62,28 @@ public class BoardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
         dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
                 R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
-        checkConnectivity = new CheckConnectivity(BoardingActivity.this);
-        if (savedInstanceState == null) {
-            try {
-                bypassIfRecentlyVisited();
-            } catch (IOException e) {
-                Log.e("error", String.valueOf(e));
+        updateDialog = new ActionDialog(R.string.OnBoarding_Title_Update,
+                R.string.OnBoarding_Message_Update, R.string.Word_Update, BoardingActivity.this);
+        updateDialog.deleteAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent viewIntent =
+                            new Intent("android.intent.action.VIEW",
+                                    Uri.parse("https://play.google.com/store/apps/details?id=org.exoplatform"));
+                    startActivity(viewIntent);
+                }catch(Exception e) {
+                    Log.d("Unable to Connect Try Again:", String.valueOf(e));
+                }
             }
-        }
+        });
+
+        updateDialog.cancelAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDialog.dismiss();
+            }
+        });
         statusBarColor();
         mSlideViewPager = (ViewPager) findViewById(R.id.slide_view_pager);
         mDotLayout = (TabLayout) findViewById(R.id.onboarding_dots);
@@ -88,12 +101,19 @@ public class BoardingActivity extends AppCompatActivity {
                 this.getResources().getString(R.string.Onboarding_Title_slide2),
                 this.getResources().getString(R.string.Onboarding_Title_slide3)
         };
-
+        try {
+            currentVersionString = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("Unable to get current version:", String.valueOf(e));
+        }
+        CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
+        checkForeXoUpdate.execute();
         final String[] slide_page_numbers = {"1","2","3"};
         // The_slide_timer
         java.util.Timer timer = new java.util.Timer();
         timer.scheduleAtFixedRate(new The_slide_timer(),2000,8000);
         mDotLayout.setupWithViewPager(mSlideViewPager,true);
+
         // Set action buttons
         scanQRFragmentBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -211,7 +231,34 @@ public class BoardingActivity extends AppCompatActivity {
             }
         });
     }
+    public class CheckForeXoUpdate extends AsyncTask<Void, String, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            String newVersion = null;
+            try {
+                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=org.exoplatform")
+                        .get()
+                        .select(".hAyfc .htlgb")
+                        .get(7)
+                        .ownText();
+                return newVersion;
+            } catch (Exception e) {
+                return newVersion;
+            }
+        }
 
+        @Override
+        protected void onPostExecute(String onlineVersion) {
+            super.onPostExecute(onlineVersion);
+            if (onlineVersion != null && !onlineVersion.isEmpty()) {
+                storeVersion = Integer.parseInt(onlineVersion.replaceAll("[\\D]",""));
+                currentVersion = Integer.parseInt(currentVersionString.replaceAll("[\\D]",""));
+                if (currentVersion < storeVersion) {
+                    updateDialog.showDialog();
+                }
+            }
+        }
+    }
     public class The_slide_timer extends TimerTask {
         @Override
         public void run() {
@@ -231,92 +278,5 @@ public class BoardingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
         getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
-    }
-
-    private void bypassIfRecentlyVisited() throws IOException {
-        SharedPreferences prefs = App.Preferences.get(this);
-        Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-        try {
-            setWakeUpActivityRoot(new ResultHandler<Boolean>() {
-                @Override
-                public void onSuccess(Boolean isSessionsAlive) {
-                     if (isSessionsAlive) {
-                         String url = getIntent().getStringExtra(INTENT_KEY_URL);
-                         if(url != null && !url.equals("")) {
-                             openWebViewWithURL(url);
-                         } else {
-                             isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
-                             if (!isFromInstances) {
-                                 SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(BoardingActivity.this);
-                                 String urlLogin = shared.getString("urlLogin", serverToConnect.getUrl().toString());
-                                 openWebViewWithURL(urlLogin);
-                             }
-                         }
-                     }else{
-                         isFromInstances = getIntent().getBooleanExtra("isFromInstance",false);
-                         if (!isFromInstances) {
-                             Intent intent = new Intent(BoardingActivity.this, ConnectToExoListActivity.class);
-                             startActivity(intent);
-                         }
-                     }
-                }
-                @Override
-                public void onFailure(Exception e) {
-
-                }
-            });
-        } catch (IOException e) {
-            Log.e("error", String.valueOf(e));
-        }
-    }
-
-    private void openWebViewWithURL(String url) {
-        if (url == null)
-            throw new IllegalArgumentException("URL must not be null");
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(INTENT_KEY_URL, url);
-        this.startActivity(intent);
-    }
-
-    private void setWakeUpActivityRoot(final ResultHandler<Boolean> handler) throws IOException {
-        if (checkConnectivity.isConnectedToInternet()) {
-
-            SharedPreferences prefs = App.Preferences.get(this);
-            Server serverToConnect = new ServerManagerImpl(prefs).getLastVisitedServer();
-            String username = prefs.getString("connectedUsername", "username");
-            String cookies = prefs.getString("connectedCookies", "cookies");
-            if (serverToConnect != null) {
-                final String url = App.getCheckSessionURL(serverToConnect.getUrl().getProtocol(), serverToConnect.getShortUrl(), username);
-                Log.d("url =========> ", url);
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            OkHttpClient client = new OkHttpClient();
-                            Request request = new Request.Builder()
-                                    .addHeader("Content-Type", "application/json")
-                                    .addHeader("Cookie", cookies)
-                                    .url(url)
-                                    .build();
-                            Response httpResponse = client.newCall(request).execute();
-                            if (httpResponse.code() == 200) {
-                                handler.onSuccess(true);
-                            } else {
-                                handler.onSuccess(false);
-                            }
-                        } catch (Exception e) {
-                            Log.e("error", String.valueOf(e));
-                            handler.onFailure(e);
-                        }
-                    }
-                });
-                thread.start();
-            }
-        }
-    }
-
-    public interface ResultHandler<T> {
-        void onSuccess(T data);
-        void onFailure(Exception e);
     }
 }

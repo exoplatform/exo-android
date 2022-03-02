@@ -62,6 +62,8 @@
     <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
     <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
     <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
+    <string name="OnBoarding.Title.Update">eXo Update</string>
+    <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
     <string name="Word.OK">Ok</string>
     <string name="Word.Cancel">Renunță</string>
     <string name="Word.Back">Înapoi</string>
@@ -70,6 +72,7 @@
     <string name="Word.eXoPlatform">eXo Platform</string>
     <string name="Word.Space">Spaţiu</string>
     <string name="Word.Done">Făcut</string>
+    <string name="Word.Update">Actualizare</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
     <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
@@ -79,6 +82,7 @@
     <!-- Add Domain -->
     <string name="AddDomain.Title.Header">Add your eXo</string>
     <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
+    <string name="AddDomain.Title.Placeholder">Please enter your url</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Distribuie</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>

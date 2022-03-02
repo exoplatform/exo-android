@@ -62,14 +62,17 @@
     <string name="OnBoarding.Title.SlideTitle">Affichez le QR Code dans vos paramètres eXo.</string>
     <string name="OnBoarding.Title.LostCnnection">Connexion Internet perdue</string>
     <string name="OnBoarding.Message.LostCnnection">Veuillez vous assurer d\'avoir une connexion Internet.</string>
+    <string name="OnBoarding.Title.Update">Mise à jour d\'eXo</string>
+    <string name="OnBoarding.Message.Update">Pour utiliser l\'application, veuillez télécharger la dernière version</string>
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Annuler</string>
     <string name="Word.Back">Retour</string>
     <string name="Word.Delete">Supprimer</string>
     <string name="Word.eXo">eXo</string>
-    <string name="Word.eXoPlatform">eXoPlatform</string>
+    <string name="Word.eXoPlatform">eXo Platform</string>
     <string name="Word.Space">Espace</string>
     <string name="Word.Done">Terminé</string>
+    <string name="Word.Update">Mettre à jour</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Afficher le QR Code dans vos paramètres eXo</string>
     <string name="Onboarding.Title.slide2">Scannez le QR Code qui apparaît dans vos paramètres eXo</string>
@@ -79,6 +82,7 @@
     <!-- Add Domain -->
     <string name="AddDomain.Title.Header">Ajouter une instance eXo</string>
     <string name="AddDomain.Title.addURL">Entrez votre URL instance eXo</string>
+    <string name="AddDomain.Title.Placeholder">Veuillez entrer une url</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Publier</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
@@ -91,7 +95,7 @@
     <string name="ShareActivity.Compose.Hint.Thumbnail">Miniature</string>
     <string name="ShareActivity.Intranets.Title.Intranets">Sélectionnez une instance eXo</string>
     <string name="ShareActivity.SignIn.Title.EnterCredentials">Entrez vos identifiants</string>
-    <string name="ShareActivity.SignIn.Title.Username">Username</string>
+    <string name="ShareActivity.SignIn.Title.Username">Identifiant</string>
     <string name="ShareActivity.SignIn.Title.Password">Mot de passe</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Récupération des espaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Vous n\'êtes dans aucun espace</string>
@@ -110,9 +114,9 @@
     <string name="ShareService.Message.OperationSuccess">Succès</string>
     <string name="ShareService.Title.ShareDocument">Partage de document</string>
     <string name="ShareService.Title.ShareMessage">Partager une publication</string>
-    <string name="ShareService.Message.UploadInProgress">Upload en cours</string>
+    <string name="ShareService.Message.UploadInProgress">Chargement en cours</string>
     <string name="ShareService.Message.PostShortly">Votre message sera publié dans un instant</string>
-    <string name="ShareService.Error.UploadFailed">L\'upload du document a échoué</string>
+    <string name="ShareService.Error.UploadFailed">Le chargement du document a échoué</string>
     <string name="ShareService.Error.PostFailed">Impossible de publier</string>
     <string name="ShareService.Error.CommentFailed">La publication du commentaire a échoué</string>
     <string name="ShareService.Error.UploadFolderFailed">Le dossier n\'a pas pu être créé sur le serveur</string>
