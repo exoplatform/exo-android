@@ -62,6 +62,8 @@
     <string name="OnBoarding.Title.SlideTitle">crwdns7014889:0crwdne7014889:0</string>
     <string name="OnBoarding.Title.LostCnnection">crwdns7015179:0crwdne7015179:0</string>
     <string name="OnBoarding.Message.LostCnnection">crwdns7015181:0crwdne7015181:0</string>
+    <string name="OnBoarding.Title.Update">crwdns7016374:0crwdne7016374:0</string>
+    <string name="OnBoarding.Message.Update">crwdns7016376:0crwdne7016376:0</string>
     <string name="Word.OK">crwdns7014891:0crwdne7014891:0</string>
     <string name="Word.Cancel">crwdns7014893:0crwdne7014893:0</string>
     <string name="Word.Back">crwdns7014895:0crwdne7014895:0</string>
@@ -70,6 +72,7 @@
     <string name="Word.eXoPlatform">crwdns7014901:0crwdne7014901:0</string>
     <string name="Word.Space">crwdns7014903:0crwdne7014903:0</string>
     <string name="Word.Done">crwdns7014905:0crwdne7014905:0</string>
+    <string name="Word.Update">crwdns7016378:0crwdne7016378:0</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">crwdns7014907:0crwdne7014907:0</string>
     <string name="Onboarding.Title.slide2">crwdns7014909:0crwdne7014909:0</string>
@@ -79,6 +82,7 @@
     <!-- Add Domain -->
     <string name="AddDomain.Title.Header">crwdns7015183:0crwdne7015183:0</string>
     <string name="AddDomain.Title.addURL">crwdns7014919:0crwdne7014919:0</string>
+    <string name="AddDomain.Title.Placeholder">crwdns7015665:0crwdne7015665:0</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">crwdns7014921:0crwdne7014921:0</string>
     <string name="ShareActivity.Compose.Title.Intranet">crwdns7014923:0crwdne7014923:0</string>
