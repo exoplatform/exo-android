@@ -79,6 +79,8 @@ public class ServerUtils {
     void onServerNotSupported();
 
     void onServerInvalid();
+
+    void onConnectionError();
   }
 
   public static void verifyUrl(@NonNull String urlStr, @NonNull
@@ -121,7 +123,11 @@ public class ServerUtils {
           @Override
           public void onFailure(Call<PlatformInfo> call, Throwable t) {
             Log.e(LOG_TAG, "Unable to retrieve platform information", t);
-            callback.onServerInvalid();
+            if (t.toString().contains("java.net.ConnectException") || t.toString().contains("java.net.UnknownHostException")){
+              callback.onConnectionError();
+            }else{
+              callback.onServerInvalid();
+            }
           }
         });
       } else {
@@ -132,7 +138,10 @@ public class ServerUtils {
     }
 
   }
-
+  public static boolean isConnected() throws InterruptedException, IOException {
+    String command = "ping -c 1 google.com";
+    return Runtime.getRuntime().exec(command).waitFor() == 0;
+  }
   public static ProgressDialog savingServerDialog(@NonNull Context context) {
     ProgressDialog progressDialog = new ProgressDialog(context);
     progressDialog.setMessage(context.getString(R.string.ServerManager_Message_SavingServer));

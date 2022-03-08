@@ -102,6 +102,8 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
 
   private boolean            mShouldCleanup;
 
+  private CheckConnectivity checkConnectivity;
+
   @Override
   protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);
@@ -109,6 +111,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     setContentView(R.layout.activity_share_extension);
     Toolbar toolbar = (Toolbar) findViewById(R.id.Share_Toolbar);
     setSupportActionBar(toolbar);
+    checkConnectivity = new CheckConnectivity(ShareExtensionActivity.this);
     mShouldCleanup = true;
     mToolbarButton = (Button) findViewById(R.id.Share_Main_Button);
     mUserLoggedIn = false;
@@ -426,6 +429,11 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
         server.setLastVisited(-1L);
         // Set signed-out state and update the server
         handleLoginResult(false);
+      }
+
+      @Override
+      public void onConnectionError() {
+        checkConnectivity.lostConnectionDialog.showDialog();
       }
     });
   }
