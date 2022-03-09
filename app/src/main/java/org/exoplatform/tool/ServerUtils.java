@@ -138,10 +138,7 @@ public class ServerUtils {
     }
 
   }
-  public static boolean isConnected() throws InterruptedException, IOException {
-    String command = "ping -c 1 google.com";
-    return Runtime.getRuntime().exec(command).waitFor() == 0;
-  }
+
   public static ProgressDialog savingServerDialog(@NonNull Context context) {
     ProgressDialog progressDialog = new ProgressDialog(context);
     progressDialog.setMessage(context.getString(R.string.ServerManager_Message_SavingServer));
