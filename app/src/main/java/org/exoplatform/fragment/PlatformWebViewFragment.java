@@ -294,7 +294,10 @@ public class PlatformWebViewFragment extends Fragment {
           requestPermissions(new String[]{ WRITE_EXTERNAL_STORAGE },
                   WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST);
         } else {
-          downloadFile(url, userAgent, contentDisposition);
+          // Prevent blob urls form being handled
+          if (!url.startsWith("blob")) {
+            downloadFile(url, userAgent, contentDisposition);
+          }
         }
       }
     });
