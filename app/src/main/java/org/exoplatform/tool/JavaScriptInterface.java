@@ -1,12 +1,20 @@
 package org.exoplatform.tool;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,6 +57,7 @@ public class JavaScriptInterface {
         return "javascript: console.log('It is not a Blob URL');";
     }
     private void convertBase64StringToPdfAndStoreIt(String base64PDf) throws IOException {
+        final int notificationId = 1;
         String currentDateTime = DateFormat.getDateTimeInstance().format(new Date());
         String newTime = currentDateTime.replaceFirst(", ","_").replaceAll(" ","_").replaceAll(":","-");
         Log.d("fileMimeType ====> ",fileMimeType);
@@ -66,6 +75,28 @@ public class JavaScriptInterface {
         } catch (Exception e) {
             Toast.makeText(context, "FAILED TO DOWNLOAD THE FILE!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+        }
+        if (dwldsPath.exists()) {
+            Intent intent = new Intent();
+            intent.setAction(android.content.Intent.ACTION_VIEW);
+            Uri apkURI = FileProvider.getUriForFile(context,context.getApplicationContext().getPackageName() + ".provider", dwldsPath);
+            intent.setDataAndType(apkURI, MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension));
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            String CHANNEL_ID = "MYCHANNEL";
+            final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel= new NotificationChannel(CHANNEL_ID,"name", NotificationManager.IMPORTANCE_LOW);
+            Notification notification = new Notification.Builder(context,CHANNEL_ID)
+                    .setContentText("You have got something new!")
+                    .setContentTitle("File downloaded")
+                    .setContentIntent(pendingIntent)
+                    .setChannelId(CHANNEL_ID)
+                    .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                    .build();
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+                notificationManager.notify(notificationId, notification);
+            }
         }
         Toast.makeText(context, "FILE DOWNLOADED!", Toast.LENGTH_SHORT).show();
     }
