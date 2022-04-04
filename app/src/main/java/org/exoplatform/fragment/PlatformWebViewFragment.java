@@ -332,7 +332,10 @@ public class PlatformWebViewFragment extends Fragment {
       case WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST: {
         if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          downloadFile(downloadFileUrl, downloadUserAgent, downloadFileContentDisposition);
+          // Prevent blob urls form being handled
+          if (!downloadFileUrl.startsWith("blob")) {
+            downloadFile(downloadFileUrl, downloadUserAgent, downloadFileContentDisposition);
+          }
         }
         return;
       }
