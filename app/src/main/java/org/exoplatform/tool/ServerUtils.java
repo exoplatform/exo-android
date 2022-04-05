@@ -41,8 +41,11 @@ import org.xml.sax.SAXException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +82,8 @@ public class ServerUtils {
     void onServerNotSupported();
 
     void onServerInvalid();
+
+    void onConnectionError();
   }
 
   public static void verifyUrl(@NonNull String urlStr, @NonNull
@@ -120,8 +125,7 @@ public class ServerUtils {
 
           @Override
           public void onFailure(Call<PlatformInfo> call, Throwable t) {
-            Log.e(LOG_TAG, "Unable to retrieve platform information", t);
-            callback.onServerInvalid();
+            HandleThrowableException(callback,t);
           }
         });
       } else {
@@ -131,6 +135,15 @@ public class ServerUtils {
       callback.onServerInvalid();
     }
 
+  }
+
+  public static void HandleThrowableException(ServerVerificationCallback callback,Throwable t){
+    Log.e(LOG_TAG, "Unable to retrieve platform information", t);
+    if (t instanceof UnknownHostException || t instanceof ConnectException || t instanceof SocketTimeoutException) {
+      callback.onConnectionError();
+    }else{
+      callback.onServerInvalid();
+    }
   }
 
   public static ProgressDialog savingServerDialog(@NonNull Context context) {

@@ -65,11 +65,13 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
 
   private WebViewFragment         mWebViewFragment;
   private ActionDialog dialog;
+  private CheckConnectivity checkConnectivity;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_webview);
+    checkConnectivity = new CheckConnectivity(WebViewActivity.this);
     // Toolbar hidden by default, visible on certain pages cf
     // PlatformWebViewFragment->onPageStarted
     Toolbar mToolbar = (Toolbar) findViewById(R.id.WebClient_Toolbar);
@@ -241,6 +243,11 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
         // Move the incorrect intranet at the bottom of the history
         server.setLastVisited(-1L);
         new ServerManagerImpl(App.Preferences.get(WebViewActivity.this)).addServer(server);
+      }
+
+      @Override
+      public void onConnectionError() {
+        checkConnectivity.lostConnectionDialog.showDialog();
       }
 
       private void showDialog(int title, int message) {

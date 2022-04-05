@@ -161,6 +161,12 @@ public class AddDomainServerActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                @Override
+                public void onConnectionError() {
+                    progressDialog.dismiss();
+                    checkConnectivity.lostConnectionDialog.showDialog();
+                }
             });
         }
     }

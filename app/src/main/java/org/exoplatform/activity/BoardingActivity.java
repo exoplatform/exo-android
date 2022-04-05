@@ -64,6 +64,7 @@ public class BoardingActivity extends AppCompatActivity {
                 R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
         updateDialog = new ActionDialog(R.string.OnBoarding_Title_Update,
                 R.string.OnBoarding_Message_Update, R.string.Word_Update, BoardingActivity.this);
+        checkConnectivity = new CheckConnectivity(BoardingActivity.this);
         updateDialog.deleteAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,6 +229,12 @@ public class BoardingActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+            }
+
+            @Override
+            public void onConnectionError() {
+                progressDialog.dismiss();
+                checkConnectivity.lostConnectionDialog.showDialog();
             }
         });
     }
