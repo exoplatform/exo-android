@@ -77,6 +77,7 @@ import org.exoplatform.activity.RecyclerAdapter;
 import org.exoplatform.activity.WebViewActivity;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
+import org.exoplatform.tool.ServerManager;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.cookies.CookiesConverter;
 import org.exoplatform.tool.cookies.CookiesInterceptor;
@@ -238,8 +239,14 @@ public class PlatformWebViewFragment extends Fragment {
           public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
             if (url.contains("/jitsi/meet")) {
-              // url is on an external domain, load in a different fragment
+              // url JITSI is on an external domain, load in a different fragment
               mListener.onExternalContentRequested(url);
+              return true;
+            }
+            if (!(url.contains(mServer.getShortUrl()))) {
+              // url is on an external domain, load in a default browser
+              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+              startActivity(intent);
               return true;
             }
             return false;
