@@ -30,9 +30,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
-
 import androidx.core.content.FileProvider;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
