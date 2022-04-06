@@ -76,6 +76,8 @@ import org.exoplatform.activity.RecyclerAdapter;
 import org.exoplatform.activity.WebViewActivity;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
+import org.exoplatform.tool.JavaScriptInterface;
+import org.exoplatform.tool.ServerManager;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.cookies.CookiesConverter;
 import org.exoplatform.tool.cookies.CookiesInterceptor;
@@ -199,6 +201,13 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setDisplayZoomControls(false);
     mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
     mWebView.getSettings().setSupportMultipleWindows(true);
+    mWebView.getSettings().setAllowFileAccess(true);
+    mWebView.getSettings().setAllowContentAccess(true);
+    mWebView.getSettings().setAllowFileAccess(true);
+    mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
+    mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+    mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+    mWebView.addJavascriptInterface(new JavaScriptInterface(getContext()), "Android");
     // set custom user agent by filtering the default one
     String default_userAgent = mWebView.getSettings().getUserAgentString();
     int startIndex = default_userAgent.indexOf("Mozilla/");
@@ -277,7 +286,14 @@ public class PlatformWebViewFragment extends Fragment {
           requestPermissions(new String[]{ WRITE_EXTERNAL_STORAGE },
                   WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST);
         } else {
-          downloadFile(url, userAgent, contentDisposition);
+          // Prevent blob urls form being handled
+          if (!url.startsWith("blob")) {
+            downloadFile(url, userAgent, contentDisposition);
+          }else{
+            Toast.makeText(getContext(), "DOWNLOAD STARTED....", Toast.LENGTH_SHORT).show();
+            downloadFileMimetype = mimetype;
+            mWebView.loadUrl(JavaScriptInterface.getBase64StringFromBlobUrl(url,downloadFileMimetype));
+          }
         }
       }
     });
@@ -335,6 +351,8 @@ public class PlatformWebViewFragment extends Fragment {
           // Prevent blob urls form being handled
           if (!downloadFileUrl.startsWith("blob")) {
             downloadFile(downloadFileUrl, downloadUserAgent, downloadFileContentDisposition);
+          }else{
+            mWebView.loadUrl(JavaScriptInterface.getBase64StringFromBlobUrl(downloadFileUrl,downloadFileMimetype));
           }
         }
         return;
