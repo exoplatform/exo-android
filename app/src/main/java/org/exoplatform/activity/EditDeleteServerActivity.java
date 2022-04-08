@@ -117,6 +117,11 @@ public class EditDeleteServerActivity extends AppCompatActivity {
                                                 R.string.ServerManager_Error_TitleIncorrect,
                                                 R.string.ServerManager_Error_IncorrectUrl).show();
         }
+
+        @Override
+        public void onConnectionError() {
+
+        }
       });
       return true;
     }

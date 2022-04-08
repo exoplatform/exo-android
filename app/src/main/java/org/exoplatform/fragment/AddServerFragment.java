@@ -104,6 +104,11 @@ public class AddServerFragment extends Fragment {
                                               R.string.ServerManager_Error_TitleIncorrect,
                                               R.string.ServerManager_Error_IncorrectUrl).show();
       }
+
+      @Override
+      public void onConnectionError() {
+
+      }
     });
   }
 }
