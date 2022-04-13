@@ -1,0 +1,43 @@
+name: Android Autoupdate gems
+
+on:
+  schedule:
+    - cron:  '0 0 * * 4' # Thu at 0 AM UTC
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build eXo Android Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: acceptance
+          token: ${{ secrets.ADMIN_TOKEN }}
+      - name: Setup JDK 8  
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      # Setup Ruby 2.6 (2.7 not yet compatible with bundler)
+      - name: Setup ruby 2.6
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      # Install Bundler and dependencies gems
+      - name: Install bundler and Up date dependencies
+        run: gem install bundler && bundle update
+      - name: Setup Android SDK
+        uses:
+          android-actions/setup-android@v2
+      - name: Build
+        uses: eskatos/gradle-command-action@v1
+        with:
+          gradle-version: 6.1.1
+          arguments: clean assembleDebug
+      - name: Commiting new Gemfile
+        run: |
+          git add Gemfile Gemfile.lock
+          git -c user.name='eXo Software Factory' -c user.email='exo-swf@exoplatform.com' commit -m "Update Gems $(date +%d-%m-%Y)" || true
+      - name: Push changes to base branch
+        run: git push origin acceptance:acceptance
