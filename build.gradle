@@ -20,6 +20,10 @@ allprojects {
         maven { url "https://repository.exoplatform.org/public/" }
         mavenLocal()
         google()
+        jcenter()
+        maven {
+            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+        }
     }
 
     afterEvaluate { project ->
