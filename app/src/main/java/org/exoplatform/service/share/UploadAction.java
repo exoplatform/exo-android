@@ -38,6 +38,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by The eXo Platform SAS<br/>
@@ -101,7 +102,7 @@ public class UploadAction extends Action {
       uploadReq.addRequestProperty("Cookie", cookieString.toString());
       // Write the form data
       output = uploadReq.getOutputStream();
-      writer = new PrintWriter(new OutputStreamWriter(output, "UTF-8"), true);
+      writer = new PrintWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8), true);
       writer.append("--").append(boundary).append(CRLF);
       writer.append("Content-Disposition: form-data; name=\"file\"; filename=\"")
             .append(uploadInfo.fileToUpload.documentName)

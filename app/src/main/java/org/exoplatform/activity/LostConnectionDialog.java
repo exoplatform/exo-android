@@ -17,7 +17,7 @@ public class LostConnectionDialog {
     private TextView lostConnectionTitle;
     private TextView lostConnectionMessage;
     public TextView okAction;
-    private Activity activity;
+    private final Activity activity;
     private Dialog dialog;
 
 

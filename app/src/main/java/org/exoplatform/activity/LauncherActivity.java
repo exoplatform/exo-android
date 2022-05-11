@@ -10,15 +10,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import org.exoplatform.R;
+
 import org.exoplatform.App;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ServerManagerImpl;
 
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

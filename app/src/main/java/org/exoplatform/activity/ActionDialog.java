@@ -1,16 +1,13 @@
 package org.exoplatform.activity;
 
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
+
 import org.exoplatform.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class ActionDialog {
@@ -20,7 +17,7 @@ public class ActionDialog {
         public TextView deleteAction;
         public TextView cancelAction;
 
-        private Activity activity;
+        private final Activity activity;
         private Dialog dialog;
 
 

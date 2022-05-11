@@ -61,7 +61,7 @@ public class LoginTask extends AsyncTask<Server, Void, LoginTask.LoginResult> {
     PlatformInfo mPlatformInfo;
   }
 
-  private List<Listener> mListeners;
+  private final List<Listener> mListeners;
 
   public LoginTask() {
     mListeners = new ArrayList<>();

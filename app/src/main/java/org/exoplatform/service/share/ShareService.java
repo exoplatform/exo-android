@@ -45,9 +45,6 @@ import org.exoplatform.tool.LinkAnalyzer;
 import org.exoplatform.tool.PlatformUtils;
 import org.exoplatform.tool.ServerUtils;
 import org.exoplatform.tool.SocialRestService;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
@@ -82,12 +79,12 @@ public class ShareService extends IntentService {
 
   private SocialActivity     postInfo;
 
-  private static String CHANNEL_NAME = "EXO_CHANNEL";
-  private static String CHANNEL_DESCRIPTION = "EXO_CHANNEL_DESCRIPTION";
-  private static String CHANNEL_ID = "EXO_CHANNEL_ID";
+  private static final String CHANNEL_NAME = "EXO_CHANNEL";
+  private static final String CHANNEL_DESCRIPTION = "EXO_CHANNEL_DESCRIPTION";
+  private static final String CHANNEL_ID = "EXO_CHANNEL_ID";
 
   // key is uri in device, value is url on server
-  private List<UploadInfo>   uploadedMap = new ArrayList<>();
+  private final List<UploadInfo>   uploadedMap = new ArrayList<>();
 
   private enum ShareResult {
     SUCCESS, ERROR_INCORRECT_CONTENT_URI, ERROR_INCORRECT_ACCOUNT, ERROR_CREATE_FOLDER, ERROR_UPLOAD_FAILED, ERROR_POST_FAILED, ERROR_COMMENT_FAILED

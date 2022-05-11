@@ -40,10 +40,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class SpaceListLoader extends AsyncTaskLoader<SocialRestService.SpaceListResult> {
 
-    private int mOffset;
-    private int limit;
+    private final int mOffset;
+    private final int limit;
 
-    private Server mServer;
+    private final Server mServer;
 
     public SpaceListLoader(Context context, int offset, int limit, Server server) {
         super(context);

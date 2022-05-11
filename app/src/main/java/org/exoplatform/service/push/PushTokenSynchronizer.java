@@ -40,7 +40,7 @@ public class PushTokenSynchronizer {
 
   private static final String TAG = PushTokenSynchronizer.class.getSimpleName();
 
-  private Callback<ResponseBody> registerCallback = new Callback<ResponseBody>() {
+  private final Callback<ResponseBody> registerCallback = new Callback<ResponseBody>() {
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
       if (response.isSuccessful()) {
@@ -57,7 +57,7 @@ public class PushTokenSynchronizer {
     }
   };
 
-  private PushTokenRestServiceFactory restServiceFactory;
+  private final PushTokenRestServiceFactory restServiceFactory;
 
   private PushTokenRestService restService;
 
