@@ -27,47 +27,10 @@
         <item name="android:textSize">@dimen/Global.TextSize</item>
     </style>
 
-    <style name="MainTheme.MainScreenButton">
-        <item name="android:padding">@dimen/MainScreen.Buttons.Padding</item>
-        <item name="android:layout_marginLeft">@dimen/MainScreen.Buttons.MarginHorizontal</item>
-        <item name="android:layout_marginRight">@dimen/MainScreen.Buttons.MarginHorizontal</item>
-        <item name="android:layout_marginBottom">@dimen/MainScreen.Buttons.MarginVertical</item>
-        <item name="android:textSize">@dimen/MainScreen.Buttons.TextSize</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-    </style>
-
-    <style name="MainTheme.MainScreenButton.YellowButton">
-        <item name="android:background">@drawable/main_screen_button_yellow</item>
-    </style>
-
-    <style name="MainTheme.MainScreenButton.GreyButton">
-        <item name="android:background">@drawable/main_screen_button_grey</item>
-    </style>
-
-    <style name="MainTheme.DeleteServerButton">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@drawable/rounded_red_button</item>
-        <item name="android:padding">@dimen/space_medium</item>
-    </style>
-
     <style name="MainTheme.DoneWebViewButton">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/rounded_black_button</item>
         <item name="android:padding">@dimen/space_medium</item>
-    </style>
-
-    <style name="MainTheme.GotItButton">
-        <item name="android:textAllCaps">true</item>
-        <item name="android:background">@drawable/main_screen_button_yellow</item>
-        <item name="android:padding">@dimen/space_medium</item>
-    </style>
-
-    <style name="MainTheme.GreyHeader">
-        <item name="android:padding">@dimen/GreyHeader.Padding</item>
-        <item name="android:textSize">@dimen/GreyHeader.TextSize</item>
-        <item name="android:background">@color/eXoGreyTransparent</item>
-        <item name="android:gravity">center</item>
     </style>
 
     <style name="MainTheme.ServerListItem">

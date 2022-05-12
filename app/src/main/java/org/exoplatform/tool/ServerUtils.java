@@ -69,9 +69,7 @@ public class ServerUtils {
     public static String plfVersion;
 
     public static boolean isOldVersion() {
-        if (plfVersion != null && plfVersion.substring(0, 5).compareTo("5.2.2") <= 0)
-            return true;
-        else return false;
+        return plfVersion != null && plfVersion.substring(0, 5).compareTo("5.2.2") <= 0;
     }
 
   public interface ServerVerificationCallback {

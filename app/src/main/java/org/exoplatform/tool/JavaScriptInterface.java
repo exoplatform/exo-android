@@ -39,7 +39,7 @@ import java.util.Date;
 
 public class JavaScriptInterface {
     private static String fileMimeType;
-    private Context context;
+    private final Context context;
     public JavaScriptInterface(Context context) {
         this.context = context;
     }
