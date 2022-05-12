@@ -50,7 +50,7 @@ public class SignInFragment extends Fragment {
 
   private EditText              mPasswordField;
 
-  private TextWatcher           usernamePasswordWatcher = new TextWatcher() {
+  private final TextWatcher           usernamePasswordWatcher = new TextWatcher() {
                                                           @Override
                                                           public void onTextChanged(CharSequence s,
                                                                                     int start,

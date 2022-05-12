@@ -30,7 +30,7 @@ import java.net.URI;
  */
 public class WebdavMethod extends HttpRequestBase {
 
-  private String method;
+  private final String method;
 
   // Constructor for delete, create new folder, check reachability url
   public WebdavMethod(String method, String sourceUriStr) {

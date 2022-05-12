@@ -25,7 +25,7 @@ public class SliderAdapter extends PagerAdapter {
 
     public SliderAdapter(Context context){
         this.context = context;
-    };
+    }
 
     // Arrays
 

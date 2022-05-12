@@ -43,15 +43,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
-import android.webkit.PermissionRequest;
-import android.webkit.RenderProcessGoneDetail;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -67,18 +63,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
-import org.exoplatform.activity.RecyclerAdapter;
-import org.exoplatform.activity.WebViewActivity;
 import org.exoplatform.model.Server;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.JavaScriptInterface;
-import org.exoplatform.tool.ServerManager;
 import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.cookies.CookiesConverter;
 import org.exoplatform.tool.cookies.CookiesInterceptor;
@@ -89,7 +80,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,9 +95,6 @@ import okhttp3.Response;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
-
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.UrlConnectionDownloader;
 
 /**
  * WebView that is configured to display content from a Platform 4.3+ intranet.
@@ -144,9 +131,9 @@ public class PlatformWebViewFragment extends Fragment {
 
   private final String               LOGOUT_PATH         = "portal:action=Logout";
 
-  private CookiesInterceptor         mCookiesInterceptor = new CookiesInterceptorFactory().create();
+  private final CookiesInterceptor         mCookiesInterceptor = new CookiesInterceptorFactory().create();
 
-  private CookiesConverter           mCookiesConverter   = new CookiesConverter();
+  private final CookiesConverter           mCookiesConverter   = new CookiesConverter();
 
   private String downloadFileUrl;
 
@@ -396,7 +383,7 @@ public class PlatformWebViewFragment extends Fragment {
     if (context instanceof PlatformNavigationCallback) {
       mListener = (PlatformNavigationCallback) context;
     } else {
-      throw new RuntimeException(context.toString() + " must implement PlatformNavigationCallback");
+      throw new RuntimeException(context + " must implement PlatformNavigationCallback");
     }
   }
 
@@ -469,31 +456,9 @@ public class PlatformWebViewFragment extends Fragment {
     });
   }
 
-  private void checkUserLoggedInAsync() {
-    OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
-    String plfInfo = mServer.getUrl().getProtocol() + "://" + mServer.getShortUrl() + "/rest/private/platform/info";
-    Request req = new Request.Builder().url(plfInfo).get().build();
-    client.newCall(req).enqueue(new Callback() {
-      @Override
-      public void onFailure(Call call, IOException e) {
-        // ignore network failure
-      }
-
-      @Override
-      public void onResponse(Call call, Response response) throws IOException {
-        if (response.isSuccessful()) {
-          App.Preferences.get(getContext()).edit().putBoolean(App.Preferences.DID_SHOW_ONBOARDING, true).apply();
-          mDidShowOnboarding = true;
-          mListener.onFirstTimeUserLoggedIn();
-        }
-        response.body().close();
-      }
-    });
-  }
-
   private class PlatformWebViewClient extends WebViewClient {
 
-    private List<String> resourceIds = new ArrayList<>();
+    private final List<String> resourceIds = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -589,10 +554,6 @@ public class PlatformWebViewFragment extends Fragment {
     public void onPageFinished(WebView view, String url) {
       super.onPageFinished(view, url);
       Log.d("onPageFinished",url);
-
-      if (!mDidShowOnboarding && INTRANET_HOME_PAGE.matcher(url).matches()) {
-        checkUserLoggedInAsync();
-      }
       mCookiesInterceptor.intercept(mCookiesConverter.toMap(CookieManager.getInstance().getCookie(url)), url,PlatformWebViewFragment.this.getContext());
       if (url.contains("/portal/dw")) {
         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -604,7 +565,6 @@ public class PlatformWebViewFragment extends Fragment {
       if (BuildConfig.DEBUG)
         Log.d(TAG, "COOKIES: " + CookieManager.getInstance().getCookie(url));
     }
-
   }
 
   // Clear Webview cache and data before logging out.
@@ -639,7 +599,6 @@ public class PlatformWebViewFragment extends Fragment {
         public void onResponse(Call call, Response response) throws IOException {
           if (response.isSuccessful()) {
             final Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
-            // Remember to set the bitmap in the main thread.
             new Handler(Looper.getMainLooper()).post(new Runnable() {
               @Override
               public void run() {
@@ -676,8 +635,6 @@ public class PlatformWebViewFragment extends Fragment {
     void onUserJustBeforeSignedOut();
 
     void onExternalContentRequested(String url);
-
-    void onFirstTimeUserLoggedIn();
   }
 
 }

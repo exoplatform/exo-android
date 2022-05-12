@@ -103,7 +103,8 @@ public class ExoHttpClient {
    */
   private static class BasicAuthenticator implements Authenticator {
 
-    private String username, password;
+    private final String username;
+      private final String password;
 
     public BasicAuthenticator(String username, String password) {
       this.username = username;
