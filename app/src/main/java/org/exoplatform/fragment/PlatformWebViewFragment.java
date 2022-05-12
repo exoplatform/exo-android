@@ -123,10 +123,6 @@ public class PlatformWebViewFragment extends Fragment {
 
   private ValueCallback<Uri[]>       mUploadMessage;
 
-  private boolean                    mDidShowOnboarding;
-
-  private final Pattern              INTRANET_HOME_PAGE  = Pattern.compile("^(.*)(/portal/intranet)(/?)$");
-
   private final Pattern              LOGIN_REGISTER_PAGE = Pattern.compile("(/[a-z0-9]*/)([a-z0-9]*/)?(login|register)");
 
   private final String               LOGOUT_PATH         = "portal:action=Logout";
@@ -150,8 +146,6 @@ public class PlatformWebViewFragment extends Fragment {
   private final String               GOOGLE_LOGIN_PATH = "accounts.google.com/o/oauth2";
 
   private final String               LINKEDIN_LOGIN_PATH = "www.linkedin.com/uas/oauth2";
-
-  Integer count = 0;
 
   public PlatformWebViewFragment() {
     // Required empty public constructor
@@ -180,7 +174,6 @@ public class PlatformWebViewFragment extends Fragment {
       // save history
       new ServerManagerImpl(App.Preferences.get(getContext())).addServer(mServer);
     }
-    mDidShowOnboarding = App.Preferences.get(getContext()).getBoolean(App.Preferences.DID_SHOW_ONBOARDING, false);
   }
 
   @SuppressLint("SetJavaScriptEnabled")
@@ -190,6 +183,7 @@ public class PlatformWebViewFragment extends Fragment {
     // create web view
     mWebView = (WebView) layout.findViewById(R.id.PlatformWebViewFragment_WebView);
     mWebView.setWebViewClient(new PlatformWebViewClient());
+    mWebView.clearCache(true);
     mWebView.getSettings().setJavaScriptEnabled(true);
     mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
     mWebView.getSettings().setDomStorageEnabled(true);
@@ -200,7 +194,6 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setSupportMultipleWindows(true);
     mWebView.getSettings().setAllowFileAccess(true);
     mWebView.getSettings().setAllowContentAccess(true);
-    mWebView.getSettings().setAllowFileAccess(true);
     mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
     mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
     mWebView.getSettings().setDefaultTextEncodingName("utf-8");
