@@ -108,7 +108,7 @@ public class WebViewFragment extends Fragment {
                              Manifest.permission.INTERNET,
                              Manifest.permission.RECORD_AUDIO,
                              Manifest.permission.CAMERA };
-    ActivityCompat.requestPermissions(this.getActivity(),permissions,1010);
+    ActivityCompat.requestPermissions(getActivity(),permissions,1010);
     mWebView.setWebChromeClient(new WebChromeClient() {
       @Override
       public void onReceivedTitle(WebView view, String title) {

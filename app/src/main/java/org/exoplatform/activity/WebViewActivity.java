@@ -109,7 +109,7 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
     else if (mWebViewFragment != null && mWebViewFragment.isVisible())
       eventHandled = mWebViewFragment.goBack();
     if (!eventHandled)
-      onBackToServerList();
+      return;
   }
 
   @Override
