@@ -260,17 +260,13 @@ public class PlatformWebViewFragment extends Fragment {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
         i.setType("*/*");
-        PlatformWebViewFragment.this.startActivityForResult(
-                Intent.createChooser(i, "File Browser"),
-                FILECHOOSER_RESULTCODE);
+        PlatformWebViewFragment.this.startActivityForResult(Intent.createChooser(i, "File Browser"),FILECHOOSER_RESULTCODE);
         return true;
       }
     });
 
     mWebView.setDownloadListener(new DownloadListener() {
-      public void onDownloadStart(String url, String userAgent,
-                                  String contentDisposition, String mimetype,
-                                  long contentLength) {
+      public void onDownloadStart(String url, String userAgent,String contentDisposition, String mimetype,long contentLength) {
         if (!hasPermission(getContext())) {
           // save info of file to download before waiting for permission, so it
           // can be downloaded from the callback method (onRequestPermissionsResult)
@@ -278,7 +274,6 @@ public class PlatformWebViewFragment extends Fragment {
           downloadUserAgent = userAgent;
           downloadFileContentDisposition = contentDisposition;
           downloadFileMimetype = mimetype;
-
           requestPermissions(new String[]{ WRITE_EXTERNAL_STORAGE },
                   WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST);
         } else {
@@ -323,18 +318,14 @@ public class PlatformWebViewFragment extends Fragment {
 
   private void downloadFile(String url, String userAgent, String contentDisposition) {
     String filename = URLUtil.guessFileName(url, contentDisposition, null);
-
     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-
     String cookie = CookieManager.getInstance().getCookie(url);
     request.addRequestHeader("Cookie", cookie);
     request.addRequestHeader("User-Agent", userAgent);
-
     request.allowScanningByMediaScanner();
     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
     DownloadManager downloadmanager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
     request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
-
     downloadmanager.enqueue(request);
   }
 
@@ -354,7 +345,6 @@ public class PlatformWebViewFragment extends Fragment {
         return;
       }
     }
-
   }
 
   @Override
@@ -363,8 +353,7 @@ public class PlatformWebViewFragment extends Fragment {
       if (mUploadMessage == null) {
         return;
       }
-      Uri result = data == null || resultCode != Activity.RESULT_OK ? null
-              : data.getData();
+      Uri result = data == null || resultCode != Activity.RESULT_OK ? null : data.getData();
       mUploadMessage.onReceiveValue(new Uri[] {result});
       mUploadMessage = null;
     }
@@ -405,8 +394,7 @@ public class PlatformWebViewFragment extends Fragment {
     if (contentType != null && !contentType.contains("text/html")) {
       // Display content fullscreen, with done button visible
       if (getActivity() != null)
-        getActivity().getWindow()
-                .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
       mWebView.getSettings().setUseWideViewPort(true);
       mWebView.getSettings().setLoadWithOverviewMode(true);
       mWebView.getSettings().setBuiltInZoomControls(true);
@@ -453,7 +441,6 @@ public class PlatformWebViewFragment extends Fragment {
 
     private final List<String> resourceIds = new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
       if(request.getUrl().getPath().equals("/portal/download")) {
@@ -471,7 +458,6 @@ public class PlatformWebViewFragment extends Fragment {
           resourceIds.remove(resourceId);
         }
       }
-
       return super.shouldInterceptRequest(view, request);
     }
 
@@ -541,7 +527,6 @@ public class PlatformWebViewFragment extends Fragment {
         mListener.onUserSignedOut();
       }
     }
-
 
     @Override
     public void onPageFinished(WebView view, String url) {
