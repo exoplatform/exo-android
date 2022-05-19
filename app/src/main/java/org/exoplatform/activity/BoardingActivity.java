@@ -57,18 +57,14 @@ public class BoardingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
-        dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
-                R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
-        updateDialog = new ActionDialog(R.string.OnBoarding_Title_Update,
-                R.string.OnBoarding_Message_Update, R.string.Word_Update, BoardingActivity.this);
+        dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
+        updateDialog = new ActionDialog(R.string.OnBoarding_Title_Update,R.string.OnBoarding_Message_Update, R.string.Word_Update, BoardingActivity.this);
         checkConnectivity = new CheckConnectivity(BoardingActivity.this);
         updateDialog.deleteAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent viewIntent =
-                            new Intent("android.intent.action.VIEW",
-                                    Uri.parse("https://play.google.com/store/apps/details?id=org.exoplatform"));
+                    Intent viewIntent = new Intent("android.intent.action.VIEW",Uri.parse("https://play.google.com/store/apps/details?id=org.exoplatform"));
                     startActivity(viewIntent);
                 }catch(Exception e) {
                     Log.d("Unable to Connect Try Again:", String.valueOf(e));
@@ -114,7 +110,6 @@ public class BoardingActivity extends AppCompatActivity {
 
         // Set action buttons
         scanQRFragmentBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 Activity context = BoardingActivity.this;
