@@ -20,8 +20,6 @@ package org.exoplatform.activity;
  *
  */
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,11 +30,9 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import org.exoplatform.App;
 import org.exoplatform.R;
-import org.exoplatform.fragment.OnBoardingManagerFragment;
 import org.exoplatform.fragment.PlatformWebViewFragment;
 import org.exoplatform.fragment.WebViewFragment;
 import org.exoplatform.model.Server;
@@ -55,7 +51,7 @@ import java.util.Date;
  * @author paristote
  */
 public class  WebViewActivity extends AppCompatActivity implements PlatformWebViewFragment.PlatformNavigationCallback,
-        WebViewFragment.WebViewFragmentCallback, OnBoardingManagerFragment.OnBoardingFragmentCallback {
+        WebViewFragment.WebViewFragmentCallback {
 
   public static final String      INTENT_KEY_URL = "URL";
 
@@ -113,7 +109,7 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
     else if (mWebViewFragment != null && mWebViewFragment.isVisible())
       eventHandled = mWebViewFragment.goBack();
     if (!eventHandled)
-      onBackToServerList();
+      return;
   }
 
   @Override
@@ -172,19 +168,6 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
   }
 
   @Override
-  public void onFirstTimeUserLoggedIn() {
-    // show the on-boarding screen
-    getSupportFragmentManager().beginTransaction()
-            .setCustomAnimations(R.anim.fragment_enter_bottom_up, 0, 0, R.anim.fragment_exit_top_down)
-            .add(R.id.WebClient_WebViewFragment,
-                    new OnBoardingManagerFragment(),
-                    OnBoardingManagerFragment.TAG)
-            .addToBackStack(OnBoardingManagerFragment.TAG)
-            .hide(mPlatformFragment)
-            .commit();
-  }
-
-  @Override
   public void onCloseWebViewFragment() {
     if (mWebViewFragment != null && mPlatformFragment != null) {
       // remove the fragment from the activity
@@ -193,14 +176,6 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
       // a new instance will be created if we load an external url again
       mWebViewFragment = null;
     }
-  }
-
-  @Override
-  public void onCloseOnBoardingFragment() {
-    // remove the fragment from the activity
-    Fragment onBoardingFragment = getSupportFragmentManager().findFragmentByTag(OnBoardingManagerFragment.TAG);
-    getSupportFragmentManager().popBackStack();
-    getSupportFragmentManager().beginTransaction().remove(onBoardingFragment).show(mPlatformFragment).commit();
   }
 
   @Override

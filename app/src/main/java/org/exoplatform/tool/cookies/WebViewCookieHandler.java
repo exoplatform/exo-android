@@ -37,8 +37,8 @@ import okhttp3.HttpUrl;
  */
 public class WebViewCookieHandler implements CookieJar {
 
-  private CookieManager webviewCookieManager = CookieManager.getInstance();
-  private CookiesConverter cookiesConverter = new CookiesConverter();
+  private final CookieManager webviewCookieManager = CookieManager.getInstance();
+  private final CookiesConverter cookiesConverter = new CookiesConverter();
 
   @Override
   public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {

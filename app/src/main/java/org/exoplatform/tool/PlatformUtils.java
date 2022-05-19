@@ -92,9 +92,9 @@ public class PlatformUtils {
   private static String makeUserPersonalDocumentsPath(String userName) {
     String userPath = "";
     if(userName.length() <= 3) {
-      userPath = "/Users/" + userName.substring(0, 1) + "___/" + userName.substring(0, 2) + "___/" + userName;
+      userPath = "/Users/" + userName.charAt(0) + "___/" + userName.substring(0, 2) + "___/" + userName;
     } else {
-      userPath = "/Users/" + userName.substring(0, 1) + "___/" + userName.substring(0, 2) + "___/" + userName.substring(0, 3) + "___/" + userName;
+      userPath = "/Users/" + userName.charAt(0) + "___/" + userName.substring(0, 2) + "___/" + userName.substring(0, 3) + "___/" + userName;
     }
     return userPath;
   }

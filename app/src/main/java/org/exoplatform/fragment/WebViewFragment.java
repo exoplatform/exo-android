@@ -40,12 +40,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import static android.webkit.PermissionRequest.RESOURCE_AUDIO_CAPTURE;
 import static android.webkit.PermissionRequest.RESOURCE_VIDEO_CAPTURE;
 import org.exoplatform.BuildConfig;
@@ -57,14 +54,11 @@ import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
-
 import timber.log.Timber;
-
 /**
  * A simple web view with a progress bar, in a fragment
  */
@@ -194,7 +188,7 @@ public class WebViewFragment extends Fragment {
     if (context instanceof WebViewFragmentCallback) {
       mListener = (WebViewFragmentCallback) context;
     } else {
-      throw new RuntimeException(context.toString() + " must implement WebViewFragmentCallback");
+      throw new RuntimeException(context + " must implement WebViewFragmentCallback");
     }
   }
 

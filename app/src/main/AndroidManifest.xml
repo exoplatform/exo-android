@@ -80,32 +80,9 @@
             android:name=".activity.ScannerActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Design.NoActionBar" /> <!-- New / Select server activity -->
-        <activity
-            android:name=".activity.NewServerActivity"
-            android:label="@string/ServersActivity.Title.SignInToExo"
-            android:parentActivityName=".activity.ConnectServerActivity"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ConnectServerActivity" />
-        </activity> <!-- Settings activity -->
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/SettingsActivity.Title.Settings"
-            android:parentActivityName=".activity.ConnectServerActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ConnectServerActivity" />
-        </activity> <!-- Edit and Delete Server activity -->
-        <activity
-            android:name=".activity.EditDeleteServerActivity"
-            android:label="@string/SettingsActivity.Title.Edit"
-            android:parentActivityName=".activity.SettingsActivity"
-            android:windowSoftInputMode="adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.SettingsActivity" />
-        </activity> <!-- WebView activity -->
+        <!-- Settings activity -->
+        <!-- Edit and Delete Server activity -->
+        <!-- WebView activity -->
         <activity
             android:name=".activity.WebViewActivity"
             android:configChanges="orientation|screenSize"

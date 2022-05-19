@@ -83,7 +83,7 @@ public class Server implements Comparable<Server>, Parcelable {
     try {
       this.url = new URL(format(url));
     } catch (MalformedURLException e) {
-      throw new IllegalArgumentException(String.format("Given URL is incorrect (%s)", url.toString()));
+      throw new IllegalArgumentException(String.format("Given URL is incorrect (%s)", url));
     }
   }
 
@@ -169,7 +169,7 @@ public class Server implements Comparable<Server>, Parcelable {
   public static String format(URL url) {
     String protocol = url.getProtocol();
     String host = url.getHost();
-    String explicitPort = url.getPort() == -1 ? "" : ":" + Integer.toString(url.getPort());
+    String explicitPort = url.getPort() == -1 ? "" : ":" + url.getPort();
     String url_ = protocol + "://" + host + explicitPort;
     return url_.toLowerCase();
   }
