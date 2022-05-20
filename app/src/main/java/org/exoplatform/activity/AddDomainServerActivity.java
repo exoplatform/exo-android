@@ -3,13 +3,12 @@ package org.exoplatform.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.exoplatform.R;
@@ -40,7 +38,6 @@ public class AddDomainServerActivity extends AppCompatActivity {
 
 
     @SuppressLint("ClickableViewAccessibility")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,18 +70,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
                 requestFocusTo(companyTextField);
             }
         });
-        companyTextField.requestFocus();
-        companyTextField.setOnTouchListener((arg0, arg1) -> {
-            if (!isAlreadyFocused) {
-                companyTextField.setHint("");
-                companyTextField.setText("");
-                companyTextField.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                requestFocusTo(companyTextField);
-                isAlreadyFocused = true;
-            }
-            return false;
-        });
-
+        requestFocusTo(companyTextField);
         // Hide keyboard when tapped outside of fields
         topViewAddUrlLayout.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
@@ -95,8 +81,7 @@ public class AddDomainServerActivity extends AppCompatActivity {
 
     private void requestFocusTo(EditText editText) {
         editText.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     // when users taps "Go" or "Enter" on the keyboard
@@ -168,13 +153,8 @@ public class AddDomainServerActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
-        }else {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color));
-        }
+        getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
     }
 
     private void handleActionGoKeyKeyboard(){

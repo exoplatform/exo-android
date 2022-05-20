@@ -20,8 +20,6 @@ public class SliderAdapter extends PagerAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
-    private ViewGroup container;
-    private int position;
 
     public SliderAdapter(Context context){
         this.context = context;
