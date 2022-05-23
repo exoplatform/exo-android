@@ -144,7 +144,7 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
 
   @Override
   public void onUserSignedOut() {
-    // fragments and activity will be cleaned-up automatically
+    mPlatformFragment.clearWebViewData();
   }
 
   @Override
