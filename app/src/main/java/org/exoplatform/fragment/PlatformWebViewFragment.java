@@ -487,8 +487,8 @@ public class PlatformWebViewFragment extends Fragment {
       Log.d("shouldOverride", url);
       // For external and short links, broadcast logout event if done
       if (url.contains(LOGOUT_PATH)) {
-        clearWebviewData();
         mListener.onUserJustBeforeSignedOut();
+        mListener.onUserSignedOut();
       }
 
       if (url.contains(GOOGLE_LOGIN_PATH) || url.contains(FACEBOOK_LOGIN_PATH) || url.contains(LINKEDIN_LOGIN_PATH)) {
@@ -523,7 +523,6 @@ public class PlatformWebViewFragment extends Fragment {
       // Return to the previous activity if user has signed out
       String queryString = uri.getQuery();
       if (queryString != null && queryString.contains("portal:action=Logout")) {
-        clearWebviewData();
         mListener.onUserSignedOut();
       }
     }
@@ -545,9 +544,8 @@ public class PlatformWebViewFragment extends Fragment {
     }
   }
 
-  // Clear Webview cache and data before logging out.
-
-  private void clearWebviewData() {
+  // Clear Webview cache and data when logging out.
+  public void clearWebViewData() {
     mWebView.clearCache(true);
     mWebView.clearFormData();
     mWebView.clearHistory();
