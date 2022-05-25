@@ -33,9 +33,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public ArrayList<Server>   serverList;
     private final Activity activity;
-    private ServerManagerImpl mServerManager;
-    private ActionDialog dialog;
-    private CheckConnectivity checkConnectivity;
+    private final ServerManagerImpl mServerManager;
+    private final ActionDialog dialog;
+    private final CheckConnectivity checkConnectivity;
 
     int positionToDelete;
     public RecyclerAdapter(Activity activity) {

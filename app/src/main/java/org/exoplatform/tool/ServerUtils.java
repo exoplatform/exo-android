@@ -69,9 +69,7 @@ public class ServerUtils {
     public static String plfVersion;
 
     public static boolean isOldVersion() {
-        if (plfVersion != null && plfVersion.substring(0, 5).compareTo("5.2.2") <= 0)
-            return true;
-        else return false;
+        return plfVersion != null && plfVersion.substring(0, 5).compareTo("5.2.2") <= 0;
     }
 
   public interface ServerVerificationCallback {
@@ -139,7 +137,7 @@ public class ServerUtils {
 
   public static void HandleThrowableException(ServerVerificationCallback callback,Throwable t){
     Log.e(LOG_TAG, "Unable to retrieve platform information", t);
-    if (t instanceof UnknownHostException || t instanceof ConnectException || t instanceof SocketTimeoutException) {
+    if (t instanceof ConnectException || t instanceof SocketTimeoutException) {
       callback.onConnectionError();
     }else{
       callback.onServerInvalid();
@@ -163,7 +161,6 @@ public class ServerUtils {
   public static Double convertVersionFromString(String version) {
     if (version == null)
       throw new IllegalArgumentException("Argument 'version' must not be null");
-
     String[] versionNumbers = version.split("\\.");
     StringBuilder majorMinorVersion = new StringBuilder();
     if (versionNumbers.length > 0) {
@@ -178,7 +175,6 @@ public class ServerUtils {
   public static boolean legacyServersExist(Context context) {
     if (context == null)
       throw new IllegalArgumentException("Argument 'context' must not be null");
-
     boolean exists = false;
     try {
       // Use context.getFilesDir() with File.exists() instead ?
@@ -198,11 +194,9 @@ public class ServerUtils {
       DocumentBuilderFactory doc_build_fact = DocumentBuilderFactory.newInstance();
       DocumentBuilder doc_builder = doc_build_fact.newDocumentBuilder();
       Document obj_doc = doc_builder.parse(fis);
-
       if (null != obj_doc) {
         org.w3c.dom.Element feed = obj_doc.getDocumentElement();
         NodeList obj_nod_list = feed.getElementsByTagName("server");
-
         for (int i = 0; i < obj_nod_list.getLength(); i++) {
           Node itemNode = obj_nod_list.item(i);
           if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -221,7 +215,6 @@ public class ServerUtils {
           }
         }
       }
-
     } catch (SAXException | IOException | ParserConfigurationException e) {
       if (BuildConfig.DEBUG)
         Log.d(LOG_TAG, e.getMessage(), e);

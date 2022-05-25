@@ -23,7 +23,6 @@ package org.exoplatform.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,15 +37,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import static android.webkit.PermissionRequest.RESOURCE_AUDIO_CAPTURE;
-import static android.webkit.PermissionRequest.RESOURCE_VIDEO_CAPTURE;
+
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
-
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * A simple web view with a progress bar, in a fragment
@@ -114,7 +108,7 @@ public class WebViewFragment extends Fragment {
                              Manifest.permission.INTERNET,
                              Manifest.permission.RECORD_AUDIO,
                              Manifest.permission.CAMERA };
-    ActivityCompat.requestPermissions(this.getActivity(),permissions,1010);
+    ActivityCompat.requestPermissions(getActivity(),permissions,1010);
     mWebView.setWebChromeClient(new WebChromeClient() {
       @Override
       public void onReceivedTitle(WebView view, String title) {
@@ -151,7 +145,7 @@ public class WebViewFragment extends Fragment {
     if (context instanceof WebViewFragmentCallback) {
       mListener = (WebViewFragmentCallback) context;
     } else {
-      throw new RuntimeException(context.toString() + " must implement WebViewFragmentCallback");
+      throw new RuntimeException(context + " must implement WebViewFragmentCallback");
     }
   }
 

@@ -22,20 +22,9 @@
 <resources>
     <dimen name="Global.TextSize">15sp</dimen>
 
-    <dimen name="MainScreen.eXo.Title">30sp</dimen>
-    <dimen name="MainScreen.eXo.Subtitle">16sp</dimen>
-    <dimen name="MainScreen.Link.DiscoverTribe">14sp</dimen>
-    <dimen name="MainScreen.Buttons.TextSize">18sp</dimen>
-    <dimen name="MainScreen.Buttons.MarginHorizontal">30dp</dimen>
-    <dimen name="MainScreen.Buttons.MarginVertical">20dp</dimen>
-    <dimen name="MainScreen.Buttons.Padding">10dp</dimen>
-
     <dimen name="ShareActivity.Accounts.Icon.Size">18dp</dimen>
     <dimen name="ShareActivity.Spaces.Icon.Size">32dp</dimen>
     <dimen name="ShareActivity.Thumbnail.Size">100dp</dimen>
-
-    <dimen name="GreyHeader.Padding">10dp</dimen>
-    <dimen name="GreyHeader.TextSize">20sp</dimen>
 
     <dimen name="OnBoarding.Title.TextSize">24sp</dimen>
     <dimen name="OnBoarding.Message.TextSize">18sp</dimen>
@@ -43,5 +32,4 @@
     <dimen name="space_small">5dp</dimen>
     <dimen name="space_medium">10dp</dimen>
     <dimen name="space_large">15dp</dimen>
-    <dimen name="space_xlarge">30dp</dimen>
 </resources>

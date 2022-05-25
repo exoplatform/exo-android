@@ -130,7 +130,7 @@ public class DocumentUtils {
             HttpGet createFolderReq = new HttpGet(createFolderUri.toString());
             cookieString = new StringBuilder();
 
-            for (okhttp3.Cookie c : ExoHttpClient.cookiesForUrl(stringUrl.toString())) {
+            for (okhttp3.Cookie c : ExoHttpClient.cookiesForUrl(stringUrl)) {
               cookieString.append(c.name()).append("=").append(c.value()).append(";");
             }
             createFolderReq.addHeader("Cookie", cookieString.toString());

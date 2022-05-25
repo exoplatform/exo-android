@@ -42,9 +42,9 @@ import java.util.Collections;
  */
 public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder> {
 
-  private ServerClickListener mListener;
+  private final ServerClickListener mListener;
 
-  private ServerManagerImpl   mServerManager;
+  private final ServerManagerImpl   mServerManager;
 
   private ArrayList<Server>   mServers;
 

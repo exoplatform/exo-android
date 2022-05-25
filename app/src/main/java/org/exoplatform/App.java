@@ -23,7 +23,6 @@ package org.exoplatform;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnSuccessListener;
