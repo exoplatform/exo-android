@@ -226,7 +226,7 @@ public class PlatformWebViewFragment extends Fragment {
           @Override
           public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
-            if (url.contains("/jitsi/meet")) {
+            if (url.contains("/jitsi/meet") || url.startsWith("https://accounts.google.com")) {
               // url JITSI is on an external domain, load in a different fragment
               mListener.onExternalContentRequested(url);
               return true;
