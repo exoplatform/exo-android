@@ -20,6 +20,7 @@ package org.exoplatform.fragment;
  *
  */
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
@@ -45,6 +46,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
+import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -84,6 +86,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import okhttp3.Call;
@@ -114,7 +117,7 @@ public class PlatformWebViewFragment extends Fragment {
   private PlatformNavigationCallback mListener;
 
   private WebView                    mWebView;
-
+  private WebView                    newWebView;
   private ProgressBar                mProgressBar;
 
   private Server                     mServer;
@@ -138,6 +141,8 @@ public class PlatformWebViewFragment extends Fragment {
   private String downloadFileContentDisposition;
 
   private String downloadFileMimetype;
+
+  private String default_user_agent;
 
   private boolean isWhileLoginProcess = false;
 
@@ -198,8 +203,10 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
     mWebView.getSettings().setDefaultTextEncodingName("utf-8");
     mWebView.addJavascriptInterface(new JavaScriptInterface(getContext()), "Android");
+
     // set custom user agent by filtering the default one
     String default_userAgent = mWebView.getSettings().getUserAgentString();
+    default_user_agent = default_userAgent;
     int startIndex = default_userAgent.indexOf("Mozilla/");
     int endIndex = default_userAgent.indexOf("wv");
     String toBeReplaced = default_userAgent.substring(startIndex, endIndex);
@@ -210,7 +217,8 @@ public class PlatformWebViewFragment extends Fragment {
     mWebView.setWebChromeClient(new WebChromeClient() {
       @Override
       public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
-        WebView newWebView = new WebView(getContext());
+        newWebView = new WebView(getContext());
+        newWebView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
         newWebView.getSettings().setJavaScriptEnabled(true);
         newWebView.getSettings().setSupportZoom(true);
         newWebView.getSettings().setBuiltInZoomControls(true);
@@ -218,28 +226,44 @@ public class PlatformWebViewFragment extends Fragment {
         newWebView.getSettings().setDomStorageEnabled(true);
         newWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         newWebView.getSettings().setUseWideViewPort(false);
-        view.addView(newWebView);
+        int startIndex = default_user_agent.indexOf("Mozilla/");
+        int endIndex = default_user_agent.indexOf("Version/");
+        String toBeReplaced = default_user_agent.substring(startIndex, endIndex);
+        String ua = "eXo/" + BuildConfig.VERSION_NAME + default_userAgent.replace(toBeReplaced, " ") + " (Android)";
+        newWebView.getSettings().setUserAgentString(ua);
         WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+        if (resultMsg.obj != null){
+          newWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+              String url = request.getUrl().toString();
+              if (url.contains("/jitsi/meet")) {
+                // Set permission to Camera and micro to be enabled for the Jitsi call.
+                String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.INTERNET,Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.CAMERA };
+                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),permissions,1010);
+              }
+              return false;
+            }
+          });
+          // Set the created window to be closed automatically when we have Jitsi call or google sign in (related to JS window.close()).
+          newWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onCloseWindow(WebView window) {
+              super.onCloseWindow(window);
+              view.removeView(newWebView);
+              newWebView = null;
+            }
+            @Override
+            public void onPermissionRequest(PermissionRequest request) {
+              request.grant(request.getResources());
+            }
+          });
+        }
+        view.addView(newWebView);
+        assert transport != null;
         transport.setWebView(newWebView);
         resultMsg.sendToTarget();
-        newWebView.setWebViewClient(new WebViewClient() {
-          @Override
-          public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            String url = request.getUrl().toString();
-            if (url.contains("/jitsi/meet") || url.startsWith("https://accounts.google.com")) {
-              // url JITSI is on an external domain, load in a different fragment
-              mListener.onExternalContentRequested(url);
-              return true;
-            }
-            if (!(url.contains(mServer.getShortUrl()))) {
-              // url is on an external domain, load in a default browser
-              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-              startActivity(intent);
-              return true;
-            }
-            return false;
-          }
-        });
         return true;
       }
 
