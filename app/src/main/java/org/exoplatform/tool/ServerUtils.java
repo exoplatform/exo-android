@@ -137,7 +137,7 @@ public class ServerUtils {
 
   public static void HandleThrowableException(ServerVerificationCallback callback,Throwable t){
     Log.e(LOG_TAG, "Unable to retrieve platform information", t);
-    if (t instanceof ConnectException || t instanceof SocketTimeoutException) {
+    if (t instanceof ConnectException) {
       callback.onConnectionError();
     }else{
       callback.onServerInvalid();
