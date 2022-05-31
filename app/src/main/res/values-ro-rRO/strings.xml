@@ -19,63 +19,23 @@
   ~
   -->
 <resources>
-    <string name="app_name">eXo</string>
-    <string name="ServerManager.Message.SavingServer">Saving intranet&#8230;</string>
-    <string name="ServerManager.Error.TitleIncorrect">eXo instance URL error</string>
-    <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
-    <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
-    <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo instance</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
-    <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Colaborare</string>
-    <string name="OnBoarding.Title.Engagement">Engagement</string>
-    <string name="OnBoarding.Title.Networking">Social Networking</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
-    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
-    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
-    <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
-    <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
-    <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
-    <string name="OnBoarding.Title.Update">eXo Update</string>
-    <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
     <string name="Word.OK">Ok</string>
     <string name="Word.Cancel">Renunță</string>
     <string name="Word.Back">Înapoi</string>
     <string name="Word.Delete">Şterge</string>
-    <string name="Word.eXo">eXo</string>
     <string name="Word.Space">Spaţiu</string>
     <string name="Word.Done">Făcut</string>
     <string name="Word.Update">Actualizare</string>
     <!-- Onboarding -->
-    <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
-    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
-    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
-    <string name="Onboarding.Button.Scan">Scan Code</string>
-    <string name="Onboarding.Button.addURL">Enter server URL</string>
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Add your eXo</string>
-    <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
-    <string name="AddDomain.Title.Placeholder">Please enter your url</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Distribuie</string>
-    <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
-    <string name="ShareActivity.Compose.Title.ShareWith">Share this post with</string>
-    <string name="ShareActivity.Compose.Title.AllConnections">All my connections</string>
     <string name="ShareActivity.Compose.Title.SignIn">Autentificare</string>
-    <string name="ShareActivity.Compose.Title.SigningIn">Signing in&#8230;</string>
-    <string name="ShareActivity.Compose.Title.SignInToPost">Please sign in to post</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">La ce lucrezi?</string>
-    <string name="ShareActivity.Compose.Hint.Thumbnail">Thumbnail</string>
-    <string name="ShareActivity.Intranets.Title.Intranets">Select an intranet</string>
-    <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your credentials</string>
     <string name="ShareActivity.SignIn.Title.Username">Nume de utilizator</string>
     <string name="ShareActivity.SignIn.Title.Password">Parola</string>
-    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Nu ești în niciun spațiu</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Părăsește</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Deschide Setările Aplicației</string>
     <string name="ShareActivity.Error.SignInFailed">Logarea a eșuat, vă rugăm reîncercați</string>
@@ -85,7 +45,6 @@
     <string name="ShareActivity.Error.TooManyFiles">Nu poți să distribui mai mult de 10 documente</string>
     <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">Trebuie să selectezi un cont și să te autentifici pentru a selecta un spațiu</string>
     <string name="ShareActivity.Error.CannotPostBecauseOffline">Trebuie să selectezi un cont și să te autentifici pentru a posta</string>
-    <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
     <string name="ShareActivity.Message.OperationStarted">Distribuire în progres, verifică starea în zona notificărilor</string>
     <string name="ShareService.Message.OperationSuccess">Succes</string>
     <string name="ShareService.Title.ShareDocument">Distribuie document</string>
@@ -99,5 +58,4 @@
     <string name="ShareService.Error.IncorrectAccount">Nu s-a putut încărca setările contului</string>
     <string name="ShareService.Error.SomeFilesCannotShare">Unele documente nu pot fi distribuite</string>
     <string name="ShareService.Error.AllFilesCannotShare">Toate documentele nu pot fi distribuite</string>
-    <string name="ShareService.Error.NullPostInfo">Share failed. Incorrect data.</string>
 </resources>
