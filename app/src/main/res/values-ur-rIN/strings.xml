@@ -19,63 +19,21 @@
   ~
   -->
 <resources>
-    <string name="app_name">eXo</string>
-    <string name="ServerManager.Message.SavingServer">Saving intranet&#8230;</string>
-    <string name="ServerManager.Error.TitleIncorrect">eXo instance URL error</string>
-    <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
-    <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
-    <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo instance</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
-    <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
-    <string name="OnBoarding.Title.Collaboration">Collaboration</string>
-    <string name="OnBoarding.Title.Engagement">Engagement</string>
-    <string name="OnBoarding.Title.Networking">Social Networking</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
-    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
-    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
-    <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
-    <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
-    <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
-    <string name="OnBoarding.Title.Update">eXo Update</string>
-    <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
     <string name="Word.OK">ٹھیک ہے</string>
     <string name="Word.Cancel">منسوخ</string>
     <string name="Word.Back">پىچھے</string>
     <string name="Word.Delete">حذف کریں</string>
-    <string name="Word.eXo">eXo</string>
     <string name="Word.Space">خالی جگہ</string>
     <string name="Word.Done">کیا</string>
     <string name="Word.Update">تازہ کاری کریں</string>
     <!-- Onboarding -->
-    <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
-    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
-    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
-    <string name="Onboarding.Button.Scan">Scan Code</string>
-    <string name="Onboarding.Button.addURL">Enter server URL</string>
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Add your eXo</string>
-    <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
-    <string name="AddDomain.Title.Placeholder">Please enter your url</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">شائع</string>
-    <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
-    <string name="ShareActivity.Compose.Title.ShareWith">Share this post with</string>
-    <string name="ShareActivity.Compose.Title.AllConnections">All my connections</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Login</string>
-    <string name="ShareActivity.Compose.Title.SigningIn">Signing in&#8230;</string>
-    <string name="ShareActivity.Compose.Title.SignInToPost">Please sign in to post</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">آپ کس پر کام کر رہے ہیں?</string>
-    <string name="ShareActivity.Compose.Hint.Thumbnail">Thumbnail</string>
-    <string name="ShareActivity.Intranets.Title.Intranets">Select an intranet</string>
-    <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your credentials</string>
     <string name="ShareActivity.SignIn.Title.Username">صارف کا نام</string>
     <string name="ShareActivity.SignIn.Title.Password">پاس ورڈ</string>
-    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">آپ کسی بھی جگہ میں نہیں ہیں</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">چھوڑ دیں</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">اپ ترتیبات کھولیں</string>
     <string name="ShareActivity.Error.SignInFailed">لاگ ان ناکام ہوگىا, دوبارہ کوشش کریں</string>
@@ -85,7 +43,6 @@
     <string name="ShareActivity.Error.TooManyFiles">ShareErrorTooManyFiles</string>
     <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">آپ کو ایک اکاؤنٹ کا انتخاب کرنا ہوگا اور جگہ کا انتخاب کرنے کے لیے لاگ ان کریں</string>
     <string name="ShareActivity.Error.CannotPostBecauseOffline">آپ کو ایک اکاؤنٹ کا انتخاب کرنا ہوگا اور شائع کرنے کے لیے لاگ ان کریں</string>
-    <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
     <string name="ShareActivity.Message.OperationStarted">اشتراک میں پیش رفت، نوٹیفکیشن کی جگہ میں حالت کو چیک کریں</string>
     <string name="ShareService.Message.OperationSuccess">کامیاب</string>
     <string name="ShareService.Title.ShareDocument">دستاویز بانٹیں</string>
@@ -99,5 +56,4 @@
     <string name="ShareService.Error.IncorrectAccount">اکاوٹ ترتیبات واپس نہیں لا جا سکے</string>
     <string name="ShareService.Error.SomeFilesCannotShare">بعض دستاویزات کو نہیں بانٹا جا سکتا</string>
     <string name="ShareService.Error.AllFilesCannotShare">تمام دستاویزات کو نہیں بانٹا جا سکتا</string>
-    <string name="ShareService.Error.NullPostInfo">Share failed. Incorrect data.</string>
 </resources>
