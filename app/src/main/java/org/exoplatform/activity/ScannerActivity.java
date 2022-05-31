@@ -3,7 +3,6 @@ package org.exoplatform.activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.ResultPoint;
@@ -40,7 +38,6 @@ public class ScannerActivity extends AppCompatActivity {
     ViewfinderView viewFinder;
     private Handler handler;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
