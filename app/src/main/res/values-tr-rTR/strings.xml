@@ -20,27 +20,7 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="ServerManager.Message.SavingServer">Saving intranet&#8230;</string>
-    <string name="ServerManager.Error.TitleIncorrect">eXo instance URL error</string>
-    <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
-    <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
-    <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo instance</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
-    <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
     <string name="OnBoarding.Title.Collaboration">İşbirliği</string>
-    <string name="OnBoarding.Title.Engagement">Engagement</string>
-    <string name="OnBoarding.Title.Networking">Social Networking</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
-    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
-    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
-    <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
-    <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
-    <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
-    <string name="OnBoarding.Title.Update">eXo Update</string>
-    <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
     <string name="Word.OK">Tamam</string>
     <string name="Word.Cancel">İptal</string>
     <string name="Word.Back">Geri</string>
@@ -50,32 +30,14 @@
     <string name="Word.Done">Bitmiş</string>
     <string name="Word.Update">Güncelleştirme</string>
     <!-- Onboarding -->
-    <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
-    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
-    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
-    <string name="Onboarding.Button.Scan">Scan Code</string>
-    <string name="Onboarding.Button.addURL">Enter server URL</string>
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Add your eXo</string>
-    <string name="AddDomain.Title.addURL">Enter your eXo URL</string>
-    <string name="AddDomain.Title.Placeholder">Please enter your url</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Paylaş</string>
-    <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
-    <string name="ShareActivity.Compose.Title.ShareWith">Share this post with</string>
-    <string name="ShareActivity.Compose.Title.AllConnections">All my connections</string>
     <string name="ShareActivity.Compose.Title.SignIn">Uturum Aç</string>
-    <string name="ShareActivity.Compose.Title.SigningIn">Signing in&#8230;</string>
-    <string name="ShareActivity.Compose.Title.SignInToPost">Please sign in to post</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Ne üzerinde çalışıyorsun?</string>
-    <string name="ShareActivity.Compose.Hint.Thumbnail">Thumbnail</string>
-    <string name="ShareActivity.Intranets.Title.Intranets">Select an intranet</string>
-    <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your credentials</string>
     <string name="ShareActivity.SignIn.Title.Username">Kullanıcı Adı</string>
     <string name="ShareActivity.SignIn.Title.Password">Şifre</string>
-    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Herhangi bir alanda değilsiniz</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Ayrıl</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Uygulama Ayarlarını Aç</string>
     <string name="ShareActivity.Error.SignInFailed">Hatalı giriş, lütfen tekrar deneyiniz</string>
@@ -85,7 +47,6 @@
     <string name="ShareActivity.Error.TooManyFiles">En fazla 10 adet belge paylaşılabilir</string>
     <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">Bir alan seçmek için hesap seçip giriş yapmalısınız</string>
     <string name="ShareActivity.Error.CannotPostBecauseOffline">Paylaşım yapmak için bir hesap seçip giriş yapmalısınız</string>
-    <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
     <string name="ShareActivity.Message.OperationStarted">Paylaşım işlemi sürüyor, bildirim alanında durumu kontrol edin</string>
     <string name="ShareService.Message.OperationSuccess">Başarılı</string>
     <string name="ShareService.Title.ShareDocument">Döküman paylaş</string>
@@ -99,5 +60,4 @@
     <string name="ShareService.Error.IncorrectAccount">Hesap ayarlarına erişilemedi</string>
     <string name="ShareService.Error.SomeFilesCannotShare">Bazı dökümanlar paylaşılamadı</string>
     <string name="ShareService.Error.AllFilesCannotShare">Tüm dökümanlar paylaşılamıyor</string>
-    <string name="ShareService.Error.NullPostInfo">Share failed. Incorrect data.</string>
 </resources>
