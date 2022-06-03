@@ -226,10 +226,10 @@ public class PlatformWebViewFragment extends Fragment {
         newWebView.getSettings().setDomStorageEnabled(true);
         newWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         newWebView.getSettings().setUseWideViewPort(false);
-        int startIndex = default_user_agent.indexOf("Mozilla/");
-        int endIndex = default_user_agent.indexOf("Version/");
+        int startIndex = default_user_agent.indexOf("AppleWebKit/");
+        int endIndex = default_user_agent.indexOf("Mobile");
         String toBeReplaced = default_user_agent.substring(startIndex, endIndex);
-        String ua = "eXo/" + BuildConfig.VERSION_NAME + default_userAgent.replace(toBeReplaced, " ") + " (Android)";
+        String ua = "eXo/" + BuildConfig.VERSION_NAME + " " + default_userAgent.replace(toBeReplaced, "Gecko/101.0 Firefox/101.0 ");
         newWebView.getSettings().setUserAgentString(ua);
         WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
         if (resultMsg.obj != null){
