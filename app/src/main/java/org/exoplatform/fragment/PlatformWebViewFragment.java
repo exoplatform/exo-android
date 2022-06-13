@@ -146,12 +146,6 @@ public class PlatformWebViewFragment extends Fragment {
 
   private boolean isWhileLoginProcess = false;
 
-  private final String               FACEBOOK_LOGIN_PATH = "www.facebook.com/dialog/oauth";
-
-  private final String               GOOGLE_LOGIN_PATH = "accounts.google.com/o/oauth2";
-
-  private final String               LINKEDIN_LOGIN_PATH = "www.linkedin.com/uas/oauth2";
-
   public PlatformWebViewFragment() {
     // Required empty public constructor
   }
@@ -188,22 +182,7 @@ public class PlatformWebViewFragment extends Fragment {
     // create web view
     mWebView = (WebView) layout.findViewById(R.id.PlatformWebViewFragment_WebView);
     mWebView.setWebViewClient(new PlatformWebViewClient());
-    mWebView.clearCache(true);
-    mWebView.getSettings().setJavaScriptEnabled(true);
-    mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-    mWebView.getSettings().setDomStorageEnabled(true);
-    mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-    mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-    mWebView.getSettings().setDisplayZoomControls(false);
-    mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-    mWebView.getSettings().setSupportMultipleWindows(true);
-    mWebView.getSettings().setAllowFileAccess(true);
-    mWebView.getSettings().setAllowContentAccess(true);
-    mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
-    mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
-    mWebView.getSettings().setDefaultTextEncodingName("utf-8");
-    mWebView.addJavascriptInterface(new JavaScriptInterface(getContext()), "Android");
-
+    setWebViewSettings(mWebView);
     // set custom user agent by filtering the default one
     String default_userAgent = mWebView.getSettings().getUserAgentString();
     default_user_agent = default_userAgent;
@@ -219,18 +198,12 @@ public class PlatformWebViewFragment extends Fragment {
       public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
         newWebView = new WebView(getContext());
         newWebView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
-        newWebView.getSettings().setJavaScriptEnabled(true);
-        newWebView.getSettings().setSupportZoom(true);
-        newWebView.getSettings().setBuiltInZoomControls(true);
-        newWebView.getSettings().setSupportMultipleWindows(true);
-        newWebView.getSettings().setDomStorageEnabled(true);
-        newWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        newWebView.getSettings().setUseWideViewPort(false);
+        setWebViewSettings(newWebView);
         int startIndex = default_user_agent.indexOf("AppleWebKit/");
         int endIndex = default_user_agent.indexOf("Mobile");
         String toBeReplaced = default_user_agent.substring(startIndex, endIndex);
         String ua = "eXo/" + BuildConfig.VERSION_NAME + " " + default_userAgent.replace(toBeReplaced, "Gecko/101.0 Firefox/101.0 ");
-        newWebView.getSettings().setUserAgentString(ua);
+        newWebView.getSettings().setUserAgentString(default_user_agent);
         WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
         if (resultMsg.obj != null){
           newWebView.setWebViewClient(new WebViewClient() {
@@ -434,6 +407,23 @@ public class PlatformWebViewFragment extends Fragment {
     }
   }
 
+  public void setWebViewSettings(WebView webView) {
+    webView.clearCache(true);
+    webView.getSettings().setJavaScriptEnabled(true);
+    webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+    webView.getSettings().setDomStorageEnabled(true);
+    webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+    webView.getSettings().setDisplayZoomControls(false);
+    webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+    webView.getSettings().setSupportMultipleWindows(true);
+    webView.getSettings().setAllowFileAccess(true);
+    webView.getSettings().setAllowContentAccess(true);
+    webView.getSettings().setAllowFileAccessFromFileURLs(true);
+    webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+    webView.getSettings().setDefaultTextEncodingName("utf-8");
+    webView.addJavascriptInterface(new JavaScriptInterface(getContext()), "Android");
+  }
   private void getContentTypeAsync(String url) {
     OkHttpClient client = ExoHttpClient.getInstance().newBuilder().cookieJar(new WebViewCookieHandler()).build();
     Request req = new Request.Builder().url(url).head().build();
@@ -515,6 +505,9 @@ public class PlatformWebViewFragment extends Fragment {
         mListener.onUserSignedOut();
       }
 
+      String FACEBOOK_LOGIN_PATH = "www.facebook.com/dialog/oauth";
+      String GOOGLE_LOGIN_PATH = "accounts.google.com/o/oauth2";
+      String LINKEDIN_LOGIN_PATH = "www.linkedin.com/uas/oauth2";
       if (url.contains(GOOGLE_LOGIN_PATH) || url.contains(FACEBOOK_LOGIN_PATH) || url.contains(LINKEDIN_LOGIN_PATH)) {
          isWhileLoginProcess = true ;
       }
