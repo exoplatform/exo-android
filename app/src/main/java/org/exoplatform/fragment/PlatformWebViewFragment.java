@@ -31,7 +31,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -46,6 +45,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
+import android.webkit.MimeTypeMap;
 import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
@@ -62,7 +62,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -203,13 +202,25 @@ public class PlatformWebViewFragment extends Fragment {
         int endIndex = default_user_agent.indexOf("Mobile");
         String toBeReplaced = default_user_agent.substring(startIndex, endIndex);
         String ua = "eXo/" + BuildConfig.VERSION_NAME + " " + default_userAgent.replace(toBeReplaced, "Gecko/101.0 Firefox/101.0 ");
-        newWebView.getSettings().setUserAgentString(default_user_agent);
+        newWebView.getSettings().setUserAgentString(ua);
         WebView.WebViewTransport transport = (WebView.WebViewTransport) resultMsg.obj;
+        view.addView(newWebView);
+        transport.setWebView(newWebView);
+        resultMsg.sendToTarget();
         if (resultMsg.obj != null){
           newWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
               String url = request.getUrl().toString();
+              String contentType = getMimeType(url);
+              if (contentType != null && !contentType.contains("text/html")) {
+                  refreshLayoutForContent(contentType);
+                  if (url.contains("/download/")){
+                    refreshLayoutForContent("text/html");
+                    downloadFile(url,ua,contentType);
+                    newWebView.getWebChromeClient().onCloseWindow(view);
+                  }
+              }
               if (url.contains("/jitsi/meet")) {
                 // Set permission to Camera and micro to be enabled for the Jitsi call.
                 String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.INTERNET,Manifest.permission.RECORD_AUDIO,
@@ -219,12 +230,14 @@ public class PlatformWebViewFragment extends Fragment {
               return false;
             }
           });
+          //setDownloadListenerFor(newWebView,getContext());
           // Set the created window to be closed automatically when we have Jitsi call or google sign in (related to JS window.close()).
           newWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onCloseWindow(WebView window) {
               super.onCloseWindow(window);
               view.removeView(newWebView);
+              newWebView.destroy();
               newWebView = null;
             }
             @Override
@@ -233,10 +246,6 @@ public class PlatformWebViewFragment extends Fragment {
             }
           });
         }
-        view.addView(newWebView);
-        assert transport != null;
-        transport.setWebView(newWebView);
-        resultMsg.sendToTarget();
         return true;
       }
 
@@ -261,10 +270,47 @@ public class PlatformWebViewFragment extends Fragment {
         return true;
       }
     });
+    setDownloadListenerFor(mWebView,getContext());
+    String url = getActivity().getIntent().getStringExtra(INTENT_KEY_URL);
+    if(url != null && !url.equals("")) {
+      mWebView.loadUrl(url);
+    } else {
+      mWebView.loadUrl(mServer.getUrl().toString());
+    }
+    // done button for content without navigation, e.g. image
+    mDoneButton = (Button) layout.findViewById(R.id.PlatformWebViewFragment_Done_Button);
+    if (mDoneButton != null) {
+      mDoneButton.setVisibility(View.GONE);
+      mDoneButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          mDoneButton.setVisibility(View.GONE);
+          if (newWebView != null && mWebView != null){
+             refreshLayoutForContent("text/html");
+             newWebView.getWebChromeClient().onCloseWindow(newWebView);
+          }else{
+            if (mWebView != null && mWebView.canGoBack())
+              mWebView.goBack();
+          }
+        }
+      });
+    }
+    return layout;
+  }
 
-    mWebView.setDownloadListener(new DownloadListener() {
+  public static String getMimeType(String url) {
+    String type = null;
+    String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+    if (extension != null) {
+      type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+    }
+    return type;
+  }
+
+  public void setDownloadListenerFor(WebView webView, Context context) {
+    webView.setDownloadListener(new DownloadListener() {
       public void onDownloadStart(String url, String userAgent,String contentDisposition, String mimetype,long contentLength) {
-        if (!hasPermission(getContext())) {
+        if (!hasPermission(context)) {
           // save info of file to download before waiting for permission, so it
           // can be downloaded from the callback method (onRequestPermissionsResult)
           downloadFileUrl = url;
@@ -280,30 +326,11 @@ public class PlatformWebViewFragment extends Fragment {
           }else{
             Toast.makeText(getContext(), "DOWNLOAD STARTED....", Toast.LENGTH_SHORT).show();
             downloadFileMimetype = mimetype;
-            mWebView.loadUrl(JavaScriptInterface.getBase64StringFromBlobUrl(url,downloadFileMimetype));
+            webView.loadUrl(JavaScriptInterface.getBase64StringFromBlobUrl(url,downloadFileMimetype));
           }
         }
       }
     });
-    String url = getActivity().getIntent().getStringExtra(INTENT_KEY_URL);
-    if(url != null && !url.equals("")) {
-      mWebView.loadUrl(url);
-    } else {
-      mWebView.loadUrl(mServer.getUrl().toString());
-    }
-    // done button for content without navigation, e.g. image
-    mDoneButton = (Button) layout.findViewById(R.id.PlatformWebViewFragment_Done_Button);
-    if (mDoneButton != null) {
-      mDoneButton.setVisibility(View.GONE);
-      mDoneButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          if (mWebView != null && mWebView.canGoBack())
-            mWebView.goBack();
-        }
-      });
-    }
-    return layout;
   }
 
   public static boolean hasPermission(Context context) {
