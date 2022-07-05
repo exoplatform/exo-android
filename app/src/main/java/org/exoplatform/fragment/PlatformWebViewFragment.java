@@ -45,6 +45,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
+import android.webkit.JsResult;
 import android.webkit.MimeTypeMap;
 import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
@@ -213,6 +214,7 @@ public class PlatformWebViewFragment extends Fragment {
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
               String url = request.getUrl().toString();
               String contentType = getMimeType(url);
+              String path = request.getUrl().getPath();
               if (contentType != null && !contentType.contains("text/html")) {
                   refreshLayoutForContent(contentType);
                   if (url.contains("/download/")){
@@ -220,6 +222,10 @@ public class PlatformWebViewFragment extends Fragment {
                     downloadFile(url,ua,contentType);
                     newWebView.getWebChromeClient().onCloseWindow(view);
                   }
+              }
+              if (path.equals("/portal/dw/news/editor")) {
+                mWebView.loadUrl(url);
+                newWebView.getWebChromeClient().onCloseWindow(view);
               }
               if (url.contains("/jitsi/meet")) {
                 // Set permission to Camera and micro to be enabled for the Jitsi call.
@@ -269,9 +275,15 @@ public class PlatformWebViewFragment extends Fragment {
         PlatformWebViewFragment.this.startActivityForResult(Intent.createChooser(i, "File Browser"),FILECHOOSER_RESULTCODE);
         return true;
       }
+
+      @Override
+      public boolean onJsBeforeUnload(WebView view, String url, String message, JsResult result) {
+        result.confirm();
+        return true;
+      }
     });
     setDownloadListenerFor(mWebView,getContext());
-    String url = getActivity().getIntent().getStringExtra(INTENT_KEY_URL);
+    String url = Objects.requireNonNull(getActivity()).getIntent().getStringExtra(INTENT_KEY_URL);
     if(url != null && !url.equals("")) {
       mWebView.loadUrl(url);
     } else {
