@@ -126,7 +126,7 @@ public class ScannerActivity extends AppCompatActivity {
                     }
                 }, 3000);
             }else{
-                detectedURL.setText("Invalid URL");
+                detectedURL.setText(getResources().getString(R.string.OnBoarding_Message_WrongQr));
             }
         }
 
