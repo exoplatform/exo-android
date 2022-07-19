@@ -5,6 +5,7 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -104,11 +105,10 @@ public class ScannerActivity extends AppCompatActivity {
                 final String detected_url = result.getText()  + "&source=qrcode";
                 String urlDomain = null;
                 try {
-                    System.out.println("detected_url ===========> " + detected_url);
                     urlDomain = new URL(detected_url).getHost();
                     detectedURL.setText(urlDomain);
                 } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                    Log.d("MalformedURLException", String.valueOf(e));
                 }
 
                 qr_code_imageView.setBackgroundResource(R.drawable.qr_code_scanner);
@@ -126,7 +126,7 @@ public class ScannerActivity extends AppCompatActivity {
                     }
                 }, 3000);
             }else{
-                detectedURL.setText("Not valid URL");
+                detectedURL.setText("Invalid URL");
             }
         }
 
