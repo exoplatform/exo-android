@@ -55,7 +55,6 @@
     <string name="Word.Done">Done</string>
     <string name="Word.Update">Update</string>
 
-    "Invalid URL"
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
     <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
