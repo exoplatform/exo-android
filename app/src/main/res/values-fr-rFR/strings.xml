@@ -41,6 +41,7 @@
     <string name="OnBoarding.Message.LostCnnection">Veuillez vous assurer d\'avoir une connexion Internet.</string>
     <string name="OnBoarding.Title.Update">Mise à jour d\'eXo</string>
     <string name="OnBoarding.Message.Update">Pour utiliser l\'application, veuillez télécharger la dernière version</string>
+    <string name="OnBoarding.Message.WrongQr">URL invalide</string>
     <string name="Word.OK">OK</string>
     <string name="Word.Cancel">Annuler</string>
     <string name="Word.Back">Retour</string>
