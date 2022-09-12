@@ -3,9 +3,9 @@ package org.exoplatform.activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.zxing.ResultPoint;
@@ -39,8 +38,8 @@ public class ScannerActivity extends AppCompatActivity {
     ImageView qr_code_imageView;
     ViewfinderView viewFinder;
     private Handler handler;
+    private static String desiredRange = "/portal/login?username=";
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +55,7 @@ public class ScannerActivity extends AppCompatActivity {
         capture = new CaptureManager(this, barcodeScannerView);
         capture.initializeFromIntent(getIntent(), savedInstanceState);
         capture.decode();
-        barcodeScannerView.decodeSingle(callback);
+        barcodeScannerView.decodeContinuous(callback);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,32 +98,36 @@ public class ScannerActivity extends AppCompatActivity {
     BarcodeCallback callback = new BarcodeCallback() {
         @Override
         public void barcodeResult(BarcodeResult result) {
-            barcodeScannerView.pause();
-            ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-            tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-            final String detected_url = result.getText()  + "&source=qrcode";
-            String urlDomain = null;
-            try {
-                System.out.println("detected_url ===========> " + detected_url);
-                urlDomain = new URL(detected_url).getHost();
-                detectedURL.setText(urlDomain);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            if (result.getText().contains(desiredRange)){
+                barcodeScannerView.pause();
+                ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                tg.startTone(ToneGenerator.TONE_PROP_BEEP);
+                final String detected_url = result.getText()  + "&source=qrcode";
+                String urlDomain = null;
+                try {
+                    urlDomain = new URL(detected_url).getHost();
+                    detectedURL.setText(urlDomain);
+                } catch (MalformedURLException e) {
+                    Log.d("MalformedURLException", String.valueOf(e));
+                }
 
-            qr_code_imageView.setBackgroundResource(R.drawable.qr_code_scanner);
-            // Scaling
-            ScaleAnimation fade_in = new ScaleAnimation(0f, 1f, 0f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            fade_in.setDuration(1000);
-            fade_in.setFillAfter(true);
-            qr_code_imageView.startAnimation(fade_in);
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    Intent mIntent = new Intent();
-                    mIntent.putExtra("keyQRCode", detected_url);
-                    setResult(RESULT_OK, mIntent);
-                    finish();                }
-            }, 3000);
+                qr_code_imageView.setBackgroundResource(R.drawable.qr_code_scanner);
+                // Scaling
+                ScaleAnimation fade_in = new ScaleAnimation(0f, 1f, 0f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                fade_in.setDuration(1000);
+                fade_in.setFillAfter(true);
+                qr_code_imageView.startAnimation(fade_in);
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        Intent mIntent = new Intent();
+                        mIntent.putExtra("keyQRCode", detected_url);
+                        setResult(RESULT_OK, mIntent);
+                        finish();
+                    }
+                }, 3000);
+            }else{
+                detectedURL.setText(getResources().getString(R.string.OnBoarding_Message_WrongQr));
+            }
         }
 
 

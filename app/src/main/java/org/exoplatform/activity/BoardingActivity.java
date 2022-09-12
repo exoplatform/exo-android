@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -28,9 +26,6 @@ import org.exoplatform.model.Server;
 import org.exoplatform.tool.ServerUtils;
 import org.jsoup.Jsoup;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.TimerTask;
 
 import io.fabric.sdk.android.services.concurrency.AsyncTask;
@@ -55,22 +50,18 @@ public class BoardingActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 101;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
-        dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,
-                R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
-        updateDialog = new ActionDialog(R.string.OnBoarding_Title_Update,
-                R.string.OnBoarding_Message_Update, R.string.Word_Update, BoardingActivity.this);
+        dialog = new ActionDialog(R.string.SettingsActivity_Title_DeleteConfirmation,R.string.SettingsActivity_Message_DeleteConfirmation, R.string.Word_Delete, BoardingActivity.this);
+        updateDialog = new ActionDialog(R.string.OnBoarding_Title_Update,R.string.OnBoarding_Message_Update, R.string.Word_Update, BoardingActivity.this);
+        checkConnectivity = new CheckConnectivity(BoardingActivity.this);
         updateDialog.deleteAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent viewIntent =
-                            new Intent("android.intent.action.VIEW",
-                                    Uri.parse("https://play.google.com/store/apps/details?id=org.exoplatform"));
+                    Intent viewIntent = new Intent("android.intent.action.VIEW",Uri.parse("https://play.google.com/store/apps/details?id=org.exoplatform"));
                     startActivity(viewIntent);
                 }catch(Exception e) {
                     Log.d("Unable to Connect Try Again:", String.valueOf(e));
@@ -116,7 +107,6 @@ public class BoardingActivity extends AppCompatActivity {
 
         // Set action buttons
         scanQRFragmentBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 Activity context = BoardingActivity.this;
@@ -151,7 +141,7 @@ public class BoardingActivity extends AppCompatActivity {
 
     }
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 1011) {// If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -229,6 +219,12 @@ public class BoardingActivity extends AppCompatActivity {
                     }
                 });
             }
+
+            @Override
+            public void onConnectionError() {
+                progressDialog.dismiss();
+                checkConnectivity.lostConnectionDialog.showDialog();
+            }
         });
     }
     public class CheckForeXoUpdate extends AsyncTask<Void, String, String> {
@@ -275,7 +271,6 @@ public class BoardingActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void statusBarColor(){
         getWindow().setStatusBarColor(getResources().getColor(R.color.status_bar_color,this.getTheme()));
     }

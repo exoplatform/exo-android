@@ -50,11 +50,11 @@ public class SpaceListAdapter extends BaseAdapter {
         TextView spaceName;
     }
 
-    private Context mContext;
+    private final Context mContext;
 
     private List<SocialSpace> mSpaceList;
 
-    private String baseUrl;   // Needed to make the full avatar url
+    private final String baseUrl;   // Needed to make the full avatar url
 
     public SpaceListAdapter(@NonNull Context ctx, @NonNull String url) {
         mContext = ctx;

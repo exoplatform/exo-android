@@ -71,9 +71,9 @@ public class PrepareAttachmentsTask extends AsyncTask<List<Uri>, Void, PrepareAt
     void onPrepareAttachmentsFinished(AttachmentsResult result);
   }
 
-  private Context        mContext;
+  private final Context        mContext;
 
-  private List<Listener> mListeners;
+  private final List<Listener> mListeners;
 
   public PrepareAttachmentsTask(Context ctx) {
     if (ctx == null)
