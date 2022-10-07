@@ -24,6 +24,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,6 +52,7 @@ import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -233,7 +235,16 @@ public class PlatformWebViewFragment extends Fragment {
                         Manifest.permission.CAMERA };
                 ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),permissions,1010);
               }
+              switchToJitsiAppWith(url);
               return false;
+            }
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+              super.onReceivedError(view, request, error);
+              Log.d("onReceivedError ========< ",error.toString());
+              if (String.valueOf(error.getDescription()).contains("ERR_UNKNOWN_URL_SCHEME")) {
+                newWebView.getWebChromeClient().onCloseWindow(view);
+              }
             }
           });
           //setDownloadListenerFor(newWebView,getContext());
@@ -308,6 +319,20 @@ public class PlatformWebViewFragment extends Fragment {
       });
     }
     return layout;
+  }
+
+  public boolean switchToJitsiAppWith(String url){
+    if (url.contains("/jitsiweb/") && url.contains("?jwt=")){
+      Uri uri = Uri.parse("org.jitsi.meet://" + url.replace("intent://",""));
+      Intent jitsiURL = new Intent(Intent.ACTION_VIEW, uri);
+      jitsiURL.setPackage("org.jitsi.meet");
+      try {
+        startActivity(jitsiURL);
+      } catch (ActivityNotFoundException e) {
+        Toast.makeText(getActivity(), "Jitsi meet is not on your mobile, install it before.", Toast.LENGTH_LONG).show();
+      }
+    }
+    return true;
   }
 
   public static String getMimeType(String url) {
