@@ -255,6 +255,7 @@ public class PlatformWebViewFragment extends Fragment {
                   }
                  }
               }
+              switchToJitsiAppWith(url);
               return false;
             }
             @Override
