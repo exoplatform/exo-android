@@ -42,8 +42,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import org.exoplatform.App;
 import org.exoplatform.R;
-import org.exoplatform.tool.ServerManager;
-import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.fragment.AccountsFragment;
 import org.exoplatform.fragment.ComposeFragment;
 import org.exoplatform.fragment.SelectSpaceFragment;
@@ -57,6 +55,8 @@ import org.exoplatform.service.share.PrepareAttachmentsTask;
 import org.exoplatform.service.share.ShareService;
 import org.exoplatform.tool.DocumentUtils;
 import org.exoplatform.tool.PlatformUtils;
+import org.exoplatform.tool.ServerManager;
+import org.exoplatform.tool.ServerManagerImpl;
 import org.exoplatform.tool.ServerUtils;
 
 import java.util.ArrayList;
@@ -116,7 +116,6 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     mToolbarButton = (Button) findViewById(R.id.Share_Main_Button);
     mUserLoggedIn = false;
     mActivityPost = new SocialActivity();
-
     if (isIntentCorrect()) {
       Intent intent = getIntent();
       String type = intent.getType();
@@ -234,7 +233,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       setTitle(R.string.Word_eXo);
     } else if (SignInFragment.SIGN_IN_FRAGMENT.equals(key)) {
       setToolbarButtonType(ToolbarButtonType.SIGNIN);
-      setTitle(R.string.ShareActivity_SignIn_Title_EnterCredentials);
+      setTitle(R.string.Word_eXo);
     } else if (AccountsFragment.ACCOUNTS_FRAGMENT.equals(key)) {
       setToolbarButtonType(ToolbarButtonType.HIDDEN);
       setTitle(R.string.ShareActivity_Intranets_Title_Intranets);
@@ -292,7 +291,7 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
       break;
     case SIGNIN:
       mToolbarButton.setText(R.string.ShareActivity_Compose_Title_SignIn);
-      mToolbarButton.setVisibility(View.VISIBLE);
+      mToolbarButton.setVisibility(View.INVISIBLE);
       break;
     default: // SHARE
       mToolbarButton.setText(R.string.ShareActivity_Main_Title_Post);
@@ -356,6 +355,16 @@ public class ShareExtensionActivity extends AppCompatActivity implements LoginTa
     default: // HIDDEN, do nothing
       break;
     }
+  }
+
+  public void loginTapped(){
+    // Tap on the SIGN IN button
+    String username = SignInFragment.getFragment().getUsername();
+    mActivityPost.ownerAccount.setLastLogin(username);
+    String password = SignInFragment.getFragment().getPassword();
+    mActivityPost.ownerAccount.setLastPassword(password);
+    openFragment(ComposeFragment.getFragment(), ComposeFragment.COMPOSE_FRAGMENT, Anim.FROM_LEFT);
+    login(mActivityPost.ownerAccount);
   }
 
   public void onSelectAccount() {

@@ -24,6 +24,7 @@
     <color name="black">#000000</color>
     <color name="black_overlay">#66000000</color>
     <color name="status_bar_color">#5A8EC7</color>
+    <color name="dark_blue_color">#3B5F8F</color>
     <color name="eXoLightGray">#f1f1f1</color>
     <color name="eXoGrey">#b6b7ba</color>
     <color name="eXoGreyTransparent">#a6b6b7ba</color>

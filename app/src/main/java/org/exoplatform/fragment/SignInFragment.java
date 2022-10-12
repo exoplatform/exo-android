@@ -26,6 +26,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
@@ -49,6 +51,11 @@ public class SignInFragment extends Fragment {
   private EditText              mUsernameField;
 
   private EditText              mPasswordField;
+
+  private Button                mLogin;
+
+  private CheckBox              mCheckbox;
+
 
   private final TextWatcher           usernamePasswordWatcher = new TextWatcher() {
                                                           @Override
@@ -84,10 +91,32 @@ public class SignInFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View layout = inflater.inflate(R.layout.share_extension_sign_in_fragment, container, false);
+    ShareExtensionActivity mShareExtensionActivity = (ShareExtensionActivity) requireActivity();
     mUsernameField = (EditText) layout.findViewById(R.id.share_signin_username);
     mUsernameField.addTextChangedListener(usernamePasswordWatcher);
     mPasswordField = (EditText) layout.findViewById(R.id.share_signin_password);
     mPasswordField.addTextChangedListener(usernamePasswordWatcher);
+    mLogin = (Button) layout.findViewById(R.id.share_login_button);
+    mCheckbox = (CheckBox) layout.findViewById(R.id.share_checkbox);
+    mCheckbox.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        boolean checked = ((CheckBox) v).isChecked();
+        // Check which checkbox was clicked
+        if (checked){
+
+        }else{
+
+        }
+      }
+    });
+    mLogin.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        mShareExtensionActivity.loginTapped();
+      }
+    });
+
     return layout;
   }
 
@@ -114,7 +143,8 @@ public class SignInFragment extends Fragment {
     if (isAdded()) {
       boolean usernameEmpty = "".equals(mUsernameField.getText().toString().trim());
       boolean passwordEmpty = "".equals(mPasswordField.getText().toString().trim());
-      getShareActivity().setToolbarButtonEnabled(!(usernameEmpty && passwordEmpty));
+     // getShareActivity().setToolbarButtonEnabled(!(usernameEmpty && passwordEmpty));
+      mLogin.setEnabled(!(usernameEmpty && passwordEmpty));
     }
   }
 

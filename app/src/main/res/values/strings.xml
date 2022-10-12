@@ -81,6 +81,7 @@
     <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your credentials</string>
     <string name="ShareActivity.SignIn.Title.Username">Username</string>
     <string name="ShareActivity.SignIn.Title.Password">Password</string>
+    <string name="ShareActivity.SignIn.Title.Card">Digital Workspace</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces…</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">You are not in any space</string>
     <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
