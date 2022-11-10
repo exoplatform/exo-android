@@ -331,8 +331,9 @@ public class PlatformWebViewFragment extends Fragment {
       } catch (ActivityNotFoundException e) {
         Toast.makeText(getActivity(), "Jitsi meet is not on your mobile, install it before.", Toast.LENGTH_LONG).show();
       }
+      return true;
     }
-    return true;
+    return false;
   }
 
   public static String getMimeType(String url) {
@@ -582,6 +583,10 @@ public class PlatformWebViewFragment extends Fragment {
 
       if (((url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))) || isWhileLoginProcess) {
         // url is on the server's domain, keep loading normally
+        if (url.contains("/jitsi/meet")) {
+          mListener.onExternalContentRequested(url);
+          return true;
+        }
         return false;
       } else{
           // url is on an external domain, load in a different fragment
