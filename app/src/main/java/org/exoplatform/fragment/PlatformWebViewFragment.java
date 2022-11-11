@@ -20,6 +20,10 @@ package org.exoplatform.fragment;
  *
  */
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.content.Context.DOWNLOAD_SERVICE;
+import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -96,10 +100,6 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.content.Context.DOWNLOAD_SERVICE;
-import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
 
 /**
  * WebView that is configured to display content from a Platform 4.3+ intranet.
