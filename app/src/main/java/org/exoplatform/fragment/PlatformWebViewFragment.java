@@ -20,6 +20,10 @@ package org.exoplatform.fragment;
  *
  */
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.content.Context.DOWNLOAD_SERVICE;
+import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -96,10 +100,6 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.content.Context.DOWNLOAD_SERVICE;
-import static org.exoplatform.activity.WebViewActivity.INTENT_KEY_URL;
 
 /**
  * WebView that is configured to display content from a Platform 4.3+ intranet.
@@ -331,8 +331,9 @@ public class PlatformWebViewFragment extends Fragment {
       } catch (ActivityNotFoundException e) {
         Toast.makeText(getActivity(), "Jitsi meet is not on your mobile, install it before.", Toast.LENGTH_LONG).show();
       }
+      return true;
     }
-    return true;
+    return false;
   }
 
   public static String getMimeType(String url) {
@@ -582,6 +583,10 @@ public class PlatformWebViewFragment extends Fragment {
 
       if (((url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))) || isWhileLoginProcess) {
         // url is on the server's domain, keep loading normally
+        if (url.contains("/jitsi/meet")) {
+          mListener.onExternalContentRequested(url);
+          return true;
+        }
         return false;
       } else{
           // url is on an external domain, load in a different fragment
