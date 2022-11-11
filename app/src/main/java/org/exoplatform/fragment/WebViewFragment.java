@@ -135,6 +135,7 @@ public class WebViewFragment extends Fragment {
         request.grant(request.getResources());
       }
     });
+
     mWebView.loadUrl(mUrl);
     return layout;
   }
