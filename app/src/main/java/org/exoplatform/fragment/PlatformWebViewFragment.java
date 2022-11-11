@@ -44,6 +44,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.JsResult;
@@ -235,7 +236,6 @@ public class PlatformWebViewFragment extends Fragment {
                         Manifest.permission.CAMERA };
                 ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),permissions,1010);
               }
-              switchToJitsiAppWith(url);
               return false;
             }
             @Override
@@ -250,6 +250,12 @@ public class PlatformWebViewFragment extends Fragment {
           //setDownloadListenerFor(newWebView,getContext());
           // Set the created window to be closed automatically when we have Jitsi call or google sign in (related to JS window.close()).
           newWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+              String url = consoleMessage.sourceId();
+              switchToJitsiAppWith(url);
+              return true;
+            }
             @Override
             public void onCloseWindow(WebView window) {
               super.onCloseWindow(window);
@@ -321,18 +327,19 @@ public class PlatformWebViewFragment extends Fragment {
     return layout;
   }
 
-  public boolean switchToJitsiAppWith(String url){
-    if (url.contains("/jitsiweb/") && url.contains("?jwt=")){
-      Uri uri = Uri.parse("org.jitsi.meet://" + url.replace("intent://",""));
+  public void switchToJitsiAppWith(String url){
+    if (url.contains("/jitsiweb/") && url.contains("?jwt=") && !url.contains("intent://")){
+      String fUrl = url.replaceFirst("^(http[s]?://)","");
+      Uri uri = Uri.parse("org.jitsi.meet://" + fUrl);
       Intent jitsiURL = new Intent(Intent.ACTION_VIEW, uri);
       jitsiURL.setPackage("org.jitsi.meet");
       try {
         startActivity(jitsiURL);
+        newWebView.getWebChromeClient().onCloseWindow(newWebView);
       } catch (ActivityNotFoundException e) {
-        Toast.makeText(getActivity(), "Jitsi meet is not on your mobile, install it before.", Toast.LENGTH_LONG).show();
+        Log.e("Jitsi App not found:", e.toString());
       }
     }
-    return true;
   }
 
   public static String getMimeType(String url) {
@@ -582,6 +589,10 @@ public class PlatformWebViewFragment extends Fragment {
 
       if (((url.contains(mServer.getShortUrl()) && !super.shouldOverrideUrlLoading(view, request))) || isWhileLoginProcess) {
         // url is on the server's domain, keep loading normally
+        if (url.contains("/jitsi/meet")) {
+          mListener.onExternalContentRequested(url);
+          return true;
+        }
         return false;
       } else{
           // url is on an external domain, load in a different fragment

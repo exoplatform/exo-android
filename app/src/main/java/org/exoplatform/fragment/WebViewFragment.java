@@ -22,12 +22,16 @@ package org.exoplatform.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ConsoleMessage;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -41,6 +45,8 @@ import androidx.fragment.app.Fragment;
 
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * A simple web view with a progress bar, in a fragment
@@ -131,12 +137,34 @@ public class WebViewFragment extends Fragment {
         }
       }
       @Override
+      public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+        String url = consoleMessage.sourceId();
+        switchToJitsiAppWith(url);
+        return true;
+      }
+
+      @Override
       public void onPermissionRequest(PermissionRequest request) {
         request.grant(request.getResources());
       }
     });
     mWebView.loadUrl(mUrl);
     return layout;
+  }
+
+  public void switchToJitsiAppWith(String url){
+    if (url.contains("/jitsiweb/") && url.contains("?jwt=") && !url.contains("intent://")){
+      String fUrl = url.replaceFirst("^(http[s]?://)","");
+      Uri uri = Uri.parse("org.jitsi.meet://" + fUrl);
+      Intent jitsiURL = new Intent(Intent.ACTION_VIEW, uri);
+      jitsiURL.setPackage("org.jitsi.meet");
+      try {
+        startActivity(jitsiURL);
+        mListener.onCloseWebViewFragment();
+      } catch (ActivityNotFoundException e) {
+        Log.e("Jitsi App not found:", e.toString());
+      }
+    }
   }
 
   @Override
