@@ -226,7 +226,7 @@ public class PlatformWebViewFragment extends Fragment {
                     newWebView.getWebChromeClient().onCloseWindow(view);
                   }
               }
-              if (path.equals("/portal/dw/news/editor")) {
+              if (!url.contains(mServer.getShortUrl()) || path.equals("/portal/dw/news/editor")) {
                 mWebView.loadUrl(url);
                 newWebView.getWebChromeClient().onCloseWindow(view);
               }
