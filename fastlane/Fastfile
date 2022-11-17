@@ -88,7 +88,7 @@ platform :android do
   desc "Deploy a new version to the Google Play Production track (no publication)"
   lane :store do
     gradle(
-      task: "clean bundle",
+      task: "clean bundleRelease",
       build_type: "release",
       flavor: "store"
     )
