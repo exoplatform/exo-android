@@ -254,6 +254,9 @@ public class PlatformWebViewFragment extends Fragment {
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
               String url = consoleMessage.sourceId();
               switchToJitsiAppWith(url);
+              if (url.contains("Call started")) {
+                newWebView.getWebChromeClient().onCloseWindow(newWebView);
+              }
               return true;
             }
             @Override
