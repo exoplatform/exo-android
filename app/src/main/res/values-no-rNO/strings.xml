@@ -19,20 +19,8 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Samhandling</string>
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">Avbryt</string>
-    <string name="Word.Back">Tilbake</string>
-    <string name="Word.Delete">Slette</string>
-    <string name="Word.Space">Fellesskap</string>
-    <string name="Word.Done">Utført</string>
-    <string name="Word.Update">Oppdater</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Compose.Title.SignIn">Innlogging</string>
-    <string name="ShareActivity.SignIn.Title.Username">Brukernavn</string>
-    <string name="ShareActivity.SignIn.Title.Password">Passord</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Forlate</string>
     <string name="ShareService.Message.OperationSuccess">Suksess</string>
 </resources>

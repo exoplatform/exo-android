@@ -20,25 +20,11 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">Співпраця</string>
-    <string name="Word.OK">Гаразд</string>
-    <string name="Word.Cancel">Скасувати</string>
-    <string name="Word.Back">Назад</string>
-    <string name="Word.Delete">Видалити</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Область</string>
-    <string name="Word.Done">Виконано</string>
-    <string name="Word.Update">Поновити</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Поділитися</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Логін</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Над чим ви працюєте?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Ім’я користувача</string>
-    <string name="ShareActivity.SignIn.Title.Password">Пароль</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Ви не перебуваєте в будь-якому просторі</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Залишити</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Відкрити налаштування додатку</string>
     <string name="ShareActivity.Error.SignInFailed">Помилка входу, будь ласка, повторіть спробу</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Немає облікового запису</string>
