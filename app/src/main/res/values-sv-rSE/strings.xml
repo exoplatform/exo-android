@@ -20,20 +20,8 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">Samarbete</string>
-    <string name="Word.Cancel">Avbryt</string>
-    <string name="Word.Back">Tillbaka</string>
-    <string name="Word.Delete">Ta bort</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Plats</string>
-    <string name="Word.Done">Gjort</string>
-    <string name="Word.Update">Uppdatering</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Compose.Title.SignIn">Logga in</string>
-    <string name="ShareActivity.SignIn.Title.Username">Användarnamn</string>
-    <string name="ShareActivity.SignIn.Title.Password">Lösenord</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Lämna</string>
     <string name="ShareService.Message.OperationSuccess">Success</string>
 </resources>

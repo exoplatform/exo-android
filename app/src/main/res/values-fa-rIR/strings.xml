@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">همکاری</string>
-    <string name="Word.OK">تایید</string>
-    <string name="Word.Cancel">انصراف</string>
-    <string name="Word.Back">بازگشت</string>
-    <string name="Word.Delete">حذف</string>
-    <string name="Word.Space">فضا</string>
-    <string name="Word.Done">انجام شد</string>
-    <string name="Word.Update">به روز رسانی</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">اشتراک</string>
-    <string name="ShareActivity.Compose.Title.SignIn">ورود</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">الان در حال انجام چه کاری هستید؟</string>
-    <string name="ShareActivity.SignIn.Title.Username">نام کاربری</string>
-    <string name="ShareActivity.SignIn.Title.Password">رمز عبور</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">شما در هیچ فضایی نیستید</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">ترک</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">باز کردن برنامه تنظیمات</string>
     <string name="ShareActivity.Error.NoAccountConfigured">هیچ حساب پیکربندی</string>
     <string name="ShareActivity.Error.CannotReadDoc">می تواند دسترسی به سند را به اشتراک بگذارید</string>
