@@ -20,25 +20,11 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">Collaborazione</string>
-    <string name="Word.OK">Ok</string>
-    <string name="Word.Cancel">Annulla</string>
-    <string name="Word.Back">Indietro</string>
-    <string name="Word.Delete">Cancellare</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Spazio</string>
-    <string name="Word.Done">Fatto</string>
-    <string name="Word.Update">Aggiorna</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Condividi</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Entra</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Su cosa stai lavorando?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Nome utente</string>
-    <string name="ShareActivity.SignIn.Title.Password">Password</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Non fai parte di nessuno spazio</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Lasciare</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Apri impostazioni app</string>
     <string name="ShareActivity.Error.SignInFailed">Accesso non riuscito, ti preghiamo di riprovare.</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Nessun account configurato</string>
