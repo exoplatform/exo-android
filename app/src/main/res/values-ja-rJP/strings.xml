@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">コラボレーション</string>
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">キャンセル</string>
-    <string name="Word.Back">戻る</string>
-    <string name="Word.Delete">削除</string>
-    <string name="Word.Space">スペース</string>
-    <string name="Word.Done">完了</string>
-    <string name="Word.Update">アップデート</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">共有</string>
-    <string name="ShareActivity.Compose.Title.SignIn">ログイン</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">今、何をしていますか？</string>
-    <string name="ShareActivity.SignIn.Title.Username">ユーザー名</string>
-    <string name="ShareActivity.SignIn.Title.Password">パスワード</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">あなたはスペースを所有していません。</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">脱退</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">アプリの設定を開く</string>
     <string name="ShareActivity.Error.SignInFailed">ログインに失敗しました, もう一度やり直してください。</string>
     <string name="ShareActivity.Error.NoAccountConfigured">構成されているアカウントがありません</string>

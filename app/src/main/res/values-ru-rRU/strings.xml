@@ -20,25 +20,11 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">Сотрудничество</string>
-    <string name="Word.OK">ОК</string>
-    <string name="Word.Cancel">Отмена</string>
-    <string name="Word.Back">Назад</string>
-    <string name="Word.Delete">Удалить</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Область</string>
-    <string name="Word.Done">Готово</string>
-    <string name="Word.Update">Обновить</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Поделиться</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Авторизация</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Над чем вы работаете?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Имя пользователя</string>
-    <string name="ShareActivity.SignIn.Title.Password">Пароль</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Вы не находитесь в любом пространстве</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Покинуть</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Открыть параметры приложения</string>
     <string name="ShareActivity.Error.SignInFailed">Ошибка входа. Пожалуйста, попробуйте снова</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Учетная запись не настроена</string>
