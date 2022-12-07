@@ -19,9 +19,7 @@
   ~
   -->
 <resources>
-    <string name="Word.Update">I-update</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">I-post</string>
 </resources>

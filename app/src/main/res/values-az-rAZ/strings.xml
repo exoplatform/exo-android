@@ -19,14 +19,10 @@
   ~
   -->
 <resources>
-    <string name="Word.Cancel">Ləğv Et</string>
-    <string name="Word.Done">Hazır</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Compose.Title.SignIn">Giriş</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Nə axtarırsınız?</string>
-    <string name="ShareActivity.SignIn.Title.Username">İstifadəçi Adı</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Heç bir yerdə yoxsunuz</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Tətbiq Tənzimləmələrini Aç</string>
     <string name="ShareActivity.Error.SignInFailed">Giriş uğursuz oldu, xahiş edirik yenidən cəhd edin</string>

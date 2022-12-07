@@ -19,9 +19,6 @@
   ~
   -->
 <resources>
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">Batal</string>
-    <string name="Word.Delete">Padam</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->

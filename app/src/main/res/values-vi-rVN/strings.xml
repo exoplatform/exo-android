@@ -20,23 +20,9 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">Cộng đồng</string>
-    <string name="Word.OK">Đồng ý</string>
-    <string name="Word.Cancel">Hủy bỏ</string>
-    <string name="Word.Back">Trở lại</string>
-    <string name="Word.Delete">Xóa</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Nhóm</string>
-    <string name="Word.Done">Hoàn thành</string>
-    <string name="Word.Update">Cập nhật</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Chia sẻ</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Đăng nhập</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Bạn đang làm gì?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Tên người dùng</string>
-    <string name="ShareActivity.SignIn.Title.Password">Mật khẩu</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Rời khỏi Nhóm</string>
     <string name="ShareService.Message.OperationSuccess">Success</string>
 </resources>
