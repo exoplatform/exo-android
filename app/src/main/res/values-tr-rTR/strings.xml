@@ -20,25 +20,11 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">İşbirliği</string>
-    <string name="Word.OK">Tamam</string>
-    <string name="Word.Cancel">İptal</string>
-    <string name="Word.Back">Geri</string>
-    <string name="Word.Delete">Sil</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Alan</string>
-    <string name="Word.Done">Bitmiş</string>
-    <string name="Word.Update">Güncelleştirme</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Paylaş</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Uturum Aç</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Ne üzerinde çalışıyorsun?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Kullanıcı Adı</string>
-    <string name="ShareActivity.SignIn.Title.Password">Şifre</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Herhangi bir alanda değilsiniz</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Ayrıl</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Uygulama Ayarlarını Aç</string>
     <string name="ShareActivity.Error.SignInFailed">Hatalı giriş, lütfen tekrar deneyiniz</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Hiçbir hesap yapılandırılmamış</string>

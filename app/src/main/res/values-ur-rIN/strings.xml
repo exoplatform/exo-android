@@ -19,22 +19,11 @@
   ~
   -->
 <resources>
-    <string name="Word.OK">ٹھیک ہے</string>
-    <string name="Word.Cancel">منسوخ</string>
-    <string name="Word.Back">پىچھے</string>
-    <string name="Word.Delete">حذف کریں</string>
-    <string name="Word.Space">خالی جگہ</string>
-    <string name="Word.Done">کیا</string>
-    <string name="Word.Update">تازہ کاری کریں</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">شائع</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">آپ کس پر کام کر رہے ہیں?</string>
-    <string name="ShareActivity.SignIn.Title.Username">صارف کا نام</string>
-    <string name="ShareActivity.SignIn.Title.Password">پاس ورڈ</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">آپ کسی بھی جگہ میں نہیں ہیں</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">چھوڑ دیں</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">اپ ترتیبات کھولیں</string>
     <string name="ShareActivity.Error.SignInFailed">لاگ ان ناکام ہوگىا, دوبارہ کوشش کریں</string>
     <string name="ShareActivity.Error.NoAccountConfigured">کوئی اکاءونٹ تشکیل نہیں دیا گیا</string>
