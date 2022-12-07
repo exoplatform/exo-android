@@ -20,25 +20,11 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">Spolupráce</string>
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">Zrušit</string>
-    <string name="Word.Back">Zpět</string>
-    <string name="Word.Delete">Odstranit</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Skupina</string>
-    <string name="Word.Done">Hotovo</string>
-    <string name="Word.Update">Aktualizovat</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Sdílet</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Přihlášení</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Na čem pracujete?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Uživatelské jméno</string>
-    <string name="ShareActivity.SignIn.Title.Password">Heslo</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Nejste v žádné místnosti</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Opustit</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Otevřít nastavení aplikace</string>
     <string name="ShareActivity.Error.SignInFailed">Přihlášení se nezdařilo, zkuste to znovu</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Není nakonfigurován žádný účet</string>

@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Col. laboració</string>
-    <string name="Word.OK">Accepta</string>
-    <string name="Word.Cancel">Cancel·la</string>
-    <string name="Word.Back">Enrere</string>
-    <string name="Word.Delete">Suprimeix</string>
-    <string name="Word.Space">Espai</string>
-    <string name="Word.Done">Fet</string>
-    <string name="Word.Update">Actualitza</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Enviar</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Inicia la sessió</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">En què està treballant?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Nom d\'usuari</string>
-    <string name="ShareActivity.SignIn.Title.Password">Contrasenya</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">No ets a cap espai</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Deixa</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Obre la configuració de l\'aplicació</string>
     <string name="ShareActivity.Error.SignInFailed">L\'inici de sessió ha fallat, si us plau provi una altra vegada</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Cap compte configurat</string>

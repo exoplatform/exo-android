@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Samenwerking</string>
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">Annuleren</string>
-    <string name="Word.Back">Terug</string>
-    <string name="Word.Delete">Verwijderen</string>
-    <string name="Word.Space">Ruimte</string>
-    <string name="Word.Done">#{word.done} :</string>
-    <string name="Word.Update">Choose file </string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Delen</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Inloggen</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Waar werkt u aan?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Gebruikersnaam</string>
-    <string name="ShareActivity.SignIn.Title.Password">#{word.password}</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">U bent niet in enige ruimte</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Verlof</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Open de App-instellingen</string>
     <string name="ShareActivity.Error.SignInFailed">Inloggen is mislukt. Probeer opnieuw</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Geen account geconfigureerd</string>
