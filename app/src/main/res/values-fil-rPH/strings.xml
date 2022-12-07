@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Ang Kolaborasyon</string>
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">Kanselahin</string>
-    <string name="Word.Back">Likuran</string>
-    <string name="Word.Delete">OK</string>
-    <string name="Word.Space">Ang Espasyo</string>
-    <string name="Word.Done">Tapos na</string>
-    <string name="Word.Update">Mag-update</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Ang mag-Post</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Mag-login</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Ano ang ginagawa mo ngayon?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Ang Username</string>
-    <string name="ShareActivity.SignIn.Title.Password">Ang Password</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Wala ka sa kahit na anong espasyo</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Ang Umalis</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Buksan ang Settings ng App</string>
     <string name="ShareActivity.Error.SignInFailed">Nabigo ang paglog-in, pakisubukan uli</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Walang naka-configure na account</string>

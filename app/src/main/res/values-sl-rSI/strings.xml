@@ -21,25 +21,11 @@
 <resources>
     <string name="app_name">eXo</string>
     <string name="OnBoarding.Title.Welcome">Dobrodošli v eXo!</string>
-    <string name="OnBoarding.Title.Collaboration">Sodelovanje</string>
-    <string name="Word.OK">V redu</string>
-    <string name="Word.Cancel">Prekliči</string>
-    <string name="Word.Back">Nazaj</string>
-    <string name="Word.Delete">Izbriši</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Prostor</string>
-    <string name="Word.Done">Dokončano</string>
-    <string name="Word.Update">Posodobi</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Daj v skupno rabo</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Prijava</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">O čem razmišljate, na čem delate?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Uporabniško ime</string>
-    <string name="ShareActivity.SignIn.Title.Password">Geslo</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Niste v nobenem prostoru</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Zapusti</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Odprite nastavitve aplikacije</string>
     <string name="ShareActivity.Error.SignInFailed">Prijava ni uspela, poskusite znova</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Ni konfiguriranega računa</string>
