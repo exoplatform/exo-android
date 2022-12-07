@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Kolaborasi</string>
-    <string name="Word.OK">Oke</string>
-    <string name="Word.Cancel">membatalkan</string>
-    <string name="Word.Back">Kembali</string>
-    <string name="Word.Delete">hapus</string>
-    <string name="Word.Space">Ruang</string>
-    <string name="Word.Done">Selesai</string>
-    <string name="Word.Update">Memperbaharui</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Posting</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Masuk</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Apa yang kamu kerjakan?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Nama Pengguna</string>
-    <string name="ShareActivity.SignIn.Title.Password">Kata Sandi</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Anda tidak berada dalam ruang</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Meninggalkan</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Buka pengaturan appl</string>
     <string name="ShareActivity.Error.SignInFailed">Masuk gagal, silakan coba lagi</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Tidak ada akun yang di konfigurasi</string>

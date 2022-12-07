@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Colaboração</string>
-    <string name="Word.OK">Ok</string>
-    <string name="Word.Cancel">Cancelar</string>
-    <string name="Word.Back">Voltar</string>
-    <string name="Word.Delete">Eliminar</string>
-    <string name="Word.Space">Espaço</string>
-    <string name="Word.Done">Concluir</string>
-    <string name="Word.Update">Atualizar</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Publicar</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Conectar</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">No que você está trabalhando?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Utilizador</string>
-    <string name="ShareActivity.SignIn.Title.Password">Palavra-passe</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Você não está em nenhum espaço</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Abandonar</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Abrir configurações do aplicativo</string>
     <string name="ShareActivity.Error.SignInFailed">Falha no login, por favor tente novamente</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Nenhuma conta configurada</string>

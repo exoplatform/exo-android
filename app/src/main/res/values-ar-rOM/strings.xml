@@ -45,9 +45,8 @@
     <string name="Word.Cancel">الغاء</string>
     <string name="Word.Back">رجوع</string>
     <string name="Word.Delete">حذف</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">مساحة</string>
-    <string name="Word.Done">عمله</string>
+    <string name="Word.Space">فضاء</string>
+    <string name="Word.Done">تم</string>
     <string name="Word.Update">تحديث</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">عرض رمز QR في إعدادات eXo\n الخاصة بك</string>
