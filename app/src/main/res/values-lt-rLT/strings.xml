@@ -20,21 +20,8 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">Bendradarbiavimas</string>
-    <string name="Word.OK">Gerai</string>
-    <string name="Word.Cancel">Atšaukti</string>
-    <string name="Word.Back">Atgal</string>
-    <string name="Word.Delete">Ištrinti</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">Erdvė</string>
-    <string name="Word.Done">Atlikta</string>
-    <string name="Word.Update">Atnaujinti</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Compose.Title.SignIn">Prisijungti</string>
-    <string name="ShareActivity.SignIn.Title.Username">Vartotojo vardas</string>
-    <string name="ShareActivity.SignIn.Title.Password">Slaptažodis</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Palikti</string>
     <string name="ShareService.Message.OperationSuccess">Sėkmingai</string>
 </resources>

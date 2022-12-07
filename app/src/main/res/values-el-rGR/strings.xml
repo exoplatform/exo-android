@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Συνεργασία</string>
-    <string name="Word.OK">Αποδοχή</string>
-    <string name="Word.Cancel">Ακύρωση</string>
-    <string name="Word.Back">Επιστροφή</string>
-    <string name="Word.Delete">Διαγραφή</string>
-    <string name="Word.Space">Χώρος</string>
-    <string name="Word.Done">Ολοκλήρωση</string>
-    <string name="Word.Update">Ενημέρωση</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Μοιραστείτε</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Είσοδος</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Τι κάνετε τώρα;</string>
-    <string name="ShareActivity.SignIn.Title.Username">Όνομα χρήστη</string>
-    <string name="ShareActivity.SignIn.Title.Password">Κωδικός πρόσβασης</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Δεν είστε σε κανένα Χώρο</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Αποχώρηση</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Ανοίξτε τις ρυθμίσεις τηε εφρμογής</string>
     <string name="ShareActivity.Error.SignInFailed">Η σύνδεση απέτυχε. Παρακαλώ προσπαθήστε ξανά</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Κανένας λογαριασμός δεν έχει ρυθμιστεί</string>
