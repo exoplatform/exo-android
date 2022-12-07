@@ -19,24 +19,11 @@
   ~
   -->
 <resources>
-    <string name="OnBoarding.Title.Collaboration">Colaborare</string>
-    <string name="Word.OK">Ok</string>
-    <string name="Word.Cancel">Renunță</string>
-    <string name="Word.Back">Înapoi</string>
-    <string name="Word.Delete">Şterge</string>
-    <string name="Word.Space">Spaţiu</string>
-    <string name="Word.Done">Făcut</string>
-    <string name="Word.Update">Actualizare</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Main.Title.Post">Distribuie</string>
-    <string name="ShareActivity.Compose.Title.SignIn">Autentificare</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">La ce lucrezi?</string>
-    <string name="ShareActivity.SignIn.Title.Username">Nume de utilizator</string>
-    <string name="ShareActivity.SignIn.Title.Password">Parola</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Nu ești în niciun spațiu</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Părăsește</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Deschide Setările Aplicației</string>
     <string name="ShareActivity.Error.SignInFailed">Logarea a eșuat, vă rugăm reîncercați</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Nu există nici un cont configurat</string>

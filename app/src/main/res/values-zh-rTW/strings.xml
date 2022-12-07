@@ -20,22 +20,9 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="OnBoarding.Title.Collaboration">合作</string>
-    <string name="Word.OK">OK</string>
-    <string name="Word.Cancel">取消</string>
-    <string name="Word.Back">返回</string>
-    <string name="Word.Delete">刪除</string>
-    <string name="Word.eXo">eXo</string>
-    <string name="Word.Space">空間</string>
-    <string name="Word.Done">完成</string>
-    <string name="Word.Update">更新</string>
     <!-- Onboarding -->
     <!-- Add Domain -->
     <!-- Share Extension -->
-    <string name="ShareActivity.Compose.Title.SignIn">登錄</string>
-    <string name="ShareActivity.SignIn.Title.Username">使用者名稱</string>
-    <string name="ShareActivity.SignIn.Title.Password">密碼</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">你不在任何空間</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">離開</string>
     <string name="ShareService.Message.OperationSuccess">成功</string>
 </resources>
