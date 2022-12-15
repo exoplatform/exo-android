@@ -227,8 +227,14 @@ public class PlatformWebViewFragment extends Fragment {
                   }
               }
               if (!url.contains(mServer.getShortUrl()) || path.equals("/portal/dw/news/editor")) {
-                mWebView.loadUrl(url);
-                newWebView.getWebChromeClient().onCloseWindow(view);
+                if (!url.contains(mServer.getShortUrl())) {
+                  view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                  newWebView.getWebChromeClient().onCloseWindow(view);
+                  return true;
+                }else{
+                  mWebView.loadUrl(url);
+                  newWebView.getWebChromeClient().onCloseWindow(view);
+                }
               }
               if (url.contains("/jitsi/meet")) {
                 // Set permission to Camera and micro to be enabled for the Jitsi call.
