@@ -71,6 +71,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import org.exoplatform.App;
@@ -240,7 +241,12 @@ public class PlatformWebViewFragment extends Fragment {
                 // Set permission to Camera and micro to be enabled for the Jitsi call.
                 String[] permissions = { Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.INTERNET,Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.CAMERA };
-                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()),permissions,1010);
+                for (String permission : permissions) {
+                  if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), permissions, 1010);
+                    break;
+                  }
+                }
               }
               return false;
             }
