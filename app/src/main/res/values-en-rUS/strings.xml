@@ -29,6 +29,7 @@
     <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo Connection</string>
     <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to deleted this connection ?</string>
     <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
+    <string name="OnBoarding.Title.Collaboration">Collaboration</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
     <string name="OnBoarding.Title.Networking">Social Networking</string>
     <string name="OnBoarding.Message.Welcome">eXo Platform is a Digital Workplace solution centered on collaborators and communities</string>
@@ -38,7 +39,17 @@
     <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
     <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
     <string name="OnBoarding.Message.LostCnnection">Please make sure you are connected to Internet.</string>
+    <string name="OnBoarding.Title.Update">Update</string>
+    <string name="OnBoarding.Message.Update">To use this app, please download the latest version</string>
     <string name="OnBoarding.Message.WrongQr">Invalid URL</string>
+    <string name="Word.OK">OK</string>
+    <string name="Word.Cancel">Cancel</string>
+    <string name="Word.Back">Back</string>
+    <string name="Word.Delete">Delete</string>
+    <string name="Word.eXo">eXo</string>
+    <string name="Word.Space">Space</string>
+    <string name="Word.Done">Done</string>
+    <string name="Word.Update">Update</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
     <string name="Onboarding.Title.slide2">Scan the QR Code displayed in\n your eXo settings</string>
@@ -50,18 +61,23 @@
     <string name="AddDomain.Title.addURL">Enter your eXo connection address</string>
     <string name="AddDomain.Title.Placeholder">Please enter an url</string>
     <!-- Share Extension -->
+    <string name="ShareActivity.Main.Title.Post">Post</string>
     <string name="ShareActivity.Compose.Title.Intranet">eXo</string>
     <string name="ShareActivity.Compose.Title.ShareWith">Share this post with</string>
     <string name="ShareActivity.Compose.Title.AllConnections">All my connections</string>
+    <string name="ShareActivity.Compose.Title.SignIn">Login</string>
     <string name="ShareActivity.Compose.Title.SigningIn">Signing in&#8230;</string>
     <string name="ShareActivity.Compose.Title.SignInToPost">Please sign in to post</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">Enter your message here.</string>
     <string name="ShareActivity.Compose.Hint.Thumbnail">Thumbnail</string>
     <string name="ShareActivity.Intranets.Title.Intranets">Select an eXo</string>
     <string name="ShareActivity.SignIn.Title.EnterCredentials">Enter your eXo credentials</string>
+    <string name="ShareActivity.SignIn.Title.Username">Username</string>
+    <string name="ShareActivity.SignIn.Title.Password">Password</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">You are not in any space</string>
     <string name="ShareActivity.Error.StoragePermissionDenied">To enable sharing, you need to grant storage permissions.\nOpen the App Settings and enable the Storage permission.</string>
+    <string name="ShareActivity.PermissionDialog.Title.Leave">Leave</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Open App Settings</string>
     <string name="ShareActivity.Error.SignInFailed">Login failed, please try again</string>
     <string name="ShareActivity.Error.NoAccountConfigured">No account configured</string>
