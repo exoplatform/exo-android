@@ -29,6 +29,7 @@
     <string name="SettingsActivity.Title.DeleteConfirmation">Supprimer l\'instance eXo</string>
     <string name="SettingsActivity.Message.DeleteConfirmation">Voulez-vous vraiment supprimer cette instance eXo ?</string>
     <string name="OnBoarding.Title.Welcome">Bienvenue sur eXo !</string>
+    <string name="OnBoarding.Title.Collaboration">Collaboration</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
     <string name="OnBoarding.Title.Networking">Réseaux Sociaux</string>
     <string name="OnBoarding.Message.Welcome">eXo Platform est un environnement numérique de travail centré sur les collaborateurs et les communautés.</string>
@@ -45,6 +46,7 @@
     <string name="Word.Cancel">Annuler</string>
     <string name="Word.Back">Retour</string>
     <string name="Word.Delete">Supprimer</string>
+    <string name="Word.eXo">eXo</string>
     <string name="Word.Space">Espace</string>
     <string name="Word.Done">Terminé</string>
     <string name="Word.Update">Mettre à jour</string>
