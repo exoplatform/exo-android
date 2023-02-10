@@ -37,7 +37,8 @@
             android:name=".activity.LauncherActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashStyle">
+            android:theme="@style/SplashStyle"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -91,7 +92,8 @@
         </activity> <!-- Share Extension activity -->
         <activity
             android:name=".activity.ShareExtensionActivity"
-            android:label="@string/Word.eXo">
+            android:label="@string/Word.eXo"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -169,12 +171,14 @@
         <meta-data
             android:name="com.crashlytics.ApiKey"
             android:value="${crashlyticsApiKey}" /> <!-- Push notifications, Firebase -->
-        <service android:name=".service.push.PushNotificationsService">
+        <service android:name=".service.push.PushNotificationsService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".service.push.PushTokenService">
+        <service android:name=".service.push.PushTokenService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
