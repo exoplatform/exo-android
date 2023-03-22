@@ -41,7 +41,7 @@
     <string name="OnBoarding.Message.LostCnnection">الرجاء التأكد من أن لديك اتصال بالإنترنت.</string>
     <string name="OnBoarding.Title.Update">تحديث eXo</string>
     <string name="OnBoarding.Message.Update">لاستخدام التطبيق، الرجاء تحميل أحدث إصدار</string>
-    <string name="OnBoarding.Message.WrongQr">Invalid URL</string>
+    <string name="OnBoarding.Message.WrongQr">الرابط غير صالح</string>
     <string name="Word.OK">موافق</string>
     <string name="Word.Cancel">الغاء</string>
     <string name="Word.Back">رجوع</string>
