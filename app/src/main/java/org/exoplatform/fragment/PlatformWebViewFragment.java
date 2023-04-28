@@ -42,6 +42,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,6 +71,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -78,6 +80,7 @@ import org.exoplatform.App;
 import org.exoplatform.BuildConfig;
 import org.exoplatform.R;
 import org.exoplatform.model.Server;
+import org.exoplatform.service.push.PushTokenSynchronizerLocator;
 import org.exoplatform.tool.ExoHttpClient;
 import org.exoplatform.tool.JavaScriptInterface;
 import org.exoplatform.tool.ServerManagerImpl;
@@ -91,6 +94,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,6 +130,8 @@ public class PlatformWebViewFragment extends Fragment {
 
   private Server                     mServer;
 
+  private String userName;
+
   private Button                     mDoneButton;
 
   private ValueCallback<Uri[]>       mUploadMessage;
@@ -147,6 +153,8 @@ public class PlatformWebViewFragment extends Fragment {
   private String downloadFileMimetype;
 
   private String default_user_agent;
+
+  private String username;
 
   private boolean isWhileLoginProcess = false;
 
@@ -639,9 +647,17 @@ public class PlatformWebViewFragment extends Fragment {
       super.onPageFinished(view, url);
       Log.d("onPageFinished",url);
       mCookiesInterceptor.intercept(mCookiesConverter.toMap(CookieManager.getInstance().getCookie(url)), url,PlatformWebViewFragment.this.getContext());
+      SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getContext());
+      SharedPreferences.Editor editor = shared.edit();
+      mWebView.evaluateJavascript("eXo.env.portal.userName;", userName -> {
+        if(userName != null && !userName.isEmpty()) {
+          userName = userName.replace("\"", "");
+          Log.d(TAG, "Username is " + userName);
+          editor.putString("connectedUsername", userName);
+          PushTokenSynchronizerLocator.getInstance().setConnectedUserAndSync(userName, calculateBaseUrl(url));
+        }
+      } );
       if (url.contains("/portal/dw")) {
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor editor = shared.edit();
         editor.putString("urlLogin", url);
         editor.apply();
         getAvatarServerLogo();
@@ -650,6 +666,23 @@ public class PlatformWebViewFragment extends Fragment {
         Log.d(TAG, "COOKIES: " + CookieManager.getInstance().getCookie(url));
     }
   }
+
+  @Nullable
+  private String calculateBaseUrl(String urlStr) {
+    try {
+      URL url = new URL(urlStr);
+      if (!TextUtils.isEmpty(url.getPath())) {
+        urlStr = urlStr.replaceFirst(url.getPath(), "");
+      }
+      if (!TextUtils.isEmpty(url.getQuery())) {
+        urlStr = urlStr.replaceFirst(url.getQuery(), "");
+      }
+      return urlStr;
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
 
   // Clear Webview cache and data when logging out.
   public void clearWebViewData() {
