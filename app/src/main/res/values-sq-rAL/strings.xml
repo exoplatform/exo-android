@@ -41,6 +41,7 @@
     <string name="OnBoarding.Message.LostCnnection">crwdns7015181:0crwdne7015181:0</string>
     <string name="OnBoarding.Title.Update">crwdns7016374:0crwdne7016374:0</string>
     <string name="OnBoarding.Message.Update">crwdns7016376:0crwdne7016376:0</string>
+    <string name="OnBoarding.Message.WrongQr">crwdns7050576:0crwdne7050576:0</string>
     <string name="Word.OK">crwdns7014891:0crwdne7014891:0</string>
     <string name="Word.Cancel">crwdns7014893:0crwdne7014893:0</string>
     <string name="Word.Back">crwdns7014895:0crwdne7014895:0</string>

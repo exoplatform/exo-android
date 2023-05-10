@@ -20,14 +20,14 @@
   -->
 <resources>
     <string name="app_name">eXo</string>
-    <string name="ServerManager.Message.SavingServer">Saving intranet&#8230;</string>
-    <string name="ServerManager.Error.TitleIncorrect">eXo instance URL error</string>
-    <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
-    <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 4.3 or later</string>
-    <string name="ServerManager.Alert.PlatformVersionNotSupported">Your intranet uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 4.3 or use the application version 2.</string>
-    <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo instance</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
+    <string name="ServerManager.Message.SavingServer">Salvando intranet&#8230;</string>
+    <string name="ServerManager.Error.TitleIncorrect">Erro de URL da instância eXo</string>
+    <string name="ServerManager.Error.TitleVersion">Versão da plataforma não suportada</string>
+    <string name="ServerManager.Error.IncorrectUrl">Por favor, insira a URL correta</string>
+    <string name="ServerManager.Error.PlatformVersionNotSupported">A aplicação suporta somente Plataforma com versão 4.3 ou superior</string>
+    <string name="ServerManager.Alert.PlatformVersionNotSupported">Sua intranet usa uma versão da Plataforma não suportada por este aplicativo. Recomendamos que você atualize para a Plataforma 4.3 ou use a versão 2 do aplicativo.</string>
+    <string name="SettingsActivity.Title.DeleteConfirmation">Excluir instância eXo</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Você realmente deseja excluir esta instância do eXo?</string>
     <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Colaboração</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
@@ -41,6 +41,7 @@
     <string name="OnBoarding.Message.LostCnnection">Please make sure you have internet connection.</string>
     <string name="OnBoarding.Title.Update">eXo Update</string>
     <string name="OnBoarding.Message.Update">To use the app, please download the latest version</string>
+    <string name="OnBoarding.Message.WrongQr">Invalid URL</string>
     <string name="Word.OK">Ok</string>
     <string name="Word.Cancel">Cancelar</string>
     <string name="Word.Back">Voltar</string>
@@ -75,7 +76,7 @@
     <string name="ShareActivity.SignIn.Title.Password">Senha</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Você não está em nenhum espaço</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">O compartilhamento deve parar porque o acesso ao armazenamento é proibido para este app.\nPara permitir, abra as configurações de aplicativo e habilite a permissão de armazenamento.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Sair</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Abrir configurações do aplicativo</string>
     <string name="ShareActivity.Error.SignInFailed">Falha no login, por favor tente novamente</string>
