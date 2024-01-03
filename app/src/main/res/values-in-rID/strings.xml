@@ -32,10 +32,10 @@
     <string name="OnBoarding.Title.Collaboration">Kolaborasi</string>
     <string name="OnBoarding.Title.Engagement">Keterlibatan</string>
     <string name="OnBoarding.Title.Networking">Jaringan Sosial</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform adalah solusi intranet sosial yang fitur-fitur dan desainnya berpusat pada pengguna.</string>
-    <string name="OnBoarding.Message.Collaboration">Fitur-fitur kolaborasi, seperti Forum dan kalender, digabungkan bersama untuk memfasilitasi komunikasi dan kolaborasi.</string>
-    <string name="OnBoarding.Message.Engagement">Bekerjasama dengan lebih baik melalui wikis, dokumen, forum, atau kalender, semuanya terintegrasi dengan alur aktivitas.</string>
-    <string name="OnBoarding.Message.Networking">Temukan, cari, dan terhubung dengan orang-orang dalam jaringan Anda yang memiliki minat bersama, sehingga Anda dapat berkolaborasi dan bekerja sama bersama.</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
+    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
+    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
+    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
     <string name="OnBoarding.Title.SlideTitle">Tampilkan Kode QR di\n pengaturan eXo Anda.</string>
     <string name="OnBoarding.Title.LostCnnection">Koneksi internet terputus</string>
     <string name="OnBoarding.Message.LostCnnection">Mohon pastikan Anda terkoneksi ke internet</string>
@@ -53,7 +53,7 @@
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Tampilkan Kode QR di\n pengaturan eXo Anda.</string>
     <string name="Onboarding.Title.slide2">Pindai Kode QR yang muncul di\n pengaturan eXo Anda.</string>
-    <string name="Onboarding.Title.slide3">Masukan password untuk login cepat</string>
+    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
     <string name="Onboarding.Button.Scan">Scan kode</string>
     <string name="Onboarding.Button.addURL">Masukan server URL</string>
     <!-- Add Domain -->
@@ -76,7 +76,7 @@
     <string name="ShareActivity.SignIn.Title.Password">Kata Sandi</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Mengambil forum...</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Anda tidak berada dalam ruang</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">Berbagi harus dihentikan karena akses penyimpanan tidak diizinkan untuk aplikasi ini.\nUntuk mengizinkannya, buka Pengaturan Aplikasi dan aktifkan izin Penyimpanan.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Meninggalkan</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Buka pengaturan appl</string>
     <string name="ShareActivity.Error.SignInFailed">Masuk gagal, silakan coba lagi</string>

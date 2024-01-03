@@ -32,9 +32,9 @@
     <string name="OnBoarding.Title.Collaboration">Collaboration</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
     <string name="OnBoarding.Title.Networking">Social Networking</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a Digital Workplace solution centered on collaborators and communities</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
     <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through notes, drives, forums, or agendas, all integrated with activity streams</string>
+    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
     <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
     <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
     <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
@@ -76,7 +76,7 @@
     <string name="ShareActivity.SignIn.Title.Password">Password</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">You are not in any space</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">To enable sharing, you need to grant storage permissions.\nOpen the App Settings and enable the Storage permission.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Leave</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Open App Settings</string>
     <string name="ShareActivity.Error.SignInFailed">Login failed, please try again</string>

@@ -32,10 +32,10 @@
     <string name="OnBoarding.Title.Collaboration">Collaboration</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
     <string name="OnBoarding.Title.Networking">Réseaux Sociaux</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform est un environnement numérique de travail centré sur les collaborateurs et les communautés.</string>
-    <string name="OnBoarding.Message.Collaboration">Les éléments de collaboration, tels que les espaces et les agendas, sont combinés pour faciliter la communication et la collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Travaillez mieux ensemble à travers les notes, documents, discussions ou agendas, tous intégrés aux fil d\'activités</string>
-    <string name="OnBoarding.Message.Networking">Découvrez, trouvez et connectez des personnes dans votre réseau avec des intérêts partagés, afin que vous puissiez collaborer et travailler ensemble</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
+    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
+    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
+    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
     <string name="OnBoarding.Title.SlideTitle">Affichez le QR Code dans vos paramètres eXo.</string>
     <string name="OnBoarding.Title.LostCnnection">Connexion Internet perdue</string>
     <string name="OnBoarding.Message.LostCnnection">Veuillez vous assurer d\'avoir une connexion Internet.</string>
@@ -76,7 +76,7 @@
     <string name="ShareActivity.SignIn.Title.Password">Mot de passe</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Récupération des espaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Vous n\'êtes dans aucun espace</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">Le partage doit être interrompu parce que l\'accès au stockage est interdit pour cette application. Pour l\'autoriser, accéder aux paramètres de l\'application.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Quitter</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Ouvrez les Réglages de l\'Application</string>
     <string name="ShareActivity.Error.SignInFailed">La connexion a échoué, veuillez recommencer</string>
