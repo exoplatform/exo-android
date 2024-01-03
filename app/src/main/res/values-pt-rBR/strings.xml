@@ -76,7 +76,7 @@
     <string name="ShareActivity.SignIn.Title.Password">Senha</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Retrieving spaces&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Você não está em nenhum espaço</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">O compartilhamento deve parar porque o acesso ao armazenamento é proibido para este app.\nPara permitir, abra as configurações de aplicativo e habilite a permissão de armazenamento.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Sair</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Abrir configurações do aplicativo</string>
     <string name="ShareActivity.Error.SignInFailed">Falha no login, por favor tente novamente</string>

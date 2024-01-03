@@ -32,10 +32,10 @@
     <string name="OnBoarding.Title.Collaboration">crwdns7014871:0crwdne7014871:0</string>
     <string name="OnBoarding.Title.Engagement">crwdns7014873:0crwdne7014873:0</string>
     <string name="OnBoarding.Title.Networking">crwdns7014875:0crwdne7014875:0</string>
-    <string name="OnBoarding.Message.Welcome">crwdns7014877:0crwdne7014877:0</string>
-    <string name="OnBoarding.Message.Collaboration">crwdns7014879:0crwdne7014879:0</string>
-    <string name="OnBoarding.Message.Engagement">crwdns7014881:0crwdne7014881:0</string>
-    <string name="OnBoarding.Message.Networking">crwdns7014883:0crwdne7014883:0</string>
+    <string name="OnBoarding.Message.Welcome">crwdns7099904:0crwdne7099904:0</string>
+    <string name="OnBoarding.Message.Collaboration">crwdns7099890:0crwdne7099890:0</string>
+    <string name="OnBoarding.Message.Engagement">crwdns7099906:0crwdne7099906:0</string>
+    <string name="OnBoarding.Message.Networking">crwdns7099908:0crwdne7099908:0</string>
     <string name="OnBoarding.Title.SlideTitle">crwdns7014889:0crwdne7014889:0</string>
     <string name="OnBoarding.Title.LostCnnection">crwdns7015179:0crwdne7015179:0</string>
     <string name="OnBoarding.Message.LostCnnection">crwdns7015181:0crwdne7015181:0</string>
@@ -53,7 +53,7 @@
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">crwdns7014907:0crwdne7014907:0</string>
     <string name="Onboarding.Title.slide2">crwdns7014909:0crwdne7014909:0</string>
-    <string name="Onboarding.Title.slide3">crwdns7014911:0crwdne7014911:0</string>
+    <string name="Onboarding.Title.slide3">crwdns7099896:0crwdne7099896:0</string>
     <string name="Onboarding.Button.Scan">crwdns7014913:0crwdne7014913:0</string>
     <string name="Onboarding.Button.addURL">crwdns7014915:0crwdne7014915:0</string>
     <!-- Add Domain -->
@@ -76,7 +76,7 @@
     <string name="ShareActivity.SignIn.Title.Password">crwdns7014945:0crwdne7014945:0</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">crwdns7014947:0crwdne7014947:0</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">crwdns7014949:0crwdne7014949:0</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">crwdns7014951:0crwdne7014951:0</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">crwdns7099910:0crwdne7099910:0</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">crwdns7014953:0crwdne7014953:0</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">crwdns7014955:0crwdne7014955:0</string>
     <string name="ShareActivity.Error.SignInFailed">crwdns7014957:0crwdne7014957:0</string>
