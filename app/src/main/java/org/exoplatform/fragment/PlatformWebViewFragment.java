@@ -235,7 +235,7 @@ public class PlatformWebViewFragment extends Fragment {
                     newWebView.getWebChromeClient().onCloseWindow(view);
                   }
               }
-              if (!url.contains(mServer.getShortUrl()) || path.equals("/portal/dw/news/editor")) {
+              if (!url.contains(mServer.getShortUrl()) || (path != null && (path.startsWith("/portal/") || path.startsWith(mServer.getShortUrl() + "/portal")))) {
                 if (!url.contains(mServer.getShortUrl())) {
                   view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                   newWebView.getWebChromeClient().onCloseWindow(view);
@@ -252,9 +252,8 @@ public class PlatformWebViewFragment extends Fragment {
                 for (String permission : permissions) {
                   if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(), permissions, 1010);
-                    break;
                   }
-                }
+                 }
               }
               return false;
             }
@@ -290,6 +289,7 @@ public class PlatformWebViewFragment extends Fragment {
             public void onPermissionRequest(PermissionRequest request) {
               request.grant(request.getResources());
             }
+
           });
         }
         return true;
@@ -474,8 +474,8 @@ public class PlatformWebViewFragment extends Fragment {
    * @return true if the webview did go back, false otherwise
    */
   public boolean goBack() {
-    if (mWebView != null && mWebView.canGoBack()) {
-      mWebView.goBack();
+    if (mWebView != null) {
+      mWebView.destroy();
       return true;
     }
     return false;
