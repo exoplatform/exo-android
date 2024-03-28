@@ -49,10 +49,13 @@ jobs:
       # Upgrade fastlane to latest version
       - name: Upgrade fastlane
         run: bundle update fastlane
+        # Encoding steps: https://unix.stackexchange.com/a/205643
       - name: Initialize Keystore
         run: |
+          echo "$KEYSTORE_ENCODED" > /tmp/eXoPlatform.keystore.encoded
+          LC_ALL=C tr -cd 0-9a-fA-F < /tmp/eXoPlatform.keystore.encoded | xxd -r -p > /tmp/eXoPlatform.keystore
           cat > /tmp/keystore.properties << EOF
-          storeFile=${PWD}/eXoPlatform.keystore
+          storeFile=/tmp/eXoPlatform.keystore
           storePassword=${STORE_PASSWORD}
           keyAlias=${KEY_ALIAS}
           keyPassword=${KEY_PASSWORD}
@@ -61,6 +64,7 @@ jobs:
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_ENCODED: ${{ secrets.KEYSTORE_ENCODED }}
       - name: Generate new version
         env:
           TAG_PREFIX: "6.2-beta"
