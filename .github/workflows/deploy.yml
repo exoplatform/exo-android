@@ -37,12 +37,11 @@ jobs:
       - name: Setup Android SDK
         uses:
           android-actions/setup-android@v2
-      # Setup Ruby 2.6 (2.7 not yet compatible with bundler)
-      - name: Setup ruby 2.6
+      # Setup Ruby 3.0
+      - name: Setup ruby 3.0
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
-          bundler-cache: true
+          ruby-version: 3.0
       # Install Bundler and dependencies gems
       - name: Install bundler and dependencies
         run: gem install bundler && bundle install
