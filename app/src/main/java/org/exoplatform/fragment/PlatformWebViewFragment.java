@@ -235,7 +235,7 @@ public class PlatformWebViewFragment extends Fragment {
                     newWebView.getWebChromeClient().onCloseWindow(view);
                   }
               }
-              if (!url.contains(mServer.getShortUrl()) || (path != null && (path.startsWith("/portal/") || path.startsWith(mServer.getShortUrl() + "/portal")))) {
+              if (!url.contains(mServer.getShortUrl()) || (path != null && (path.startsWith("/portal/") || url.startsWith(mServer.getUrl() + "/portal")))) {
                 if (!url.contains(mServer.getShortUrl())) {
                   view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                   newWebView.getWebChromeClient().onCloseWindow(view);
