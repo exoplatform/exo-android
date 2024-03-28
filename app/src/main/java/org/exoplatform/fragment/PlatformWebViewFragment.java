@@ -474,8 +474,8 @@ public class PlatformWebViewFragment extends Fragment {
    * @return true if the webview did go back, false otherwise
    */
   public boolean goBack() {
-    if (mWebView != null) {
-      mWebView.destroy();
+    if (mWebView != null && mWebView.canGoBack()) {
+      mWebView.goBack();
       return true;
     }
     return false;
