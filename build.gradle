@@ -56,5 +56,5 @@ task clean(type: Delete) {
 // This block encapsulate custom properties and make them available to all modules in the project.
 ext {
     minSdkVersion = 28 // Android 9.0 Pie
-    compileSdkVersion = 31
+    compileSdkVersion = 33
 }
