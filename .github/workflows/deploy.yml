@@ -71,12 +71,11 @@ jobs:
           git config --global user.email "exo-swf@exoplatform.com"
           git config --global user.name "eXo Software Factory"
           git fetch --tags
-          CURRENT_TAG=$(git tag -l | grep ${TAG_PREFIX} | tail -n 1)
-          if [ -z "${CURRENT_TAG}" ]; then
+          INDEX=$(git tag -l | grep ${TAG_PREFIX} | sed -e "s/^${TAG_PREFIX}//" | sort -n | tail -n 1)
+          if [ -z "${INDEX}" ]; then
             echo "NEW_TAG=${TAG_PREFIX}01" >> $GITHUB_ENV
             INDEX="01"
-          else 
-            INDEX=$((10#$(echo $CURRENT_TAG | sed "s|.*${TAG_PREFIX}||")))
+          else
             ((INDEX++))
             [ "${INDEX}" -lt "10" ] && INDEX="0${INDEX}"
             echo "NEW_TAG=${TAG_PREFIX}${INDEX}" >> $GITHUB_ENV
