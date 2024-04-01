@@ -24,16 +24,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-
-import org.exoplatform.service.push.PushTokenStorage;
-import org.exoplatform.service.push.PushTokenSynchronizerLocator;
-
-import io.fabric.sdk.android.Fabric;
-
 /**
  * Exo Application instance and constants.
  * @author chautn on 10/26/15.
@@ -43,15 +33,6 @@ public class App extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    Fabric.with(this, new Crashlytics());
-    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-      @Override
-      public void onSuccess(InstanceIdResult instanceIdResult) {
-        String newToken = instanceIdResult.getToken();
-        PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
-        PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
-      }
-    });
   }
 
   public static final String TRIBE_URL      = "https://community.exoplatform.com";
