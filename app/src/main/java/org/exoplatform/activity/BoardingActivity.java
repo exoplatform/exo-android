@@ -226,7 +226,6 @@ public class BoardingActivity extends AppCompatActivity {
         });
     }
     private class CheckForeXoUpdate {
-
         private Activity activity;
         public void BackgroundTask(Activity activity) {
             this.activity = activity;

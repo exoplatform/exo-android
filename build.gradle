@@ -49,8 +49,8 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
 }
 
 // This block encapsulate custom properties and make them available to all modules in the project.
