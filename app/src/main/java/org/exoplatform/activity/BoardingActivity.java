@@ -28,8 +28,6 @@ import org.jsoup.Jsoup;
 
 import java.util.TimerTask;
 
-//import io.fabric.sdk.android.services.concurrency.AsyncTask;
-
 public class BoardingActivity extends AppCompatActivity {
 
     private ViewPager mSlideViewPager;
@@ -97,8 +95,8 @@ public class BoardingActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             Log.d("Unable to get current version:", String.valueOf(e));
         }
-        //CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
-        //checkForeXoUpdate.execute();
+        CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
+        checkForeXoUpdate.execute();
         final String[] slide_page_numbers = {"1","2","3"};
         // The_slide_timer
         java.util.Timer timer = new java.util.Timer();
@@ -227,7 +225,52 @@ public class BoardingActivity extends AppCompatActivity {
             }
         });
     }
+    private class CheckForeXoUpdate {
 
+        private Activity activity;
+        public void BackgroundTask(Activity activity) {
+            this.activity = activity;
+        }
+
+        private void startBackground() {
+            new Thread(new Runnable() {
+                public void run() {
+                    String onlineVersion = doInBackground();
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            onPostExecute(onlineVersion);
+                        }
+                    });
+                }
+            }).start();
+        }
+        public void execute(){
+            startBackground();
+        }
+
+        public String doInBackground() {
+            String newVersion = null;
+            try {
+                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=org.exoplatform")
+                        .get()
+                        .select(".hAyfc .htlgb")
+                        .get(7)
+                        .ownText();
+            } catch (Exception ignored) {
+            } finally {
+                return newVersion;
+            }
+        }
+        public void onPostExecute(String onlineVersion) {
+            if (onlineVersion != null && !onlineVersion.isEmpty()) {
+                storeVersion = Integer.parseInt(onlineVersion.replaceAll("[\\D]",""));
+                currentVersion = Integer.parseInt(currentVersionString.replaceAll("[\\D]",""));
+                if (currentVersion < storeVersion) {
+                    updateDialog.showDialog();
+                }
+            }
+        }
+    }
     public class The_slide_timer extends TimerTask {
         @Override
         public void run() {
