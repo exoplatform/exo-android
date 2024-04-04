@@ -28,7 +28,7 @@ import org.jsoup.Jsoup;
 
 import java.util.TimerTask;
 
-import io.fabric.sdk.android.services.concurrency.AsyncTask;
+//import io.fabric.sdk.android.services.concurrency.AsyncTask;
 
 public class BoardingActivity extends AppCompatActivity {
 
@@ -97,8 +97,8 @@ public class BoardingActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             Log.d("Unable to get current version:", String.valueOf(e));
         }
-        CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
-        checkForeXoUpdate.execute();
+        //CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
+        //checkForeXoUpdate.execute();
         final String[] slide_page_numbers = {"1","2","3"};
         // The_slide_timer
         java.util.Timer timer = new java.util.Timer();
@@ -227,34 +227,7 @@ public class BoardingActivity extends AppCompatActivity {
             }
         });
     }
-    public class CheckForeXoUpdate extends AsyncTask<Void, String, String> {
-        @Override
-        protected String doInBackground(Void... voids) {
-            String newVersion = null;
-            try {
-                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=org.exoplatform")
-                        .get()
-                        .select(".hAyfc .htlgb")
-                        .get(7)
-                        .ownText();
-                return newVersion;
-            } catch (Exception e) {
-                return newVersion;
-            }
-        }
 
-        @Override
-        protected void onPostExecute(String onlineVersion) {
-            super.onPostExecute(onlineVersion);
-            if (onlineVersion != null && !onlineVersion.isEmpty()) {
-                storeVersion = Integer.parseInt(onlineVersion.replaceAll("[\\D]",""));
-                currentVersion = Integer.parseInt(currentVersionString.replaceAll("[\\D]",""));
-                if (currentVersion < storeVersion) {
-                    updateDialog.showDialog();
-                }
-            }
-        }
-    }
     public class The_slide_timer extends TimerTask {
         @Override
         public void run() {

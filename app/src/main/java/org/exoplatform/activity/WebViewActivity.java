@@ -36,10 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.installations.FirebaseInstallations;
 
 import org.exoplatform.App;
 import org.exoplatform.R;
@@ -54,8 +51,6 @@ import org.exoplatform.tool.ServerUtils;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
-
-import io.fabric.sdk.android.Fabric;
 
 /**
  * Activity that loads Platform into a web view
@@ -85,14 +80,9 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
       if (ContextCompat.checkSelfPermission(WebViewActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
         ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
       } else {
-        Fabric.with(this, new Crashlytics());
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-          @Override
-          public void onSuccess(InstanceIdResult instanceIdResult) {
-            String newToken = instanceIdResult.getToken();
-            PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
-            PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
-          }
+        FirebaseInstallations.getInstance().getId().addOnSuccessListener(this, newToken -> {
+          PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
+          PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
         });
       }
     }

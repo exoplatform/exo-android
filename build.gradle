@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.3.1'
-        classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.google.gms:google-services:4.4.1'
     }
 }
 
@@ -55,6 +55,6 @@ task clean(type: Delete) {
 
 // This block encapsulate custom properties and make them available to all modules in the project.
 ext {
-    minSdkVersion = 33 // Android 9.0 Pie
-    compileSdkVersion = 33
+    minSdkVersion = 34 // Android 9.0 Pie
+    compileSdkVersion = 34
 }
