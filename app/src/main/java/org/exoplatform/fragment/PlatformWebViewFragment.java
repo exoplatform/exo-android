@@ -48,7 +48,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
@@ -91,10 +90,13 @@ import org.exoplatform.tool.cookies.WebViewCookieHandler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -209,7 +211,7 @@ public class PlatformWebViewFragment extends Fragment {
       @Override
       public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
         newWebView = new WebView(getContext());
-        newWebView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+        newWebView.setLayoutParams(new ViewGroup.LayoutParams(mWebView.getLayoutParams()));
         setWebViewSettings(newWebView);
         int startIndex = default_user_agent.indexOf("AppleWebKit/");
         int endIndex = default_user_agent.indexOf("Mobile");
@@ -221,28 +223,57 @@ public class PlatformWebViewFragment extends Fragment {
         transport.setWebView(newWebView);
         resultMsg.sendToTarget();
         if (resultMsg.obj != null){
+          newWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+              String url = consoleMessage.sourceId();
+              switchToJitsiAppWith(url);
+              if (url.contains("Call started")) {
+                newWebView.getWebChromeClient().onCloseWindow(newWebView);
+              }
+              return true;
+            }
+            @Override
+            public void onCloseWindow(WebView window) {
+              super.onCloseWindow(window);
+              view.removeView(newWebView);
+              newWebView.destroy();
+              newWebView = null;
+            }
+            @Override
+            public void onPermissionRequest(PermissionRequest request) {
+              request.grant(request.getResources());
+            }
+
+          });
+
           newWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
               String url = request.getUrl().toString();
               String contentType = getMimeType(url);
-              String path = request.getUrl().getPath();
               if (contentType != null && !contentType.contains("text/html")) {
                   refreshLayoutForContent(contentType);
-                  if (url.contains("/download/")){
+                  if (url.contains("/download/") || (url.contains("/portal/rest/jcr") && !contentType.startsWith("image/"))){
                     refreshLayoutForContent("text/html");
                     downloadFile(url,ua,contentType);
-                    newWebView.getWebChromeClient().onCloseWindow(view);
+                    if(newWebView.getWebChromeClient() != null) {
+                      newWebView.getWebChromeClient().onCloseWindow(view);
+                    }
                   }
               }
-              if (!url.contains(mServer.getShortUrl()) || (path != null && (path.startsWith("/portal/") || url.startsWith(mServer.getUrl() + "/portal")))) {
+              if (!url.contains(mServer.getShortUrl()) || url.startsWith(mServer.getUrl() + "/portal")) {
                 if (!url.contains(mServer.getShortUrl())) {
                   view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                  newWebView.getWebChromeClient().onCloseWindow(view);
+                  if (newWebView != null && newWebView.getWebChromeClient() != null) {
+                    newWebView.getWebChromeClient().onCloseWindow(view);
+                  }
                   return true;
-                }else{
+                } else if(!url.startsWith(mServer.getUrl() + "/portal/rest/jcr") || contentType == null || !contentType.startsWith("image/")){
                   mWebView.loadUrl(url);
-                  newWebView.getWebChromeClient().onCloseWindow(view);
+                  if (newWebView != null && newWebView.getWebChromeClient() != null) {
+                    newWebView.getWebChromeClient().onCloseWindow(view);
+                  }
                 }
               }
               if (url.contains("/jitsi/meet")) {
@@ -268,29 +299,6 @@ public class PlatformWebViewFragment extends Fragment {
           });
           //setDownloadListenerFor(newWebView,getContext());
           // Set the created window to be closed automatically when we have Jitsi call or google sign in (related to JS window.close()).
-          newWebView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-              String url = consoleMessage.sourceId();
-              switchToJitsiAppWith(url);
-              if (url.contains("Call started")) {
-                newWebView.getWebChromeClient().onCloseWindow(newWebView);
-              }
-              return true;
-            }
-            @Override
-            public void onCloseWindow(WebView window) {
-              super.onCloseWindow(window);
-              view.removeView(newWebView);
-              newWebView.destroy();
-              newWebView = null;
-            }
-            @Override
-            public void onPermissionRequest(PermissionRequest request) {
-              request.grant(request.getResources());
-            }
-
-          });
         }
         return true;
       }
@@ -367,10 +375,16 @@ public class PlatformWebViewFragment extends Fragment {
 
   public static String getMimeType(String url) {
     String type = null;
-    String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-    if (extension != null) {
-      type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+    try {
+      // HTML special characters are encoded twice, we need to decode them twice to get the correct name
+      url = URLDecoder.decode(url, "UTF-8");
+      url = URLDecoder.decode(url, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+        //Do nothing
     }
+    String extension = url.substring(url.lastIndexOf(".") + 1);
+    type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+
     return type;
   }
 
@@ -477,27 +491,27 @@ public class PlatformWebViewFragment extends Fragment {
     if (mWebView != null && mWebView.canGoBack()) {
       mWebView.goBack();
       return true;
+    } else if(newWebView != null) {
+      newWebView.getWebChromeClient().onCloseWindow(newWebView);
+      mDoneButton.setVisibility(View.GONE);
+      return true;
     }
     return false;
   }
 
   private void refreshLayoutForContent(String contentType) {
-    if (contentType != null && !contentType.contains("text/html")) {
-      // Display content fullscreen, with done button visible
-      if (getActivity() != null)
-        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      mWebView.getSettings().setUseWideViewPort(true);
-      mWebView.getSettings().setLoadWithOverviewMode(true);
-      mWebView.getSettings().setBuiltInZoomControls(true);
-      mDoneButton.setVisibility(View.VISIBLE);
-    } else {
-      // Display content normally, display status bar
-      if (getActivity() != null)
-        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      mWebView.getSettings().setUseWideViewPort(false);
-      mWebView.getSettings().setLoadWithOverviewMode(false);
-      mWebView.getSettings().setBuiltInZoomControls(true);
-      mDoneButton.setVisibility(View.GONE);
+    if(newWebView != null) {
+      if (contentType != null && !contentType.contains("text/html")) {
+        newWebView.getSettings().setUseWideViewPort(true);
+        newWebView.getSettings().setLoadWithOverviewMode(true);
+        newWebView.getSettings().setBuiltInZoomControls(true);
+        mDoneButton.setVisibility(View.VISIBLE);
+      } else {
+        newWebView.getSettings().setUseWideViewPort(false);
+        newWebView.getSettings().setLoadWithOverviewMode(false);
+        newWebView.getSettings().setBuiltInZoomControls(true);
+        mDoneButton.setVisibility(View.GONE);
+      }
     }
   }
 
@@ -551,7 +565,7 @@ public class PlatformWebViewFragment extends Fragment {
 
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-      if(request.getUrl().getPath().equals("/portal/download")) {
+      if(request.getUrl().getPath() != null && request.getUrl().getPath().equals("/portal/download")) {
         String resourceId = request.getUrl().getQueryParameter("resourceId");
         if(!resourceIds.contains(resourceId)) {
           resourceIds.add(resourceId);
@@ -629,7 +643,9 @@ public class PlatformWebViewFragment extends Fragment {
       super.onPageStarted(view, url, favicon);
       Uri uri = Uri.parse(url);
       // Show / hide the Done button
-      refreshLayoutForContent("text/html");
+      if(url.startsWith("http")) {
+        getContentTypeAsync(url);
+      }
       // Inform the activity whether we are on the login or register page
       String path = uri.getPath();
       if (mListener != null)
@@ -682,8 +698,7 @@ public class PlatformWebViewFragment extends Fragment {
       return null;
     }
   }
-
-
+  
   // Clear Webview cache and data when logging out.
   public void clearWebViewData() {
     mWebView.clearCache(true);
