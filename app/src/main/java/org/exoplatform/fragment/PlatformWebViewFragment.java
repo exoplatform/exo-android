@@ -90,8 +90,12 @@ import org.exoplatform.tool.cookies.WebViewCookieHandler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -250,7 +254,7 @@ public class PlatformWebViewFragment extends Fragment {
               String contentType = getMimeType(url);
               if (contentType != null && !contentType.contains("text/html")) {
                   refreshLayoutForContent(contentType);
-                  if (url.contains("/download/")){
+                  if (url.contains("/download/") || !contentType.startsWith("image/")){
                     refreshLayoutForContent("text/html");
                     downloadFile(url,ua,contentType);
                     newWebView.getWebChromeClient().onCloseWindow(view);
@@ -263,7 +267,7 @@ public class PlatformWebViewFragment extends Fragment {
                     newWebView.getWebChromeClient().onCloseWindow(view);
                   }
                   return true;
-                } else if(!url.startsWith(mServer.getUrl() + "/portal/rest/jcr")){
+                } else if(!url.startsWith(mServer.getUrl() + "/portal/rest/jcr") || contentType == null || !contentType.startsWith("image/")){
                   mWebView.loadUrl(url);
                   if (newWebView != null && newWebView.getWebChromeClient() != null) {
                     newWebView.getWebChromeClient().onCloseWindow(view);
@@ -369,10 +373,16 @@ public class PlatformWebViewFragment extends Fragment {
 
   public static String getMimeType(String url) {
     String type = null;
-    String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-    if (extension != null) {
-      type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+    try {
+      // HTML special characters are encoded twice, we need to decode them twice to get the correct name
+      url = URLDecoder.decode(url, "UTF-8");
+      url = URLDecoder.decode(url, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+        //Do nothing
     }
+    String extension = url.substring(url.lastIndexOf(".") + 1);
+    type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+
     return type;
   }
 
