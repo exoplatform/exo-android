@@ -254,10 +254,12 @@ public class PlatformWebViewFragment extends Fragment {
               String contentType = getMimeType(url);
               if (contentType != null && !contentType.contains("text/html")) {
                   refreshLayoutForContent(contentType);
-                  if (url.contains("/download/") || !contentType.startsWith("image/")){
+                  if (url.contains("/download/") || (url.contains("/portal/rest/jcr") && !contentType.startsWith("image/"))){
                     refreshLayoutForContent("text/html");
                     downloadFile(url,ua,contentType);
-                    newWebView.getWebChromeClient().onCloseWindow(view);
+                    if(newWebView.getWebChromeClient() != null) {
+                      newWebView.getWebChromeClient().onCloseWindow(view);
+                    }
                   }
               }
               if (!url.contains(mServer.getShortUrl()) || url.startsWith(mServer.getUrl() + "/portal")) {
