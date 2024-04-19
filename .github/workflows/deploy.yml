@@ -22,7 +22,7 @@ jobs:
     if: "!contains(github.event.pusher.name, 'exo-swf') || contains(github.event.head_commit.message, 'Merge Translations')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # Use SSH Key to gather certificate from a private Github repository. Use a dedicated on is recommended.
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
