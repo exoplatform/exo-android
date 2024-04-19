@@ -32,7 +32,7 @@ jobs:
         uses:
           android-actions/setup-android@v2
       - name: Build
-        uses: eskatos/gradle-command-action@v1
+        uses: eskatos/gradle-command-action@v3
         with:
           gradle-version: 6.1.1
           arguments: clean assembleDebug
