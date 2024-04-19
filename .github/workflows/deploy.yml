@@ -30,7 +30,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Setup JDK 11
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: 11
           distribution: 'temurin'
