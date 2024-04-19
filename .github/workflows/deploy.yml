@@ -95,7 +95,7 @@ jobs:
           APPALOOSA_EXO_STORE_ID: ${{ secrets.STORE_ID_APPALOOSA }}
           GOOGLE_PLAY_EXO_KEYSTORE_PROPS: /tmp/keystore.properties
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.SWF_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.SWF_GPG_PASSPHRASE }}
