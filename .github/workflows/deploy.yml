@@ -87,7 +87,7 @@ jobs:
           sed -E -i -e "s/versionCode.*/versionCode $((10#$INDEX))/" app/build.gradle
       # Deploy eXo Android bundle to appalossa store
       - name: "Deploy eXo Snapshot to appaloosa"
-        uses: maierj/fastlane-action@v3.0.0
+        uses: maierj/fastlane-action@v3.1.0
         with:
           lane: "android ci_dev"
         env:
