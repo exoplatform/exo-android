@@ -30,7 +30,7 @@ jobs:
         run: gem install bundler && bundle update
       - name: Setup Android SDK
         uses:
-          android-actions/setup-android@v2
+          android-actions/setup-android@v3
       - name: Build
         uses: eskatos/gradle-command-action@v3
         with:

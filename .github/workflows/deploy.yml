@@ -36,7 +36,7 @@ jobs:
           distribution: 'temurin'
       - name: Setup Android SDK
         uses:
-          android-actions/setup-android@v2
+          android-actions/setup-android@v3
       # Setup Ruby 3.0
       - name: Setup ruby 3.0
         uses: ruby/setup-ruby@v1
