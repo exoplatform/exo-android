@@ -84,10 +84,6 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
       if (ContextCompat.checkSelfPermission(WebViewActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
         ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
       }
-/*        FirebaseInstallations.getInstance().getId().addOnSuccessListener(this, newToken -> {
-          PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
-          PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
-        });*/
       FirebaseMessaging.getInstance().getToken()
               .addOnCompleteListener(new OnCompleteListener<String>() {
                 @Override

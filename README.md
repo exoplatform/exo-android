@@ -7,6 +7,10 @@ Crowdin i18n jobs statues:
 
 Minimum compatibility :
 
+- Android SDK : 14.0 (Pie)
+- Fastlane : 2.135.2
+
+## how-to test
 
 TODO: add doc for local testing
 

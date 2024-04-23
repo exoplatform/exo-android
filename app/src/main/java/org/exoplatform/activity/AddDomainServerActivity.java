@@ -88,9 +88,9 @@ public class AddDomainServerActivity extends AppCompatActivity {
     private void submitUrl() {
         if (checkConnectivity.isConnectedToInternet()) {
             String urlPrefix = companyTextField.getText().toString();
-/*            if (!urlPrefix.startsWith("https://")) {
+            if (!urlPrefix.startsWith("https://")) {
                 urlPrefix = "https://" + urlPrefix;
-            }*/
+            }
             final String url = urlPrefix.trim();
             Log.d("url ======= >", url);
             final ProgressDialog progressDialog = ServerUtils.savingServerDialog(AddDomainServerActivity.this);
