@@ -20,21 +20,21 @@ jobs:
         with:
           java-version: 11
           distribution: 'temurin'
-      # Setup Ruby 2.6 (2.7 not yet compatible with bundler)
-      - name: Setup ruby 2.6
+      # Setup Ruby 3.0
+      - name: Setup ruby 3.0
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
+          ruby-version: 3.0
       # Install Bundler and dependencies gems
       - name: Install bundler and Up date dependencies
         run: gem install bundler && bundle update
       - name: Setup Android SDK
         uses:
-          android-actions/setup-android@v2
+          android-actions/setup-android@v3
       - name: Build
-        uses: eskatos/gradle-command-action@v3
+        uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: 6.1.1
+          gradle-version: 8.7
           arguments: clean assembleDebug
       - name: Commiting new Gemfile
         run: |
