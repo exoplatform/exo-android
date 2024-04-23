@@ -96,6 +96,7 @@ public class BoardingActivity extends AppCompatActivity {
             Log.d("Unable to get current version:", String.valueOf(e));
         }
         CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
+        checkForeXoUpdate.activity = this;
         checkForeXoUpdate.execute();
         final String[] slide_page_numbers = {"1","2","3"};
         // The_slide_timer

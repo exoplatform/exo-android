@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -36,7 +37,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.exoplatform.App;
 import org.exoplatform.R;
@@ -79,12 +83,41 @@ public class  WebViewActivity extends AppCompatActivity implements PlatformWebVi
     if (Build.VERSION.SDK_INT >= 33) {
       if (ContextCompat.checkSelfPermission(WebViewActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
         ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
-      } else {
-        FirebaseInstallations.getInstance().getId().addOnSuccessListener(this, newToken -> {
+      }
+/*        FirebaseInstallations.getInstance().getId().addOnSuccessListener(this, newToken -> {
           PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
           PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
-        });
-      }
+        });*/
+      FirebaseMessaging.getInstance().getToken()
+              .addOnCompleteListener(new OnCompleteListener<String>() {
+                @Override
+                public void onComplete(@NonNull Task<String> task) {
+                  if (!task.isSuccessful()) {
+                    Log.w(LOG_TAG, "Fetching FCM registration token failed", task.getException());
+                    return;
+                  }
+
+                  // Get new FCM registration token
+                  String token = task.getResult();
+
+                  PushTokenStorage.getInstance().setPushToken(token, getApplicationContext());
+                  PushTokenSynchronizerLocator.getInstance().setTokenAndSync(token);
+                }
+              });
+    } else {
+      FirebaseMessaging.getInstance().getToken()
+              .addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                  Log.w(LOG_TAG, "Fetching FCM registration token failed", task.getException());
+                  return;
+                }
+
+                // Get new FCM registration token
+                String token = task.getResult();
+
+                PushTokenStorage.getInstance().setPushToken(token, getApplicationContext());
+                PushTokenSynchronizerLocator.getInstance().setTokenAndSync(token);
+              });
     }
 
 

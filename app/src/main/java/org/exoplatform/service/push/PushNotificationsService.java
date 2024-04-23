@@ -82,23 +82,13 @@ public class PushNotificationsService extends FirebaseMessagingService {
             (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
     // Since android Oreo notification channel is needed.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      NotificationChannel channel = new NotificationChannel(channelId,
-              "eXo",
-              NotificationManager.IMPORTANCE_DEFAULT);
-      notificationManager.createNotificationChannel(channel);
-    }
+    NotificationChannel channel = new NotificationChannel(channelId,
+            "eXo",
+            NotificationManager.IMPORTANCE_DEFAULT);
+    notificationManager.createNotificationChannel(channel);
 
     CharSequence contentText;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      contentText = Html.fromHtml(messageBody, Html.FROM_HTML_MODE_LEGACY);
-    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      String sanitizedMessageBody = sanitizeMessageBody(messageBody);
-      contentText = Html.fromHtml(sanitizedMessageBody, Html.FROM_HTML_MODE_LEGACY);
-    } else {
-      String sanitizedMessageBody = sanitizeMessageBody(messageBody);
-      contentText = Html.fromHtml(sanitizedMessageBody);
-    }
+    contentText = Html.fromHtml(messageBody, Html.FROM_HTML_MODE_LEGACY);
 
     Intent notificationIntent;
 
@@ -152,6 +142,7 @@ public class PushNotificationsService extends FirebaseMessagingService {
   @Override
   public void onNewToken(@NonNull String newToken) {
     super.onNewToken(newToken);
+    Log.d(TAG, "generating new token " + newToken);
     PushTokenStorage.getInstance().setPushToken(newToken, getApplicationContext());
     PushTokenSynchronizerLocator.getInstance().setTokenAndSync(newToken);
   }

@@ -5,7 +5,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.1'
+        classpath 'com.android.tools.build:gradle:8.3.2'
         classpath 'com.google.gms:google-services:4.4.1'
     }
 }
@@ -55,6 +55,6 @@ tasks.register('clean', Delete) {
 
 // This block encapsulate custom properties and make them available to all modules in the project.
 ext {
-    minSdkVersion = 34 // Android 14 Upside Down Cake
-    compileSdkVersion = 34
+    minSdkVersion = 30 // Android 11
+    compileSdkVersion = 34 // Android 14
 }
