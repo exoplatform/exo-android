@@ -30,6 +30,8 @@ import java.util.TimerTask;
 
 public class BoardingActivity extends AppCompatActivity {
 
+    private static final String TAG = BoardingActivity.class.getSimpleName();
+
     private ViewPager mSlideViewPager;
     private TabLayout mDotLayout;
     private SliderAdapter sliderAdapter;
@@ -256,10 +258,11 @@ public class BoardingActivity extends AppCompatActivity {
                         .select(".hAyfc .htlgb")
                         .get(7)
                         .ownText();
-            } catch (Exception ignored) {
-            } finally {
                 return newVersion;
+            } catch (Exception e) {
+                Log.w(TAG, "Could not check the new version : " + e.getMessage());
             }
+            return null;
         }
         public void onPostExecute(String onlineVersion) {
             if (onlineVersion != null && !onlineVersion.isEmpty()) {
