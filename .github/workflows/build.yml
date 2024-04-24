@@ -9,17 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup JDK 11  
-        uses: actions/setup-java@v2
+        uses: actions/checkout@v4
+      - name: Setup JDK 17  
+        uses: actions/setup-java@v4
         with:
-          java-version: 11
+          java-version: 17
           distribution: 'temurin'
       - name: Setup Android SDK
         uses:
           android-actions/setup-android@v2
       - name: Build
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: 6.1.1
+          gradle-version: 8.7
           arguments: clean assembleDebug

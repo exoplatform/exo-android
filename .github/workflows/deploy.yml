@@ -22,21 +22,21 @@ jobs:
     if: "!contains(github.event.pusher.name, 'exo-swf') || contains(github.event.head_commit.message, 'Merge Translations')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # Use SSH Key to gather certificate from a private Github repository. Use a dedicated on is recommended.
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
-      - name: Setup JDK 11
-        uses: actions/setup-java@v2
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
         with:
-          java-version: 11
+          java-version: 17
           distribution: 'temurin'
       - name: Setup Android SDK
         uses:
-          android-actions/setup-android@v2
+          android-actions/setup-android@v3
       # Setup Ruby 3.0
       - name: Setup ruby 3.0
         uses: ruby/setup-ruby@v1
@@ -95,7 +95,7 @@ jobs:
           APPALOOSA_EXO_STORE_ID: ${{ secrets.STORE_ID_APPALOOSA }}
           GOOGLE_PLAY_EXO_KEYSTORE_PROPS: /tmp/keystore.properties
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.SWF_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.SWF_GPG_PASSPHRASE }}

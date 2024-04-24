@@ -28,9 +28,9 @@ import org.jsoup.Jsoup;
 
 import java.util.TimerTask;
 
-import io.fabric.sdk.android.services.concurrency.AsyncTask;
-
 public class BoardingActivity extends AppCompatActivity {
+
+    private static final String TAG = BoardingActivity.class.getSimpleName();
 
     private ViewPager mSlideViewPager;
     private TabLayout mDotLayout;
@@ -98,6 +98,7 @@ public class BoardingActivity extends AppCompatActivity {
             Log.d("Unable to get current version:", String.valueOf(e));
         }
         CheckForeXoUpdate checkForeXoUpdate = new CheckForeXoUpdate();
+        checkForeXoUpdate.activity = this;
         checkForeXoUpdate.execute();
         final String[] slide_page_numbers = {"1","2","3"};
         // The_slide_timer
@@ -227,9 +228,29 @@ public class BoardingActivity extends AppCompatActivity {
             }
         });
     }
-    public class CheckForeXoUpdate extends AsyncTask<Void, String, String> {
-        @Override
-        protected String doInBackground(Void... voids) {
+    private class CheckForeXoUpdate {
+        private Activity activity;
+        public void BackgroundTask(Activity activity) {
+            this.activity = activity;
+        }
+
+        private void startBackground() {
+            new Thread(new Runnable() {
+                public void run() {
+                    String onlineVersion = doInBackground();
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            onPostExecute(onlineVersion);
+                        }
+                    });
+                }
+            }).start();
+        }
+        public void execute(){
+            startBackground();
+        }
+
+        public String doInBackground() {
             String newVersion = null;
             try {
                 newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=org.exoplatform")
@@ -239,13 +260,11 @@ public class BoardingActivity extends AppCompatActivity {
                         .ownText();
                 return newVersion;
             } catch (Exception e) {
-                return newVersion;
+                Log.w(TAG, "Could not check the new version : " + e.getMessage());
             }
+            return null;
         }
-
-        @Override
-        protected void onPostExecute(String onlineVersion) {
-            super.onPostExecute(onlineVersion);
+        public void onPostExecute(String onlineVersion) {
             if (onlineVersion != null && !onlineVersion.isEmpty()) {
                 storeVersion = Integer.parseInt(onlineVersion.replaceAll("[\\D]",""));
                 currentVersion = Integer.parseInt(currentVersionString.replaceAll("[\\D]",""));
