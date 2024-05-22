@@ -34,7 +34,7 @@
     <string name="OnBoarding.Title.Networking">Social Networking</string>
     <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
     <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
+    <string name="OnBoarding.Message.Engagement">Work together better through notes, documents, or agendas, all integrated with activity streams</string>
     <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
     <string name="OnBoarding.Title.SlideTitle">Display the QR Code in your\n eXo settings.</string>
     <string name="OnBoarding.Title.LostCnnection">Internet connection lost</string>
