@@ -32,7 +32,7 @@
     <string name="OnBoarding.Title.Collaboration">تعاون</string>
     <string name="OnBoarding.Title.Engagement">التزام</string>
     <string name="OnBoarding.Title.Networking">التواصل الاجتماعي</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
+    <string name="OnBoarding.Message.Welcome">منصة eXo هي  وسيلة من نوع الشبكات الاجتماعية، تتمحور ميزاتها وتصميمها حول المستخدم</string>
     <string name="OnBoarding.Message.Collaboration">خاصية التعاون أو العمل الجماعي، مثل المساحات والتقويمات، تم تجميعها و دمجها معا لتيسير الاتصال والتعاون</string>
     <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
     <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
