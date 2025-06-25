@@ -34,8 +34,8 @@
     <string name="OnBoarding.Title.Networking">التواصل الاجتماعي</string>
     <string name="OnBoarding.Message.Welcome">منصة eXo هي  وسيلة من نوع الشبكات الاجتماعية، تتمحور ميزاتها وتصميمها حول المستخدم</string>
     <string name="OnBoarding.Message.Collaboration">خاصية التعاون أو العمل الجماعي، مثل المساحات والتقويمات، تم تجميعها و دمجها معا لتيسير الاتصال والتعاون</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
-    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
+    <string name="OnBoarding.Message.Engagement">العمل معا بشكل أفضل من خلال ويكيس، الوثائق، المنتديات، التقويمات، جميعها مدمجة مع مجاري النشاط</string>
+    <string name="OnBoarding.Message.Networking">اكتشف الأشخاص في شبكتك الذين لديهم اهتمامات مشتركة وابحث عنهم وتواصل معهم، حتى تتمكن من التعاون والعمل معًا</string>
     <string name="OnBoarding.Title.SlideTitle">عرض رمز QR في إعدادات eXo\n الخاصة بك.</string>
     <string name="OnBoarding.Title.LostCnnection">فقدان الاتصال بالإنترنت</string>
     <string name="OnBoarding.Message.LostCnnection">الرجاء التأكد من أن لديك اتصال بالإنترنت.</string>
@@ -76,7 +76,7 @@
     <string name="ShareActivity.SignIn.Title.Password">كلمة السر</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">استرداد الفضاء&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">أنت غير موجود في أي مساحة</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">يجب إيقاف المشاركة لأن الوصول إلى التخزين محظور لهذا التطبيق.\nلمنع ذلك، افتح إعدادات التطبيق وقم بتمكين إذن التخزين.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">مغادرة</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">فتح إعدادات التطبيق</string>
     <string name="ShareActivity.Error.SignInFailed">فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى</string>
