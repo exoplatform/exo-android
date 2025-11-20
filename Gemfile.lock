@@ -1,17 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (3.0.7)
-      base64
-      nkf
-      rexml
+    CFPropertyList (3.0.8)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     artifactory (3.0.17)
     atomos (0.1.3)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1181.0)
-    aws-sdk-core (3.237.0)
+    aws-partitions (1.1185.0)
+    aws-sdk-core (3.238.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -22,7 +19,7 @@ GEM
     aws-sdk-kms (1.117.0)
       aws-sdk-core (~> 3, >= 3.234.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.203.1)
+    aws-sdk-s3 (1.204.0)
       aws-sdk-core (~> 3, >= 3.234.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -176,7 +173,6 @@ GEM
     mutex_m (0.3.0)
     nanaimo (0.4.0)
     naturally (2.3.0)
-    nkf (0.2.0)
     optparse (0.8.0)
     os (1.1.4)
     plist (3.7.2)
