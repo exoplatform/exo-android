@@ -88,7 +88,8 @@
     <string name="ShareActivity.Error.CannotPostBecauseOffline">You must select an account and sign in to post</string>
     <string name="ShareActivity.Error.CannotPostBecauseEmpty">You must at least share a document or a message</string>
     <string name="ShareActivity.Message.OperationStarted">Share in progress, check the status in the notification area</string>
-    <string name="ShareService.Message.OperationSuccess">成功</string>
+    <string name="ShareService.Message.OperationSuccess">成功
+</string>
     <string name="ShareService.Title.ShareDocument">Share document</string>
     <string name="ShareService.Title.ShareMessage">Share message</string>
     <string name="ShareService.Message.UploadInProgress">Upload in progress</string>
