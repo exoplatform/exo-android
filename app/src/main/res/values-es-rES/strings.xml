@@ -25,20 +25,20 @@
     <string name="ServerManager.Error.TitleVersion">Versión de plataforma no compatible</string>
     <string name="ServerManager.Error.IncorrectUrl">Por favor, introduce un eXo correcto</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">La aplicación solo es compatible con la versión 4.3 o posterior</string>
-    <string name="ServerManager.Alert.PlatformVersionNotSupported">Tu intranet utiliza una versión de Platform no compatible con esta aplicación. Te recomendamos que actualices a Platform 4.3 o uses la versión 2 de la aplicación.</string>
+    <string name="ServerManager.Alert.PlatformVersionNotSupported">Su intranet utiliza una versión de Platform no compatible con esta aplicación. Le recomendamos que actualice a Platform 4.3 o use la versión 2 de la aplicación.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Eliminar instancia de eXo</string>
     <string name="SettingsActivity.Message.DeleteConfirmation">¿Quieres eliminar esta instancia de eXo?</string>
     <string name="OnBoarding.Title.Welcome">¡Te damos la bienvenida a eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Colaboración</string>
     <string name="OnBoarding.Title.Engagement">Compromiso</string>
     <string name="OnBoarding.Title.Networking">Redes sociales</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
-    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
-    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform es una solución de intranet social cuyas funciones y diseño se centran en el usuario</string>
+    <string name="OnBoarding.Message.Collaboration">Las características de colaboración, como espacios y calendarios, se combinan para facilitar la comunicación y colaboración</string>
+    <string name="OnBoarding.Message.Engagement">Trabaje mejor en equipo con wikis, documentos, foros o calendarios, todos integrados con los flujos de actividad</string>
+    <string name="OnBoarding.Message.Networking">Descubra, encuentre y conecte con personas de su red que compartan sus intereses, para colaborar y trabajar juntos</string>
     <string name="OnBoarding.Title.SlideTitle">Muestra el código QR en tus\n ajustes de eXo.</string>
     <string name="OnBoarding.Title.LostCnnection">Sin conexión a Internet</string>
-    <string name="OnBoarding.Message.LostCnnection">Asegúrate de tener conexión a Internet.</string>
+    <string name="OnBoarding.Message.LostCnnection">Asegúrese de tener conexión a Internet.</string>
     <string name="OnBoarding.Title.Update">Actualización eXo</string>
     <string name="OnBoarding.Message.Update">Para usar la aplicación, descarga la última versión</string>
     <string name="OnBoarding.Message.WrongQr">URL no válida</string>
@@ -52,14 +52,14 @@
     <string name="Word.Update">Actualizar</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Muestra el código QR en tus\n ajustes de eXo.</string>
-    <string name="Onboarding.Title.slide2">Escanea el código QR que aparece en\n tus ajustes de eXo</string>
-    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
+    <string name="Onboarding.Title.slide2">Escanee el código QR que aparece en\n sus ajustes de eXo</string>
+    <string name="Onboarding.Title.slide3">Introduzca la contraseña para iniciar sesión rápidamente</string>
     <string name="Onboarding.Button.Scan">Escanear código</string>
     <string name="Onboarding.Button.addURL">Introducir URL del servidor</string>
     <!-- Add Domain -->
-    <string name="AddDomain.Title.Header">Añade tu eXo</string>
-    <string name="AddDomain.Title.addURL">Introduce tu URL de eXo</string>
-    <string name="AddDomain.Title.Placeholder">Introduce tu URL</string>
+    <string name="AddDomain.Title.Header">Añada su eXo</string>
+    <string name="AddDomain.Title.addURL">Introduzca su URL de eXo</string>
+    <string name="AddDomain.Title.Placeholder">Introduzca su URL</string>
     <!-- Share Extension -->
     <string name="ShareActivity.Main.Title.Post">Publicar</string>
     <string name="ShareActivity.Compose.Title.Intranet">Intranet</string>
@@ -67,16 +67,16 @@
     <string name="ShareActivity.Compose.Title.AllConnections">Todas mis conexiones</string>
     <string name="ShareActivity.Compose.Title.SignIn">Iniciar sesión</string>
     <string name="ShareActivity.Compose.Title.SigningIn">Iniciando sesión&#8230;</string>
-    <string name="ShareActivity.Compose.Title.SignInToPost">Inicia sesión para publicar</string>
+    <string name="ShareActivity.Compose.Title.SignInToPost">Inicie sesión para publicar</string>
     <string name="ShareActivity.Compose.Hint.WorkingOn">¿En qué está trabajando?</string>
     <string name="ShareActivity.Compose.Hint.Thumbnail">Miniatura</string>
     <string name="ShareActivity.Intranets.Title.Intranets">Seleccionar una intranet</string>
-    <string name="ShareActivity.SignIn.Title.EnterCredentials">Introduce tus credenciales</string>
+    <string name="ShareActivity.SignIn.Title.EnterCredentials">Introduzca sus credenciales</string>
     <string name="ShareActivity.SignIn.Title.Username">Nombre de usuario</string>
     <string name="ShareActivity.SignIn.Title.Password">Contraseña</string>
     <string name="ShareActivity.Spaces.Title.LoadingSpaces">Recuperando espacios&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">No está en ningún espacio</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">Debe detenerse el uso compartido porque el acceso al almacenamiento no está permitido para esta aplicación.\nPara permitirlo, abra la configuración de la aplicación y active el permiso de almacenamiento.</string>
     <string name="ShareActivity.PermissionDialog.Title.Leave">Salir</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Abrir configuración de la aplicación</string>
     <string name="ShareActivity.Error.SignInFailed">Error de inicio de sesión, por favor, inténtelo de nuevo</string>
