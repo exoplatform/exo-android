@@ -32,10 +32,10 @@
     <string name="OnBoarding.Title.Collaboration">Kolaborasi</string>
     <string name="OnBoarding.Title.Engagement">Keterlibatan</string>
     <string name="OnBoarding.Title.Networking">Jaringan Sosial</string>
-    <string name="OnBoarding.Message.Welcome">eXo Platform is a social intranet solution whose features and design are centered around the user</string>
-    <string name="OnBoarding.Message.Collaboration">Collaboration features, such as spaces and calendars are combined together to facilitate communication and collaboration</string>
-    <string name="OnBoarding.Message.Engagement">Work together better through wikis, documents, forums, or calendars, all integrated with activity streams</string>
-    <string name="OnBoarding.Message.Networking">Discover, find and connect to people in your network with shared interests, so you can collaborate and work together</string>
+    <string name="OnBoarding.Message.Welcome">eXo Platform adalah solusi intranet sosial yang fitur dan desainnya berpusat pada pengguna</string>
+    <string name="OnBoarding.Message.Collaboration">Fitur kolaborasi, seperti ruang dan kalender digabungkan bersama untuk memfasilitasi komunikasi dan kolaborasi</string>
+    <string name="OnBoarding.Message.Engagement">Bekerja sama lebih baik melalui wiki, dokumen, forum, atau kalender, semuanya terintegrasi dengan aliran aktivitas</string>
+    <string name="OnBoarding.Message.Networking">Jelajahi, temukan, dan terhubung dengan orang-orang di jaringan Anda yang memiliki minat yang sama, sehingga Anda dapat berkolaborasi dan bekerja sama</string>
     <string name="OnBoarding.Title.SlideTitle">Tampilkan Kode QR di\n pengaturan eXo Anda.</string>
     <string name="OnBoarding.Title.LostCnnection">Koneksi internet terputus</string>
     <string name="OnBoarding.Message.LostCnnection">Mohon pastikan Anda terkoneksi ke internet</string>
@@ -49,11 +49,11 @@
     <string name="Word.eXo">eXo</string>
     <string name="Word.Space">Ruang</string>
     <string name="Word.Done">Selesai</string>
-    <string name="Word.Update">Memperbaharui</string>
+    <string name="Word.Update">Perbarui</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Tampilkan Kode QR di\n pengaturan eXo Anda.</string>
     <string name="Onboarding.Title.slide2">Pindai Kode QR yang muncul di\n pengaturan eXo Anda.</string>
-    <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
+    <string name="Onboarding.Title.slide3">Masukkan kata sandi untuk masuk dengan cepat</string>
     <string name="Onboarding.Button.Scan">Scan kode</string>
     <string name="Onboarding.Button.addURL">Masukan server URL</string>
     <!-- Add Domain -->
@@ -68,16 +68,16 @@
     <string name="ShareActivity.Compose.Title.SignIn">Masuk</string>
     <string name="ShareActivity.Compose.Title.SigningIn">Masuk&#8230;</string>
     <string name="ShareActivity.Compose.Title.SignInToPost">Silakan masuk untuk Posting</string>
-    <string name="ShareActivity.Compose.Hint.WorkingOn">Apa yang kamu kerjakan?</string>
+    <string name="ShareActivity.Compose.Hint.WorkingOn">Apa yang Anda kerjakan?</string>
     <string name="ShareActivity.Compose.Hint.Thumbnail">Thumbnail</string>
     <string name="ShareActivity.Intranets.Title.Intranets">Pilih intranet</string>
     <string name="ShareActivity.SignIn.Title.EnterCredentials">Masukkan kredensial Anda.</string>
     <string name="ShareActivity.SignIn.Title.Username">Nama Pengguna</string>
     <string name="ShareActivity.SignIn.Title.Password">Kata Sandi</string>
-    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Mengambil forum...</string>
+    <string name="ShareActivity.Spaces.Title.LoadingSpaces">Mengambil ruang&#8230;</string>
     <string name="ShareActivity.Spaces.Title.NoSpace">Anda tidak berada dalam ruang</string>
-    <string name="ShareActivity.Error.StoragePermissionDenied">The share must stop because storage access is forbidden for this app.\nTo allow it, open the App Settings and enable the Storage permission.</string>
-    <string name="ShareActivity.PermissionDialog.Title.Leave">Meninggalkan</string>
+    <string name="ShareActivity.Error.StoragePermissionDenied">Berbagi harus dihentikan karena akses penyimpanan tidak diizinkan untuk aplikasi ini.\nUntuk mengizinkannya, buka Pengaturan Aplikasi dan aktifkan izin Penyimpanan.</string>
+    <string name="ShareActivity.PermissionDialog.Title.Leave">Tinggalkan</string>
     <string name="ShareActivity.PermissionDialog.Title.AppSettings">Buka pengaturan appl</string>
     <string name="ShareActivity.Error.SignInFailed">Masuk gagal, silakan coba lagi</string>
     <string name="ShareActivity.Error.NoAccountConfigured">Tidak ada akun yang di konfigurasi</string>
@@ -86,14 +86,14 @@
     <string name="ShareActivity.Error.FileTooBig">Tidak bisa berbagi dokumen lebih dari 10 MB</string>
     <string name="ShareActivity.Error.TooManyFiles">Tidak bisa berbagi dokumen lebih dari 10</string>
     <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">Anda harus memilih akun dan masuk untuk pilih ruang</string>
-    <string name="ShareActivity.Error.CannotPostBecauseOffline">Kamu harus memilih akun dan masuk untuk memposting</string>
+    <string name="ShareActivity.Error.CannotPostBecauseOffline">Anda harus memilih akun dan masuk untuk memposting</string>
     <string name="ShareActivity.Error.CannotPostBecauseEmpty">Anda setidaknya perlu berbagi dokumen atau pesan</string>
     <string name="ShareActivity.Message.OperationStarted">Bagikan dalam proses, memeriksa status di area notifikasi</string>
     <string name="ShareService.Message.OperationSuccess">Sukses</string>
     <string name="ShareService.Title.ShareDocument">Bagikan dokumen</string>
     <string name="ShareService.Title.ShareMessage">Bagikan pesan</string>
     <string name="ShareService.Message.UploadInProgress">Mengunggah dalam proses</string>
-    <string name="ShareService.Message.PostShortly">Pesan anda akan segera di posting</string>
+    <string name="ShareService.Message.PostShortly">Pesan Anda akan segera di posting</string>
     <string name="ShareService.Error.UploadFailed">Tidak bisa berbagi dokumen
  </string>
     <string name="ShareService.Error.PostFailed">Tidak bisa mengirim pesan</string>
