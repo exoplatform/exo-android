@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">Intranet wird gespeichert &#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo-Instanz – URL-Fehler</string>
     <string name="ServerManager.Error.TitleVersion">Plattform-Version wird nicht unterstützt</string>
-    <string name="ServerManager.Error.IncorrectUrl">Bitte geben Sie ein korrektes eXo ein</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Die Anwendung unterstützt nur Plattform-Version 4.3 oder höher</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Ihr Intranet verwendet eine Version der Plattform, die von dieser Anwendung nicht unterstützt wird. Wir empfehlen Ihnen, auf Plattform 4.3 zu aktualisieren oder die Anwendungsversion 2 zu verwenden.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">EXo-Instanz löschen</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Möchten Sie wirklich diese EXo-Instanz löschen?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Willkommen bei eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Zusammenarbeit</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Aktualisieren</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Zeigen Sie den QR-Code in Ihren\n eXo-Einstellungen an</string>
-    <string name="Onboarding.Title.slide2">Scannen Sie den QR-Code, der in\n Ihren eXo-Einstellungen angezeigt wird</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Geben Sie das Passwort ein, um sich schnell anzumelden</string>
     <string name="Onboarding.Button.Scan">Code scannen</string>
     <string name="Onboarding.Button.addURL">Server-URL eingeben</string>

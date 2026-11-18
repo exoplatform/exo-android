@@ -23,12 +23,12 @@
     <string name="ServerManager.Message.SavingServer">Guardando intranet&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Error de instancia de URL eXo</string>
     <string name="ServerManager.Error.TitleVersion">Versión de plataforma no compatible</string>
-    <string name="ServerManager.Error.IncorrectUrl">Por favor, introduce un eXo correcto</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">La aplicación solo es compatible con la versión 4.3 o posterior</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Su intranet utiliza una versión de Platform no compatible con esta aplicación. Le recomendamos que actualice a Platform 4.3 o use la versión 2 de la aplicación.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Eliminar instancia de eXo</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">¿Quieres eliminar esta instancia de eXo?</string>
-    <string name="OnBoarding.Title.Welcome">¡Te damos la bienvenida a eXo!</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
+    <string name="OnBoarding.Title.Welcome">¡Le damos la bienvenida a eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Colaboración</string>
     <string name="OnBoarding.Title.Engagement">Compromiso</string>
     <string name="OnBoarding.Title.Networking">Redes sociales</string>
@@ -36,11 +36,11 @@
     <string name="OnBoarding.Message.Collaboration">Las características de colaboración, como espacios y calendarios, se combinan para facilitar la comunicación y colaboración</string>
     <string name="OnBoarding.Message.Engagement">Trabaje mejor en equipo con wikis, documentos, foros o calendarios, todos integrados con los flujos de actividad</string>
     <string name="OnBoarding.Message.Networking">Descubra, encuentre y conecte con personas de su red que compartan sus intereses, para colaborar y trabajar juntos</string>
-    <string name="OnBoarding.Title.SlideTitle">Muestra el código QR en tus\n ajustes de eXo.</string>
+    <string name="OnBoarding.Title.SlideTitle">Muestre el código QR en sus\n ajustes de eXo.</string>
     <string name="OnBoarding.Title.LostCnnection">Sin conexión a Internet</string>
     <string name="OnBoarding.Message.LostCnnection">Asegúrese de tener conexión a Internet.</string>
     <string name="OnBoarding.Title.Update">Actualización eXo</string>
-    <string name="OnBoarding.Message.Update">Para usar la aplicación, descarga la última versión</string>
+    <string name="OnBoarding.Message.Update">Para usar la aplicación, descargue la última versión</string>
     <string name="OnBoarding.Message.WrongQr">URL no válida</string>
     <string name="Word.OK">Aceptar</string>
     <string name="Word.Cancel">Cancelar</string>
@@ -51,8 +51,8 @@
     <string name="Word.Done">Hecho</string>
     <string name="Word.Update">Actualizar</string>
     <!-- Onboarding -->
-    <string name="Onboarding.Title.Slide1">Muestra el código QR en tus\n ajustes de eXo.</string>
-    <string name="Onboarding.Title.slide2">Escanee el código QR que aparece en\n sus ajustes de eXo</string>
+    <string name="Onboarding.Title.Slide1">Muestre el código QR en sus\n ajustes de eXo.</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Introduzca la contraseña para iniciar sesión rápidamente</string>
     <string name="Onboarding.Button.Scan">Escanear código</string>
     <string name="Onboarding.Button.addURL">Introducir URL del servidor</string>
@@ -86,7 +86,7 @@
     <string name="ShareActivity.Error.TooManyFiles">No se pueden compartir más de 10 documentos</string>
     <string name="ShareActivity.Error.CannotSelectSpaceBecauseOffline">Debe seleccionar una cuenta e iniciar sesión para seleccionar un espacio</string>
     <string name="ShareActivity.Error.CannotPostBecauseOffline">Debe seleccionar una cuenta e iniciar sesión para publicar</string>
-    <string name="ShareActivity.Error.CannotPostBecauseEmpty">Debes compartir al menos un documento o mensaje</string>
+    <string name="ShareActivity.Error.CannotPostBecauseEmpty">Debe compartir al menos un documento o mensaje</string>
     <string name="ShareActivity.Message.OperationStarted">Compartiendo, compruebe el estado en el área de notificación</string>
     <string name="ShareService.Message.OperationSuccess">Éxito</string>
     <string name="ShareService.Title.ShareDocument">Compartir documento</string>

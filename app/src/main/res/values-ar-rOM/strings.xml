@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">جارٍ حفظ الشبكة الداخلية&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">خطأ في عنوان الرابط الخاص بـ eXo</string>
     <string name="ServerManager.Error.TitleVersion">إصدار المنصة غير مدعوم</string>
-    <string name="ServerManager.Error.IncorrectUrl">الرجاء إدخال eXo صحيح</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">التطبيق يدعم فقط النسخة 6.0 من المنصة أو الأحدث</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">الشبكة الداخلية الخاصة بك تستخدم نسخة من المنصة غير مدعومة بهذا التطبيق. نوصي بالترقية إلى المنصة 6.0 أو استخدام الإصدار 2 من التطبيق.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">حذف مثيل eXo</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">هل تريد حقاً حذف مثيل eXo هذا؟</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">مرحبا بكم في eXo!</string>
     <string name="OnBoarding.Title.Collaboration">تعاون</string>
     <string name="OnBoarding.Title.Engagement">التزام</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">تحديث</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">عرض رمز QR في إعدادات eXo\n الخاصة بك</string>
-    <string name="Onboarding.Title.slide2">مسح رمز QR الذي يظهر في\n إعدادات eXo الخاصة بك</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">أدخل كلمة المرور لتسجيل الدخول</string>
     <string name="Onboarding.Button.Scan">مسح الرمز</string>
     <string name="Onboarding.Button.addURL">أدخل رابط الخادم</string>

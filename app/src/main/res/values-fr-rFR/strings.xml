@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">Enregistrement de l\'instance eXo&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Erreur dans l\'URL eXo</string>
     <string name="ServerManager.Error.TitleVersion">Version de la plateforme non supporté</string>
-    <string name="ServerManager.Error.IncorrectUrl">Veuillez entrer une instance eXo valide</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">L\'application ne prend en charge que la version 6.2 ou ultérieure de la plateforme</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Votre instance eXo utilise une version de Platform non prise en charge par cette application. Nous vous recommandons de mettre à jour vers la plate-forme 6.2 ou d\'utiliser l\'application version 2.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Supprimer l\'instance eXo</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Voulez-vous vraiment supprimer cette instance eXo ?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Bienvenue sur eXo !</string>
     <string name="OnBoarding.Title.Collaboration">Collaboration</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Mettre à jour</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Afficher le QR Code dans vos paramètres eXo</string>
-    <string name="Onboarding.Title.slide2">Scannez le QR Code qui apparaît dans vos paramètres eXo</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Entrez le mot de passe pour vous connecter rapidement</string>
     <string name="Onboarding.Button.Scan">Scanner le QR code</string>
     <string name="Onboarding.Button.addURL">Entrez l\'URL de l\'instance eXo</string>

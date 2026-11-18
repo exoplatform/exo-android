@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">Salvando intranet&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Erro de URL da instância eXo</string>
     <string name="ServerManager.Error.TitleVersion">Versão da plataforma não suportada</string>
-    <string name="ServerManager.Error.IncorrectUrl">Por favor, insira a URL correta</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">A aplicação suporta somente Plataforma com versão 4.3 ou superior</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Sua intranet usa uma versão da Plataforma não suportada por este aplicativo. Recomendamos que você atualize para a Plataforma 4.3 ou use a versão 2 do aplicativo.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Excluir instância eXo</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Você realmente deseja excluir esta instância do eXo?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Bem-vindo ao eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Colaboração</string>
     <string name="OnBoarding.Title.Engagement">Envolvimento</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Atualizar</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Exibe o QR code nas suas configurações de eXo</string>
-    <string name="Onboarding.Title.slide2">Escaneie o QR code que aparece nas\n suas configurações eXo</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Digite a senha para entrar rapidamente</string>
     <string name="Onboarding.Button.Scan">Escanear Código</string>
     <string name="Onboarding.Button.addURL">Digite a URL do servidor</string>

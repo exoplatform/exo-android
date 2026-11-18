@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">İntranet kaydediliyor&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo örneği URL hatası</string>
     <string name="ServerManager.Error.TitleVersion">Platform sürümü desteklenmiyor</string>
-    <string name="ServerManager.Error.IncorrectUrl">Lütfen doğru bir eXo adresi girin</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Uygulama yalnızca Platform 4.3 veya sonraki sürümleri destekler</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">İntranetiniz bu uygulama tarafından desteklenmeyen bir Platform sürümü kullanıyor. Platform 4.3 sürümüne yükseltmenizi veya uygulamanın 2. sürümünü kullanmanızı öneririz.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">eXo örneğini sil</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Bu eXo örneğini gerçekten silmek istiyor musunuz?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">eXo\'ya hoş geldiniz!</string>
     <string name="OnBoarding.Title.Collaboration">İşbirliği</string>
     <string name="OnBoarding.Title.Engagement">Katılım</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Güncelle</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">QR kodunu eXo\n ayarlarınızda görüntüleyin</string>
-    <string name="Onboarding.Title.slide2">eXo ayarlarınızda görünen\n QR kodunu tarayın</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Hızlıca oturum açmak için parolayı girin</string>
     <string name="Onboarding.Button.Scan">Kodu Tara</string>
     <string name="Onboarding.Button.addURL">Sunucu URL\'sini girin</string>

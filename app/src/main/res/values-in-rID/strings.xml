@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">Menyimpan intranet...</string>
     <string name="ServerManager.Error.TitleIncorrect">Kesalahan URL Instansi eXo.</string>
     <string name="ServerManager.Error.TitleVersion">Versi platform tidak mendukung</string>
-    <string name="ServerManager.Error.IncorrectUrl">Mohon masukkan ID eXo yang benar</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Aplikasi ini hanya mendukung Platform versi 4.3 atau yang lebih baru.</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Intranet Anda menggunakan versi Platform yang tidak didukung oleh aplikasi ini. Kami merekomendasikan Anda untuk meng-upgrade ke Platform 4.3 atau menggunakan versi aplikasi 2.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Hapus instansi eXo</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Anda yakin ingin menghapus instansi eXo ini?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Selamat datang di Exo!</string>
     <string name="OnBoarding.Title.Collaboration">Kolaborasi</string>
     <string name="OnBoarding.Title.Engagement">Keterlibatan</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Perbarui</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Tampilkan Kode QR di\n pengaturan eXo Anda.</string>
-    <string name="Onboarding.Title.slide2">Pindai Kode QR yang muncul di\n pengaturan eXo Anda.</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Masukkan kata sandi untuk masuk dengan cepat</string>
     <string name="Onboarding.Button.Scan">Scan kode</string>
     <string name="Onboarding.Button.addURL">Masukan server URL</string>

@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">Išsaugomas intranetas&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo egzemplioriaus URL klaida</string>
     <string name="ServerManager.Error.TitleVersion">Platform versija nepalaikoma</string>
-    <string name="ServerManager.Error.IncorrectUrl">Įveskite teisingą eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Programa palaiko tik Platform 4.3 ar naujesnę versiją</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Jūsų intranete naudojama Platform versija, kurios ši programa nepalaiko. Rekomenduojame atnaujinti iki Platform 4.3 arba naudoti 2 programos versiją.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Ištrinti eXo egzempliorių</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Ar tikrai norite ištrinti šį eXo egzempliorių?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Sveiki atvykę į eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Bendradarbiavimas</string>
     <string name="OnBoarding.Title.Engagement">Įsitraukimas</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Atnaujinti</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Parodykite QR kodą savo\n eXo nustatymuose</string>
-    <string name="Onboarding.Title.slide2">Nuskaitykite QR kodą, rodomą\n jūsų eXo nustatymuose</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Įveskite slaptažodį, kad galėtumėte greitai prisijungti</string>
     <string name="Onboarding.Button.Scan">Nuskaityti kodą</string>
     <string name="Onboarding.Button.addURL">Įveskite serverio URL</string>

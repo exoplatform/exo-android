@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">A guardar a intranet&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Erro no URL da instância eXo</string>
     <string name="ServerManager.Error.TitleVersion">Versão da plataforma não suportada</string>
-    <string name="ServerManager.Error.IncorrectUrl">Introduza um eXo válido</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">A aplicação apenas suporta a Platform na versão 4.3 ou posterior</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">A sua rede interna usa uma versão da Plataforma não suportada por esta aplicação. Recomendamos que atualize para a Plataforma 4.3 ou use a versão 2 da aplicação.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Eliminar instância eXo</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Deseja eliminar esta instância do eXo?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Bem-vindo ao eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Colaboração</string>
     <string name="OnBoarding.Title.Engagement">Envolvimento</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Atualizar</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Apresente o código QR nas suas\n definições do eXo</string>
-    <string name="Onboarding.Title.slide2">Leia o código QR que aparece nas\n suas definições eXo</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Digite a palavra-passe para entrar rapidamente</string>
     <string name="Onboarding.Button.Scan">Ler código</string>
     <string name="Onboarding.Button.addURL">Introduza o URL do servidor</string>

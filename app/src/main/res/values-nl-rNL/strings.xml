@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">Intranet opslaan&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Fout in URL van eXo-instantie</string>
     <string name="ServerManager.Error.TitleVersion">Platformversie niet ondersteund</string>
-    <string name="ServerManager.Error.IncorrectUrl">Voer een correcte eXo in</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">De applicatie ondersteunt alleen Platform-versie 4.3 of hoger</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Uw intranet gebruikt een versie van Platform die niet door deze applicatie wordt ondersteund. Wij raden u aan te upgraden naar Platform 4.3 of de applicatie versie 2 te gebruiken.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">eXo-instantie verwijderen</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Weet u zeker dat u deze eXo-instantie wilt verwijderen?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Welkom bij eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Samenwerking</string>
     <string name="OnBoarding.Title.Engagement">Betrokkenheid</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Choose file </string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">De QR-Code weergeven in uw eXo instellingen</string>
-    <string name="Onboarding.Title.slide2">Scan de QR-Code die verschijnt in uw eXo instellingen</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Voer het wachtwoord in om snel in te loggen</string>
     <string name="Onboarding.Button.Scan">Scan QR Code</string>
     <string name="Onboarding.Button.addURL">Server-URL invoeren</string>

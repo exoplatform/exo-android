@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">Saving eXo connection</string>
     <string name="ServerManager.Error.TitleIncorrect">Wrong eXo URL</string>
     <string name="ServerManager.Error.TitleVersion">Platform version not supported</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct URL</string>
+    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">The application only supports Platform version 6.2 or later</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Your exo instance uses a version of Platform not supported by this application. We recommend that you upgrade to Platform 6.2 or use the application version 2.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Delete eXo Connection</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to deleted this connection ?</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">Do you really want to delete this eXo instance ?</string>
     <string name="OnBoarding.Title.Welcome">Welcome to eXo!</string>
     <string name="OnBoarding.Title.Collaboration">Collaboration</string>
     <string name="OnBoarding.Title.Engagement">Engagement</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">Update</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">Display the QR Code in your\n eXo settings</string>
-    <string name="Onboarding.Title.slide2">Scan the QR Code displayed in\n your eXo settings</string>
+    <string name="Onboarding.Title.slide2">Scan the QR Code that appear in\n your eXo settings</string>
     <string name="Onboarding.Title.slide3">Enter the password to log in quickly</string>
     <string name="Onboarding.Button.Scan">Scan Code</string>
     <string name="Onboarding.Button.addURL">Enter eXo connection URL</string>
