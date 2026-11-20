@@ -23,11 +23,11 @@
     <string name="ServerManager.Message.SavingServer">crwdns7014809:0crwdne7014809:0</string>
     <string name="ServerManager.Error.TitleIncorrect">crwdns7015171:0crwdne7015171:0</string>
     <string name="ServerManager.Error.TitleVersion">crwdns7014813:0crwdne7014813:0</string>
-    <string name="ServerManager.Error.IncorrectUrl">crwdns7176801:0crwdne7176801:0</string>
+    <string name="ServerManager.Error.IncorrectUrl">crwdns7176809:0crwdne7176809:0</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">crwdns7014817:0crwdne7014817:0</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">crwdns7014819:0crwdne7014819:0</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">crwdns7015175:0crwdne7015175:0</string>
-    <string name="SettingsActivity.Message.DeleteConfirmation">crwdns7176803:0crwdne7176803:0</string>
+    <string name="SettingsActivity.Message.DeleteConfirmation">crwdns7176811:0crwdne7176811:0</string>
     <string name="OnBoarding.Title.Welcome">crwdns7014869:0crwdne7014869:0</string>
     <string name="OnBoarding.Title.Collaboration">crwdns7014871:0crwdne7014871:0</string>
     <string name="OnBoarding.Title.Engagement">crwdns7014873:0crwdne7014873:0</string>
@@ -52,7 +52,7 @@
     <string name="Word.Update">crwdns7016378:0crwdne7016378:0</string>
     <!-- Onboarding -->
     <string name="Onboarding.Title.Slide1">crwdns7014907:0crwdne7014907:0</string>
-    <string name="Onboarding.Title.slide2">crwdns7176805:0crwdne7176805:0</string>
+    <string name="Onboarding.Title.slide2">crwdns7176813:0crwdne7176813:0</string>
     <string name="Onboarding.Title.slide3">crwdns7099896:0crwdne7099896:0</string>
     <string name="Onboarding.Button.Scan">crwdns7014913:0crwdne7014913:0</string>
     <string name="Onboarding.Button.addURL">crwdns7014915:0crwdne7014915:0</string>
