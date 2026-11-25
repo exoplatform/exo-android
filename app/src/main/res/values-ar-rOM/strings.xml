@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">جارٍ حفظ الشبكة الداخلية&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">خطأ في عنوان الرابط الخاص بـ eXo</string>
     <string name="ServerManager.Error.TitleVersion">إصدار المنصة غير مدعوم</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">يرجى إدخال عنوان URL صالح لـ eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">التطبيق يدعم فقط النسخة 6.0 من المنصة أو الأحدث</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">الشبكة الداخلية الخاصة بك تستخدم نسخة من المنصة غير مدعومة بهذا التطبيق. نوصي بالترقية إلى المنصة 6.0 أو استخدام الإصدار 2 من التطبيق.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">حذف مثيل eXo</string>

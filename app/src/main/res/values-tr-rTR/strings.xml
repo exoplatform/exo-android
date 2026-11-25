@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">İntranet kaydediliyor&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo örneği URL hatası</string>
     <string name="ServerManager.Error.TitleVersion">Platform sürümü desteklenmiyor</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Lütfen geçerli bir eXo URL\'si girin</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Uygulama yalnızca Platform 4.3 veya sonraki sürümleri destekler</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">İntranetiniz bu uygulama tarafından desteklenmeyen bir Platform sürümü kullanıyor. Platform 4.3 sürümüne yükseltmenizi veya uygulamanın 2. sürümünü kullanmanızı öneririz.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">eXo örneğini sil</string>

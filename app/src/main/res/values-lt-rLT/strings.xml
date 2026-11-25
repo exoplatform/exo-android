@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Išsaugomas intranetas&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo egzemplioriaus URL klaida</string>
     <string name="ServerManager.Error.TitleVersion">Platform versija nepalaikoma</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Įveskite galiojantį eXo URL</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Programa palaiko tik Platform 4.3 ar naujesnę versiją</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Jūsų intranete naudojama Platform versija, kurios ši programa nepalaiko. Rekomenduojame atnaujinti iki Platform 4.3 arba naudoti 2 programos versiją.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Ištrinti eXo egzempliorių</string>

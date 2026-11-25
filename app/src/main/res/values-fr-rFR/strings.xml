@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Enregistrement de l\'instance eXo&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Erreur dans l\'URL eXo</string>
     <string name="ServerManager.Error.TitleVersion">Version de la plateforme non supporté</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Veuillez saisir une URL eXo valide</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">L\'application ne prend en charge que la version 6.2 ou ultérieure de la plateforme</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Votre instance eXo utilise une version de Platform non prise en charge par cette application. Nous vous recommandons de mettre à jour vers la plate-forme 6.2 ou d\'utiliser l\'application version 2.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Supprimer l\'instance eXo</string>

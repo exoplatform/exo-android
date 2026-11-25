@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Intranet wird gespeichert &#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo-Instanz – URL-Fehler</string>
     <string name="ServerManager.Error.TitleVersion">Plattform-Version wird nicht unterstützt</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Bitte geben Sie eine gültige eXo-URL ein</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Die Anwendung unterstützt nur Plattform-Version 4.3 oder höher</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Ihr Intranet verwendet eine Version der Plattform, die von dieser Anwendung nicht unterstützt wird. Wir empfehlen Ihnen, auf Plattform 4.3 zu aktualisieren oder die Anwendungsversion 2 zu verwenden.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">EXo-Instanz löschen</string>

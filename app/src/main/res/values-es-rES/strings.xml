@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Guardando intranet&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Error de instancia de URL eXo</string>
     <string name="ServerManager.Error.TitleVersion">Versión de plataforma no compatible</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Introduzca una URL de eXo válida</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">La aplicación solo es compatible con la versión 4.3 o posterior</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Su intranet utiliza una versión de Platform no compatible con esta aplicación. Le recomendamos que actualice a Platform 4.3 o use la versión 2 de la aplicación.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Eliminar instancia de eXo</string>

@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">正在保存内联网&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo 实例 URL 错误</string>
     <string name="ServerManager.Error.TitleVersion">不支持平台版本</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">请输入有效的 eXo URL</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">该应用程序仅支持平台版本 4.3 或更高版本</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">您的内联网使用的平台版本不受此应用程序支持。我们建议您升级到平台 4.3 或使用应用程序版本 2。</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">删除 eXo 实例</string>

@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Se salvează intranetul&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Eroare URL instanță eXo</string>
     <string name="ServerManager.Error.TitleVersion">Versiunea Platform nu este acceptată</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Vă rugăm să introduceți o adresă URL eXo validă</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Aplicația acceptă doar versiunea Platform 4.3 sau ulterioară</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Intranetul dumneavoastră folosește o versiune Platform pe care această aplicație nu o acceptă. Vă recomandăm să faceți upgrade la Platform 4.3 sau să folosiți versiunea 2 a aplicației.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Ștergeți instanța eXo</string>

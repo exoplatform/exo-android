@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Menyimpan intranet...</string>
     <string name="ServerManager.Error.TitleIncorrect">Kesalahan URL Instansi eXo.</string>
     <string name="ServerManager.Error.TitleVersion">Versi platform tidak mendukung</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Harap masukkan URL eXo yang valid</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Aplikasi ini hanya mendukung Platform versi 4.3 atau yang lebih baru.</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Intranet Anda menggunakan versi Platform yang tidak didukung oleh aplikasi ini. Kami merekomendasikan Anda untuk meng-upgrade ke Platform 4.3 atau menggunakan versi aplikasi 2.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Hapus instansi eXo</string>
