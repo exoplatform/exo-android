@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Сохранение интранета&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Ошибка URL экземпляра eXo</string>
     <string name="ServerManager.Error.TitleVersion">Версия платформы не поддерживается</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Введите действительный URL eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Приложение поддерживает только Platform версии 4.3 и выше</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Ваш интранет использует версию Platform, которая не поддерживается этим приложением. Рекомендуем обновить Platform до версии 4.3 или использовать версию 2 приложения.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Удалить экземпляр eXo</string>

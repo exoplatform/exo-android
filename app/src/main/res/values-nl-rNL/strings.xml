@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Intranet opslaan&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Fout in URL van eXo-instantie</string>
     <string name="ServerManager.Error.TitleVersion">Platformversie niet ondersteund</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Voer een geldige eXo-URL in</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">De applicatie ondersteunt alleen Platform-versie 4.3 of hoger</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Uw intranet gebruikt een versie van Platform die niet door deze applicatie wordt ondersteund. Wij raden u aan te upgraden naar Platform 4.3 of de applicatie versie 2 te gebruiken.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">eXo-instantie verwijderen</string>

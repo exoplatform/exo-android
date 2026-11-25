@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Sparar intranät&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Fel i URL:en till eXo-instansen</string>
     <string name="ServerManager.Error.TitleVersion">Plattformsversionen stöds inte</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Ange en giltig eXo-URL</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Appen stöder endast Platform version 4.3 eller senare</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Ditt intranät använder en version av Platform som inte stöds av den här appen. Vi rekommenderar att du uppgraderar till Platform 4.3 eller använder version 2 av appen.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Ta bort eXo-instans</string>

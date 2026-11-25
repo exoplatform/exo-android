@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">イントラネットを保存しています&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">eXo インスタンスの URL エラー</string>
     <string name="ServerManager.Error.TitleVersion">サポートされていない Platform バージョンです</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">有効な eXo URL を入力してください</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">このアプリケーションは Platform バージョン 4.3 以降のみをサポートしています</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">ご利用のイントラネットは、このアプリケーションでサポートされていない Platform バージョンを使用しています。Platform 4.3 にアップグレードするか、アプリケーションのバージョン 2 をご利用ください。</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">eXo インスタンスを削除</string>

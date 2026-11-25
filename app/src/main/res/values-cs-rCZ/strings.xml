@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Ukládání intranetu&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Chyba URL instance eXo</string>
     <string name="ServerManager.Error.TitleVersion">Verze platformy není podporována</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Zadejte prosím platnou adresu URL eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Aplikace podporuje pouze Platform verze 4.3 nebo novější</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Váš intranet používá verzi Platform, kterou tato aplikace nepodporuje. Doporučujeme aktualizovat na Platform 4.3 nebo použít verzi 2 aplikace.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Odstranit instanci eXo</string>

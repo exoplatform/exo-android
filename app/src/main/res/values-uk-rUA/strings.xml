@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Збереження інтрамережі&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Помилка URL-адреси екземпляра eXo</string>
     <string name="ServerManager.Error.TitleVersion">Не підтримується версія платформи</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Введіть дійсну URL-адресу eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Застосунок підтримує лише платформу версії 4.3 або новішої</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Ваша інтрамережа використовує версію платформи, яка не підтримується цим застосунком. Рекомендуємо оновити платформу до версії 4.3 або використовувати застосунок версії 2.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Видалити екземпляр eXo</string>

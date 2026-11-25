@@ -23,7 +23,7 @@
     <string name="ServerManager.Message.SavingServer">Zapisywanie intranetu&#8230;</string>
     <string name="ServerManager.Error.TitleIncorrect">Błąd adresu URL instancji eXo</string>
     <string name="ServerManager.Error.TitleVersion">Nieobsługiwana wersja platformy</string>
-    <string name="ServerManager.Error.IncorrectUrl">Please enter a correct eXo</string>
+    <string name="ServerManager.Error.IncorrectUrl">Należy wprowadzić prawidłowy adres URL eXo</string>
     <string name="ServerManager.Error.PlatformVersionNotSupported">Aplikacja obsługuje tylko platformę w wersji 4.3 lub nowszej</string>
     <string name="ServerManager.Alert.PlatformVersionNotSupported">Intranet korzysta z wersji platformy nieobsługiwanej przez tę aplikację. Zalecamy aktualizację platformy do wersji 4.3 lub użycie aplikacji w wersji 2.</string>
     <string name="SettingsActivity.Title.DeleteConfirmation">Usuń instancję eXo</string>
